@@ -1,0 +1,5 @@
+{
+  "Dashboard" : "dashboard",
+  "Login" : "user/login",
+  "Logout" : "user/logout"
+}
