@@ -2,6 +2,16 @@
 @media only screen and (max-width : 1200px) {
 
 }
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1050px) {
+	.checksum-canvas {
+		height: 30vh !important;
+	}
+	.reports-canvas {
+		height: 25vh !important;
+	}
+}
+
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px) {

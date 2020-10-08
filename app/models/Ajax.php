@@ -44,18 +44,28 @@ class Ajax {
       case 'displayCheckSumAction':
           
         $dateNow = $getInput->get('dateNow');
-        $sql = "SELECT COUNT(id) as 'dataID', merchant_name FROM `checksum_feeds`.tbl_checksum where date(`lastupdate`) = '$dateNow' GROUP BY merchant_name ORDER by dataID desc ";
+        $sql = "SELECT COUNT(id) as 'dataID', merchant_name FROM `checksum_feeds`.tbl_checksum where date(`lastupdate`) = '$dateNow' GROUP BY merchant_name ORDER by dataID desc limit 5";
         return $db->query($sql)->results();
 
       break;
-      case 'displayFailRunTimeAction':
+      case 'displayRunAndSuccessAction':
 
-    //        $sql = "SELECT * FROM `test-server`.`bot_admin`
-    //     WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 6 HOUR)
-    //     AND status = 1 AND bot_type = 'feed'
-    //     ORDER by successRunTime desc ";
-    // $data = $db->query($sql);
-    // return $data->results();
+        $sql = "SELECT * FROM `test-server`.`bot_admin`
+        WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 6 HOUR)
+        AND status = 1 AND bot_type = 'feed'
+        ORDER by successRunTime desc ";
+
+        $sql1 = "SELECT * FROM `test-server`.`bot_admin`
+        WHERE successRunTime > DATE_ADD(NOW(), INTERVAL 6 HOUR)
+        AND status = 1 AND bot_type = 'feed'
+        ORDER by successRunTime desc ";
+
+        $runSuc = array();
+        array_push($runSuc, array(
+          'fail' => $db->query($sql)->count(),
+          'success' => $db->query($sql1)->count()
+        ));
+    return $runSuc;
 
       break;
 

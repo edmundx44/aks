@@ -11,6 +11,7 @@ $(document).ready(function(){
 		if(getUserName != ''){
 			displayChangeLog();
 			displayChecksumData(timeStampData);
+			displayRunAndSuccess();
 		}
 
 	$(document).on('click', '.list-bar', function(){
@@ -92,73 +93,105 @@ $(document).ready(function(){
 	}
 
 	function displayChecksumData($dateNow){
-		var label = [];
-		var dataID = []
-		$.ajax({
-			url : '/aks/dashboard/index',
-			type: "POST",
-			data : {
-				action: 'displayCheckSumAction',
-				dateNow: '2020-09-10'
-			},
-			success : function(data){
-				for (var i in data){
-					label.push(data[i].merchant_name)
-					dataID.push(data[i].dataID)
-				}
-			},
-			complete : function(){
-				displayChart(label, dataID)
-			}
-		});
+		var label = ['G2A', 'ENEBA', 'GAMIVO', 'KINGUIN', 'G2PLAY'];
+		var dataID = [5,10,4,8,4]
+		// $.ajax({
+		// 	url : '/aks/dashboard/index',
+		// 	type: "POST",
+		// 	data : {
+		// 		action: 'displayCheckSumAction',
+		// 		dateNow: '2020-09-10'
+		// 	},
+		// 	success : function(data){
+		// 		for (var i in data){
+		// 			// if(data[i].dataID != 1){
+		// 				label.push(data[i].merchant_name)
+		// 				dataID.push(data[i].dataID)
+		// 			// }
+		// 		}
+		// 	},
+		// 	complete : function(){
+		// 		displayChart(label, dataID)
+		// 	}
+		// });
+		displayChart(label, dataID)
+	}
+
+	function displayRunAndSuccess() {
+		var dataCount = [32,12];
+		// $.ajax({
+		// 	url : '/aks/dashboard/index',
+		// 	type: "POST",
+		// 	data : {
+		// 		action: 'displayRunAndSuccessAction'
+		// 	},
+		// 	success : function(data){
+		// 		for (var i in data){
+		// 			dataCount.push(data[i].fail,data[i].success);
+		// 		}
+		// 	},
+		// 	complete: function(){
+		// 		displayReportChart(dataCount)
+		// 	}	
+		// });
+		displayReportChart(dataCount)
 	}
 
 	function displayChart($merchant, $checksumUpdate){
-		//label
 		var label = $merchant;
-
-		//dataset
 		var dataset = [{
-			label: '# of Updates',
+			label: 'Most updates',
 			data: $checksumUpdate, // value gikan database
 			fill: true,
 			backgroundColor: [
-				'rgba(255, 99, 132, 0.2)',
-				'rgba(54, 162, 235, 0.2)',
-				'rgba(255, 206, 86, 0.2)',
-				'rgba(75, 192, 192, 0.2)',
-				'rgba(153, 102, 255, 0.2)',
-				'rgba(255, 159, 64, 0.2)'
+				'rgba(12,238,108, .5)',
+				
 			],
 			borderColor: [
-				'rgba(255, 99, 132, 1)',
-				'rgba(54, 162, 235, 1)',
-				'rgba(255, 206, 86, 1)',
-				'rgba(75, 192, 192, 1)',
-				'rgba(153, 102, 255, 1)',
-				'rgba(255, 159, 64, 1)'
+				'rgba(255, 255, 255, 1)',
+				'rgba(255, 255, 255, 1)',
+				'rgba(255, 255, 255, 1)',
+				'rgba(255, 255, 255, 1)',
+				'rgba(255, 255, 255, 1)',
+				'rgba(255, 255, 255, 1)',
 			],
 			borderWidth: 1
 		}];
-
-		//data
 		var datas = {
 			labels: label,
 			datasets: dataset
 		}
-
-		// option
 		var option = {
 			responsive: true,
+			legend: {
+				labels: {
+					fontColor: '#ffff'
+				},
+				onHover: function(e) {
+					e.target.style.cursor = 'pointer';
+				}
+			},
 			scales: {
 				yAxes: [{
 					ticks: {
-						beginAtZero: true
+						beginAtZero: true,
+						fontColor: '#fff'
 					},
 					stacked: true,
 					gridLines: {
 						display: true,
-						color: "rgba(255,215,0,0.2)"
+						color: "rgba(0,0,255, .2)"
+					}
+				}],
+				xAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor: '#fff'
+					},
+					stacked: true,
+					gridLines: {
+						display: true,
+						color: "rgba(255,64,64, .2)"
 					}
 				}]
 			}
@@ -170,6 +203,68 @@ $(document).ready(function(){
 			type: 'line',
 			data: datas,
 			options: option
+		});
+	}
+
+	function displayReportChart($data){
+		var label = ['Fail', 'Success'];
+		var dataset = [{
+			label: '# of Votes',
+			data: $data, // value gikan database
+			backgroundColor: [
+				'rgba(255, 99, 132, 0.7)',
+				'rgba(0,250,154, 0.7)',
+				'rgba(255, 206, 86, 0.7)',
+				'rgba(75, 192, 192, 0.7)',
+				'rgba(153, 102, 255, 0.7)',
+				'rgba(255, 159, 64, 0.7)'
+			],
+			borderColor: [
+				'rgba(255, 99, 132, 1)',
+				'rgba(0,250,154, 1)',
+				'rgba(255, 206, 86, 1)',
+				'rgba(75, 192, 192, 1)',
+				'rgba(153, 102, 255, 1)',
+				'rgba(255, 159, 64, 1)'
+			],
+			borderWidth: 1
+		}];
+		var datas = {
+			labels: label,
+			datasets: dataset
+		}
+		var ctx = document.getElementById('reportChart').getContext('2d');
+		var myChart = new Chart(ctx, {
+			type: 'polarArea',
+			data: datas,
+			options: {
+				responsive: true,
+				legend: {
+					labels: {
+						fontColor: '#ffff'
+					},
+					position: 'right',
+						onHover: function(e) {
+							e.target.style.cursor = 'pointer';
+						}
+					},
+					title: {
+						display: true,
+						fontColor: '#fff',	
+						text: 'Charts report everyday',
+					},
+					scale: {
+						ticks: {
+							beginAtZero: true,
+						},
+						reverse: false,
+						gridLines:{
+							display : true,
+							color : '#fff',
+						},
+
+					}
+				}
 		});
 	}
 

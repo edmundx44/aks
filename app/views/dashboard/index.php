@@ -28,36 +28,28 @@
 				</div>
 				<div class="content-display">
 					<div class="col-md-12 no-padding canvas-div">
-						<canvas id="myChart"></canvas>
+						<canvas id="myChart" class="checksum-canvas"></canvas>
 					</div>
-					
-						<!-- <table class="table">
-							<thead class="div-stores-headers">
-								<tr>
-									<th>Merchant ID</th>
-									<th>Merchant Name</th>
-									<th>Checksum Data</th>
-									<th>Last Update</th>
-								</tr>
-							</thead>
-							<tbody class="div-stores-checksum">
-								<?php foreach ($this->checksumData as $key): ?>
-									<tr class="">
-										<td><?= $key->merchant_id ?></td>
-										<td><?= $key->merchant_name ?></td>
-										<td><?= $key->checksum_data ?></td>
-										<td><?= $this->formatFullTime($key->lastupdate); ?></td>
-									</tr>
-								<?php endforeach; ?>
-							</tbody>
-						</table> -->
-
+					<div class="col-md-12" style="top:260px;position:absolute;height: 200px">
+						<div class="row">
+							<div class="col-sm-8 col-md-8">
+								<canvas id="reportChart" class="reports-canvas"></canvas>
+								<!-- style="height:30vh; width:80vw" -->
+							</div>
+							<div class="col-sm-4 col-md-4 btn-reports-div">
+								<input type="button" name="" class="btn btn-primary f-width" value="Checksum" data-toggle="modal" data-target="#checksum-modal">
+								<input type="button" name="" class="btn btn-danger f-width" value="Fail Reports" data-toggle="modal" data-target="#freports-modal">
+								<input type="button" name="" class="btn btn-success f-width" value="Success Reports" data-toggle="modal" data-target="#sreports-modal">
+							</div>
+						</div>
+						
+					</div>
 				</div>
 				
 			</div>
 		</div>
 		<div class="col-md-6">
-			<div class="content-wrap">
+			<div class="content-wrap" style="background-color: rgb(12,238,108, .5 );">
 				<div class="content-title">
 					<i class="fa fa-cubes" aria-hidden="true"></i>
 					<span>Add Change Log</span>
