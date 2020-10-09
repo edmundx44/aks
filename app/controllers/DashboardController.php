@@ -12,6 +12,7 @@ class DashboardController extends Controller {
         parent::__construct($controller, $action);
   }
 
+
     // $this->view->{'VARIABLE NAME'} u can access this in views/dashboard/
     public function indexAction() {
         $db = DB::getInstance();
@@ -23,7 +24,9 @@ class DashboardController extends Controller {
         $this->view->checksumData = $this->getChecksumData($db);
         $this->view->failedStores = $this->getFailedStores($db);
         $this->view->successStores = $this->getSuccessStores($db);
-        //vd($this->view->failedStores); //uncomment test output
+        $this->view->countPerDayChecksum = $this->getCountPerDayChecksum($db);
+
+        //vd($this->view->countPerDayChecksum); //uncomment test output
 
 
         // ajax here
@@ -93,26 +96,55 @@ class DashboardController extends Controller {
     private function getChecksumData($db){
         $sql = "SELECT * FROM `checksum_feeds`.tbl_checksum WHERE id IN ( SELECT MAX(id) FROM `checksum_feeds`.`tbl_checksum` GROUP BY merchant_id) ORDER BY lastupdate DESC";
         $checksumResult = $db->query($sql);
+
         return $checksumResult->results();  
     }
 
     private function getFailedStores($db){
         $sql = "SELECT * FROM `test-server`.`bot_admin` 
-        WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 6 HOUR)
-        AND status = 1
-        AND bot_type = 'feed'
-        ORDER by successRunTime DESC ";
+                WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 6 HOUR)
+                AND status = 1
+                AND bot_type = 'feed'
+                ORDER by successRunTime DESC ";
         $failedStores = $db->query($sql);
         return $failedStores->results();
     }
 
     private function getSuccessStores($db){
         $sql = "SELECT * FROM `test-server`.`bot_admin`
-        WHERE successRunTime > DATE_ADD(NOW(), INTERVAL 6 HOUR)
-        AND (status = 1 OR status = 2)
-        ORDER by successRunTime DESC";
+                WHERE successRunTime > DATE_ADD(NOW(), INTERVAL 6 HOUR)
+                AND (status = 1 OR status = 2)
+                ORDER by successRunTime DESC";
+
         $successStores = $db->query($sql);
         return $successStores->results();
+    }
+
+    private function getCountPerDayChecksum($db){
+        $sql = "SELECT COUNT(id) as 'Updatedcount',merchant_id,merchant_name 
+                FROM `checksum_feeds`.`tbl_checksum` 
+                WHERE date(lastupdate) = date(now()) 
+                GROUP BY merchant_id,merchant_name";
+        $objArray = $db->query($sql);
+        $newArray =array();
+
+            foreach($objArray->results() as $key => $value){
+                if(!array_key_exists($value->merchant_id, $newArray))
+                    $id = $value->merchant_id;
+                if(isset($id)){
+                    $newArray[$id]=array(
+                        'name' => $value->merchant_name,
+                        'count' => $value->Updatedcount
+                    );
+                } 
+                    
+            }
+            return $newArray;
+    }
+    
+    public function objectToArray($array){
+        /** first layer only **/
+        return $newArray = json_decode(json_encode($array),TRUE);
     }
 
 }

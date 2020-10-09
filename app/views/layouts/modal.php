@@ -53,16 +53,34 @@
                                     <td>Merchant</td>
                                     <td>Checksum Data</td>
                                     <td>Last Update</td>
+                                    <td>Update Count</td>
                                 </tr>
                             </thead>
                             <tbody class="font-bold">
                                 <?php foreach($this->checksumData as $key): ?>
-                                    <tr>
-                                        <td><?= strtoupper($key->merchant_name)." (".$key->merchant_id.")"; ?></td>
-                                        <td><?= $key->checksum_data ?></td>
-                                        <td><?= $this->formatFulltime($key->lastupdate); ?></td>
-                                    </tr>
-                    <?php endforeach; ?>
+                                   <?php 
+                                    $id = $key->merchant_id;
+                                        if(array_key_exists($id, $this->countPerDayChecksum)){
+                                            ?>
+                                                <tr>
+                                                    <td><?= strtoupper($key->merchant_name)." (".$key->merchant_id.")"; ?></td>
+                                                    <td><?= $key->checksum_data ?></td>
+                                                    <td><?= $this->formatFulltime($key->lastupdate); ?></td>
+                                                    <td><?= $this->countPerDayChecksum[$id]['count'] ?></td>
+                                                </tr>
+                                            <?php
+                                        }else{
+                                            ?>
+                                                <tr>
+                                                    <td><?= strtoupper($key->merchant_name)." (".$key->merchant_id.")"; ?></td>
+                                                    <td><?= $key->checksum_data ?></td>
+                                                    <td><?= $this->formatFulltime($key->lastupdate); ?></td>
+                                                    <td>0</td>
+                                                </tr>
+                                            <?php      
+                                        }    
+                                   ?>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     <?php else: ?>
