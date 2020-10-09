@@ -64,16 +64,16 @@ namespace Core;
     }
 
     /* CLass additional function for dashboard layout */
-    public static function buttonClass($updatedCount,$dbCount){
+    public function buttonClass($updatedCount,$dbCount){
     $result = ($updatedCount / $dbCount ) * 100;
       return ($result >= .80) ? 'green-dif' : 'yellow-dif';
     }
 
-    public static function websiteClass($website){
+    public function websiteClass($website){
       return ($website == 'AKS' || $website == 'aks') ? 'green-dif' : 'yellow-dif';
     }
 
-    public static function formatFullTime($time){
+    public function formatFullTime($time){
         return date('M d Y h:i A', strtotime($time));
     }
 }

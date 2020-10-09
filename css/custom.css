@@ -6,7 +6,25 @@ html, body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  /*font-family: consolas, monospace;*/
+  font-weight: lighter;
   font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+.header-titles{
+  font-weight: bold;
+  color: white;
+}
+.font-bold{
+  font-weight: bold !important;
+}
+.font-size-1{
+  font-size: 1.3rem;
+}
+.font-size-2{
+  font-size: 16px !important;  /*use this if font family is consolas,monospace*/
+}
+.dark-gray{
+  color: #bfbfbf !important;
 }
 
 .side-nav,
@@ -374,9 +392,6 @@ html, body {
   overflow: auto;
   overflow-x: hidden;*/
 }
-.font-sizing{
-  /*font-size: 1.2rem;*/
-}
 .mb{
   margin-bottom: 5px;
 }
@@ -475,13 +490,94 @@ html, body {
   border-radius: 5px;
   padding: 8px;
 } 
-
-.div-stores-headers{
-    /*background-color: rgb(4,95,43);
-    position: sticky;
-    top: 0; /* Don't forget this, required for the stickiness */ */
-}
 .vts,
 .vds {
   word-break: break-word;
+}
+
+/*.div-stores-headers*/
+.header-sticky{ 
+    background-color: #398439;
+    border-radius: 5px 5px 0 0; 
+    position: sticky !important;
+    top: 0; /* Don't forget this, required for the stickiness  */
+}
+
+/*  modal checksum, success, failed */
+
+.checksum-dialog,
+.failed-stores-dialog,
+.success-stores-dialog{
+  width: 50%;
+}
+
+.modal-title-1{
+  font-weight: bold;
+  font-size: 25px;
+  padding: 5px;
+  border-radius: 5px;
+  background: linear-gradient(217deg, rgba(4,95,43, .1), rgba(4,95,43, .3) 70.71%), 
+              linear-gradient(127deg, rgba(4,95,43, 1), rgba(4,95,43,0) 70.71%), 
+              linear-gradient(336deg, rgba(4,95,43,.4), rgba(4,95,43,0) 70.71%);
+}
+.changelog-dialog .modal-background,
+.checksum-dialog .modal-background,
+.failed-stores-dialog .modal-background,
+.success-stores-dialog .modal-background{
+  color: white;
+  background-color: rgba(9, 43, 12, 0.8);
+  font-family: consolas, monospace !important;
+
+}
+
+.table-checksum{
+  border-radius: 5px;
+  border-top: 0;
+  border-bottom: 0;
+  margin: 5px 0 5px 0;
+  background: linear-gradient(217deg, rgba(4,95,43, .1), rgba(4,95,43, .3) 70.71%), 
+              linear-gradient(127deg, rgba(4,95,43, 1), rgba(4,95,43,0) 70.71%), 
+              linear-gradient(336deg, rgba(4,95,43,.4), rgba(4,95,43,0) 70.71%);
+}
+.modal-checksum-data,
+.modal-failed-data,
+.modal-success-data{
+  width: 100%;
+  max-height: 600px;
+  overflow-y: auto;
+  padding: 0 5px 0 5px;
+}
+.table-checksum tbody{
+  font-size: 1.4rem;
+}
+.new-head{
+  border-bottom: 1px solid #229d08;
+}
+.new-foot{
+  border-top: 1px solid #229d08;
+}
+.new-pad{
+  padding: 5px;
+}
+.modal-body-mg{
+  margin: 5px;
+}
+.new-margin{
+  padding: 3px 7px 3px 7px;
+  margin:  4px 7px;
+}
+.new-width{
+  width: 48%;
+  float: left;
+}
+.modal-no-data{
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 5px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+}
+.div-textarea textarea{
+  color: #555 !important;
 }

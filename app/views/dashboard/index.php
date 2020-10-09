@@ -1,6 +1,6 @@
 <?php $this->start('body')?>
 <div class="dashboard-div">
-	<div class="row db-header">
+	<div class="row db-header font-bold">
 		<div class="top-btn">
 			<div class="list-bar pull-right text-center visible-xs-block visible-sm-block">
 				<i class="fa fa-bars" aria-hidden="true"></i>
@@ -21,7 +21,7 @@
 			<div class="content-wrap">
 				<div class="content-title">
 					<i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-					<span>Checksum Stores Update Chart</span>
+					<span class="header-titles">Checksum Stores Update Chart</span>
 					<!-- <div class="div-arrow">
 						<i class="fa fa-angle-double-down i-arrow" aria-hidden="true"></i>
 					</div> -->
@@ -52,7 +52,7 @@
 			<div class="content-wrap" style="background-color: rgb(12,238,108, .5 );">
 				<div class="content-title">
 					<i class="fa fa-cubes" aria-hidden="true"></i>
-					<span>Add Change Log</span>
+					<span class="header-titles">Add Change Log</span>
 					<div class="div-arrow">
 						<i class="fa fa-angle-double-up i-arrow" aria-hidden="true"></i>
 					</div>
@@ -62,7 +62,7 @@
 						<input type="button" class="btn btn-success f-width add-change-log-btn" value="ADD LOG" data-toggle="modal" data-target="#show-add-log-modal">
 					</div>
 					<div class="col-md-12">
-						<ul class="change-log-div">
+						<ul class="change-log-div font-bold">
 						
 						</ul>
 					</div>
@@ -73,29 +73,29 @@
 	</div>
 
 	<div class="row dashboard-reports">
-		<h4 class="text-center">REPORTS</h4>
+		<h4 class="text-center header-titles">REPORTS</h4>
 		<h4 class="text-center"><i class="fa fa-minus" aria-hidden="true"></i></h4>
 		
 		<div class="col-md-3 dr-con">
 			<div class="dr-con-dev">
 				<div class="dr-con-dev-title">
 					<i class="fa fa-ban" aria-hidden="true"></i>
-					<?php if(($this->disabledStores) != false): ?>
-						<span>Disabled <?= count($this->disabledStores)." "; ?> Stores</span>
+					<?php if(($this->disabledStores) != FALSE): ?>
+						<span class="header-titles">Disabled <?= count($this->disabledStores)." "; ?> Stores</span>
 					<?php else:?>
-						<span>Disabled Stores</span>
+						<span class="header-titles">Disabled Stores</span>
 					<?php endif; ?>
 				</div>
 				<div class="dr-con-dev-content scrollbar-widht">
-					<?php if(($this->disabledStores) != false): ?>
+					<?php if(($this->disabledStores) != FALSE): ?>
 						<?php foreach($this->disabledStores as $key): ?>
-							<div class="div-stores div-disabled-sizing">
+							<div class="div-stores div-disabled-sizing header-titles">
 								<?= strtoupper($key['store']) ." (" .$key['id'].')'?>
 							</div>
 						<?php endforeach;?>
 					<?php else:?>
-						<div class="h3 text-center">
-							"ERROR HTTP request failed for disabled stores. Please reload the page!!
+						<div class="modal-no-data div-stores">
+							Http error request failed. Please reload the page!!
 						</div>
 					<?php endif; ?>
 				</div>
@@ -106,16 +106,16 @@
 			<div class="dr-con-dev">
 				<div class="dr-con-dev-title">
 					<i class="fa fa-address-card" aria-hidden="true"></i>
-					<span>AKS Snapshot</span>
+					<span class="header-titles">AKS Snapshot</span>
 				</div>
 				<div class="dr-con-dev-content scrollbar-widht">
 					<?php foreach($this->getSnapshotAks as $key): ?>
 						<div class="div-stores">
 							<div class="div-stores-headers header-flex">
-								<div class="div-data-stores"><?= strtoupper($key->merchantName) ." (" .$key->merchantID.')'?></div>
+								<div class="div-data-stores header-titles"><?= strtoupper($key->merchantName) ." (" .$key->merchantID.')'?></div>
 								<div class="div-<?= $this->buttonClass($key->updatedCount,$key->databaseCount)?>"><?= $key->difference ?></div>
 							</div>
-							<table class="table mb font-sizing">
+							<table class="table mb font-size-1">
 								<tr>
 									<th>UC</th>
 									<th># in DB</th>
@@ -139,16 +139,16 @@
 			<div class="dr-con-dev">
 				<div class="dr-con-dev-title">
 					<i class="fa fa-address-card-o" aria-hidden="true"></i>
-					<span>CDD Snapshot</span>
+					<span class="header-titles">CDD Snapshot</span>
 				</div>
 				<div class="dr-con-dev-content scrollbar-widht">
 					<?php foreach($this->getSnapshotCdd as $key): ?>
 						<div class="div-stores">
 							<div class="div-stores-headers header-flex">
-								<div class="div-data-stores"><?= strtoupper($key->merchantName) ." (" .$key->merchantID.')'?></div>
+								<div class="div-data-stores header-titles"><?= strtoupper($key->merchantName) ." (" .$key->merchantID.')'?></div>
 								<div class="div-<?= $this->buttonClass($key->updatedCount,$key->databaseCount)?>"><?= $key->difference ?></div>
 							</div>
-							<table class="table mb">
+							<table class="table mb font-size-1">
 								<tr>
 									<th>UC</th>
 									<th># in DB</th>
@@ -172,7 +172,7 @@
 			<div class="dr-con-dev">
 				<div class="dr-con-dev-title">
 					<i class="fa fa-compress" aria-hidden="true"></i>
-					<span>Database/Feed Count</span>
+					<span class="header-titles">Database/Feed Count</span>
 				</div>
 				<div class="dr-con-dev-content scrollbar-widht">
 					<?php foreach($this->dbCountFeedCount as $key): 
@@ -181,10 +181,10 @@
 					?>
 						<div class="div-stores">
 							<div class="header-flex div-stores-headers">
-								<div class="div-data-stores" ><?= strtoupper($key->name)?></div>
+								<div class="div-data-stores header-titles" ><?= strtoupper($key->name) ." (" .$key->merchant_id.')'?></div>
 								<div class="div-<?= $this->websiteClass($key->website) ?>"><?= strtoupper($key->website)?></div>
 							</div>
-							<div class="div-DbFc-sizing">
+							<div class="div-DbFc-sizing font-size-1">
 								<div class="">Database Count : <?= $key->dbCount ?></div>
 								<div class="">Feed Count : <?= $key->feedCount ?></div>
 								<div class="">% DB/FC : <?= round($key->differences, 0)."%" ?></div>

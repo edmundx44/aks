@@ -1,3 +1,13 @@
+
+@media only screen and (min-width : 1200px) {
+	.checksum-canvas {
+		height: 25vh !important;
+	}
+	.reports-canvas {
+		height: 18vh !important;
+	}
+}
+
 /* Large Devices, Wide Screens */
 @media only screen and (max-width : 1200px) {
 
@@ -5,10 +15,10 @@
 /* Large Devices, Wide Screens */
 @media only screen and (max-width : 1050px) {
 	.checksum-canvas {
-		height: 30vh !important;
+		height: 28vh !important;
 	}
 	.reports-canvas {
-		height: 25vh !important;
+		height: 20vh !important;
 	}
 }
 
