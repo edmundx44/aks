@@ -66,7 +66,7 @@
                                                     <td><?= strtoupper($key->merchant_name)." (".$key->merchant_id.")"; ?></td>
                                                     <td><?= $key->checksum_data ?></td>
                                                     <td><?= $this->formatFulltime($key->lastupdate); ?></td>
-                                                    <td><?= $this->countPerDayChecksum[$id]['count'] ?></td>
+                                                    <td class="text-center"><?= $this->countPerDayChecksum[$id]['count'] ?></td>
                                                 </tr>
                                             <?php
                                         }else{
@@ -75,7 +75,7 @@
                                                     <td><?= strtoupper($key->merchant_name)." (".$key->merchant_id.")"; ?></td>
                                                     <td><?= $key->checksum_data ?></td>
                                                     <td><?= $this->formatFulltime($key->lastupdate); ?></td>
-                                                    <td>0</td>
+                                                    <td class="text-center">0</td>
                                                 </tr>
                                             <?php      
                                         }    
