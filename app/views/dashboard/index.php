@@ -32,11 +32,11 @@
 					</div>
 					<div class="col-md-12" style="top:260px;position:absolute;height: 200px">
 						<div class="row">
-							<div class="col-sm-8 col-md-8">
+							<div class="col-xs-8">
 								<canvas id="reportChart" class="reports-canvas"></canvas>
 								<!-- style="height:30vh; width:80vw" -->
 							</div>
-							<div class="col-sm-4 col-md-4 btn-reports-div">
+							<div class="col-xs-4 btn-reports-div">
 								<input type="button" name="" class="btn btn-primary f-width" value="Checksum" data-toggle="modal" data-target="#checksum-modal">
 								<input type="button" name="" class="btn btn-danger f-width" value="Fail Reports" data-toggle="modal" data-target="#freports-modal">
 								<input type="button" name="" class="btn btn-success f-width" value="Success Reports" data-toggle="modal" data-target="#sreports-modal">

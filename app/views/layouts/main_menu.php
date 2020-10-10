@@ -23,17 +23,39 @@
 		</div>
 	</div>
 	<div class="side-nav-ul col-md-12 no-padding">
-		<ul>
-			<?php
-				foreach ($menu as $key => $val) {
-					if($key != 'Logout') {
-						?><a href="<?= $val ?>"><li><i class="fa fa-bar-chart sn-i" aria-hidden="true"></i><span><?=$key?></span></li></a><?php
-					}
-				}
-			?>
-
-			<!-- <li><i class="fa fa-bar-chart" aria-hidden="true"></i><span>Dashboard</span></li>
-			<li><i class="fa fa-car" aria-hidden="true"></i><span>Sample</span></li> -->
+		<ul class="ul-nav">
+			<?php foreach ($menu as $key => $val): ?>
+				<?php if($key != 'Logout'): ?>
+					<?php if(is_array($val)): ?>
+						<a href="#" class="li-a-nav">
+							<li class="li-nav dropdown-li">
+								<div class="li-nav-div">
+									<span class="li-nav-div-span"><i class="fa a1" aria-hidden="true" id="nav-icon"></i> &nbsp; <?= $key ?></span>
+								</div>
+								<ul class="sub-ul-nav">
+									<?php foreach($val as $k => $v): ?>
+										<a href="<?= $v ?>" class="sub-li-a-nav">
+											<li class="sub-li-nav">
+												<div class="sub-li-nav-div">
+													<span class="sub-li-nav-div-span"><i class="fa fa-paper-plane" aria-hidden="true"></i> &nbsp; <?= $k ?></span>
+												</div>
+											</li>
+										</a>
+									<?php endforeach; ?>
+								</ul>
+							</li>
+						</a>
+					<?php else: ?>
+						<a href="<?= $val ?>" class="li-a-nav">
+							<li class="li-nav">
+								<div class="li-nav-div">
+									<span class="li-nav-div-span"><i class="fa a2" aria-hidden="true" id="nav-icon"></i> &nbsp; <?= $key ?></span>
+								</div>
+							</li>
+						</a>
+					<?php endif; ?>
+				<?php endif; ?> 
+			<?php endforeach; ?>
 		</ul>
 	</div>
 	<div class="div-logout">

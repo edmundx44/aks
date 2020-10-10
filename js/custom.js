@@ -12,7 +12,12 @@ $(document).ready(function(){
 			displayChangeLog();
 			displayChecksumData(timeStampData);
 			displayRunAndSuccess();
+			displayIcon();
 		}
+
+	$(document).on('click', '.dropdown-li', function(){
+		$('.sub-ul-nav').slideToggle();
+	});
 
 	$(document).on('click', '.list-bar', function(){
 		$('.side-nav').toggleClass('side-nav-view');
@@ -93,48 +98,46 @@ $(document).ready(function(){
 	}
 
 	function displayChecksumData($dateNow){
-		var label = ['G2A', 'ENEBA', 'GAMIVO', 'KINGUIN', 'G2PLAY'];
-		var dataID = [5,10,4,8,4]
-		// $.ajax({
-		// 	url : '/aks/dashboard/index',
-		// 	type: "POST",
-		// 	data : {
-		// 		action: 'displayCheckSumAction',
-		// 		dateNow: '2020-09-10'
-		// 	},
-		// 	success : function(data){
-		// 		for (var i in data){
-		// 			// if(data[i].dataID != 1){
-		// 				label.push(data[i].merchant_name)
-		// 				dataID.push(data[i].dataID)
-		// 			// }
-		// 		}
-		// 	},
-		// 	complete : function(){
-		// 		displayChart(label, dataID)
-		// 	}
-		// });
-		displayChart(label, dataID)
+		var label = [];
+		var dataID = []
+		$.ajax({
+			url : '/aks/dashboard/index',
+			type: "POST",
+			data : {
+				action: 'displayCheckSumAction',
+				dateNow: $dateNow
+			},
+			success : function(data){
+				for (var i in data){
+					// if(data[i].dataID != 1){
+						label.push(data[i].merchant_name)
+						dataID.push(data[i].dataID)
+					// }
+				}
+			},
+			complete : function(){
+				displayChart(label, dataID)
+			}
+		});
 	}
 
 	function displayRunAndSuccess() {
-		var dataCount = [32,12];
-		// $.ajax({
-		// 	url : '/aks/dashboard/index',
-		// 	type: "POST",
-		// 	data : {
-		// 		action: 'displayRunAndSuccessAction'
-		// 	},
-		// 	success : function(data){
-		// 		for (var i in data){
-		// 			dataCount.push(data[i].fail,data[i].success);
-		// 		}
-		// 	},
-		// 	complete: function(){
-		// 		displayReportChart(dataCount)
-		// 	}	
-		// });
-		displayReportChart(dataCount)
+		var dataCount = [];
+		$.ajax({
+			url : '/aks/dashboard/index',
+			type: "POST",
+			data : {
+				action: 'displayRunAndSuccessAction'
+			},
+			success : function(data){
+				for (var i in data){
+					dataCount.push(data[i].fail,data[i].success);
+				}
+			},
+			complete: function(){
+				displayReportChart(dataCount)
+			}	
+		});
 	}
 
 	function displayChart($merchant, $checksumUpdate){
@@ -265,6 +268,20 @@ $(document).ready(function(){
 
 					}
 				}
+		});
+	}
+
+	function displayIcon(){
+		var iconList = [
+			"fa-bar-chart",
+			"fa-briefcase",
+			"fa-exchange",
+			"fa-commenting",
+			"fa-cog"
+		];
+	
+		$('i#nav-icon').each(function(i){
+			$(this).addClass(iconList[i])
 		});
 	}
 

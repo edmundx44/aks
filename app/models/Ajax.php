@@ -20,7 +20,6 @@ class Ajax {
                 // $tes1 = $getInput->get('kani');
                 // return  $stml;
             break;
-
             case 'addChangeLogAction':
 
                 $inputID = $getInput->get('inputID');
@@ -33,21 +32,18 @@ class Ajax {
                 VALUES 
                 ( '$inputID', '$inputDate', '$inputAuthor', '$inputMessage')";
                 return $db->query($sql) ?  'success' :  'fail';;
-                break;
-
+            break;
             case 'displayAddChangeLogAction':
 
                 $sql = "select * from `aks_bot_teamph`.tblAddChangeLog order by id desc";
                 return $db->query($sql)->results();
-
                 break;
-                case 'displayCheckSumAction':
+            case 'displayCheckSumAction':
 
                 $dateNow = $getInput->get('dateNow');
-                $sql = "SELECT COUNT(id) as 'dataID', merchant_name FROM `checksum_feeds`.tbl_checksum where date(`lastupdate`) = '$dateNow' GROUP BY merchant_name ORDER by dataID desc limit 5";
+                $sql = "SELECT COUNT(id) as 'dataID', merchant_name FROM `checksum_feeds`.tbl_checksum where date(`lastupdate`) = '$dateNow' GROUP BY merchant_name HAVING dataID > 1 limit 5";
                 return $db->query($sql)->results();
-                break;
-
+            break;
             case 'displayRunAndSuccessAction':
 
                 $sql = "SELECT * FROM `test-server`.`bot_admin`
@@ -66,8 +62,7 @@ class Ajax {
                   'success' => $db->query($sql1)->count()
               ));
                 return $runSuc;
-                break;
-
+            break;
             default:
             break;
         }
