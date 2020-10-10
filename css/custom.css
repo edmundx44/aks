@@ -138,43 +138,55 @@ html, body {
 }
 
 
-.side-nav-ul ul{
+/*side nav ul navigation --------------------------------------*/
+.ul-nav,
+.sub-ul-nav  {
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
-.side-nav-ul li{
+.li-nav {
+  border-bottom: 1px solid;
+  border-image: linear-gradient(90deg, rgba(12,238,108, 0.7), rgba(12,238,108,.0)) 1;
+}
+.li-nav:hover{
+  background-color: rgb(4,95,43, .6);
+}
+.sub-li-nav:hover {
+  background-color: rgb(4,95,43, .3);
+}
+.li-a-nav,
+.sub-li-a-nav {
+  color: #fff;
+}
+.li-a-nav:focus, 
+.li-a-nav:hover,
+.sub-li-a-nav:focus,
+.sub-li-a-nav:hover{
+  text-decoration: none !important;
+  color: #fff !important;
+}
+.li-nav-div,
+.sub-li-nav-div {
+  width: 100%;
   height: 50px;
+}
+.li-nav-div-span,
+.sub-li-nav-div-span {
+  top: 13px;
+  margin: 0 0 0 20px;
   font-size: 15px;
-  padding-top: 15px;
-  cursor: pointer;
-  color: #fff;
-  border-bottom: 1px solid; 
-  border-image: linear-gradient(90deg, rgba(12,238,108, 0.7), 
-                rgba(12,238,108,.0)) 1; 
+  position: relative;
 }
-.side-nav-ul i{
-  margin: 0 0 0 10%;
-  color: #fff;
+.sub-li-nav-div-span {
+  margin: 0 0 0 50px
 }
-.side-nav-ul span{
-  margin: 0 0 0 5%; 
-}
-.side-nav-ul li:hover{
-  background-color:  #fff;
-  color: #3B60E9;
-}
-.side-nav-ul a:hover{
-  text-decoration: none;
-}
-.side-nav-ul li:hover > .sn-a{
-  border: solid 1px red;
-}
-.side-nav-ul li:hover > .sn-i{
-  color: #3B60E9;
-  text-decoration: none;
+.sub-ul-nav {
+  display: none;
+  
 }
 
+/*logout css here ------------------------------------------------*/
 .div-logout {
   width: 100%;
   height: 50px;
@@ -508,24 +520,24 @@ html, body {
 .checksum-dialog,
 .failed-stores-dialog,
 .success-stores-dialog{
-  width: 50%;
+  /*width: 50%;*/
 }
 
 .modal-title-1{
   font-weight: bold;
-  font-size: 25px;
-  padding: 5px;
-  border-radius: 5px;
+  font-size: 20px;
+  /*padding: 5px;*/
+ /* border-radius: 5px;
   background: linear-gradient(217deg, rgba(4,95,43, .1), rgba(4,95,43, .3) 70.71%), 
               linear-gradient(127deg, rgba(4,95,43, 1), rgba(4,95,43,0) 70.71%), 
-              linear-gradient(336deg, rgba(4,95,43,.4), rgba(4,95,43,0) 70.71%);
+              linear-gradient(336deg, rgba(4,95,43,.4), rgba(4,95,43,0) 70.71%);*/
 }
 .changelog-dialog .modal-background,
 .checksum-dialog .modal-background,
 .failed-stores-dialog .modal-background,
 .success-stores-dialog .modal-background{
   color: white;
-  background-color: rgba(9, 43, 12, 0.8);
+  background-color: rgba(9, 43, 12, 1);
   font-family: consolas, monospace !important;
 
 }
@@ -535,9 +547,10 @@ html, body {
   border-top: 0;
   border-bottom: 0;
   margin: 5px 0 5px 0;
-  background: linear-gradient(217deg, rgba(4,95,43, .1), rgba(4,95,43, .3) 70.71%), 
+  border: none;
+  /*background: linear-gradient(217deg, rgba(4,95,43, .1), rgba(4,95,43, .3) 70.71%), 
               linear-gradient(127deg, rgba(4,95,43, 1), rgba(4,95,43,0) 70.71%), 
-              linear-gradient(336deg, rgba(4,95,43,.4), rgba(4,95,43,0) 70.71%);
+              linear-gradient(336deg, rgba(4,95,43,.4), rgba(4,95,43,0) 70.71%);*/
 }
 .modal-checksum-data,
 .modal-failed-data,
@@ -551,10 +564,12 @@ html, body {
   font-size: 1.4rem;
 }
 .new-head{
-  border-bottom: 1px solid #229d08;
+  border:none !important;
+  /*border-bottom: 1px solid #229d08;*/
 }
 .new-foot{
-  border-top: 1px solid #229d08;
+  border:none !important;
+  /*border-top: 1px solid #229d08;*/
 }
 .new-pad{
   padding: 5px;
@@ -567,7 +582,7 @@ html, body {
   margin:  4px 7px;
 }
 .new-width{
-  width: 48%;
+  width: 46%;
   float: left;
 }
 .modal-no-data{

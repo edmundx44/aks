@@ -24,7 +24,7 @@
                 </dic>
             </div>
             <div class="modal-footer new-foot">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-success addChangeLog">Submit</button>
             </div>
         </div>
@@ -91,7 +91,7 @@
 
             </div>
             <div class="modal-footer new-foot">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                 <!-- <button type="button" class="btn btn-success addChangeLog">Submit</button> -->
             </div>
         </div>
@@ -111,7 +111,7 @@
             </div>
             <div class="modal-body new-pad">
 
-                <div class="modal-failed-data">
+                <div class="modal-failed-data scrollbar-widht">
                     <?php if(!empty($this->failedStores)): ?>
                         <?php foreach($this->failedStores as $key): ?>
                             <div class="new-margin div-stores new-width">
@@ -128,7 +128,7 @@
                 </div>
 
                 <div class="modal-footer new-foot">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                     <!-- <button type="button" class="btn btn-success addChangeLog">Submit</button> -->
                 </div>
             </div>
@@ -149,7 +149,7 @@
             </div>
             <div class="modal-body new-pad">
 
-                <div class="modal-success-data">
+                <div class="modal-success-data scrollbar-widht">
                     <?php if(!empty($this->successStores)): ?>
                         <?php foreach($this->successStores as $key): ?>
                         <div class="new-margin div-stores new-width">
@@ -167,7 +167,7 @@
 
             </div>
             <div class="modal-footer new-foot">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                 <!-- <button type="button" class="btn btn-success addChangeLog">Submit</button> -->
             </div>
         </div>
