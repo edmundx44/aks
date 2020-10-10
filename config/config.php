@@ -1,7 +1,5 @@
 <?php
 
-  define('DEBUG', true);
-
   define('DB_HOST', '127.0.0.1'); // database host
   // define('DB_NAME', 'aks'); // database name
   define('DB_USER', 'root'); // database user
@@ -21,9 +19,4 @@
 
   define('ACCESS_RESTRICTED', 'Restricted'); //controller name for the restricted redirect
 
-  function vd($data){
-    echo '<pre>';
-    var_dump($data);
-    echo '</pre>';
-    die();
-  }
+  

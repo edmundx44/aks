@@ -1,4 +1,5 @@
 <?php
+ 
   use Core\Session;
   use Core\Cookie;
   use Core\Router;
@@ -8,6 +9,7 @@
 
   // load configuration and helper functions
   require_once(ROOT . DS . 'config' . DS . 'config.php');
+  require_once(ROOT . DS . 'config' . DS . 'helpers.php');
 
   function autoload($className){
     $classAry = explode('\\',$className);
@@ -30,3 +32,12 @@
 
   // Route the request
   Router::route($url);
+
+
+// inside the httaccess 
+
+// RewriteCond %{REQUEST_FILENAME} !-d = if not in a directory read on url then escape return to index.php
+// RewriteCond %{REQUEST_FILENAME} !-f = if not a file from the directory on url then escape return to index.php
+// RewriteCond $1 !^(config|core|css|js|fonts|robots\.txt) dont read what's on the ()
+
+// RewriteRule ^(.+)$ index.php/$1 [L] this will be read 1st everything will loaded on index.php
