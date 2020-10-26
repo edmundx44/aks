@@ -17,6 +17,20 @@ class DashboardController extends Controller {
     public function indexAction() {
         $db = DB::getInstance();
 
+        // insert/update sample custom query
+        // $fields = [
+        //     'fname' => 'test',
+        //     'mname' => 'test',
+        //     'lname' => 'test'
+        // ];
+        // $run = $db->insert('tablename', $fields);
+        // $run = $db->update('tablename', 'where id string or not', $fields);
+            
+        // delete fields 
+        // $run = $db->delete('tablename', 'where id string or not');
+
+        // vd("test");
+
         $this->view->disabledStores = $this->checkStores($db);
         $this->view->getSnapshotAks = $this->getSnapshot($db,'aks');
         $this->view->getSnapshotCdd = $this->getSnapshot($db,'cdd');
@@ -34,7 +48,7 @@ class DashboardController extends Controller {
             $ajaxResult = Ajax::ajaxData($this->request->get('action'));
             $this->jsonResponse($ajaxResult);
         }
-        $this->view->render('dashboard/index');
+        $this->view->render('admin/dashboard/index');
     }
 
 

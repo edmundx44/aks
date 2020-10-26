@@ -10,6 +10,7 @@ class DB {
   private function __construct() {
     try {
       $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname=test-server', DB_USER, DB_PASSWORD);
+      $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname=test-server', DB_USER, DB_PASSWORD);
       $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname=checksum_feeds', DB_USER, DB_PASSWORD);
       $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname=aks_bot_teamph', DB_USER, DB_PASSWORD);
       $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname=aks', DB_USER, DB_PASSWORD);

@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 	var D = new Date();
 	var dmonth = ((D.getMonth()+1) < 10) ? "0"+(D.getMonth()+1) : D.getMonth()+1;
 	var dday = (D.getDate() < 10) ? "0"+D.getDate() : D.getDate();
@@ -6,31 +7,50 @@ $(document).ready(function(){
 	var timeStampData = D.getFullYear() + '-' + dmonth + '-' + dday;
 
 	$('.alog-date').val(strDate);
-
-	var getUserName = $('.dp-user').text();
+	var getUserName = $('.sbp-user').text();
 		if(getUserName != ''){
 			displayChangeLog();
+			displayIcon();
+			displayOffers();
 			displayChecksumData(timeStampData);
 			displayRunAndSuccess();
-			displayIcon();
 		}
+
+		
+	$(document).on('click', '.show-extra-div', function(){
+		$('.extra-div').fadeToggle();
+	});
+	
+	$(document).on('click', '#show-log-div', function(){
+		$('.welcome-div-sub-sub-new').toggleClass('add-height-1');
+	});
+
+	$(document).on('click', '.show-side-bar', function(){
+		$('.side-bar').toggleClass('side-nav-view');
+		$('.content-div').toggleClass('push-div');
+		$('.dh-title').toggleClass('display-none-div')
+		$('.dh-ul').toggleClass('position-left-element')
+		
+	});
+
+	$(window).resize(function() {
+		if ($(window).width() > 768) {
+			$('.side-bar').removeClass('side-nav-view');
+			$('.content-div').removeClass('push-div');
+			$('.dh-title').removeClass('display-none-div')
+			$('.dh-ul').removeClass('position-left-element')
+		}
+	});
 
 	$(document).on('click', '.dropdown-li', function(){
-		$('.sub-ul-nav').slideToggle();
+		$('.sub-ul-nav').slideToggle('fast');
 	});
 
-	$(document).on('click', '.list-bar', function(){
-		$('.side-nav').toggleClass('side-nav-view');
-	});
-	
-	$(document).on('click', '.div-arrow', function(){
-		$('.content-wrap').toggleClass('n-height');
-	
-		if ($(".i-arrow").hasClass("fa-angle-double-down")){
-   			$('.i-arrow').removeClass('fa-angle-double-down').addClass('fa-angle-double-up');
-		} else {
-   			$('.i-arrow').removeClass('fa-angle-double-up').addClass('fa-angle-double-down');
-		}
+	$(document).on('click', '.view-more-div', function(){
+		var oldText = $(this).text();
+		var newText = $(this).data('text');
+		$(this).text(newText).data('text',oldText);
+		$("."+$(this).attr('id')).toggleClass('add-height');
 	});
 
 	$(document).on('click', '.addChangeLog', function(){
@@ -48,10 +68,265 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	
+}); // end docuemtn ready
 
+function displayIcon(){
+	var iconList = [
+		"fa-bar-chart",
+		"fa-briefcase",
+		"fa-exchange",
+		"fa-commenting",
+		"fa-cog"
+	];
 
-	// all custom function here -------------------------------------------------
-	function displayChangeLog(){
+	$('i#nav-icon').each(function(i){
+		$(this).addClass(iconList[i])
+	});
+}
+
+function displayOffers() {
+	var offers = [];
+	$.ajax({
+		url : '/aks/dashboard/index',
+		type: "POST",
+		data : {
+			action: 'displayOffersAction'
+		},
+		success : function(data){
+			// console.log(data)
+			for (var i in data){
+				var get2nd = (data[i][1]) ? data[i][1] : 'N-O';
+				var get1st = (data[i][0]) ? data[i][0] : 'N-O';
+
+				var toPush = [
+					data[i].id,
+					data[i].name,
+					data[i].countOffers,
+					data[i].url,
+					get1st,
+					get2nd
+				]
+				offers.push(toPush);
+			}
+		},
+		complete: function(){
+			// console.log(offers)
+			$('#example').DataTable( {
+				responsive: true,
+				data: offers,
+				columns: [
+					{ title: "ID" },
+					{ title: "MERCHANT" },
+					{ title: "OFFERS" },
+					{ title: "URL" },
+					{ title: "2019 OFFER" },
+					{ title: "2020 OFFER" },
+				]
+			});
+		}
+	});
+}
+
+function displayChecksumData($dateNow){
+	var label = ['gamivo','g2a','kinguin','g2play','play-asia','gamersgate'];
+	var dataID = [3,8,4,6,2,10]
+	$.ajax({
+		url : '/aks/dashboard/index',
+		type: "POST",
+		data : {
+			action: 'displayCheckSumAction',
+			dateNow: $dateNow
+		},
+		success : function(data){
+			// for (var i in data){
+				// if(data[i].dataID != 1){
+					// label.push(data[i].merchant_name)
+					// dataID.push(data[i].dataID)
+				// }
+			// }
+		},
+		complete : function(){
+			displayChart(label, dataID)
+		}
+	});
+}
+
+function displayChart($merchant, $checksumUpdate){
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
+		gradientStroke.addColorStop(0, 	'#f6c23e');
+		gradientStroke.addColorStop(0.2,'#4caf50');
+		gradientStroke.addColorStop(1, 	'#3f51b5');
+
+	var gradientFill = ctx.createLinearGradient(500, 0, 100, 0);
+		gradientFill.addColorStop(0, 	"rgba(246,194,62, 0.3)");
+		gradientFill.addColorStop(0.2, 	"rgba(76,175,80, 0.3)");
+		gradientFill.addColorStop(1, 	"rgba(63,81,181, 0.3)");
+
+	var label = $merchant;
+	var dataset = [{
+		label: 'MOST UPDATES',
+		data: $checksumUpdate, // value gikan database
+		backgroundColor: gradientFill,
+		borderColor: gradientStroke,
+		pointBorderColor: gradientStroke,
+		pointBackgroundColor: gradientStroke,
+		pointHoverBackgroundColor: gradientStroke,
+		pointHoverBorderColor: gradientStroke,
+		pointBorderWidth: 10,
+		pointHoverRadius: 10,
+		pointHoverBorderWidth: 1,
+		pointRadius: 2,
+		fill: false,
+		borderWidth: 1,
+	}];
+
+	var datas = {
+		labels: label,
+		datasets: dataset
+	}
+	var option = {
+		hover: {
+			onHover: function(e) {
+				var point = this.getElementAtEvent(e);
+				if (point.length) e.target.style.cursor = 'pointer';
+				else e.target.style.cursor = 'default';
+			}
+		},
+		responsive: true,
+		legend: {
+			display: true,
+			labels: {
+				fontColor: '#3f51b5',
+				fontStyle: "bold",
+			},
+			onHover: function(e) {
+				e.target.style.cursor = 'pointer';
+			}
+		},
+		scales: {
+			yAxes: [{
+				ticks: {
+					beginAtZero: true,
+					padding: 20
+				},
+				stacked: true,
+				gridLines: {
+					display: false,
+					// color: "rgba(0,0,255, .2)"
+				}
+			}],
+			xAxes: [{
+				ticks: {
+					beginAtZero: true,
+					fontStyle: "bold",
+					padding: 20
+				},
+				stacked: true,
+				gridLines: {
+					drawTicks: false,
+					zeroLineColor: "transparent",
+					display: true,
+					color: "rgba(255,64,64, .2)"
+				}
+			}]
+		}
+	};
+
+	// output
+	var myChart = new Chart(ctx, {
+		type: 'bar',
+		data: datas,
+		options: option
+	});
+}
+
+function displayRunAndSuccess() {
+	var dataCount = [30,9];
+	$.ajax({
+		url : '/aks/dashboard/index',
+		type: "POST",
+		data : {
+			action: 'displayRunAndSuccessAction'
+		},
+		success : function(data){
+			// for (var i in data){
+			// 	dataCount.push(data[i].fail,data[i].success);
+			// }
+		},
+		complete: function(){
+			displayReportChart(dataCount)
+		}
+	});
+}
+
+function displayReportChart($data){
+	var ctx = document.getElementById('reportChart').getContext('2d');
+	var label = ['Fail', 'Success'];
+	var dataset = [{
+		label: '# of Votes',
+		data: $data, // value gikan database
+		backgroundColor: [
+			'rgba(255, 99, 132, 0.7)',
+			'rgba(0,250,154, 0.7)',
+			'rgba(255, 206, 86, 0.7)',
+			'rgba(75, 192, 192, 0.7)',
+			'rgba(153, 102, 255, 0.7)',
+			'rgba(255, 159, 64, 0.7)'
+		],
+		borderColor: [
+			// 'rgba(255, 99, 132, 1)',
+			// 'rgba(0,250,154, 1)',
+			// 'rgba(255, 206, 86, 1)',
+			// 'rgba(75, 192, 192, 1)',
+			// 'rgba(153, 102, 255, 1)',
+			// 'rgba(255, 159, 64, 1)'
+		],
+		borderWidth: 1
+	}];
+	var datas = {
+		labels: label,
+		datasets: dataset
+	}
+	var myChart = new Chart(ctx, {
+		type: 'polarArea',
+		data: datas,
+		options: {
+			responsive: true,
+			legend: {
+				display: false,
+				labels: {
+					// fontColor: '#ffff'
+			},
+			position: 'left',
+				onHover: function(e) {
+					e.target.style.cursor = 'pointer';
+				}
+			},
+			title: {
+				display: true,
+				fontColor: '#6b6d70',
+				text: ['Charts report everyday', 'R e d - F a i l', 'G r e e n - S u c c e s s'],
+				position: 'right'
+			},
+			scale: {
+				ticks: {
+					beginAtZero: true,
+				},
+				reverse: false,
+				gridLines:{
+					display : true,
+						// color : '#fff',
+				},
+			}
+		}
+	});
+
+}
+
+function displayChangeLog(){
 		$.ajax({
 			url : '/aks/dashboard/index',
 			type: "POST",
@@ -63,17 +338,17 @@ $(document).ready(function(){
 
 					var matches = data[i].inputMessage.match(/\n/g);
 					if(matches){
-						var txt = data[i].inputMessage.split("\n") 
+						var txt = data[i].inputMessage.split("\n")
 
 						var appendDate =  "<div class='addChanglog-header'>";
-							appendDate += "<div class='col-md-6 no-padding'>" + data[i].inputDate + "</div>";
-							appendDate += "<div class='col-md-6 no-padding'> By : " + data[i].inputAuthor.charAt(0).toUpperCase() + data[i].inputAuthor.slice(1) + "</div>";
+							appendDate += "<div class='addlog-header-name'>" + data[i].inputAuthor.charAt(0).toUpperCase() + data[i].inputAuthor.slice(1) + "</div>";
+							appendDate += "<div class='addlog-header-date'>" + data[i].inputDate + "</div>";
 							appendDate += "</div>";
 							$(".change-log-div").append(appendDate);
 
 						$.each(txt, function(t){
 							if(txt[t] != ''){
-								var append = "<li>" + txt[t] + "</li>";
+								var append = "<li style='margin-top:5px;'>" + txt[t] + "." + "</li>";
 								$(".change-log-div").append(append);
 							}
 						});
@@ -82,12 +357,12 @@ $(document).ready(function(){
 						$(".change-log-div").append(appendHr);
 					}else{
 						var append =  "<div class='addChanglog-header'>";
-							append += "<div class='col-md-6 no-padding'>" + data[i].inputDate + "</div>";
-							append += "<div class='col-md-6 no-padding'> By : " + data[i].inputAuthor.charAt(0).toUpperCase() + data[i].inputAuthor.slice(1) + "</div>";
+							append += "<div class='addlog-header-name'>" + data[i].inputAuthor.charAt(0).toUpperCase() + data[i].inputAuthor.slice(1) + "</div>";
+							append += "<div class='addlog-header-date'>" + data[i].inputDate + "</div>";
 							append += "</div>";
-							append += "<li>" + data[i].inputMessage + "</li>";
+							append += "<li style='margin-top:5px;'>" + data[i].inputMessage + "." + "</li>";
 							append += "<div class='addChanglog-line-bottom'></div>";
-							$(".change-log-div").append(append);  
+							$(".change-log-div").append(append);
 					}
 				}
 			},
@@ -96,201 +371,3 @@ $(document).ready(function(){
 			}
 		});
 	}
-
-	function displayChecksumData($dateNow){
-		var label = [];
-		var dataID = []
-		$.ajax({
-			url : '/aks/dashboard/index',
-			type: "POST",
-			data : {
-				action: 'displayCheckSumAction',
-				dateNow: $dateNow
-			},
-			success : function(data){
-				for (var i in data){
-					// if(data[i].dataID != 1){
-						label.push(data[i].merchant_name)
-						dataID.push(data[i].dataID)
-					// }
-				}
-			},
-			complete : function(){
-				displayChart(label, dataID)
-			}
-		});
-	}
-
-	function displayRunAndSuccess() {
-		var dataCount = [];
-		$.ajax({
-			url : '/aks/dashboard/index',
-			type: "POST",
-			data : {
-				action: 'displayRunAndSuccessAction'
-			},
-			success : function(data){
-				for (var i in data){
-					dataCount.push(data[i].fail,data[i].success);
-				}
-			},
-			complete: function(){
-				displayReportChart(dataCount)
-			}	
-		});
-	}
-
-	function displayChart($merchant, $checksumUpdate){
-		var label = $merchant;
-		var dataset = [{
-			label: 'Most updates',
-			data: $checksumUpdate, // value gikan database
-			fill: true,
-			backgroundColor: [
-				'rgba(12,238,108, .5)',
-				
-			],
-			borderColor: [
-				'rgba(255, 255, 255, 1)',
-				'rgba(255, 255, 255, 1)',
-				'rgba(255, 255, 255, 1)',
-				'rgba(255, 255, 255, 1)',
-				'rgba(255, 255, 255, 1)',
-				'rgba(255, 255, 255, 1)',
-			],
-			borderWidth: 1
-		}];
-		var datas = {
-			labels: label,
-			datasets: dataset
-		}
-		var option = {
-			responsive: true,
-			legend: {
-				labels: {
-					fontColor: '#ffff'
-				},
-				onHover: function(e) {
-					e.target.style.cursor = 'pointer';
-				}
-			},
-			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: true,
-						fontColor: '#fff'
-					},
-					stacked: true,
-					gridLines: {
-						display: true,
-						color: "rgba(0,0,255, .2)"
-					}
-				}],
-				xAxes: [{
-					ticks: {
-						beginAtZero: true,
-						fontColor: '#fff'
-					},
-					stacked: true,
-					gridLines: {
-						display: true,
-						color: "rgba(255,64,64, .2)"
-					}
-				}]
-			}
-		};
-
-		// output
-		var ctx = document.getElementById('myChart').getContext('2d');
-		var myChart = new Chart(ctx, {
-			type: 'line',
-			data: datas,
-			options: option
-		});
-	}
-
-	function displayReportChart($data){
-		var label = ['Fail', 'Success'];
-		var dataset = [{
-			label: '# of Votes',
-			data: $data, // value gikan database
-			backgroundColor: [
-				'rgba(255, 99, 132, 0.7)',
-				'rgba(0,250,154, 0.7)',
-				'rgba(255, 206, 86, 0.7)',
-				'rgba(75, 192, 192, 0.7)',
-				'rgba(153, 102, 255, 0.7)',
-				'rgba(255, 159, 64, 0.7)'
-			],
-			borderColor: [
-				'rgba(255, 99, 132, 1)',
-				'rgba(0,250,154, 1)',
-				'rgba(255, 206, 86, 1)',
-				'rgba(75, 192, 192, 1)',
-				'rgba(153, 102, 255, 1)',
-				'rgba(255, 159, 64, 1)'
-			],
-			borderWidth: 1
-		}];
-		var datas = {
-			labels: label,
-			datasets: dataset
-		}
-		var ctx = document.getElementById('reportChart').getContext('2d');
-		var myChart = new Chart(ctx, {
-			type: 'polarArea',
-			data: datas,
-			options: {
-				responsive: true,
-				legend: {
-					labels: {
-						fontColor: '#ffff'
-					},
-					position: 'right',
-						onHover: function(e) {
-							e.target.style.cursor = 'pointer';
-						}
-					},
-					title: {
-						display: true,
-						fontColor: '#fff',	
-						text: 'Charts report everyday',
-					},
-					scale: {
-						ticks: {
-							beginAtZero: true,
-						},
-						reverse: false,
-						gridLines:{
-							display : true,
-							color : '#fff',
-						},
-
-					}
-				}
-		});
-	}
-
-	function displayIcon(){
-		var iconList = [
-			"fa-bar-chart",
-			"fa-briefcase",
-			"fa-exchange",
-			"fa-commenting",
-			"fa-cog"
-		];
-	
-		$('i#nav-icon').each(function(i){
-			$(this).addClass(iconList[i])
-		});
-	}
-
-}); // end docuemtn ready
-
-
-
-
-
-
-
-	

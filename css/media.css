@@ -1,11 +1,6 @@
 
 @media only screen and (min-width : 1200px) {
-	.checksum-canvas {
-		height: 25vh !important;
-	}
-	.reports-canvas {
-		height: 18vh !important;
-	}
+		
 }
 
 /* Large Devices, Wide Screens */
@@ -14,42 +9,71 @@
 }
 /* Large Devices, Wide Screens */
 @media only screen and (max-width : 1050px) {
-	.checksum-canvas {
-		height: 28vh !important;
-	}
-	.reports-canvas {
-		height: 20vh !important;
-	}
+
 }
 
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px) {
-	.dashboard-div {
-		margin: 0;
-		width: 100%;
+	.side-bar {
+		width: 30%;
 	}
-	.side-nav {
-		width: 50%;
-		transform: translateX(-100%);
-		background-color: rgb(0, 0, 64, .9);
+	.content-div {
+		margin: 0 0 0 30%;
+		width: 70%;
 	}
-	.div-profile {
-		padding-top: 20px;
+	.p-1 {
+		margin-top: -10px;
+		font-size:11px;
+	}
+	.p-2 {
+		font-size: 12px;
+	}
+	.p-3 {
+		top: 55px;
+	}
+	.wdsnew-con-wrap-sub {
+		top: 20px !important;
 	}
 }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
-
+	.side-bar {
+		transform: translateX(-100%);
+		background-color: #fff;
+		width: 80%;
+	}
+	.sbp-user {
+		top: -60px !important;
+		left: 90px !important;
+	}
+	.sbp-user-position {
+		top: -70px !important;
+		left: 90px !important;
+	}
+	.content-div {
+		margin: 0 0 0 0;
+		width: 100%;
+	}
+	.p-1 {
+		margin-top: 0;
+		font-size:17px;
+	}
+	.p-2 {
+		font-size: 15px;
+	}
+	.p-3 {
+		top: 35px;
+	}
 }
 
-/* Extra Small Devices, Phones */ 
+/* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px) {
 
 }
 
-/* Custom, iPhone Retina */ 
+/* Custom, iPhone Retina */
 @media only screen and (max-width : 320px) {
 
 }

@@ -12,14 +12,6 @@ class Ajax {
         $db = DB::getInstance();
 
         switch ($post) {
-            case 'testni':
-
-                // $sql = "select * from `aks_bot_teamph`.tblcheckerlist";
-                // $stml = $db->query($sql);
-                // $tes = $getInput->get('data1');
-                // $tes1 = $getInput->get('kani');
-                // return  $stml;
-            break;
             case 'addChangeLogAction':
 
                 $inputID = $getInput->get('inputID');
@@ -63,6 +55,45 @@ class Ajax {
               ));
                 return $runSuc;
             break;
+            case 'displayOffersAction':
+                $merchantNi = file_get_contents(ROOT . DS . 'app' . DS . 'merchant_data.json');
+                $testarr = json_decode($merchantNi, true);
+
+                $sql = "SELECT COUNT(*) as countAll, url, storeId FROM `allkeyshop.com`.aksfeeds_offer GROUP BY storeId order by countAll DESC";
+                $sql1 = "SELECT COUNT(*) as countAll, url, storeId FROM `allkeyshop.com`.aksfeeds_offer where YEAR(`createdAt`) = '2019' GROUP BY storeId";
+                $sql2 = "SELECT COUNT(*) as countAll, url, storeId FROM `allkeyshop.com`.aksfeeds_offer where YEAR(`createdAt`) = '2020' GROUP BY storeId";
+
+                $res = array();
+                foreach ($db->query($sql)->results() as $key) {
+                    if(array_key_exists($key->storeId,$testarr)){
+                        $res[$key->storeId] = [
+                            'id' => $testarr[$key->storeId]['realID'],
+                            'name' => $testarr[$key->storeId]['merchatName'], 
+                            'countOffers' => $key->countAll,
+                            'url' => $key->url
+                        ];
+                    }
+                }
+                
+                foreach ($db->query($sql1)->results() as $key) {
+                    if(array_key_exists($key->storeId,$testarr)){
+                        if(array_key_exists($key->storeId,$res)){
+                            $res[$key->storeId][] = $key->countAll;
+                        }
+                    } 
+                }
+
+                foreach ($db->query($sql2)->results() as $key) {
+                    if(array_key_exists($key->storeId,$testarr)){
+                        if(array_key_exists($key->storeId,$res)){
+                            $res[$key->storeId][] = $key->countAll;
+                        }
+                    } 
+                }
+
+                return $res;
+            break;
+
             default:
             break;
         }
