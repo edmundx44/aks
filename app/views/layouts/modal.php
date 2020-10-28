@@ -57,22 +57,22 @@
                             <tbody>
                                 <?php foreach($this->checksumData as $key): ?>
                                    <?php 
-                                    $id = $key->merchant_id;
+                                    $id = $key['merchant_id'];
                                         if(array_key_exists($id, $this->countPerDayChecksum)){
                                             ?>
                                                 <tr>
-                                                    <td class="tbody-td-1"><?= strtoupper($key->merchant_name)." (".$key->merchant_id.")"; ?></td>
-                                                    <td class="tbody-td-2"><?= $key->checksum_data ?></td>
-                                                    <td class="tbody-td-3"><?= $this->formatFulltime($key->lastupdate); ?></td>
+                                                    <td class="tbody-td-1"><?= strtoupper($key['merchant_name'])." (".$key['merchant_id'].")"; ?></td>
+                                                    <td class="tbody-td-2"><?= $key['checksum_data'] ?></td>
+                                                    <td class="tbody-td-3"><?= $this->formatFulltime($key['lastupdate']); ?></td>
                                                     <td class="tbody-td-1 text-center"><?= $this->countPerDayChecksum[$id]['count'] ?></td>
                                                 </tr>
                                             <?php
                                         }else{
                                             ?>
                                                 <tr>
-                                                    <td class="tbody-td-1"><?= strtoupper($key->merchant_name)." (".$key->merchant_id.")"; ?></td>
-                                                    <td class="tbody-td-2"><?= $key->checksum_data ?></td>
-                                                    <td class="tbody-td-3"><?= $this->formatFulltime($key->lastupdate); ?></td>
+                                                    <td class="tbody-td-1"><?= strtoupper($key['merchant_name'])." (".$key['merchant_id'].")"; ?></td>
+                                                    <td class="tbody-td-2"><?= $key['checksum_data'] ?></td>
+                                                    <td class="tbody-td-3"><?= $this->formatFulltime($key['lastupdate']); ?></td>
                                                     <td class="tbody-td-1 text-center">0</td>
                                                 </tr>
                                             <?php      

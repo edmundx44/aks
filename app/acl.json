@@ -9,6 +9,7 @@
       "User" : ["login", "register"]
     },
     "User" : ["logout"],
-    "Dashboard" : ["*"]
+    "Dashboard" : ["*"],
+    "Checksum" : ["*"]
   }
 }

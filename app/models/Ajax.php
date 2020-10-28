@@ -25,17 +25,23 @@ class Ajax {
                 ( '$inputID', '$inputDate', '$inputAuthor', '$inputMessage')";
                 return $db->query($sql) ?  'success' :  'fail';;
             break;
+
             case 'displayAddChangeLogAction':
 
                 $sql = "select * from `aks_bot_teamph`.tblAddChangeLog order by id desc";
                 return $db->query($sql)->results();
-                break;
+            break;
+
             case 'displayCheckSumAction':
 
                 $dateNow = $getInput->get('dateNow');
-                $sql = "SELECT COUNT(id) as 'dataID', merchant_name FROM `checksum_feeds`.tbl_checksum where date(`lastupdate`) = '$dateNow' GROUP BY merchant_name HAVING dataID > 1 limit 5";
-                return $db->query($sql)->results();
+                $sql = "SELECT COUNT(id) as 'dataID', merchant_id FROM `aks_bot_teamph`.aks_checksum where date(`lastupdate`) = DATE(NOW()) AND checksum_site = 'aks' GROUP BY merchant_id limit 5";//local
+                if($db->query($sql))
+                    return $db->query($sql)->results();
+                else
+                    return '';
             break;
+
             case 'displayRunAndSuccessAction':
 
                 $sql = "SELECT * FROM `test-server`.`bot_admin`
@@ -55,43 +61,111 @@ class Ajax {
               ));
                 return $runSuc;
             break;
-            case 'displayOffersAction':
-                $merchantNi = file_get_contents(ROOT . DS . 'app' . DS . 'merchant_data.json');
-                $testarr = json_decode($merchantNi, true);
 
-                $sql = "SELECT COUNT(*) as countAll, url, storeId FROM `allkeyshop.com`.aksfeeds_offer GROUP BY storeId order by countAll DESC";
-                $sql1 = "SELECT COUNT(*) as countAll, url, storeId FROM `allkeyshop.com`.aksfeeds_offer where YEAR(`createdAt`) = '2019' GROUP BY storeId";
-                $sql2 = "SELECT COUNT(*) as countAll, url, storeId FROM `allkeyshop.com`.aksfeeds_offer where YEAR(`createdAt`) = '2020' GROUP BY storeId";
+            case 'displayOffersAction':
+                $threedaysago = date('Y-m-d', strtotime(' - 3 days')) ; //64 hours
+                $twodaysago = date('Y-m-d', strtotime(' - 2 days')) ; //40 hours
+                $onedayago = date('Y-m-d', strtotime(' - 1 days')) ; //16 hours
+                $today = date('Y-m-d', strtotime('today'));  //8 hours  
+
+                $merchantNi = file_get_contents( ROOT . DS . 'app' . DS .'merchants_data.json');
+                $testarr = json_decode($merchantNi, true);
+                
+                $sql = "SELECT COUNT(*) as total_offers, url, storeId 
+                        FROM `allkeyshop.com`.aksfeeds_offer
+                        WHERE listId != 15
+                        AND listId != 14
+                        AND listId != 8
+                        GROUP BY storeId order by total_offers DESC";
+                $sql1 = "SELECT COUNT(*) as countFeedPerStore, url, storeId, createdAt 
+                        FROM `allkeyshop.com`.`aksfeeds_offer` 
+                        WHERE DATE(createdAt) 
+                        BETWEEN (DATE(NOW()) - INTERVAL 3 DAY) AND DATE(NOW())
+                        GROUP BY DATE(createdAt),storeId ORDER BY createdAt DESC";
 
                 $res = array();
+                $arrayCountPerday = array();
+
+                //loop the first query to get all counts offer per merchant
                 foreach ($db->query($sql)->results() as $key) {
-                    if(array_key_exists($key->storeId,$testarr)){
-                        $res[$key->storeId] = [
-                            'id' => $testarr[$key->storeId]['realID'],
-                            'name' => $testarr[$key->storeId]['merchatName'], 
-                            'countOffers' => $key->countAll,
-                            'url' => $key->url
-                        ];
+                    $countsAll = $key->total_offers;
+                    $storeId = $key->storeId;
+                    $res[$storeId] = [
+                        'total_offers' => $countsAll,
+                        'idid' => $storeId
+                    ];
+                }
+                //return $res;
+
+                // loop the second query to get the the count offers between today - 4 days
+                foreach ($db->query($sql1)->results() as $key1) {
+                    $storeIdPerday = $key1->storeId;
+                    $countAllFeedPerDay = $key1->countFeedPerStore;
+                    $createDatetime = date('Y-m-d', strtotime($key1->createdAt));
+
+                    if (array_key_exists($storeId, $res)) {
+                        $arrayCountPerday[$storeIdPerday]['store_Id'] = $storeIdPerday;
+                        $arrayCountPerday[$storeIdPerday]['date'][$createDatetime] = $countAllFeedPerDay;
+                        $arrayCountPerday[$storeIdPerday]['total_offers'] = $res[$storeIdPerday]['total_offers'];
+
+                        //check if there a data in particular date
+                        if(!array_key_exists($threedaysago, $arrayCountPerday[$storeIdPerday]['date']))
+                            $arrayCountPerday[$storeIdPerday]['date'][$threedaysago] = '0';
+
+                        if(!array_key_exists($twodaysago, $arrayCountPerday[$storeIdPerday]['date']))
+                            $arrayCountPerday[$storeIdPerday]['date'][$twodaysago] = '0';
+
+                        if(!array_key_exists($onedayago, $arrayCountPerday[$storeIdPerday]['date']))
+                            $arrayCountPerday[$storeIdPerday]['date'][$onedayago] = '0';
+
+                        if(!array_key_exists($today, $arrayCountPerday[$storeIdPerday]['date']))
+                            $arrayCountPerday[$storeIdPerday]['date'][$today] = '0';
                     }
                 }
+
+                //return $arrayCountPerday;
+
+                //combine the array 1st result query and then second result query
+                foreach ($testarr as $key2) {
+                    
+                    if(array_key_exists($key2['storeId'],$arrayCountPerday)){
+                        $arrayCountPerday[$key2['storeId']]['name'] = $key2['merchatName'];
+                        $arrayCountPerday[$key2['storeId']]['realID'] = $key2['realID'];
+                        $arrayCountPerday[$key2['storeId']]['store_Id'] = $key2['storeId'];
+                        $arrayCountPerday[$key2['storeId']]['total_offers'] = $arrayCountPerday[$key2['storeId']]['total_offers'];
+                    }
+                    if(array_key_exists($key2['storeId'],$res)){
+                        $arrayCountPerday[$key2['storeId']]['name'] = $key2['merchatName'];
+                        $arrayCountPerday[$key2['storeId']]['realID'] = $key2['realID'];
+                        $arrayCountPerday[$key2['storeId']]['store_Id'] = $key2['storeId'];
+                        $arrayCountPerday[$key2['storeId']]['total_offers'] = $res[$key2['storeId']]['total_offers'];
+                    }
+                    // theres a merchant that no offers between today - 3 days 
+                    // checks the date if set
+                    // and also theres a merchant not included in arracountperday if not so theres no data yet
+                    if(!array_key_exists($key2['storeId'],$arrayCountPerday)){
+                        $arrayCountPerday[$key2['storeId']]['name'] = $key2['merchatName'];
+                        $arrayCountPerday[$key2['storeId']]['realID'] = $key2['realID'];
+                        $arrayCountPerday[$key2['storeId']]['store_Id'] = $key2['storeId'];
+                        $arrayCountPerday[$key2['storeId']]['total_offers'] = '0';
+                    }
+                    if(!isset($arrayCountPerday[$key2['storeId']]['date'])){
+                         $arrayCountPerday[$key2['storeId']]['date'][$threedaysago] = '0';
+                         $arrayCountPerday[$key2['storeId']]['date'][$twodaysago] = '0';
+                         $arrayCountPerday[$key2['storeId']]['date'][$onedayago] = '0';
+                         $arrayCountPerday[$key2['storeId']]['date'][$today] = '0';
+                    }
+                }
+                // reindex starting to zero
+                $iZero = array_values($arrayCountPerday);
+                return $iZero;
+
+            break;
+
+            case 'checksumStoreRun':
                 
-                foreach ($db->query($sql1)->results() as $key) {
-                    if(array_key_exists($key->storeId,$testarr)){
-                        if(array_key_exists($key->storeId,$res)){
-                            $res[$key->storeId][] = $key->countAll;
-                        }
-                    } 
-                }
-
-                foreach ($db->query($sql2)->results() as $key) {
-                    if(array_key_exists($key->storeId,$testarr)){
-                        if(array_key_exists($key->storeId,$res)){
-                            $res[$key->storeId][] = $key->countAll;
-                        }
-                    } 
-                }
-
-                return $res;
+                return $getInput->get('store_receive');
+                
             break;
 
             default:

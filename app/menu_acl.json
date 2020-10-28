@@ -4,7 +4,7 @@
     "sample" : "dashboard",
     "Sample Add" : "dashboard"
   },
-  "test" : "dashboard",
+  "Checksum" : "checksum",
   "ambot" : "dashboard",
   "Romain" : "dashboard",
   "Logout" : "user/logout"

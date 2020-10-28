@@ -35,12 +35,12 @@ class DashboardController extends Controller {
         $this->view->getSnapshotAks = $this->getSnapshot($db,'aks');
         $this->view->getSnapshotCdd = $this->getSnapshot($db,'cdd');
         $this->view->dbCountFeedCount = $this->dbCountFeedCount($db);
-        $this->view->checksumData = $this->getChecksumData($db);
+        $this->view->checksumData = $this->checkGetChecksumData($db);
         $this->view->failedStores = $this->getFailedStores($db);
         $this->view->successStores = $this->getSuccessStores($db);
         $this->view->countPerDayChecksum = $this->getCountPerDayChecksum($db);
 
-        //vd($this->view->countPerDayChecksum); //uncomment test output
+        //vd($this->view->checksumData); //uncomment test output
 
 
         // ajax here
@@ -54,26 +54,27 @@ class DashboardController extends Controller {
 
     /***   FUNCTIONS FOR DASHBOARD    ***/  
 
+    // to loop using foreach used as $key => $value always
     private function getStores($db){
-        $sql = "SELECT `vols_id`,`vols_id`,`analytic_name` FROM `allkeyshops`.`sale_page` "; 
-        return $db->query($sql);
-    }
-
-    private function checkStores($db){
-        $arrayStores = self::getStores($db);
-        $arrayStores->results();
-
+        $sql = "SELECT `vols_id`,`vols_id`,`analytic_name` FROM `allkeyshops`.`sale_page` ";
+        $arrayStores = $db->query($sql);
         $allStores = array();
-        $returnDisabledStore = array();
-        $invisible_stores = json_decode(@file_get_contents('https://www.allkeyshop.com/blog/wp-content/plugins/aks-merchants/api/merchants/inactive'),true); 
-        //$invisible_stores = '';
-        if (FALSE !== ($invisible_stores)) {
-            foreach($arrayStores->results() as $key => $value){
-                if(!array_key_exists($value->vols_id, $allStores)){
+        foreach($arrayStores->results() as $key => $value){
+            if(!array_key_exists($value->vols_id, $allStores)){
                 $id = $value->vols_id;
                 if(isset($id))  $allStores[$id]=$value->analytic_name;
             }
-                }//return $allStores;
+        }
+        return $allStores;
+    }
+
+    private function checkStores($db){
+        $allStores = $this->getStores($db);
+        $returnDisabledStore = array();
+
+        $invisible_stores = json_decode(@file_get_contents('https://www.allkeyshop.com/blog/wp-content/plugins/aks-merchants/api/merchants/inactive'),true); 
+        //$invisible_stores = '';
+        if (FALSE !== ($invisible_stores)) {
                 if(!empty($invisible_stores)){
                 foreach ($invisible_stores as $stores_invisible) {
                     if(array_key_exists($stores_invisible, $allStores)){
@@ -108,10 +109,31 @@ class DashboardController extends Controller {
     }
 
     private function getChecksumData($db){
-        $sql = "SELECT * FROM `checksum_feeds`.tbl_checksum WHERE id IN ( SELECT MAX(id) FROM `checksum_feeds`.`tbl_checksum` GROUP BY merchant_id) ORDER BY lastupdate DESC";
+        $sql = "SELECT * FROM `aks_bot_teamph`.`aks_checksum` WHERE id IN ( SELECT MAX(id) FROM `aks_bot_teamph`.`aks_checksum` WHERE checksum_site = 'aks' GROUP BY merchant_id) ORDER BY lastupdate DESC";
         $checksumResult = $db->query($sql);
 
         return $checksumResult->results();  
+    }
+
+    private function checkGetChecksumData($db){
+        $getStoresData = $this->getStores($db);
+        $getChecksumDataData = $this->getChecksumData($db);
+
+        $newChecksum = array();
+        foreach ($getChecksumDataData as $checksumResult){
+            if(array_key_exists($checksumResult->merchant_id, $getStoresData)){
+                $newChecksum[] = array(
+                    'id' => $checksumResult->id,
+                    'merchant_id' => $checksumResult->merchant_id,
+                    'merchant_name' => $getStoresData[$checksumResult->merchant_id],
+                    'checksum_data' => $checksumResult->checksum_data,
+                    'checksum_site' => $checksumResult->checksum_site,
+                    'lastupdate' => $checksumResult->lastupdate
+                );
+            }     
+        }
+        
+        return $newChecksum;
     }
 
     private function getFailedStores($db){
@@ -135,10 +157,10 @@ class DashboardController extends Controller {
     }
 
     private function getCountPerDayChecksum($db){
-        $sql = "SELECT COUNT(id) as 'Updatedcount',merchant_id,merchant_name 
-                FROM `checksum_feeds`.`tbl_checksum` 
-                WHERE date(lastupdate) = date(now()) 
-                GROUP BY merchant_id,merchant_name";
+        $sql = "SELECT COUNT(id) as 'Updatedcount',merchant_id 
+                FROM `aks_bot_teamph`.`aks_checksum` 
+                WHERE date(lastupdate) = date(now()) AND checksum_site = 'aks'
+                GROUP BY merchant_id";
         $objArray = $db->query($sql);
         $newArray =array();
 
@@ -147,7 +169,6 @@ class DashboardController extends Controller {
                     $id = $value->merchant_id;
                 if(isset($id)){
                     $newArray[$id]=array(
-                        'name' => $value->merchant_name,
                         'count' => $value->Updatedcount
                     );
                 } 

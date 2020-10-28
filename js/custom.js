@@ -11,7 +11,7 @@ $(document).ready(function(){
 		if(getUserName != ''){
 			displayChangeLog();
 			displayIcon();
-			displayOffers();
+			displayOffers(timeStampData);
 			displayChecksumData(timeStampData);
 			displayRunAndSuccess();
 		}
@@ -55,7 +55,7 @@ $(document).ready(function(){
 
 	$(document).on('click', '.addChangeLog', function(){
 		$.ajax({
-			url : '/aks/dashboard/index',
+			url : '/akss/dashboard/index',
 			type: "POST",
 			data : {
 				action: 'addChangeLogAction',
@@ -69,6 +69,23 @@ $(document).ready(function(){
 		});
 	});
 	
+	$(document).on('click', '#run', function(){
+		
+		var sel_merchant = $('.merchant-select').val();
+		//alert(sel_merchant)
+		$.ajax({
+			url : '/akss/dashboard/index',
+			type: "POST",
+			data : {
+				action: 'checksumStoreRun',
+				store_receive: sel_merchant
+			},
+			success:function(data){
+				alert(data);
+			}
+		});
+
+	});
 	
 }); // end docuemtn ready
 
@@ -86,66 +103,75 @@ function displayIcon(){
 	});
 }
 
-function displayOffers() {
+function displayOffers($timeStampData) {
 	var offers = [];
+
+	var minusOneday = 1;
+	var minusTwoday = 2;
+	var minusThreeday = 3;
+	    
+	var onedayAgo = getDate($timeStampData,minusOneday);
+	var twodayAgo = getDate($timeStampData,minusTwoday);
+	var threedayAgo =getDate($timeStampData,minusThreeday);
+
 	$.ajax({
-		url : '/aks/dashboard/index',
+		url : '/akss/dashboard/index',
 		type: "POST",
 		data : {
 			action: 'displayOffersAction'
 		},
 		success : function(data){
-			// console.log(data)
-			for (var i in data){
-				var get2nd = (data[i][1]) ? data[i][1] : 'N-O';
-				var get1st = (data[i][0]) ? data[i][0] : 'N-O';
-
-				var toPush = [
-					data[i].id,
-					data[i].name,
-					data[i].countOffers,
-					data[i].url,
-					get1st,
-					get2nd
-				]
-				offers.push(toPush);
-			}
+		//console.log(data)
+            for (var i in data){                  
+                var toPush = [
+                    data[i].store_Id,
+                    data[i].name+" "+data[i].realID,
+                    data[i].total_offers,
+                    data[i].date[threedayAgo],
+                    data[i].date[twodayAgo],
+                    data[i].date[onedayAgo],
+                    data[i].date[$timeStampData],
+                    ]
+                offers.push(toPush);
+            }
 		},
 		complete: function(){
-			// console.log(offers)
-			$('#example').DataTable( {
-				responsive: true,
-				data: offers,
-				columns: [
-					{ title: "ID" },
-					{ title: "MERCHANT" },
-					{ title: "OFFERS" },
-					{ title: "URL" },
-					{ title: "2019 OFFER" },
-					{ title: "2020 OFFER" },
-				]
-			});
-		}
+		$(".div-loader").hide();
+            console.log(offers)
+            $('#example').DataTable( {
+                responsive: true,
+                data: offers,
+                columns: [
+                    { title: "ID" },
+                    { title: "MERCHANT" },
+                    { title: "TOTAL OFFERS" },
+                    { title: threedayAgo },
+                    { title: twodayAgo },
+                    { title: onedayAgo },
+                    { title: $timeStampData },
+                ]
+            });
+        }
 	});
 }
 
 function displayChecksumData($dateNow){
-	var label = ['gamivo','g2a','kinguin','g2play','play-asia','gamersgate'];
-	var dataID = [3,8,4,6,2,10]
+	var label = [];
+	var dataID = []
 	$.ajax({
-		url : '/aks/dashboard/index',
+		url : '/akss/dashboard/index',
 		type: "POST",
 		data : {
 			action: 'displayCheckSumAction',
 			dateNow: $dateNow
 		},
 		success : function(data){
-			// for (var i in data){
+			for (var i in data){
 				// if(data[i].dataID != 1){
-					// label.push(data[i].merchant_name)
-					// dataID.push(data[i].dataID)
-				// }
-			// }
+					label.push(data[i].merchant_id)
+					dataID.push(data[i].dataID)
+				//}
+			}
 		},
 		complete : function(){
 			displayChart(label, dataID)
@@ -244,17 +270,17 @@ function displayChart($merchant, $checksumUpdate){
 }
 
 function displayRunAndSuccess() {
-	var dataCount = [30,9];
+	var dataCount = [];
 	$.ajax({
-		url : '/aks/dashboard/index',
+		url : '/akss/dashboard/index',
 		type: "POST",
 		data : {
 			action: 'displayRunAndSuccessAction'
 		},
 		success : function(data){
-			// for (var i in data){
-			// 	dataCount.push(data[i].fail,data[i].success);
-			// }
+			for (var i in data){
+				dataCount.push(data[i].fail,data[i].success);
+			}
 		},
 		complete: function(){
 			displayReportChart(dataCount)
@@ -328,7 +354,7 @@ function displayReportChart($data){
 
 function displayChangeLog(){
 		$.ajax({
-			url : '/aks/dashboard/index',
+			url : '/akss/dashboard/index',
 			type: "POST",
 			data : {
 				action: 'displayAddChangeLogAction',
@@ -370,4 +396,16 @@ function displayChangeLog(){
 				$('.change-log-div .addChanglog-line-bottom:nth-last-child(1)').remove();
 			}
 		});
+	}
+
+function getDate($timeStampData,daysMinusOrAdd){
+		var dateString = $timeStampData;
+		var date1 = new Date(dateString);
+		var daysPrior = daysMinusOrAdd;
+		date1.setDate(date1.getDate() - daysPrior);
+			
+		var dateResult = date1.toISOString();
+		var matchDate = dateResult.match(/(^\d+\S\d+\S\d+)T/);
+		return matchDate[1];
+
 	}
