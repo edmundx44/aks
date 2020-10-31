@@ -1,7 +1,7 @@
 <?php $this->start('head'); ?>
 	<script>
 		$(document).ready(function(){
-			testAjax()
+			//testAjax()
 		});
 		function testAjax(){
 			$.ajax({

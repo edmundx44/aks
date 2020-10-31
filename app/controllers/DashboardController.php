@@ -170,9 +170,10 @@ class DashboardController extends Controller {
     }
 
     private function getCountPerDayChecksum($db){
+        $dateTime = date('Y-m-d'); 
         $sql = "SELECT COUNT(id) as 'Updatedcount',merchant_id 
                 FROM `aks_bot_teamph`.`aks_checksum` 
-                WHERE date(lastupdate) = date(now()) AND checksum_site = 'aks'
+                WHERE date(lastupdate) = '$dateTime' AND checksum_site = 'aks'
                 GROUP BY merchant_id";
         $objArray = $db->query($sql);
         $newArray =array();

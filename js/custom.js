@@ -11,20 +11,14 @@ $(document).ready(function(){
 	var getUserName = $('.sbp-user').text();
 		if(getUserName != ''){
 			displayIcon();
-<<<<<<< HEAD
-			displayOffers(timeStampData);
-			displayChecksumData(timeStampData);
-			displayRunAndSuccess();
-=======
 			if( url.match(/checker/) || url.match(/utilities/)){
 				// alert('cheker this')
 			}else{
 				displayChangeLog();
-				displayOffers();
+				displayOffers(timeStampData);
 				displayChecksumData(timeStampData);
 				displayRunAndSuccess();
 			}
->>>>>>> d0f08101ebe942943c3f1e36c894b60ea7c4a863
 		}
 
 		
@@ -97,6 +91,17 @@ $(document).ready(function(){
 		});
 
 	});
+
+	$(document).on('keypress', '.chk-inputDate' ,function(e){
+		let $dateInput = $('.chk-inputDate').val();
+		
+		if(e.which == 13) {
+			if($dateInput.length === 10)
+				displayChecksumModal($dateInput);
+			else
+				alert('CHECK YOUR DATE INPUT');
+		}
+	});
 	
 }); // end docuemtn ready
 
@@ -148,7 +153,7 @@ function displayOffers($timeStampData) {
 		},
 		complete: function(){
 		$(".div-loader").hide();
-            console.log(offers)
+            //console.log(offers)
             $('#example').DataTable( {
                 responsive: true,
                 data: offers,
@@ -409,6 +414,39 @@ function displayChangeLog(){
 		});
 	}
 
+function displayChecksumModal($dateInput){
+	$(".table-checksum .checksum-body").empty();
+	var container = $dateInput.match(/^\d+-(\d+)-(\d+)/);
+	var monthR = container[1];
+	var dayR = container[2];
+	$.ajax({
+		url : '/akss/dashboard/index',
+		type: "POST",
+			data : {
+			action: 'displayChecksumUsingDateSend',
+			getDateInput: $dateInput
+		},
+		success:function(data){
+			//console.log(data);
+			for(var i in data){
+				if(data[i].count != 0){
+					var append =  "<tr class='getCount'>";
+						append += 	'<td class="tbody-td-1">'+data[i].merchant_name+'('+data[i].merchant_id+')</td>';
+						append += 	'<td class="tbody-td-2">'+data[i].checksum_data+'</td>';
+						append += 	'<td class="tbody-td-3">'+data[i].lastupdate+'</td>';
+						append += 	'<td class="tbody-td-1 text-center">'+data[i].count+'</td>';
+						append += "</tr>";
+					$(".table-checksum .checksum-body").append(append);
+				}
+			}
+			
+		},
+		complete:function(){
+			$('.dateChange').text('CHECKSUM ('+monthR+' '+dayR+')');
+		}
+	});
+}
+
 function getDate($timeStampData,daysMinusOrAdd){
 		var dateString = $timeStampData;
 		var date1 = new Date(dateString);
@@ -420,3 +458,13 @@ function getDate($timeStampData,daysMinusOrAdd){
 		return matchDate[1];
 
 	}
+
+	/*** Return Numbers only ***/
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event; //same result
+        var charCode = (evt.which) ? evt.which : evt.keyCode; //same result
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }

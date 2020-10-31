@@ -40,7 +40,13 @@
         <div class="modal-content modal-con-override">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h5 class="modal-title">CHECKSUM</h5>
+                <h5 class="modal-title dateChange">CHECKSUM 
+                    <?php 
+                        date_default_timezone_set("Asia/Manila");
+                        echo "(PH:". $today = date('M d',strtotime(date('M d'))).")";
+                    ?>
+                </h5>
+                <div class="div-inputDate"><input type="text" value="<?= date('Y-m-d') ?>" class="chk-inputDate" placeholder="YYYY-MM-DD" maxlength="10"onkeypress="return isNumber(event)"></div>
             </div>
             <div class="modal-body">
                 <div class="modal-checksum-data">
@@ -54,7 +60,7 @@
                                     <th>Count</td>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="checksum-body">
                                 <?php foreach($this->checksumData as $key): ?>
                                    <?php 
                                     $id = $key['merchant_id'];

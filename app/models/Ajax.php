@@ -33,13 +33,113 @@ class Ajax {
             break;
 
             case 'displayCheckSumAction':
+                //$dateNow = $getInput->get('dateNow'); //from ajax
+                $dateTime = date('Y-m-d');
 
-                $dateNow = $getInput->get('dateNow');
-                $sql = "SELECT COUNT(id) as 'dataID', merchant_id FROM `aks_bot_teamph`.aks_checksum where date(`lastupdate`) = DATE(NOW()) AND checksum_site = 'aks' GROUP BY merchant_id limit 5";//local
-                if($db->query($sql))
-                    return $db->query($sql)->results();
-                else
-                    return '';
+                $arr = file_get_contents( ROOT . DS . 'app' . DS .'getStores.json');
+                $getStores = json_decode($arr, true);
+
+                $sql = "SELECT COUNT(id) AS 'dataID', merchant_id 
+                        FROM `aks_bot_teamph`.aks_checksum 
+                        WHERE date(`lastupdate`) = '$dateTime' AND checksum_site = 'aks' 
+                        GROUP BY merchant_id limit 10";//local
+                $resultCheksum = $db->query($sql)->results();
+                $newChecksumDisplay = array();
+
+                foreach ($resultCheksum as $key) {
+                   if(array_key_exists($key->merchant_id, $getStores)){
+                        $newChecksumDisplay[] = array(
+                            'dataID' => $key->dataID,
+                            'merchant_id' => $key->merchant_id,
+                            'merchant_name' => $getStores[$key->merchant_id]
+                        );
+                   }
+                }
+                return $newChecksumDisplay;
+
+            break;
+
+            case 'displayChecksumUsingDateSend':
+                $dateNow = $getInput->get('getDateInput');
+
+                if (isset($dateNow) && $dateNow != NULL) {
+                    $dateTime = $dateNow; //from ajax
+                }else{
+                    $dateTime = date('Y-m-d');
+                }
+                
+                $arr = file_get_contents( ROOT . DS . 'app' . DS .'getStores.json');
+                $getStores = json_decode($arr, true);
+
+                $sql = "SELECT * FROM `aks_bot_teamph`.`aks_checksum` 
+                        WHERE id IN ( SELECT MAX(id) FROM `aks_bot_teamph`.`aks_checksum` WHERE checksum_site = 'aks' GROUP BY merchant_id) 
+                        ORDER BY lastupdate DESC";//local
+                $sql1 = "SELECT COUNT(id) as 'Updatedcount',merchant_id, lastupdate 
+                        FROM `aks_bot_teamph`.`aks_checksum` 
+                        WHERE date(lastupdate) = '$dateTime' AND checksum_site = 'aks'
+                        GROUP BY merchant_id ORDER BY lastupdate";
+
+                $resultCheksum = $db->query($sql)->results(); //1st query
+                $newChecksumDisplayByDate = array();
+
+                $objArray = $db->query($sql1); //2nd query
+                $newArray =array();
+                $mergeResult = array();
+
+                //sql result 
+                foreach($objArray->results() as $key => $value){
+                    if(!array_key_exists($value->merchant_id, $newArray))
+                        $id = $value->merchant_id;
+                    if(isset($id)){
+                        $newArray[$id]=array(
+                            'count' => $value->Updatedcount,
+                            'lastupdate' => $value->lastupdate
+                        );
+                    } 
+                            
+                }
+
+                //sql 1 result 
+                foreach ($resultCheksum as $key) {
+                   if(array_key_exists($key->merchant_id, $getStores)){
+                        $newChecksumDisplayByDate[] = array(
+                            'id' => $key->id,
+                            'merchant_id' => $key->merchant_id,
+                            'merchant_name' => $getStores[$key->merchant_id],
+                            'checksum_data' => $key->checksum_data,
+                            'checksum_site' => $key->checksum_site,
+                            'lastupdate' => $key->lastupdate
+                        );
+                   }
+                }
+                //return $newChecksumDisplayByDate;
+                //final result combine sql and sql1 with count
+                foreach ($newChecksumDisplayByDate as $key) {
+                    if (array_key_exists($key['merchant_id'], $newArray)) {
+                            $mergeResult[] =array(
+                            'id' => $key['id'],
+                            'merchant_id' => $key['merchant_id'],
+                            'merchant_name' => $key['merchant_name'],
+                            'checksum_data' => $key['checksum_data'],
+                            'checksum_site' => $key['checksum_site'],
+                            'lastupdate' => $newArray[$key['merchant_id']]['lastupdate'],
+                            'count' => $newArray[$key['merchant_id']]['count']
+                        );
+                    }else{
+                        $mergeResult[] =array(
+                            'id' => $key['id'],
+                            'merchant_id' => $key['merchant_id'],
+                            'merchant_name' => $key['merchant_name'],
+                            'checksum_data' => $key['checksum_data'],
+                            'checksum_site' => $key['checksum_site'],
+                            'lastupdate' => $key['lastupdate'],
+                            'count' => 0
+                        );
+                    }
+                }
+
+                return $mergeResult;
+
             break;
 
             case 'displayRunAndSuccessAction':
@@ -168,40 +268,40 @@ class Ajax {
                 
             break;
             case 'testLoopAction':
-                $merchantNi1 = file_get_contents(ROOT . DS . 'app' . DS . 'sample.json');
-                $testarr1 = json_decode($merchantNi1, true);
+                // $merchantNi1 = file_get_contents(ROOT . DS . 'app' . DS . 'sample.json');
+                // $testarr1 = json_decode($merchantNi1, true);
 
-                foreach ($testarr1 as $product) {
-                    $price = $product['price'];
-                    $stock = $product['stock'];
-                    $gName = $product['name'];
-                    $link = $product['link'];
+                // foreach ($testarr1 as $product) {
+                //     $price = $product['price'];
+                //     $stock = $product['stock'];
+                //     $gName = $product['name'];
+                //     $link = $product['link'];
 
-                    $checkExist = "select * from `aks_bot_teamph`.`tblCheckUpdate` where `gameName` = '$gName'";
-                    $checkExistResult = $db->query($checkExist)->count();
+                //     $checkExist = "select * from `aks_bot_teamph`.`tblCheckUpdate` where `gameName` = '$gName'";
+                //     $checkExistResult = $db->query($checkExist)->count();
 
-                    if($checkExistResult >= 1) {
-                        $checkprice = "select `price` from `aks_bot_teamph`.`tblCheckUpdate` where `gameName` = '$gName'";
-                        $checkpriceResult = $db->query($checkprice)->first();
-                        $gprice = $checkpriceResult->price;
-                        if($gprice != $price) {
-                            $sql = "UPDATE `aks_bot_teamph`.`tblCheckUpdate`
-                                    SET `price` = '$price', `action` = 'UPDATED'
-                                    WHERE `gameName` = '$gName'";
-                            $run = $db->query($sql); 
-                            // $msg = 'e update ni'. " " . $price . " " . $gName; 
-                        }
-                    }else{
-                       $sql = "Insert INTO  `aks_bot_teamph`.`tblCheckUpdate` 
-                        ( `price`, `stock`, `gameName`, `link`, `action`) 
-                        VALUES 
-                        ( '$price', '$stock', '$gName', '$link', 'ADDED')";
-                        $run = $db->query($sql); 
-                        // $msg = 'added';
-                    }
+                //     if($checkExistResult >= 1) {
+                //         $checkprice = "select `price` from `aks_bot_teamph`.`tblCheckUpdate` where `gameName` = '$gName'";
+                //         $checkpriceResult = $db->query($checkprice)->first();
+                //         $gprice = $checkpriceResult->price;
+                //         if($gprice != $price) {
+                //             $sql = "UPDATE `aks_bot_teamph`.`tblCheckUpdate`
+                //                     SET `price` = '$price', `action` = 'UPDATED'
+                //                     WHERE `gameName` = '$gName'";
+                //             $run = $db->query($sql); 
+                //             // $msg = 'e update ni'. " " . $price . " " . $gName; 
+                //         }
+                //     }else{
+                //        $sql = "Insert INTO  `aks_bot_teamph`.`tblCheckUpdate` 
+                //         ( `price`, `stock`, `gameName`, `link`, `action`) 
+                //         VALUES 
+                //         ( '$price', '$stock', '$gName', '$link', 'ADDED')";
+                //         $run = $db->query($sql); 
+                //         // $msg = 'added';
+                //     }
 
 
-                }
+                // }
                 // return $msg;
             break;
 
