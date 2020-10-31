@@ -28,8 +28,21 @@ class DashboardController extends Controller {
             
         // delete fields 
         // $run = $db->delete('tablename', 'where id string or not');
+        // to get data "->result()"
+        // te get the 1st data "->first()"
 
-        // vd("test");
+        // $contacts = $db->find('`aks`.users', [
+        //     'conditions' => "lname => '?'",
+        //     'bind' => ['paulfox'],
+        //     'order' => "lname",
+        //     'limit' => 5
+        // ]);
+
+        // vd($contacts);
+
+        // $sql = "select * from `aks`.users ";
+        // $stmt = $db->query($sql);
+        // vd($stmt-?);
 
         $this->view->disabledStores = $this->checkStores($db);
         $this->view->getSnapshotAks = $this->getSnapshot($db,'aks');

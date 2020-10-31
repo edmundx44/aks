@@ -1,11 +1,10 @@
 {
   "Dashboard" : "dashboard",
-  "Sample" : {
-    "sample" : "dashboard",
-    "Sample Add" : "dashboard"
+  "Checker" : "checker",
+  "Utilities" : {
+    "Utilities" : "utilities"
   },
   "test" : "dashboard",
-  "ambot" : "dashboard",
   "Romain" : "dashboard",
   "Logout" : "user/logout"
 }

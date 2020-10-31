@@ -17,6 +17,10 @@ use Core\Session;
     <link rel="stylesheet" href="<?=PROOT?>css/bootstrap.min.css.map" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="<?=PROOT?>css/custom.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="<?=PROOT?>css/media.css" media="screen" title="no title" charset="utf-8">
+    
+    <script src="<?=PROOT?>js/jQuery-2.2.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
     <?= $this->content('head'); ?>
 
@@ -40,11 +44,6 @@ use Core\Session;
       </div>
     <?php endif; ?>
 
-    
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script src="<?=PROOT?>js/jQuery-2.2.4.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="<?=PROOT?>js/bootstrap.min.js"></script>
     <script src="<?=PROOT?>js/custom.js"></script>
 

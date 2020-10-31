@@ -166,3 +166,31 @@
 
     </div>
 </div>
+
+<!-- forgot password Modal -->
+                        <div id="forgot-pass-modal" class="modal fade forgot-pass-mdl" role="dialog">
+                            <div class="modal-dialog modal-dia-div">
+                                <div class="modal-content modal-content-div">
+                                    <div class="modal-content-wrapper">
+                                        <div class="modal-header modal-header-div">
+                                            <button type="button" class="close close-div-mdl" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title modal-title-div">Forgot password!</h4>
+                                            <p class="div-sub-title">This is auto generated system, kindly change your password after.</p>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="input-group div-ig-forgot">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-random"></i></span>
+                                                <input type="text" name="" class="form-control forgot-txtbox" required>
+                                                <span class="forgot-txtbox-border"></span>  
+                                                <label class="label-txt">Email address</label>
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-warning text-center div-alert-reset"></div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default btn-back-login">Login</button>
+                                            <button type="button" class="btn btn-default btn-reset-pass">Reset password</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>

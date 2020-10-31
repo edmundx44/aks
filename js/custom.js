@@ -5,15 +5,20 @@ $(document).ready(function(){
 	var dday = (D.getDate() < 10) ? "0"+D.getDate() : D.getDate();
 	var strDate = dmonth + "/" + D.getDate() + "/" + D.getFullYear();
 	var timeStampData = D.getFullYear() + '-' + dmonth + '-' + dday;
-
+	var url = window.location.href;
+	
 	$('.alog-date').val(strDate);
 	var getUserName = $('.sbp-user').text();
 		if(getUserName != ''){
-			displayChangeLog();
 			displayIcon();
-			displayOffers();
-			displayChecksumData(timeStampData);
-			displayRunAndSuccess();
+			if( url.match(/checker/) || url.match(/utilities/)){
+				// alert('cheker this')
+			}else{
+				displayChangeLog();
+				displayOffers();
+				displayChecksumData(timeStampData);
+				displayRunAndSuccess();
+			}
 		}
 
 		
