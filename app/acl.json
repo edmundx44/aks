@@ -10,6 +10,7 @@
     },
     "User" : ["logout"],
     "Dashboard" : ["*"],
-    "Checksum" : ["*"]
+    "Checker": ["*"],
+    "Utilities": ["*"]
   }
 }

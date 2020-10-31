@@ -23,7 +23,7 @@ class Ajax {
                 ( `inputID`, `inputDate`, `inputAuthor`, `inputMessage`) 
                 VALUES 
                 ( '$inputID', '$inputDate', '$inputAuthor', '$inputMessage')";
-                return $db->query($sql) ?  'success' :  'fail';;
+                return $db->query($sql) ?  'success' :  'fail';
             break;
 
             case 'displayAddChangeLogAction':
@@ -166,6 +166,43 @@ class Ajax {
                 
                 return $getInput->get('store_receive');
                 
+            break;
+            case 'testLoopAction':
+                $merchantNi1 = file_get_contents(ROOT . DS . 'app' . DS . 'sample.json');
+                $testarr1 = json_decode($merchantNi1, true);
+
+                foreach ($testarr1 as $product) {
+                    $price = $product['price'];
+                    $stock = $product['stock'];
+                    $gName = $product['name'];
+                    $link = $product['link'];
+
+                    $checkExist = "select * from `aks_bot_teamph`.`tblCheckUpdate` where `gameName` = '$gName'";
+                    $checkExistResult = $db->query($checkExist)->count();
+
+                    if($checkExistResult >= 1) {
+                        $checkprice = "select `price` from `aks_bot_teamph`.`tblCheckUpdate` where `gameName` = '$gName'";
+                        $checkpriceResult = $db->query($checkprice)->first();
+                        $gprice = $checkpriceResult->price;
+                        if($gprice != $price) {
+                            $sql = "UPDATE `aks_bot_teamph`.`tblCheckUpdate`
+                                    SET `price` = '$price', `action` = 'UPDATED'
+                                    WHERE `gameName` = '$gName'";
+                            $run = $db->query($sql); 
+                            // $msg = 'e update ni'. " " . $price . " " . $gName; 
+                        }
+                    }else{
+                       $sql = "Insert INTO  `aks_bot_teamph`.`tblCheckUpdate` 
+                        ( `price`, `stock`, `gameName`, `link`, `action`) 
+                        VALUES 
+                        ( '$price', '$stock', '$gName', '$link', 'ADDED')";
+                        $run = $db->query($sql); 
+                        // $msg = 'added';
+                    }
+
+
+                }
+                // return $msg;
             break;
 
             default:
