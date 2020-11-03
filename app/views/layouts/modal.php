@@ -42,11 +42,10 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h5 class="modal-title dateChange">CHECKSUM 
                     <?php 
-                        date_default_timezone_set("Asia/Manila");
                         echo "(PH:". $today = date('M d',strtotime(date('M d'))).")";
                     ?>
                 </h5>
-                <div class="div-inputDate"><input type="text" value="<?= date('Y-m-d') ?>" class="chk-inputDate" placeholder="YYYY-MM-DD" maxlength="10"onkeypress="return isNumber(event)"></div>
+                <div class="div-inputDate"><input type="text" value="<?=date('Y-m-d')?>" data-phDate='<?=date('Y-m-d')?>' data-year='<?=date('Y')?>' class="chk-inputDate" placeholder="YYYY-MM-DD" maxlength="10"onkeypress="return isNumber(event)"></div>
             </div>
             <div class="modal-body">
                 <div class="modal-checksum-data">
@@ -66,7 +65,7 @@
                                     $id = $key['merchant_id'];
                                         if(array_key_exists($id, $this->countPerDayChecksum)){
                                             ?>
-                                                <tr>
+                                                <tr class="getCount" data-count="<?= $this->countPerDayChecksum[$id]['count'] ?>">
                                                     <td class="tbody-td-1"><?= strtoupper($key['merchant_name'])." (".$key['merchant_id'].")"; ?></td>
                                                     <td class="tbody-td-2"><?= $key['checksum_data'] ?></td>
                                                     <td class="tbody-td-3"><?= $this->formatFulltime($key['lastupdate']); ?></td>
@@ -75,7 +74,7 @@
                                             <?php
                                         }else{
                                             ?>
-                                                <tr>
+                                                <tr class="getCount" data-count="0">
                                                     <td class="tbody-td-1"><?= strtoupper($key['merchant_name'])." (".$key['merchant_id'].")"; ?></td>
                                                     <td class="tbody-td-2"><?= $key['checksum_data'] ?></td>
                                                     <td class="tbody-td-3"><?= $this->formatFulltime($key['lastupdate']); ?></td>
@@ -172,31 +171,3 @@
 
     </div>
 </div>
-
-<!-- forgot password Modal -->
-                        <div id="forgot-pass-modal" class="modal fade forgot-pass-mdl" role="dialog">
-                            <div class="modal-dialog modal-dia-div">
-                                <div class="modal-content modal-content-div">
-                                    <div class="modal-content-wrapper">
-                                        <div class="modal-header modal-header-div">
-                                            <button type="button" class="close close-div-mdl" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title modal-title-div">Forgot password!</h4>
-                                            <p class="div-sub-title">This is auto generated system, kindly change your password after.</p>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="input-group div-ig-forgot">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-random"></i></span>
-                                                <input type="text" name="" class="form-control forgot-txtbox" required>
-                                                <span class="forgot-txtbox-border"></span>  
-                                                <label class="label-txt">Email address</label>
-                                            </div>
-                                        </div>
-                                        <div class="alert alert-warning text-center div-alert-reset"></div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default btn-back-login">Login</button>
-                                            <button type="button" class="btn btn-default btn-reset-pass">Reset password</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>

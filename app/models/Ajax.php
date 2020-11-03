@@ -64,81 +64,91 @@ class Ajax {
 
                 if (isset($dateNow) && $dateNow != NULL) {
                     $dateTime = $dateNow; //from ajax
+                    $dateTime = date('Y-m-d',strtotime($dateTime));
                 }else{
                     $dateTime = date('Y-m-d');
                 }
-                
+
                 $arr = file_get_contents( ROOT . DS . 'app' . DS .'getStores.json');
                 $getStores = json_decode($arr, true);
 
                 $sql = "SELECT * FROM `aks_bot_teamph`.`aks_checksum` 
-                        WHERE id IN ( SELECT MAX(id) FROM `aks_bot_teamph`.`aks_checksum` WHERE checksum_site = 'aks' GROUP BY merchant_id) 
+                        WHERE id IN ( SELECT MAX(id) FROM `aks_bot_teamph`.`aks_checksum` 
+                        WHERE checksum_site = 'aks' AND date(lastupdate) = '$dateTime' GROUP BY merchant_id) 
                         ORDER BY lastupdate DESC";//local
-                $sql1 = "SELECT COUNT(id) as 'Updatedcount',merchant_id, lastupdate 
-                        FROM `aks_bot_teamph`.`aks_checksum` 
-                        WHERE date(lastupdate) = '$dateTime' AND checksum_site = 'aks'
-                        GROUP BY merchant_id ORDER BY lastupdate";
+                $sql1 = "SELECT COUNT(id) as 'Updatedcount',merchant_id 
+                        FROM `aks_bot_teamph`.`aks_checksum` WHERE checksum_site = 'aks' AND date(lastupdate) = '$dateTime'
+                        GROUP BY merchant_id";
 
                 $resultCheksum = $db->query($sql)->results(); //1st query
-                $newChecksumDisplayByDate = array();
-
                 $objArray = $db->query($sql1); //2nd query
-                $newArray =array();
-                $mergeResult = array();
 
-                //sql result 
-                foreach($objArray->results() as $key => $value){
-                    if(!array_key_exists($value->merchant_id, $newArray))
-                        $id = $value->merchant_id;
-                    if(isset($id)){
-                        $newArray[$id]=array(
-                            'count' => $value->Updatedcount,
-                            'lastupdate' => $value->lastupdate
-                        );
-                    } 
-                            
-                }
+                if($db->query($sql1) == TRUE)
+                {
+                    $newChecksumDisplayByDate = array();
+                    $newArray =array();
+                    $mergeResult = array();
 
-                //sql 1 result 
-                foreach ($resultCheksum as $key) {
-                   if(array_key_exists($key->merchant_id, $getStores)){
-                        $newChecksumDisplayByDate[] = array(
-                            'id' => $key->id,
-                            'merchant_id' => $key->merchant_id,
-                            'merchant_name' => $getStores[$key->merchant_id],
-                            'checksum_data' => $key->checksum_data,
-                            'checksum_site' => $key->checksum_site,
-                            'lastupdate' => $key->lastupdate
-                        );
-                   }
-                }
-                //return $newChecksumDisplayByDate;
-                //final result combine sql and sql1 with count
-                foreach ($newChecksumDisplayByDate as $key) {
-                    if (array_key_exists($key['merchant_id'], $newArray)) {
-                            $mergeResult[] =array(
-                            'id' => $key['id'],
-                            'merchant_id' => $key['merchant_id'],
-                            'merchant_name' => $key['merchant_name'],
-                            'checksum_data' => $key['checksum_data'],
-                            'checksum_site' => $key['checksum_site'],
-                            'lastupdate' => $newArray[$key['merchant_id']]['lastupdate'],
-                            'count' => $newArray[$key['merchant_id']]['count']
-                        );
-                    }else{
-                        $mergeResult[] =array(
-                            'id' => $key['id'],
-                            'merchant_id' => $key['merchant_id'],
-                            'merchant_name' => $key['merchant_name'],
-                            'checksum_data' => $key['checksum_data'],
-                            'checksum_site' => $key['checksum_site'],
-                            'lastupdate' => $key['lastupdate'],
-                            'count' => 0
-                        );
+                    //sql result 
+                    foreach($objArray->results() as $key => $value){
+                        if(!array_key_exists($value->merchant_id, $newArray))
+                            $id = $value->merchant_id;
+                        if(isset($id)){
+                            $newArray[$id]=array(
+                                'count' => $value->Updatedcount,
+                                'merchant_id' => $value->merchant_id
+                            );
+                        } 
+                                
                     }
-                }
+                
+                //return $newArray;
+                    //sql 1 result 
+                    foreach ($resultCheksum as $key) {
+                       if(array_key_exists($key->merchant_id, $getStores)){
+                            $newChecksumDisplayByDate[] = array(
+                                'id' => $key->id,
+                                'merchant_id' => $key->merchant_id,
+                                'merchant_name' => $getStores[$key->merchant_id],
+                                'checksum_data' => $key->checksum_data,
+                                'checksum_site' => $key->checksum_site,
+                                'lastupdate' => $key->lastupdate
+                            );
+                       }
+                    }
+                    //return $newChecksumDisplayByDate;
+                    //final result combine sql and sql1 with count
+                    foreach ($newChecksumDisplayByDate as $key) {
+                        if (array_key_exists($key['merchant_id'], $newArray)) {
+                                $mergeResult[] =array(
+                                'id' => $key['id'],
+                                'merchant_id' => $key['merchant_id'],
+                                'merchant_name' => $key['merchant_name'],
+                                'checksum_data' => $key['checksum_data'],
+                                'checksum_site' => $key['checksum_site'],
+                                'lastupdate' => date('M d Y h:i A',strtotime($key['lastupdate'])),
+                                'count' => $newArray[$key['merchant_id']]['count']
+                            );
+                        }else{
 
-                return $mergeResult;
+                            $mergeResult[] =array(
+                                'id' => $key['id'],
+                                'merchant_id' => $key['merchant_id'],
+                                'merchant_name' => $key['merchant_name'],
+                                'checksum_data' => $key['checksum_data'],
+                                'checksum_site' => $key['checksum_site'],
+                                'lastupdate' => date('M d Y h:i A',strtotime($key['lastupdate'])),
+                                'count' => 0
+                            );
+                        }
+                    }
+                    $returnResult['success']= array(
+                        'data' => $mergeResult,
+                        'timePh' => date('Y-m-d')
+                    );
+                    return $returnResult;
+                }else
+                    return 'Fail';
 
             break;
 

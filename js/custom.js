@@ -94,12 +94,28 @@ $(document).ready(function(){
 
 	$(document).on('keypress', '.chk-inputDate' ,function(e){
 		let $dateInput = $('.chk-inputDate').val();
-		
+		var yearToday = $('.chk-inputDate').data('year');
 		if(e.which == 13) {
-			if($dateInput.length === 10)
-				displayChecksumModal($dateInput);
+			if($dateInput.length === 10){
+				var inputMatch = $dateInput.match(/(^\d+)-(\d+)-(\d+)/);
+				if(inputMatch == null){
+					inputMatch = '';
+				}else{
+					var yyyy = inputMatch[1];
+					var mm = inputMatch[2];
+					var dd = inputMatch[3];
+				}
+				if($dateInput[4] === '-' && $dateInput[7] === '-' && $dateInput[4] != null && $dateInput[7] != null){
+					if(yyyy >= 2020 && yyyy <= yearToday && mm != 0 && mm <= 12 && dd != 0 && dd <= 31){
+							var $combine = yyyy+'-'+mm+'-'+dd;
+							displayChecksumModal($combine);
+					}else
+						alert('CHECK YOUR DATE INPUT');
+				}else
+					alert('Dont remove the Hyphen');	
+			}
 			else
-				alert('CHECK YOUR DATE INPUT');
+				alert('Lenth of the date in not equal to max set length');
 		}
 	});
 	
@@ -126,9 +142,9 @@ function displayOffers($timeStampData) {
 	var minusTwoday = 2;
 	var minusThreeday = 3;
 	    
-	var onedayAgo = getDate($timeStampData,minusOneday);
-	var twodayAgo = getDate($timeStampData,minusTwoday);
-	var threedayAgo =getDate($timeStampData,minusThreeday);
+	var onedayAgo = getDateMinus($timeStampData,minusOneday);
+	var twodayAgo = getDateMinus($timeStampData,minusTwoday);
+	var threedayAgo =getDateMinus($timeStampData,minusThreeday);
 
 	$.ajax({
 		url : '/akss/dashboard/index',
@@ -428,37 +444,43 @@ function displayChecksumModal($dateInput){
 		},
 		success:function(data){
 			//console.log(data);
-			for(var i in data){
-				if(data[i].count != 0){
+			var result = data.success.data;
+			for(var i in result){
+				if(result[i].count != 0){
 					var append =  "<tr class='getCount'>";
-						append += 	'<td class="tbody-td-1">'+data[i].merchant_name+'('+data[i].merchant_id+')</td>';
-						append += 	'<td class="tbody-td-2">'+data[i].checksum_data+'</td>';
-						append += 	'<td class="tbody-td-3">'+data[i].lastupdate+'</td>';
-						append += 	'<td class="tbody-td-1 text-center">'+data[i].count+'</td>';
+						append += 	'<td class="tbody-td-1">'+result[i].merchant_name+'('+result[i].merchant_id+')</td>';
+						append += 	'<td class="tbody-td-2">'+result[i].checksum_data+'</td>';
+						append += 	'<td class="tbody-td-3">'+result[i].lastupdate+'</td>';
+						append += 	'<td class="tbody-td-1 text-center">'+result[i].count+'</td>';
 						append += "</tr>";
 					$(".table-checksum .checksum-body").append(append);
 				}
 			}
 			
 		},
-		complete:function(){
-			$('.dateChange').text('CHECKSUM ('+monthR+' '+dayR+')');
-		}
 	});
 }
 
-function getDate($timeStampData,daysMinusOrAdd){
+	/*** Minus Date ***/
+	function getDateMinus($timeStampData,daysMinus){
 		var dateString = $timeStampData;
 		var date1 = new Date(dateString);
-		var daysPrior = daysMinusOrAdd;
-		date1.setDate(date1.getDate() - daysPrior);
+		date1.setDate(date1.getDate() - daysMinus);
 			
 		var dateResult = date1.toISOString();
 		var matchDate = dateResult.match(/(^\d+\S\d+\S\d+)T/);
 		return matchDate[1];
-
 	}
-
+	/*** Add Date ***/
+	function getDateAdd($timeStampData,daysAdd){
+		var dateString = $timeStampData;
+		var date1 = new Date(dateString);
+		date1.setDate(date1.getDate() + daysAdd);
+			
+		var dateResult = date1.toISOString();
+		var matchDate = dateResult.match(/(^\d+\S\d+\S\d+)T/);
+		return matchDate[1];
+	}
 	/*** Return Numbers only ***/
     function isNumber(evt) {
         evt = (evt) ? evt : window.event; //same result
