@@ -1,5 +1,7 @@
 <?php
  
+  date_default_timezone_set("Asia/Manila"); //set time
+
   use Core\Session;
   use Core\Cookie;
   use Core\Router;

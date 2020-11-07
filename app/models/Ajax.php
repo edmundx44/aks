@@ -16,7 +16,7 @@ class Ajax {
 
                 $inputID = $getInput->get('inputID');
                 $inputDate = $getInput->get('inputDate');
-                $inputAuthor = ucfirst(Users::currentUser()->fname);
+                $inputAuthor =  ucfirst($_SESSION['username']);
                 $inputMessage = $getInput->get('inputMessage');
 
                 $sql = "Insert INTO  `aks_bot_teamph`.`tblAddChangeLog` 
@@ -35,14 +35,15 @@ class Ajax {
             case 'displayCheckSumAction':
                 //$dateNow = $getInput->get('dateNow'); //from ajax
                 $dateTime = date('Y-m-d');
+                $checksumSite = $getInput->get('checksumSite');
 
                 $arr = file_get_contents( ROOT . DS . 'app' . DS .'getStores.json');
                 $getStores = json_decode($arr, true);
 
                 $sql = "SELECT COUNT(id) AS 'dataID', merchant_id 
                         FROM `aks_bot_teamph`.aks_checksum 
-                        WHERE date(`lastupdate`) = '$dateTime' AND checksum_site = 'aks' 
-                        GROUP BY merchant_id limit 10";//local
+                        WHERE date(`lastupdate`) = '$dateTime' AND checksum_site = '$checksumSite' 
+                        GROUP BY merchant_id ORDER BY dataID DESC limit 10";//local
                 $resultCheksum = $db->query($sql)->results();
                 $newChecksumDisplay = array();
 
@@ -56,35 +57,33 @@ class Ajax {
                    }
                 }
                 return $newChecksumDisplay;
-
             break;
 
-            case 'displayChecksumUsingDateSend':
+            case 'displayChecksumUsingDateSend': //it used date //toggle site
                 $dateNow = $getInput->get('getDateInput');
+                $getWebsite = $getInput->get('getWebsite');
 
                 if (isset($dateNow) && $dateNow != NULL) {
                     $dateTime = $dateNow; //from ajax
                     $dateTime = date('Y-m-d',strtotime($dateTime));
-                }else{
+                }else
                     $dateTime = date('Y-m-d');
-                }
-
+            
                 $arr = file_get_contents( ROOT . DS . 'app' . DS .'getStores.json');
                 $getStores = json_decode($arr, true);
 
                 $sql = "SELECT * FROM `aks_bot_teamph`.`aks_checksum` 
                         WHERE id IN ( SELECT MAX(id) FROM `aks_bot_teamph`.`aks_checksum` 
-                        WHERE checksum_site = 'aks' AND date(lastupdate) = '$dateTime' GROUP BY merchant_id) 
+                        WHERE checksum_site = '$getWebsite' AND date(lastupdate) = '$dateTime' GROUP BY merchant_id) 
                         ORDER BY lastupdate DESC";//local
-                $sql1 = "SELECT COUNT(id) as 'Updatedcount',merchant_id 
-                        FROM `aks_bot_teamph`.`aks_checksum` WHERE checksum_site = 'aks' AND date(lastupdate) = '$dateTime'
+                $sql1= "SELECT COUNT(id) as 'Updatedcount',merchant_id FROM `aks_bot_teamph`.`aks_checksum` 
+                        WHERE checksum_site = '$getWebsite' AND date(lastupdate) = '$dateTime'
                         GROUP BY merchant_id";
 
                 $resultCheksum = $db->query($sql)->results(); //1st query
                 $objArray = $db->query($sql1); //2nd query
 
-                if($db->query($sql1) == TRUE)
-                {
+                if($objArray){
                     $newChecksumDisplayByDate = array();
                     $newArray =array();
                     $mergeResult = array();
@@ -98,11 +97,8 @@ class Ajax {
                                 'count' => $value->Updatedcount,
                                 'merchant_id' => $value->merchant_id
                             );
-                        } 
-                                
+                        }          
                     }
-                
-                //return $newArray;
                     //sql 1 result 
                     foreach ($resultCheksum as $key) {
                        if(array_key_exists($key->merchant_id, $getStores)){
@@ -116,7 +112,6 @@ class Ajax {
                             );
                        }
                     }
-                    //return $newChecksumDisplayByDate;
                     //final result combine sql and sql1 with count
                     foreach ($newChecksumDisplayByDate as $key) {
                         if (array_key_exists($key['merchant_id'], $newArray)) {
@@ -129,26 +124,91 @@ class Ajax {
                                 'lastupdate' => date('M d Y h:i A',strtotime($key['lastupdate'])),
                                 'count' => $newArray[$key['merchant_id']]['count']
                             );
-                        }else{
-
-                            $mergeResult[] =array(
-                                'id' => $key['id'],
-                                'merchant_id' => $key['merchant_id'],
-                                'merchant_name' => $key['merchant_name'],
-                                'checksum_data' => $key['checksum_data'],
-                                'checksum_site' => $key['checksum_site'],
-                                'lastupdate' => date('M d Y h:i A',strtotime($key['lastupdate'])),
-                                'count' => 0
-                            );
                         }
                     }
                     $returnResult['success']= array(
                         'data' => $mergeResult,
-                        'timePh' => date('Y-m-d')
+                        'currentPhTime' => date('Y-m-d'),
+                        'dateSent' => $dateNow,
+                        'websiteSent' => $getWebsite
                     );
                     return $returnResult;
                 }else
                     return 'Fail';
+            break;
+
+            case 'displayChecksumUsingToggleSiteOnly': //toggle site
+                $getWebsite = $getInput->get('getWebsiteSent'); 
+                $dateNow1 = date('Y-m-d');           
+                $checkStores = file_get_contents( ROOT . DS . 'app' . DS .'getStores.json');
+                $getStores = json_decode($checkStores, true);
+
+                $sql1 = "SELECT * FROM `aks_bot_teamph`.`aks_checksum` 
+                        WHERE id IN ( SELECT MAX(id) FROM `aks_bot_teamph`.`aks_checksum` 
+                        WHERE checksum_site = '$getWebsite' GROUP BY merchant_id) 
+                        ORDER BY lastupdate DESC";
+                $sql2= "SELECT COUNT(id) as 'countToday',merchant_id FROM `aks_bot_teamph`.`aks_checksum` 
+                        WHERE checksum_site = '$getWebsite' AND date(lastupdate) = '$dateNow1'
+                        GROUP BY merchant_id";
+
+                $resultFirstQuery = $db->query($sql1)->results(); //1st query
+                $resultSecondQuery = $db->query($sql2)->results();; //2nd query
+
+                $newChecksumDisplayBySite= array();
+                $newArray1 =array();
+                $mergeResult1 = array();
+
+                foreach($resultSecondQuery as $key => $value){
+                    if(!array_key_exists($value->merchant_id, $newArray1))
+                        $id1 = $value->merchant_id;
+                    if(isset($id1)){
+                        $newArray1[$id1]=array(
+                            'count' => $value->countToday,
+                            'merchant_id' => $value->merchant_id
+                        );
+                    }          
+                }
+                foreach ($resultFirstQuery as $key) {
+                    if(array_key_exists($key->merchant_id, $getStores)){
+                        $newChecksumDisplayBySite[] = array(
+                            'id' => $key->id,
+                            'merchant_id' => $key->merchant_id,
+                            'merchant_name' => $getStores[$key->merchant_id],
+                            'checksum_data' => $key->checksum_data,
+                            'checksum_site' => $key->checksum_site,
+                            'lastupdate' => $key->lastupdate
+                        );
+                    }
+                }
+                //final result combine sql and sql1 with count
+                foreach ($newChecksumDisplayBySite as $key) {
+                    if (array_key_exists($key['merchant_id'], $newArray1)) {
+                        $mergeResult1[] =array(
+                            'id' => $key['id'],
+                            'merchant_id' => $key['merchant_id'],
+                            'merchant_name' => $key['merchant_name'],
+                            'checksum_data' => $key['checksum_data'],
+                            'checksum_site' => $key['checksum_site'],
+                            'lastupdate' => date('M d Y h:i A',strtotime($key['lastupdate'])),
+                            'count' => $newArray1[$key['merchant_id']]['count']
+                        );
+                    }else{
+                        $mergeResult1[] =array(
+                            'id' => $key['id'],
+                            'merchant_id' => $key['merchant_id'],
+                            'merchant_name' => $key['merchant_name'],
+                            'checksum_data' => $key['checksum_data'],
+                            'checksum_site' => $key['checksum_site'],
+                            'lastupdate' => date('M d Y h:i A',strtotime($key['lastupdate'])),
+                            'count' => 0
+                        );
+                    }
+                }
+                    $returnData['success']= array(
+                        'data' => $mergeResult1,
+                        'currentPhTime' => $dateNow1
+                    );
+                return $returnData;
 
             break;
 

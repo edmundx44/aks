@@ -1,3 +1,5 @@
+let myChart;
+
 $(document).ready(function(){
 
 	var D = new Date();
@@ -14,10 +16,12 @@ $(document).ready(function(){
 			if( url.match(/checker/) || url.match(/utilities/)){
 				// alert('cheker this')
 			}else{
+				displayChart();
+				displayIcon();
 				displayChangeLog();
 				displayOffers(timeStampData);
-				displayChecksumData(timeStampData);
 				displayRunAndSuccess();
+				displayChecksumData(timeStampData,'aks');
 			}
 		}
 
@@ -95,6 +99,8 @@ $(document).ready(function(){
 	$(document).on('keypress', '.chk-inputDate' ,function(e){
 		let $dateInput = $('.chk-inputDate').val();
 		var yearToday = $('.chk-inputDate').data('year');
+		var website = $('#modal-checksum-site').attr('data-modal-checksumsite');
+
 		if(e.which == 13) {
 			if($dateInput.length === 10){
 				var inputMatch = $dateInput.match(/(^\d+)-(\d+)-(\d+)/);
@@ -108,7 +114,7 @@ $(document).ready(function(){
 				if($dateInput[4] === '-' && $dateInput[7] === '-' && $dateInput[4] != null && $dateInput[7] != null){
 					if(yyyy >= 2020 && yyyy <= yearToday && mm != 0 && mm <= 12 && dd != 0 && dd <= 31){
 							var $combine = yyyy+'-'+mm+'-'+dd;
-							displayChecksumModal($combine);
+							displayChecksumModal($combine,website);
 					}else
 						alert('CHECK YOUR DATE INPUT');
 				}else
@@ -116,6 +122,36 @@ $(document).ready(function(){
 			}
 			else
 				alert('Lenth of the date in not equal to max set length');
+		}
+	});
+
+	$(document).on('click', '.chart-btn', function(){
+		$('#checksum-chart').attr('disabled','disabled');
+		if ($(this).attr('data-site') == 'aks'){
+			displayChecksumData(timeStampData,'cdd');
+		}else{
+			displayChecksumData(timeStampData,'aks');
+		}
+	});
+		
+	$(document).on('click', '#modal-checksum-site', function(){
+		$('#modal-checksum-site').attr('disabled','disabled');
+		if ($(this).attr('data-modal-checksumsite') == 'aks'){
+			$(this).removeClass('btn-success').addClass('btn-warning');
+			$(this).removeAttr('data-modal-checksumsite')
+			$(this).attr('data-modal-checksumsite','cdd');
+			$(this).val('CDD');
+			displayChecksumModalToggleSite('cdd');
+			//alert($('.modal-checksum-site').attr('data-modal-checksumsite'))
+		}else if($(this).attr('data-modal-checksumsite') == 'cdd'){
+			$(this).removeClass('btn-warning').addClass('btn-success');
+			$(this).removeAttr('data-modal-checksumsite')
+			$(this).attr('data-modal-checksumsite','aks');
+			$(this).val('AKS');
+			displayChecksumModalToggleSite('aks');
+			//alert($('.modal-checksum-site').attr('data-modal-checksumsite'))
+		}else{
+			alert('VALID INFORMATION');
 		}
 	});
 	
@@ -187,7 +223,7 @@ function displayOffers($timeStampData) {
 	});
 }
 
-function displayChecksumData($dateNow){
+function displayChecksumData($dateNow,$checksumSite){
 	var label = [];
 	var dataID = []
 	$.ajax({
@@ -195,23 +231,37 @@ function displayChecksumData($dateNow){
 		type: "POST",
 		data : {
 			action: 'displayCheckSumAction',
-			dateNow: $dateNow
+			dateNow: $dateNow,
+			checksumSite: $checksumSite
 		},
 		success : function(data){
+			// console.log(data)
 			for (var i in data){
-				// if(data[i].dataID != 1){
-					label.push(data[i].merchant_id)
-					dataID.push(data[i].dataID)
-				//}
+				label.push(data[i].merchant_name)
+				dataID.push(data[i].dataID)	
+			}
+			if($checksumSite == 'aks'){
+				$('#checksum-chart').removeClass('btn-warning').addClass('btn-success');
+				$('#checksum-chart').val('AKS');
+				$('#checksum-chart').attr('data-site','aks');
+			}
+			else{
+				$('#checksum-chart').removeClass('btn-success').addClass('btn-warning');
+				$('#checksum-chart').val('CDD');
+				$('#checksum-chart').attr('data-site','cdd');
 			}
 		},
 		complete : function(){
-			displayChart(label, dataID)
+			$('#checksum-chart').removeAttr('disabled');
+			$('#checksum-chart').show();
+			myChart.data.labels = label;
+			myChart.data.datasets[0].data = dataID;
+			myChart.update();
 		}
 	});
 }
 
-function displayChart($merchant, $checksumUpdate){
+function displayChart(){
 	var ctx = document.getElementById('myChart').getContext('2d');
 	var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
 		gradientStroke.addColorStop(0, 	'#f6c23e');
@@ -223,81 +273,82 @@ function displayChart($merchant, $checksumUpdate){
 		gradientFill.addColorStop(0.2, 	"rgba(76,175,80, 0.3)");
 		gradientFill.addColorStop(1, 	"rgba(63,81,181, 0.3)");
 
-	var label = $merchant;
-	var dataset = [{
-		label: 'MOST UPDATES',
-		data: $checksumUpdate, // value gikan database
-		backgroundColor: gradientFill,
-		borderColor: gradientStroke,
-		pointBorderColor: gradientStroke,
-		pointBackgroundColor: gradientStroke,
-		pointHoverBackgroundColor: gradientStroke,
-		pointHoverBorderColor: gradientStroke,
-		pointBorderWidth: 10,
-		pointHoverRadius: 10,
-		pointHoverBorderWidth: 1,
-		pointRadius: 2,
-		fill: false,
-		borderWidth: 1,
-	}];
-
-	var datas = {
-		labels: label,
-		datasets: dataset
-	}
-	var option = {
-		hover: {
-			onHover: function(e) {
-				var point = this.getElementAtEvent(e);
-				if (point.length) e.target.style.cursor = 'pointer';
-				else e.target.style.cursor = 'default';
-			}
-		},
-		responsive: true,
-		legend: {
-			display: true,
-			labels: {
-				fontColor: '#3f51b5',
-				fontStyle: "bold",
-			},
-			onHover: function(e) {
-				e.target.style.cursor = 'pointer';
-			}
-		},
-		scales: {
-			yAxes: [{
-				ticks: {
-					beginAtZero: true,
-					padding: 20
-				},
-				stacked: true,
-				gridLines: {
-					display: false,
-					// color: "rgba(0,0,255, .2)"
-				}
-			}],
-			xAxes: [{
-				ticks: {
-					beginAtZero: true,
-					fontStyle: "bold",
-					padding: 20
-				},
-				stacked: true,
-				gridLines: {
-					drawTicks: false,
-					zeroLineColor: "transparent",
-					display: true,
-					color: "rgba(255,64,64, .2)"
-				}
-			}]
-		}
-	};
 
 	// output
-	var myChart = new Chart(ctx, {
+	 	myChart = new Chart(ctx, {
 		type: 'bar',
-		data: datas,
-		options: option
+		data: {
+			datasets: [{
+				label: 'MOST UPDATES',
+				backgroundColor: gradientFill,
+				borderColor: gradientStroke,
+				pointBorderColor: gradientStroke,
+				pointBackgroundColor: gradientStroke,
+				pointHoverBackgroundColor: gradientStroke,
+				pointHoverBorderColor: gradientStroke,
+				pointBorderWidth: 10,
+				pointHoverRadius: 10,
+				pointHoverBorderWidth: 1,
+				pointRadius: 2,
+				fill: false,
+				borderWidth: 1,
+			}]
+		},
+		options: {
+			hover: {
+				onHover: function(e) {
+					var point = this.getElementAtEvent(e);
+					if (point.length) e.target.style.cursor = 'pointer';
+					else e.target.style.cursor = 'default';
+				}
+			},
+			responsive: true,
+			legend: {
+				display: true,
+				labels: {
+					fontColor: '#3f51b5',
+					fontStyle: "bold",
+				},
+				onHover: function(e) {
+					e.target.style.cursor = 'pointer';
+				}
+			},
+			title: {
+				display: true,
+				text: ['Checksum'],
+				position: 'top',
+				fontfamily: "'Raleway', sans-serif",
+				fontSize: '14',
+				fontColor: '#6b6d70',
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						padding: 20
+					},
+					stacked: true,
+					gridLines: {
+						display: false,
+						// color: "rgba(0,0,255, .2)"
+					}
+				}],
+				xAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontStyle: "bold",
+						padding: 20
+					},
+					stacked: true,
+					gridLines: {
+						drawTicks: false,
+						zeroLineColor: "transparent",
+						display: true,
+						color: "rgba(255,64,64, .2)"
+					}
+				}]
+			}
+		}
 	});
 }
 
@@ -324,7 +375,7 @@ function displayReportChart($data){
 	var ctx = document.getElementById('reportChart').getContext('2d');
 	var label = ['Fail', 'Success'];
 	var dataset = [{
-		label: '# of Votes',
+		label: '# of Votesaw',
 		data: $data, // value gikan database
 		backgroundColor: [
 			'rgba(255, 99, 132, 0.7)',
@@ -354,20 +405,19 @@ function displayReportChart($data){
 		options: {
 			responsive: true,
 			legend: {
-				display: false,
-				labels: {
-					// fontColor: '#ffff'
-			},
-			position: 'left',
-				onHover: function(e) {
-					e.target.style.cursor = 'pointer';
-				}
+				display: true,
+				position: 'top',
+					onHover: function(e) {
+						e.target.style.cursor = 'pointer';
+					}
 			},
 			title: {
 				display: true,
+				text: ['Feed Bot Runtime'],
+				position: 'top',
+				fontfamily: "'Raleway', sans-serif",
+				fontSize: '14',
 				fontColor: '#6b6d70',
-				text: ['Charts report everyday', 'R e d - F a i l', 'G r e e n - S u c c e s s'],
-				position: 'right'
 			},
 			scale: {
 				ticks: {
@@ -430,7 +480,7 @@ function displayChangeLog(){
 		});
 	}
 
-function displayChecksumModal($dateInput){
+function displayChecksumModal($dateInput,$website){
 	$(".table-checksum .checksum-body").empty();
 	var container = $dateInput.match(/^\d+-(\d+)-(\d+)/);
 	var monthR = container[1];
@@ -440,7 +490,8 @@ function displayChecksumModal($dateInput){
 		type: "POST",
 			data : {
 			action: 'displayChecksumUsingDateSend',
-			getDateInput: $dateInput
+			getDateInput: $dateInput,
+			getWebsite: $website
 		},
 		success:function(data){
 			//console.log(data);
@@ -458,6 +509,36 @@ function displayChecksumModal($dateInput){
 			}
 			
 		},
+	});
+}
+
+function displayChecksumModalToggleSite($website){
+	$(".table-checksum .checksum-body").empty();
+	$.ajax({
+		url : '/akss/dashboard/index',
+		type: "POST",
+			data : {
+			action: 'displayChecksumUsingToggleSiteOnly',
+			getWebsiteSent: $website
+		},
+		success:function(data){
+			//console.log(data);
+			var result = data.success.data;
+			for(var i in result){
+				var append =  "<tr class='getCount'>";
+					append += 	'<td class="tbody-td-1">'+result[i].merchant_name+'('+result[i].merchant_id+')</td>';
+					append += 	'<td class="tbody-td-2">'+result[i].checksum_data+'</td>';
+					append += 	'<td class="tbody-td-3">'+result[i].lastupdate+'</td>';
+					append += 	'<td class="tbody-td-1 text-center">'+result[i].count+'</td>';
+					append += "</tr>";
+				$(".table-checksum .checksum-body").append(append);
+			}
+			$('.chk-inputDate').val('');//it causes error same attri if you dont empty 1st
+			$('.chk-inputDate').val(data.success.currentPhTime);//back to original date
+		},
+		complete:function(){
+			$('#modal-checksum-site').removeAttr('disabled');
+		}
 	});
 }
 

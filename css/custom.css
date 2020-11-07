@@ -731,3 +731,22 @@ html, body {
     border-bottom: 2px solid silver;
     outline: none;
 }
+
+#checksum-chart{
+	border-radius: 50px;
+	display: none;
+}
+
+.mt-2{
+	margin-top: 20px;
+}
+
+.div-btn-checksum{
+	width: 40%;
+	margin-top: -10px !important;
+	padding: 5px 0 5px 0;
+	margin: 0 auto;
+}
+#modal-checksum-site{
+	border-radius: 50px;
+}
