@@ -45,7 +45,10 @@
                         echo "(PH:". $today = date('M d',strtotime(date('M d'))).")";
                     ?>
                 </h5>
-                <div class="div-inputDate"><input type="text" value="<?=date('Y-m-d')?>" data-phDate='<?=date('Y-m-d')?>' data-year='<?=date('Y')?>' class="chk-inputDate" placeholder="YYYY-MM-DD" maxlength="10"onkeypress="return isNumber(event)"></div>
+                <div class="div-inputDate">INPUT: <input type="text" value="<?=date('Y-m-d')?>" data-phDate='<?=date('Y-m-d')?>' data-year='<?=date('Y')?>' class="chk-inputDate" placeholder="YYYY-MM-DD" maxlength="10"onkeypress="return isNumber(event)"></div>
+            </div>
+            <div class="div-btn-checksum">
+                <input type="button" class="btn btn-success container-fluid-wrap" data-modal-checksumsite="aks" id="modal-checksum-site" value="AKS">
             </div>
             <div class="modal-body">
                 <div class="modal-checksum-data">
