@@ -174,3 +174,101 @@
 
     </div>
 </div>
+
+
+<!-- merchant add merchant Modal -->
+<div id="add-merchant-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dia-div">
+        <div class="modal-content modal-content-div">
+            <div class="modal-content-wrapper">
+                <div class="modal-header modal-header-div">
+                        <button type="button" class="close close-div-mdl" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title modal-title-div">ADD MERCHANT</h4>
+                        <p class="div-sub-title">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group div-ig-forgot">
+                                <span class="input-group-addon"><i class="fa fa-users" aria-hidden="true"></i></span>
+                                <input type="text" name="" class="form-control modal-txtbox txt-merchant-name" required>
+                                <label class="label-txt">Merchant Name</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group div-ig-forgot">
+                                <span class="input-group-addon"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
+                                <input type="text" name="" class="form-control modal-txtbox txt-merchant-id" required>
+                                <label class="label-txt">Merchant ID</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label class="add-code-label"><i class="fa fa-plus-circle" id="icon-add-code" aria-hidden="true"></i> &nbsp; <span>ADD CODE</span></label>
+                        </div>
+                        <div class="col-sm-12 txtarea-codes" >
+                            <textarea class="txt-merchant-code" style="text-align: left;">
+
+
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default btn-add-merchant">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- run merchant Modal -->
+<div id="run-merchant-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dia-div">
+        <div class="modal-content modal-content-div">
+            <div class="modal-content-wrapper">
+                <div class="modal-header modal-header-div">
+                        <button type="button" class="close close-div-mdl" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title modal-title-div">RUN MERCHANT</h4>
+                        <p class="div-sub-title">You about to run "<span class="title-run"></span>" click button to continue.</p>
+                        
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 txtarea-run-codes">
+                            <textarea class="txt-run-code" style="display: none;"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#testcode-merchant-modal">TEST CODE</button>
+                    <button type="button" class="btn btn-default">UPDATE</button>
+                    <button type="button" class="btn btn-success btn-run-merchant">RUN</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- run merchant Modal -->
+<div id="testcode-merchant-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dia-div" style="width: 100%;">
+        <div class="modal-content modal-content-div">
+            <div class="modal-content-wrapper">
+                <div class="modal-header modal-header-div">
+                    <button type="button" class="close close-div-mdl" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title modal-title-div">TEST CODE</h4>        
+                </div>
+                <div class="modal-body" style="height: 100%;">
+                   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

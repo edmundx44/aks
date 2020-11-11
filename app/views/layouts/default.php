@@ -13,12 +13,12 @@ use Core\Session;
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?=PROOT?>css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="<?=PROOT?>css/bootstrap.min.css.map" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="<?=PROOT?>css/custom.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="<?=PROOT?>css/media.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="<?=PROOT?>vendors/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="<?=PROOT?>vendors/css/bootstrap.min.css.map" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="<?=PROOT?>vendors/css/custom.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="<?=PROOT?>vendors/css/media.css" media="screen" title="no title" charset="utf-8">
     
-    <script src="<?=PROOT?>js/jQuery-2.2.4.min.js"></script>
+    <script src="<?=PROOT?>vendors/js/jQuery-2.2.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
@@ -44,8 +44,8 @@ use Core\Session;
       </div>
     <?php endif; ?>
 
-    <script src="<?=PROOT?>js/bootstrap.min.js"></script>
-    <script src="<?=PROOT?>js/custom.js"></script>
+    <script src="<?=PROOT?>vendors/js/bootstrap.min.js"></script>
+    <script src="<?=PROOT?>vendors/js/custom.js"></script>
 
   </body>
 </html>
