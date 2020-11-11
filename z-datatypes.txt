@@ -7,3 +7,12 @@ create table tblCheckUpdate(
 	action varchar(30) default null,
 	date timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+create table tblMerchant(
+	id int primary key auto_increment,
+	merchantName varchar(255) default null,
+	merchantID int(20) default null,
+	codes blob default null,
+	userID int(20) default null,
+	status int(10) default 1,
+	date timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
