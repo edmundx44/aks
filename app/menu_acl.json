@@ -4,7 +4,6 @@
   "Utilities" : {
     "Utilities" : "utilities"
   },
-  "test" : "dashboard",
-  "Romain" : "dashboard",
+  "Merchant" : "merchant",
   "Logout" : "user/logout"
 }

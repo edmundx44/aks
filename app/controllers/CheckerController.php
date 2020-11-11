@@ -16,11 +16,11 @@ class CheckerController extends Controller {
 		$db = DB::getInstance();
 
 		// ajax here
-        if($this->request->isPost('action')){
-            $ajaxResult = Ajax::ajaxData($this->request->get('action'));
-            $this->jsonResponse($ajaxResult);
-        }
-        
+		if($this->request->isPost('action')){
+			$ajaxResult = Ajax::ajaxData($this->request->get('action'));
+			$this->jsonResponse($ajaxResult);
+		}
+		
 		$this->view->render('admin/checker/index');
 	}
 }

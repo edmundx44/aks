@@ -3,11 +3,22 @@
   use Core\H;
   use App\Models\Users;
   $menu = Router::getMenu('menu_acl');
-  // $currentPage = H::currentPage(); //for active only
+  $currentPage = H::currentPage(); //for active only
 ?>
 
 <div class="dashboard-header">
-	<p class="dh-title pull-left">Dashboard</p>
+	<?php foreach ($menu as $key => $val): 
+		$title = ($val == $currentPage)? $key:''; ?>
+		<?php if(is_array($val)): ?>
+			<?php foreach($val as $k => $v): 
+				$titles = ($v == $currentPage)? $k:''; ?>
+				<p class="dh-title pull-left"><?= $titles ?></p>
+			<?php endforeach; ?>
+		<?php else:?>
+			<p class="dh-title pull-left"><?= $title ?></p>
+		<?php endif; ?>
+	<?php endforeach; ?>
+	
 	<ul class="dh-ul list-inline pull-right" >
 		<li><i class="fa fa-search hidden-xs" aria-hidden="true"></i></li>
 		<li><i class="fa fa-bell-o hidden-xs" aria-hidden="true"></i></li>

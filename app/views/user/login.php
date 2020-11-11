@@ -1,7 +1,7 @@
 <?php $this->start('head'); ?>
 
-<link rel="stylesheet" href="<?=PROOT?>css/login.css" media="screen" title="no title" charset="utf-8">
-<script src="<?=PROOT?>js/modernizer.js"></script>
+<link rel="stylesheet" href="<?=PROOT?>vendors/css/login.css" media="screen" title="no title" charset="utf-8">
+<script src="<?=PROOT?>vendors/js/modernizer.js"></script>
 
 <?php $this->end(); ?>
 <?php $this->start('body'); ?>
@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <div class="aks-logo">
-                    <img src="<?=PROOT?>/image/aks-logo.png" class="img-responsive center-block"/>
+                    <img src="<?=PROOT?>vendors/image/aks-logo.png" class="img-responsive center-block"/>
                     <div class="img-out">
                         <div class="img-out-before" ></div>
                     </div>

@@ -1,10 +1,13 @@
 {
-  "1" : {"name" : "5 x Deluxe Random Steam CD Keys","price" : "10.95", "stock":"0", "link":"http://www.premiumcdkeys.com/products/5-x-deluxe-random-steam-cd-keys"},
-  "2" : {"name" : "5 x Premium Random Steam CD Keys","price" : "1.00", "stock":"198", "link":"http://www.premiumcdkeys.com/products/5-x-premium-random-steam-cd-keys"},
+  "1" : {"name" : "5 x Deluxe Random Steam CD Keys","price" : "3.95", "stock":"0", "link":"http://www.premiumcdkeys.com/products/5-x-deluxe-random-steam-cd-keys"},
+  "2" : {"name" : "5 x Premium Random Steam CD Keys","price" : "4.00", "stock":"198", "link":"http://www.premiumcdkeys.com/products/5-x-premium-random-steam-cd-keys"},
   "3" : {"name" : "A Story About My Uncle Steam CD Key Global","price" : "0.41", "stock":"4", "link":"http://www.premiumcdkeys.com/products/a-story-about-my-uncle-steam-cd-key-global"},
-  "4" : {"name" : "Action Bundle","price" : "3.99", "stock":"0", "link":"http://www.premiumcdkeys.com/products/action-bundle-steam"},
-  "5" : {"name" : "Adventure Bundle","price" : "5.99", "stock":"3", "link":"http://www.premiumcdkeys.com/products/adventure-bundle-steam"},
-  "6" : {"name" : "Amnesia Collection Steam CD Key Global","price" : "1.00", "stock":"4", "link":"http://www.premiumcdkeys.com/products/amnesia-collection-steam-cd-key-global"}
+  "4" : {"name" : "Action Bundle","price" : "1.99", "stock":"0", "link":"http://www.premiumcdkeys.com/products/action-bundle-steam"},
+  "5" : {"name" : "Adventure Bundle","price" : "1.99", "stock":"3", "link":"http://www.premiumcdkeys.com/products/adventure-bundle-steam"},
+  "6" : {"name" : "Amnesia Collection Steam CD Key Global","price" : "1.00", "stock":"4", "link":"http://www.premiumcdkeys.com/products/amnesia-collection-steam-cd-key-global"},
+  "7" : {"name" : "sample","price" : "1.00", "stock":"3", "link":"www.sample.com"},
+  "8" : {"name" : "sample1","price" : "2.00", "stock":"3", "link":"www.sample1.com"},
+  "9" : {"name" : "sample2","price" : "2.00", "stock":"3", "link":"www.sample2.com"}
 }
 
 

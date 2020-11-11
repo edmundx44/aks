@@ -11,6 +11,7 @@
     "User" : ["logout"],
     "Dashboard" : ["*"],
     "Checker": ["*"],
-    "Utilities": ["*"]
+    "Utilities": ["*"],
+    "Merchant": ["*"]
   }
 }
