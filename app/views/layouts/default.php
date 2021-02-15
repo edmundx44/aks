@@ -1,5 +1,4 @@
 <?php
-
 use Core\Session;
 ?>
 <!DOCTYPE html>
@@ -13,15 +12,11 @@ use Core\Session;
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?=PROOT?>vendors/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="<?=PROOT?>vendors/css/bootstrap.min.css.map" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="<?=PROOT?>vendors/css/custom.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="<?=PROOT?>vendors/css/media.css" media="screen" title="no title" charset="utf-8">
-    
-    <script src="<?=PROOT?>vendors/js/jQuery-2.2.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
+    <script src="<?=PROOT?>vendors/js/jQuery-2.2.4.min.js"></script>
     <?= $this->content('head'); ?>
 
   </head>
@@ -31,11 +26,12 @@ use Core\Session;
       <?= Session::displayMsg() ?>
       <?= $this->content('body'); ?>
     <?php else: ?>
-      <div class="container-fluid no-padding container-fluid-wrap">
-        <div class="side-bar">
-          <?php include 'side-bar.php'; ?>
+      <div class="wrapper">
+        <div class="bg-div"></div>
+        <div class="sidebar">
+          <?php include 'sidebar.php'; ?>
         </div>
-        <div class="content-div" id="content-div">
+        <div class="header-content-footer">
           <?php include 'header.php'; ?>
           <?= $this->content('body'); ?>
           <?php include 'footer.php'; ?>
@@ -44,7 +40,8 @@ use Core\Session;
       </div>
     <?php endif; ?>
 
-    <script src="<?=PROOT?>vendors/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="<?=PROOT?>vendors/js/custom.js"></script>
 
   </body>

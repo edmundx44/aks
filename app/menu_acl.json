@@ -1,9 +1,23 @@
 {
   "Dashboard" : "dashboard",
-  "Checker" : "checker",
+  "User Profile" : "user/logout",
+  "Table List" : "user/logout",
   "Utilities" : {
-    "Utilities" : "utilities"
+    "utilities" : "utilities",
+    "ambot lage ui peste" : "utilities/ambot",
+    "panget" : "utilities/panget",
+    "panget1" : "utilities/panget",
+    "panget2" : "utilities/panget",
+    "panget3" : "utilities/panget",
+    "panget4" : "utilities/panget",
+    "panget5" : "utilities/panget",
+    "panget6" : "utilities/panget",
+    "panget7" : "utilities/panget",
+    "panget8" : "utilities/panget",
+    "panget9" : "utilities/panget"
   },
-  "Merchant" : "merchant",
+  "Sample" : "user/logout",
+  "Test" : "user/logout",
+  "Agina" : "user/logout",
   "Logout" : "user/logout"
 }

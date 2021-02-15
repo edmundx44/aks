@@ -14,6 +14,8 @@ class UserController extends Controller {
   }
 
   public function loginAction() {
+    echo '<script type="text/javascript">localStorage.clear();</script>'; //clear localstorage
+
     $loginModel = new Login();
     if($this->request->isPost()) {
       // form validation

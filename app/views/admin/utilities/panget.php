@@ -1,3 +1,3 @@
 <?php $this->start('body')?>
-<p>	index page</p>
+<p>	PANGET page</p>
 <?php $this->end()?>

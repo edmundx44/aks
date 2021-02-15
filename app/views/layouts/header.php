@@ -6,38 +6,47 @@
   $currentPage = H::currentPage(); //for active only
 ?>
 
-<div class="dashboard-header">
-	<?php foreach ($menu as $key => $val): 
-		$title = ($val == $currentPage)? $key:''; ?>
-		<?php if(is_array($val)): ?>
-			<?php foreach($val as $k => $v): 
-				$titles = ($v == $currentPage)? $k:''; ?>
-				<p class="dh-title pull-left"><?= $titles ?></p>
+<div class="header-content" style="height: 88px;width: 100%;padding-right: 15px;padding-left: 15px;">
+	<nav class="navbar navbar-expand-md navbar-light" style="background-color: #fff;box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);padding-top: 20px;padding-bottom: 20px;border-bottom-left-radius: .25rem;border-bottom-right-radius: .25rem;">
+		<a href="#" class="navbar-brand" style="color: #6b6d70;letter-spacing: 2px;text-transform: uppercase;font-weight: 500;">
+			<?php foreach ($menu as $key => $val): 
+				$title = ($val == $currentPage)? $key:''; ?>
+				<?php if(is_array($val)): ?>
+					<?php foreach($val as $k => $v): 
+						$titles = ($v == $currentPage)? $k:''; ?>
+						<span><?= $titles ?></span>
+					<?php endforeach; ?>
+				<?php else:?>
+					<span><?= $title ?></span>
+				<?php endif; ?>
 			<?php endforeach; ?>
-		<?php else:?>
-			<p class="dh-title pull-left"><?= $title ?></p>
-		<?php endif; ?>
-	<?php endforeach; ?>
-	
-	<ul class="dh-ul list-inline pull-right" >
-		<li><i class="fa fa-search hidden-xs" aria-hidden="true"></i></li>
-		<li><i class="fa fa-bell-o hidden-xs" aria-hidden="true"></i></li>
-		<li><i class="fa fa-envelope-o hidden-xs" aria-hidden="true"></i></li>
-		<li><i class="fa fa-cog hidden-xs show-extra-div" aria-hidden="true" style="cursor: pointer;"></i></li>
-		<li><i class="fa fa-bars visible-xs show-side-bar" aria-hidden="true"></i></li>
-	</ul>
+		</a>
+		<button type="button" class="navbar-toggler sidebar-menu-btn" data-toggle="collapse" style="z-index: 9;color: #fff;background-color: #fff;outline: none;">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+			<div class="navbar-nav">
+				<!-- <a href="#" class="nav-item nav-link active">Home</a>
+				<a href="#" class="nav-item nav-link">Profile</a>
+				<div class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Messages</a>
+					<div class="dropdown-menu">
+						<a href="#" class="dropdown-item">Inbox</a>
+						<a href="#" class="dropdown-item">Sent</a>
+						<a href="#" class="dropdown-item">Drafts</a>
+					</div>
+				</div> -->
+			</div>
+			<form class="form-inline search-btn-form">
+				<div class="input-group search-btn-div">
+					<input type="text" class="form-control" placeholder="Search">
+					<div class="input-group-append">
+						<button type="button" class="btn btn-secondary"><i class="fa fa-search"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</nav>
 </div>
 
-<div class="extra-div hidden-xs">
-	<ul>
-		<li><i class="fa fa-user" aria-hidden="true"></i><span>Option</span></li>
-		<li><i class="fa fa-user-circle-o" aria-hidden="true"></i><span>Option</span></li>
-		<li><i class="fa fa-arrows" aria-hidden="true"></i><span>Option</span></li>
-	</ul>
-	<hr>
-	<?php foreach ($menu as $key => $val): ?>
-		<?php if($key == 'Logout'): ?>
-			<a href="<?=$val?>"><i class="fa fa-sign-out" aria-hidden="true"></i><span><?=$key?></span></a>
-		<?php endif; ?>
-	<?php endforeach; ?>
-</div>

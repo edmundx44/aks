@@ -23,4 +23,17 @@ class UtilitiesController extends Controller {
         
 		$this->view->render('admin/utilities/index');
 	}
+
+	public function ambotAction() {
+		$db = DB::getInstance();
+
+		$this->view->render('admin/utilities/ambot');
+	}
+
+	public function pangetAction() {
+		$db = DB::getInstance();
+
+		$this->view->render('admin/utilities/panget');
+	}
+
 }
