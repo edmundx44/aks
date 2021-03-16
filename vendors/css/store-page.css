@@ -1,0 +1,569 @@
+
+/*css codess------------------------*/
+/*start with letter B -------------------------------*/
+.hover-active-div,
+.dropdown-items-store-page-search:hover,
+.nname-modal-tbody-div:hover{
+	background-color: #ededed !important;
+}
+.background-cdd-modal-title,
+.background-cdd-btn {
+	background-color: #ffa726 !important;
+}
+.modal-child,
+.action-btn,
+.AKS-btn,
+.dropdown-menu-btn, 
+.modal-close-btn {
+	background-color: #66bb6a;
+}
+.AKS-btn:hover,
+.dropdown-menu-btn:hover,
+.modal-close-btn:hover {
+	background-color: #43a047;
+}
+.background-cdd-btn:hover,
+.CDD-btn:hover {
+	background-color: #fb8c00 !important;
+}
+.background-BREX-modal-title,
+.background-BREX-btn {
+	background-color: #ef5350 !important;
+}
+
+.show-menu,
+.store-games-data-table-tbody-data {
+	background-color: #fff;
+}
+.store-page-search-sticky,
+.store-page-search-sticky.form-control:focus {
+	background-color: #fff !important;
+}
+.store-card-div-page-title,
+.store-games-data-table-thead-data {
+	background: linear-gradient(60deg, #43a047, #66bb6a);
+}
+.CDD-sticky-BGC,
+.background-cdd {
+	background: linear-gradient( 60deg, #fb8c00, #ffa726 ) !important;
+}
+.BREX-sticky-BGC,
+.background-BREX {
+	background: linear-gradient(60deg, #e53935, #ef5350) !important;
+}
+.modal-val-btn,
+.modal-val-txt,
+.store-page-search,
+.sticky-dropdown {
+	background: transparent;
+}
+.displayStoreGamesByNormalizedNameContent,
+.modal-val-btn,
+.modal-val-txt,
+.action-btn,
+.breadcrumbs-div,
+.store-page-search,
+.dropdown-menu-btn, 
+.modal-close-btn {
+	border: none;
+}
+.modal-child-1,
+.store-games-data-div-sub {
+	border-top-left-radius: 5px;
+}
+.modal-child-6,
+.store-games-data-div-sub {
+	border-top-right-radius: 5px;
+}
+.nname-modal-tbody-div,
+.show-menu,
+.data-display-function {
+	border-radius: 5px;
+}
+.displayStoreGamesByNormalizedNameContent,
+.store-page-search,
+.store-search-btn {
+	border-radius: 0;
+}
+.form-control:focus,
+.sticky-dropdown:focus {
+	box-shadow: none !important;
+}
+/*start with letter C -------------------------------*/
+.nname-modal-thead-div,
+.action-btn,
+.store-list-title,
+.store-list-text,
+.store-games-data-table-thead-data,
+.data-display-function,
+.sticky-dropdown {
+	color: #fff;
+}
+
+.breadcrumbs-ul-stickey,
+.dropdown-menu-btn, 
+.modal-close-btn {
+	color: #fff !important
+}
+.productName,
+.productNormalizedName {
+	color: #000;	
+}
+.form-control:focus,
+.form-control,
+.store-search-btn {
+	color: #66bb6a;
+}
+.nname-modal-tbody-div,
+.nname-modal-tbody-div a,
+.modal-val-btn,
+.modal-val-txt,
+.store-games-data-table-tbody-data {
+	color: #6b6d70;
+}
+
+/*.breadcrumbs-arrow,
+.breadcrumbs-ul-fixed {
+	color: #0062cc !important;
+}*/
+.modal-val-btn,
+.modal-setting-ul-li,
+.store-list-card,
+.breadcrumbs-ul li,
+.breadcrumbs-ul-fixed,
+.store-games-data-table-tbody-data,
+.data-display-function {
+	cursor: pointer;
+}
+
+/*start with letter D -------------------------------*/
+.show-menu,
+.sticky-dropdown {
+	display: none;
+}
+/*start with letter F -------------------------------*/
+.productNormalizedName,
+.nname-modal-tbody-div,
+.store-page-search {
+	font-size: 15px;
+}
+
+.nname-modal-thead-div,
+.store-list-text,
+.breadcrumbs-ul,
+.data-display-function {
+	font-size: 13px;
+}
+
+.productName,
+.productNormalizedName,
+.action-btn,
+.dropdown-items-store-page-search,
+.nname-modal-thead-div,
+.modal-val-btn,
+.modal-val-txt,
+.store-games-data-table-thead-data {
+	font-weight: 700;
+}
+.breadcrumbs-ul-fixed,
+.modal-close-btn,
+.sticky-dropdown {
+	font-weight: 500;
+}
+.modal-child-1,
+.modal-child-2,
+.modal-child-3,
+.modal-child-4,
+.modal-child-5,
+.modal-child-6,
+.modal-child-tbody-1,
+.modal-child-tbody-2,
+.modal-child-tbody-3,
+.modal-child-tbody-4,
+.modal-child-tbody-5,
+.modal-child-tbody-6{
+	float: left;
+}
+/*start with letter H -------------------------------*/
+.store-list-card-body,
+.breadcrumbs-ul-fixed,
+.store-games-data-table-thead-data,
+.store-games-data-table-tbody-data {
+	height: 50px;
+}
+/*start with letter L -------------------------------*/
+.store-list-title,
+.store-list-text,
+.msulspan {
+	left: 20px; 
+}
+.modal-setting-ul,
+.breadcrumbs-ul {
+	list-style-type: none;
+}
+.productName,
+.action-btn,
+.store-list-title,
+.data-display-function {
+	letter-spacing: 1px;
+}
+.nname-modal-thead-div,
+.breadcrumbs-ul-fixed,
+.store-games-data-table-thead-data,
+.dropdown-menu-btn, 
+.modal-close-btn,
+.dropdown-menu-div,
+.sticky-dropdown{ 
+	letter-spacing: 2px;
+}
+/*start with letter M -------------------------------*/
+.modal-child-tbody-1,
+.modal-child-tbody-2,
+.modal-child-tbody-3,
+.modal-child-tbody-4,
+.modal-child-tbody-5 {
+	margin-top: 12px;
+}
+
+/*start with letter P -------------------------------*/
+.modal-child-1,
+.modal-child-2,
+.modal-child-3,
+.modal-child-4,
+.modal-child-5,
+.modal-child-6,
+.modal-child-tbody-1,
+.modal-child-tbody-2,
+.modal-child-tbody-3,
+.modal-child-tbody-4,
+.modal-child-tbody-5,
+.modal-child-tbody-6,
+.store-games-data-table-thead-data td,
+.store-games-data-table-tbody-data td {
+	padding: 15px;
+}
+
+.sideborder,
+.productName,
+.productNormalizedName,
+.show-menu,
+.show-menu:after,
+.msulspan,
+.dropdown-toggle::after,
+.sticky-dropdown {
+	position: absolute;
+}
+
+.nname-modal-tfoot a,
+.modal-setting-ul-li,
+.action-btn,
+.store-list-title,
+.store-list-text,
+.breadcrumbs-ul,
+.breadcrumbs-arrow,
+.modal-val-btn,
+.modal-val-txt {
+	position: relative;
+}
+
+.breadcrumbs-ul-fixed,
+.store-page-search-sticky,
+.store-search-btn-sticky {
+	position: fixed !important;
+}
+
+/*start with letter T -------------------------------*/
+.productName,
+.nname-modal-thead-div,
+.modal-val-btn,
+.store-games-data-table-thead-data {
+	text-transform: uppercase;
+}
+
+.modal-child-2,
+.modal-child-3,
+.modal-child-4,
+.modal-child-5,
+.modal-child-6,
+.modal-child-tbody-2,
+.modal-child-tbody-3,
+.modal-child-tbody-4,
+.modal-child-tbody-5,
+.modal-val-btn,
+.modal-val-txt {
+	text-align: center;
+}
+
+.nname-modal-tfoot a,
+.breadcrumbs-ul {
+	top: -10px;
+}
+.productName,
+.action-btn,
+.store-list-title{
+	top: 20px;
+}
+
+/*start with letter W -------------------------------*/
+.displayStoreGamesByNormalizedNameDialog, .store-games-data-div-table, .sticky-dropdown-menu-div, .nname-modal-thead-div, .nname-modal-tbody-div, .modal-val-btn, .modal-val-txt { width: 100% }
+.child-1 { width: 60% }
+.modal-child-1, .modal-child-tbody-1 { width: 25% }
+.child-2, .child-3 { width: 20% }
+.modal-child-2, .modal-child-3, .modal-child-4, .modal-child-5, .modal-child-6, .modal-child-tbody-2, .modal-child-tbody-3, .modal-child-tbody-4, .modal-child-tbody-5, .modal-child-tbody-6 {width: 15%}
+.breadcrumbs-ul-fixed, .store-page-search.form-control { width: calc(100% - 383px) }
+.nname-modal-tbody-div, .store-games-data-div-table { word-break: break-all }
+
+/*custom css---------------------------------------------------*/
+.minimized-sb-sticky {
+	width: calc(100% - 223px) !important;
+}
+.AKS-sticky-BGC {
+	background: linear-gradient(60deg, #43a047, #66bb6a) !important;
+} 
+.background-cdd-border {
+	color: #ffa726 !important;
+	border-color: #ffa726 !important;
+}
+.background-BREX-btn:hover {
+	background-color: #e53935 !important;
+}
+.background-BREX-border {
+	color: #ef5350 !important;
+	border-color: #ef5350 !important;
+}
+
+/*modal ---------------------------------------------------*/
+.modal {
+	padding: 0 !important; 
+}
+.displayStoreGamesByNormalizedNameDialog {
+	max-width: calc(100% - 70px);
+	height: calc(100% - 70px);
+	margin-left: auto;
+	margin-right: auto;
+}
+.displayStoreGamesByNormalizedNameContent {
+	height: 100%;
+}
+.displayStoreGamesByNormalizedNameBody {
+	overflow-y: auto;
+}
+.sideborder {
+	width: 5px;
+	height: 60px;
+	background-color: #000;
+}
+.productName {
+	font-size: 21px;
+	margin-left: 15px;
+}
+.productNormalizedName {
+	top: 46px;
+	margin-left: 17px;
+}
+.nname-modal-tbody-div {
+	box-shadow: 0 1px 4px 0 rgb(0 0 0 / 40%);
+}
+.modal-child-tbody-5{
+	height:54px;
+}
+.modal-child-tbody-6 {
+	text-align: right;
+}
+.nname-modal-tfoot {
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 15px;
+}
+.modal-val-btn,
+.modal-val-txt {
+	top: 0px;
+	outline-color: #007bff;
+	/*outline:none;*/
+}
+.show-menu {
+	margin-top: -5px;
+	right: 85px;
+	width: 120px;
+	height: 85px;
+	box-shadow: 0 1px 5px 0 rgb(0 0 0 / 56%);
+}
+.show-menu:after {
+	content: "";
+	width: 0;
+	height: 0;
+	bottom: 23px;
+	right: -10px ;
+	box-sizing: border-box;
+	border: 5px solid black;
+	border-color: transparent transparent #fff #fff;
+	transform-origin: 0 0;
+	transform: rotate(-135deg);
+	box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 20%);
+}
+.modal-setting-ul {
+	padding: 11px;
+	margin: 0;
+}
+.modal-setting-ul-li {
+	left: 0;
+	text-align: left;
+}
+.CDD-btn {
+	background-color: #ffa726;
+}
+.BREX-btn {
+	background-color: #ef5350;
+}
+.BREX-btn:hover {
+	background-color: #e53935;
+}
+.msulspan:hover {
+	text-decoration: underline;
+}
+
+/*form control ----------------------------------------------*/
+.form-control:focus {
+	background-color: transparent !important;
+	border-color: #66bb6a;
+	/*border: transparent	 !important;*/
+}
+
+/*cards -----------------------------------------------------*/
+.store-card-main-wrap {
+	padding-left: 15px !important;
+	padding-right: 15px !important;
+}
+.store-list-text {
+	top: 3px; 
+}
+.store-list-div {
+	padding-bottom: 25px;
+}
+.store-list-card {
+	box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%), 0 5px 10px -5px rgb(107 109 112 / 40%);
+	overflow: hidden;
+}
+.store-list-card:hover{
+	box-shadow: 0 4px 120px 0px rgb(0 0 0 / 14%), 0 5px 200px -5px rgb(107 109 112 / 40%);
+}
+.store-list-card-img-style {
+	border-bottom: red !important;
+}
+.store-list-card-body {
+	border-top: solid 1px #e1e1e2;
+	padding: 15px !important;
+}
+.store-list-store-name {
+	font-size: 14px;
+}
+
+/*breadcrumbs -----------------------------------------------*/
+.breadcrumbs-div {
+	padding: 0 15px 15px 15px;
+}
+.breadcrumbs-ul {
+	padding: 0 0 0 20px;
+	margin: 0;
+	color: #0062cc;
+}
+.breadcrumbs-ul li {
+	display: inline-block;
+}
+.breadcrumbs-ul li:hover{
+	color: #004ea3;
+}
+.breadcrumbs-arrow {
+	font-size: 11px;
+	padding-left: 5px;
+	padding-right: 4px;
+}
+.breadcrumbs-ul-fixed {
+	z-index: 4;
+	top: 75px !important;
+	padding-top: 18px !important;
+	font-size: 16px !important;
+	box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%), 0 5px 10px -5px rgb(107 109 112 / 40%);
+}
+.breadcrumbs-arrow-rezise {
+	top: -2px !important;
+}
+		
+/*store page search -----------------------------------------*/
+.store-page-search {
+	border-bottom: solid 2px #66bb6a;
+	-webkit-transition: 0.2s ease all !important;
+	-moz-transition: 0.2s ease all !important;
+	-o-transition: 0.2s ease all !important;
+	transition: 0.2s ease all !important;
+	outline: none;
+}
+.store-page-search-sticky {
+	top: 125px;
+	z-index: 2;
+	height: 50px !important;
+}
+.store-page-search-sticky:focus {
+	z-index: 2 !important;
+}
+.store-search-btn {
+	border-right: solid 2px #66bb6a;
+	border-bottom: solid 2px #66bb6a;
+	border-left: none;
+	border-top: none;
+}
+.store-search-btn-sticky {
+	top: 135px;
+	right: 70px;
+	border: none !important;
+}
+.store-games-data-div-sub {
+	border:solid 1px linear-gradient(60deg, #004ea3, #0062cc);
+	padding-bottom: 20px !important;
+}
+.store-games-data-table-tbody {
+	box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
+}
+.store-games-data-table-tbody-data {
+	-webkit-transition: .1s ease-in-out !important;
+	-moz-transition: .1s ease-in-out !important;
+	-o-transition: .1s ease-in-out !important;
+	transition: .1s ease-in-out !important;
+}
+.store-games-data-table-tbody-data:hover {
+	transform: scale(1.02); 
+	box-shadow: 0 1px 4px 0 rgb(0 0 0 / 100%);
+	/*background-color: #e1e1e2;*/
+}
+.data-display-function {
+	background: linear-gradient(60deg, #004ea3, #0062cc);
+	padding: 10px;
+	font-weight: 200;
+}
+.lmore-fucntion {
+	margin-right: 5px;
+}
+.dall-function {
+	margin-left: 5px;
+}
+.store-select-site-div {
+	padding-left: 23px;
+	padding-right: 0px;
+}
+.dropdown-toggle::after {
+	right: 20px !important;
+	top: 15px;
+}
+.dropdown-menu-div {
+	box-shadow: 0 1px 4px 0 rgb(0 0 0 / 50%);
+}
+.dropdown-items-store-page-search {
+	color: #6b6d70 !important;
+}
+.sticky-dropdown {
+	width: 23%;
+	right: 2px;
+	top: 11px;
+	outline: none !important;
+}
+		

@@ -9,7 +9,7 @@ class DB {
 
   private function __construct() {
     try {
-      $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname=test-server', DB_USER, DB_PASSWORD);
+      $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname=allkeyshops', DB_USER, DB_PASSWORD);
       $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname=test-server', DB_USER, DB_PASSWORD);
       $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname=checksum_feeds', DB_USER, DB_PASSWORD);
       $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname=aks_bot_teamph', DB_USER, DB_PASSWORD);
@@ -58,6 +58,8 @@ class DB {
     $bind = [];
     $order = '';
     $limit = '';
+    $offset = '';
+    
 
     // conditions
     if(isset($params['conditions'])) {
@@ -89,7 +91,13 @@ class DB {
     if(array_key_exists('limit', $params)) {
       $limit = ' LIMIT ' . $params['limit'];
     }
-    $sql = "SELECT * FROM {$table}{$conditionString}{$order}{$limit}";
+
+    // limit
+    if(array_key_exists('offset', $params)) {
+      $offset = ' OFFSET ' . $params['offset'];
+    }
+
+    $sql = "SELECT * FROM {$table}{$conditionString}{$order}{$limit}{$offset}";
     if($this->query($sql, $bind,$class)) {
       if(!count($this->_result)) return false;
       return true;

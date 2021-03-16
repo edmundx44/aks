@@ -2,21 +2,24 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-lg-6 col-md-12 mtop-35px">
+		<div class="col-lg-12 col-md-12 mtop-35px">
 			<div class="card card-style">
 				<div class="card-body no-padding row-1-card-body"> 
-					<div class="card-div-overflow-style row-1-card-div-overflow-style row-1-card-div-overflow-style-1"> </div>
+					<div class="card-div-overflow-style row-1-card-div-overflow-style row-1-card-div-overflow-style-1">
+						<p style="position: relative;top: 20px; padding-left:20px; padding-right:20px;color: #fff;letter-spacing: 1px;">Header</p>
+						<p style="position: relative;top: 3px; padding-left:20px; padding-right:20px;color: #fff;font-size: 13px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+					</div>
 				</div>
 			</div>
 
 		</div>
-		<div class="col-lg-6 col-md-12 mtop-35px">
+		<!-- <div class="col-lg-6 col-md-12 mtop-35px">
 			<div class="card card-style">
 				<div class="card-body no-padding row-1-card-body"> 
 					<div class="card-div-overflow-style row-1-card-div-overflow-style row-1-card-div-overflow-style-2"> </div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 
 	<div class="row">
@@ -26,9 +29,9 @@
 					<div class="text-center card-div-overflow-style row-2-card-div-overflow-style row-2-card-div-overflow-style-1">
 						<i class="fa fa-ban row-2-icon" aria-hidden="true"></i>
 					</div>
-					<p class="card-title-p" style="position: absolute; top:15px;right: 15px;color: #999;"> 21 - 130</p>
-					<p class="card-val-p" style="position: absolute; top:38px;right: 15px;color: #999;font-size: 18px;letter-spacing: 1px;font-weight: 500;">Disabled</p>
-					<p class="card-val-p" style="position: absolute; top:65px;right: 15px;color: #999;font-size: 15px;letter-spacing: 1px;font-weight: 500;">Default - STORE</p>
+					<p class="card-title-p" style="position: absolute; top:15px;right: 15px;color: #000;"> 21 - 130</p>
+					<p class="card-val-p" style="position: absolute; top:38px;right: 15px;color: #000;font-size: 18px;letter-spacing: 1px;font-weight: 500;">Disabled</p>
+					<p class="card-val-p" style="position: absolute; top:65px;right: 15px;color: #000;font-size: 15px;letter-spacing: 1px;font-weight: 500;">Default - STORE</p>
 				</div>
 				<div class="card-body no-padding" style="padding-bottom: 15px !important;">
 					<div style="width: 100%;height:30px;"> 
@@ -45,9 +48,9 @@
 					<div class="text-center card-div-overflow-style row-2-card-div-overflow-style row-2-card-div-overflow-style-2">
 						<i class="fa fa-snapchat row-2-icon" aria-hidden="true"></i>
 					</div>
-					<p class="card-title-p" style="position: absolute; top:15px;right: 15px;color: #999;">140</p>
-					<p class="card-val-p" style="position: absolute; top:35px;right: 15px;color: #999;font-size: 18px;letter-spacing: 1px;font-weight: 500;"> Snapshot</p>
-					<p class="card-val-p" style="position: absolute; top:65px;right: 15px;color: #999;font-size: 15px;letter-spacing: 1px;font-weight: 500;">Default - AKS</p>
+					<p class="card-title-p" style="position: absolute; top:15px;right: 15px;color: #000;">140</p>
+					<p class="card-val-p" style="position: absolute; top:35px;right: 15px;color: #000;font-size: 18px;letter-spacing: 1px;font-weight: 500;"> Snapshot</p>
+					<p class="card-val-p" style="position: absolute; top:65px;right: 15px;color: #000;font-size: 15px;letter-spacing: 1px;font-weight: 500;">Default - AKS</p>
 
 				</div>
 				<div class="card-body no-padding" style="padding-bottom: 15px !important;">
@@ -65,8 +68,8 @@
 					<div class="text-center card-div-overflow-style row-2-card-div-overflow-style row-2-card-div-overflow-style-3">
 						<i class="fa fa-database row-2-icon" aria-hidden="true"></i>
 					</div>
-					<p class="card-title-p" style="position: absolute; top:15px;right: 15px;color: #999;">65</p>
-					<p class="card-val-p" style="position: absolute; top:35px;right: 15px;color: #999;font-size: 18px;letter-spacing: 1px;font-weight: 500;"> DB Feed</p>
+					<p class="card-title-p" style="position: absolute; top:15px;right: 15px;color: #000;">65</p>
+					<p class="card-val-p" style="position: absolute; top:35px;right: 15px;color: #000;font-size: 18px;letter-spacing: 1px;font-weight: 500;"> DB Feed</p>
 				</div>
 				<div class="card-body no-padding" style="padding-bottom: 15px !important;">
 					<div style="width: 100%;height:30px;"> 
@@ -83,8 +86,8 @@
 					<div class="text-center card-div-overflow-style row-2-card-div-overflow-style row-2-card-div-overflow-style-4">
 						<i class="fa fa-random row-2-icon" aria-hidden="true"></i>
 					</div>
-					<p class="card-title-p" style="position: absolute; top:15px;right: 15px;color: #999;">0</p>
-					<p class="card-val-p" style="position: absolute; top:35px;right: 15px;color: #999;font-size: 18px;letter-spacing: 1px;font-weight: 500;">Random</p>
+					<p class="card-title-p" style="position: absolute; top:15px;right: 15px;color: #000;">0</p>
+					<p class="card-val-p" style="position: absolute; top:35px;right: 15px;color: #000;font-size: 18px;letter-spacing: 1px;font-weight: 500;">Random</p>
 				</div>
 				<div class="card-body no-padding" style="padding-bottom: 15px !important;">
 					<div style="width: 100%;height:30px;"> 

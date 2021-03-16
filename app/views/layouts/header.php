@@ -5,10 +5,25 @@
   $menu = Router::getMenu('menu_acl');
   $currentPage = H::currentPage(); //for active only
 ?>
-
-<div class="header-content" style="height: 88px;width: 100%;padding-right: 15px;padding-left: 15px;">
-	<nav class="navbar navbar-expand-md navbar-light" style="background-color: #fff;box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);padding-top: 20px;padding-bottom: 20px;border-bottom-left-radius: .25rem;border-bottom-right-radius: .25rem;">
-		<a href="#" class="navbar-brand" style="color: #6b6d70;letter-spacing: 2px;text-transform: uppercase;font-weight: 500;">
+<style type="text/css">
+	.header-content {
+		height: 88px;
+		width: 100%;
+		padding-right: 15px;
+		padding-left: 15px;
+	}
+	.header-content-stickey {
+		position: fixed;
+		width: calc(100% - 290px);
+		z-index: 6;
+	}
+	.minimized-sb-sticky-header {
+		width: calc(100% - 130px) !important;
+	}
+</style>
+<div class="header-content">
+	<nav class="navbar navbar-expand-md navbar-light" style="background: rgba(255, 255, 255, 1);box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);padding-top: 20px;padding-bottom: 20px;border-bottom-left-radius: .25rem;border-bottom-right-radius: .25rem;">
+		<a href="#" class="navbar-brand" style="color: #000;letter-spacing: 2px;">
 			<?php foreach ($menu as $key => $val): 
 				$title = ($val == $currentPage)? $key:''; ?>
 				<?php if(is_array($val)): ?>
@@ -42,7 +57,7 @@
 				<div class="input-group search-btn-div">
 					<input type="text" class="form-control" placeholder="Search">
 					<div class="input-group-append">
-						<button type="button" class="btn btn-secondary"><i class="fa fa-search"></i></button>
+						<button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
 					</div>
 				</div>
 			</form>

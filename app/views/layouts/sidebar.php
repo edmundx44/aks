@@ -5,7 +5,68 @@
 	$menu = Router::getMenu('menu_acl');
 	$currentPage = H::currentPage(); //for active only
 ?>
+<style>
+	.switch-btn {
+		top: 3px;
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 14px;
+}
 
+.switch-btn input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 10px;
+  width: 11px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .switch-slider {
+  background-color: #2196F3;
+}
+
+input:focus + .switch-slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .switch-slider:before {
+  -webkit-transform: translateX(15px);
+  -ms-transform: translateX(15px);
+  transform: translateX(15px);
+}
+
+/* Rounded switch-sliders */
+.switch-slider.round {
+  border-radius: 34px;
+}
+
+.switch-slider.round:before {
+  border-radius: 50%;
+}
+</style>
 <div class="sidebar-content-wrapper">
 	<div class="sidebar-content">
 		<div class="sidebar-minimize text-center">
@@ -18,7 +79,7 @@
 		<hr>
 
 		<div class="sidebar-menu scrollbar-custom scrollbar-custom scrollbar-custom-ds">
-			<p class="sidebar-ui-menu font-weight-bold">UI Menu</p>
+			<p class="sidebar-ui-menu font-weight-bold">ADM-3 Menu</p>
 			<ul class="sidebar-ul">
 				
 					
@@ -85,6 +146,24 @@
 		<i class="fa fa-sign-out sidebar-footer-logout-icon" aria-hidden="true" alt="Logout" title="Logout"></i>
 	</div>
 	<div class="div-img-logout-settings" style="" id="div-img-logout-settings-id">
-		
+		<div class="dils-div-1" style="border:solid 1px red;width: 20%;height: 100%;position: absolute;"> asd </div>
+		<div class="dils-div-2" style="border:solid 1px red;width: 80%;height: 100%;position: absolute;left: 20%;">
+			<ul style="list-style-type: none;margin:0;padding:0;color: #000;">
+				<li style="padding:5px;font-size: 13px;">Option</li>
+				<li style="padding:5px;font-size: 13px;">Option</li>
+				<li style="padding:5px;font-size: 13px;">Option</li>
+				<li style="padding:5px;font-size: 13px;">Option</li>
+				<li style="padding:5px;font-size: 13px;">Option</li>
+				<li style="padding:5px;font-size: 13px;">
+					<span class="pull-left">Dark Mode</span>
+					<span class="pull-right">					
+						<label class="switch-btn">
+							<input type="checkbox" class="switch-checkbox">
+							<span class="switch-slider round"></span>
+						</label>
+					</span>
+				</li>
+			</ul>
+		</div>
 	</div>
 </div>

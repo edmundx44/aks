@@ -17,8 +17,9 @@ use Core\Session;
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
     <script src="<?=PROOT?>vendors/js/jQuery-2.2.4.min.js"></script>
-    <?= $this->content('head'); ?>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 
+    <?= $this->content('head'); ?>
   </head>
   <body>
     
@@ -26,16 +27,49 @@ use Core\Session;
       <?= Session::displayMsg() ?>
       <?= $this->content('body'); ?>
     <?php else: ?>
-      <div class="wrapper">
-        <div class="bg-div"></div>
+      <div class="wrapper" id="wrapper">
+
+        <!-- <div class="bg-div"></div> -->
         <div class="sidebar">
           <?php include 'sidebar.php'; ?>
         </div>
+        <div class="hcf-back"></div>
         <div class="header-content-footer">
           <?php include 'header.php'; ?>
           <?= $this->content('body'); ?>
           <?php include 'footer.php'; ?>
         </div>
+
+        <div class="float-anywhere" id="float-anywhere">
+          <i class="fa fa-cog settings-icon" aria-hidden="true" style=""></i>
+
+          <div class="float-settings-menu">
+            <i class="fa fa-history float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Activity logs"></i>
+          </div>
+          <div class="float-settings-menu">
+            <i class="fa fa-user-circle float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Add tooltip title"></i>
+          </div>
+          <div class="float-settings-menu btn-add-edit">
+            <i class="fa fa-plus-circle float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Add OR Edit Games" ></i>
+          </div>
+          <div class="float-settings-menu">
+            <i class="fa fa-envelope float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Add tooltip title"></i>
+          </div>
+          <div class="float-settings-menu">
+            <i class="fa fa-home float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Add tooltip title"></i>
+          </div>
+          <div class="float-settings-menu">
+            <i class="fa fa-bell float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Add tooltip title"></i>
+          </div>
+          <div class="float-settings-menu">
+            <i class="fa fa-eercast float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Add tooltip title"></i>
+          </div>
+          <div class="float-settings-menu">
+            <i class="fa fa-bullseye float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Add tooltip title"></i>
+          </div>
+          <div class="float-settings-menu" style="background-color: #eee;"></div> <!-- *background -->
+        </div>
+
         <?php include 'modal.php'; ?>
       </div>
     <?php endif; ?>

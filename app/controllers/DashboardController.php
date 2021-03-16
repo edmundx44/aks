@@ -29,11 +29,10 @@ class DashboardController extends Controller {
         // to get data "->result()"
         // te get the 1st data "->first()"
 
-        // $contacts = $db->find('`aks`.users', [
-        //     'conditions' => "lname => '?'",
-        //     'bind' => ['paulfox'],
-        //     'order' => "lname",
-        //     'limit' => 5
+        // $contacts = $db->find('`test-server`.`pt_products`',[
+        //     'conditions' => ['merchant = ?'],
+        //     'bind' => ['40'],
+        //     'limit' => 2
         // ]);
 
         // vd($contacts);

@@ -1,23 +1,17 @@
 {
   "Dashboard" : "dashboard",
-  "User Profile" : "user/logout",
-  "Table List" : "user/logout",
-  "Utilities" : {
-    "utilities" : "utilities",
-    "ambot lage ui peste" : "utilities/ambot",
-    "panget" : "utilities/panget",
-    "panget1" : "utilities/panget",
-    "panget2" : "utilities/panget",
-    "panget3" : "utilities/panget",
-    "panget4" : "utilities/panget",
-    "panget5" : "utilities/panget",
-    "panget6" : "utilities/panget",
-    "panget7" : "utilities/panget",
-    "panget8" : "utilities/panget",
-    "panget9" : "utilities/panget"
+  "Links" : {
+    "Affiliate" : "utilities",
+    "Real Double" : "utilities",
+    "Suspicious Double" : "utilities/ambot",
+    "Metacritics Double" : "utilities/ambot"
   },
-  "Sample" : "user/logout",
-  "Test" : "user/logout",
-  "Agina" : "user/logout",
+  "Store" : "store",
+  "Tools" : {
+    "Merchant Edition" : "utilities",
+    "Price Check" : "utilities",
+    "Romain" : "utilities",
+    "Rhyn" : "utilities/ambot"
+  },
   "Logout" : "user/logout"
 }
