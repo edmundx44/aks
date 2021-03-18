@@ -874,7 +874,6 @@
 	</div>
 </div>
 
-<<<<<<< HEAD
 <style type="text/css">
 .ul-tab-option {
 	font-size: 13px;
@@ -1030,6 +1029,4 @@
 </style>
 
 
-=======
->>>>>>> d3e5005e0439df1174868b0e0ec8d486f4e083e3
 <?php $this->end()?>

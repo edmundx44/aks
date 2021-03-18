@@ -6,7 +6,7 @@ var currentDisplay = 0,
 	
 $(function (){	
 	displayStore();
-
+	//console.log(url);
 	$(document).on('click', '.store-games-data-table-tbody-data', function(){
 		var selection = window.getSelection();
 		if(selection.type != "Range") {
@@ -22,7 +22,7 @@ $(function (){
 				$('.productNormalizedName').text(data[0].nname);
 				$('#displayStoreGamesByNormalizedName').modal('show');
 				$('.nname-modal-tbody').empty();
-
+				//console.log(data);
 				for(var i in data) {
 					var append = 	'<div class="nname-modal-tbody-div '+data[i].id+'">';
 						append +=	'<div class="modal-child-tbody-1">'+data[i].merchant+'</div>';
