@@ -59,6 +59,7 @@
 				},
 				beforeSend:function(){},
 				success:function(data){
+					//console.log(data)
 					$('.productName').text(data[0].searchName);
 					$('.productNormalizedName').text(data[0].nname);
 					$('#displayStoreGamesByNormalizedName').modal('show');
@@ -80,7 +81,7 @@
 							append +=	'</div>';
 							append += 	'<button class="btn action-btn '+data[i].site+'-btn" id="'+data[i].id+'"> <i class="fa fa-cogs btn-icon-acb" aria-hidden="true"></i></button>';
 							append +=   '</div>';
-							append +=	'<div><p class="nname-modal-tfoot"><a href="'+data[i].buy_url+'" target="_blank">'+data[i].buy_url+'</a></p></div>';
+							append +=	'<div><p class="nname-modal-tfoot" style="width:95%;"><a style="word-break:break-all;" href="'+data[i].buy_url+'" target="_blank">'+data[i].buy_url+'</a></p></div>';
 							append +=	'</div>';
 
 						$(".nname-modal-tbody").append(append);

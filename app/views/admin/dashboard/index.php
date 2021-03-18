@@ -148,7 +148,7 @@
 						pointHoverBorderWidth: 1,
 						pointRadius: 5,
 						fill: false,
-						borderWidth: 2,
+						borderWidth: 3,
 					}]
 			  	},
 		  		options: {
@@ -182,14 +182,17 @@
 								// cause strtotime_data value is in unix timestamp
 								callback: function(strtotime_data) { return strtotime_javascript_time(strtotime_data,"Asia/Manila") },
             					stepSize: 60*180,
+            					fontColor: '#004ea3',
 							},
 							gridLines: {
 								display: false,
+								color: '#0062cc',
+								lineWidth: 2
 							},
 							scaleLabel: {
 					            display: true,
 					            labelString: 'TIME',
-					            fontColor: '#3f51b5',
+					            fontColor: '#004ea3',
 								fontStyle: "bold",
 					          }
 						}],
@@ -199,11 +202,13 @@
 								beginAtZero: true,
 								fontStyle: "bold",
 								padding: 10,
-								
+								fontColor: '#004ea3',
 							},
 							stacked: true,
 							gridLines: {
 								display: false,
+								color: '#0062cc',
+								lineWidth: 2
 							},
 						}]
 					},
@@ -249,6 +254,14 @@
 			$('.'+$(this).attr('id')).show();	
 			$('.clk-options').removeClass('active-tab');
 			$('#'+$(this).attr('id')).addClass('active-tab');
+
+			if($(this).attr('id') != 'checksum-chart'){
+				$('.dbox-content').css({'height':'80%'})
+				$('.dbox-hide').hide();
+			}else{
+				$('.dbox-content').css({'height':'70%'})
+				$('.dbox-hide').show();
+			}
 		});
 
 		//FOR DROP DOWN SELECT ANIMATION
@@ -288,7 +301,7 @@
 		//Dapat e replace sa naku ang mga space ' ' into \n ang label
 		var dataCount = [];
 		var chklabels = ['2game','Voidu','Greenman gaming','Livecards_es','Kinguin','Eneba','Royal Key Software','Electronic First'];
-		var checksumLastUpdate = [1614667906,1614667906,1614667906,1614666906,1614666906,1614665606,1614665606,1614665606];
+		var checksumLastUpdate = [1614671906,1614669606,1614667906,1614667906,1614666906,1614666906,1614665606,1614665606];
 		for(var i in chklabels){
 			chklabels[i] = (/(\s|_)/.test(chklabels[i])) ? chklabels[i].replace(/(\s|_)/g,'\n') : chklabels[i];
 			dataCount.push(chklabels[i]);
@@ -490,28 +503,39 @@
 				<div class="card-body no-padding row-4-card-body"> 
 
 					<div class="card-div-overflow-style row-4-card-div-overflow-style row-4-card-div-overflow-style-2" style="color: white;"> 
-						<div style=" height: 40px; padding-top: 40px; padding-left: 10px;">
+						<div style="padding-top: 20px; padding-left: 10px;">
 							<ul class="ul-tab-option">
-								<li class="clk-options li-tab-option active-tab" id="checksum-chart"><span>Checksum</span></li>
-								<li class="clk-options li-tab-option" id="test-box-1"><span>TEST BOX 1</span></li>
-								<li class="clk-options li-tab-option" id="test-box-2"><span>TEST BOX 2</span></li>
+								<li>FEED BOTS: </li>
+								<li class="clk-options li-tab-option active-tab" id="checksum-chart">
+									<i class="fa a1 sidebar-menu-icon fa-bar-chart" aria-hidden="true" id="nav-icon"></i>
+									<span>Checksum</span>
+								</li>
+								<li class="clk-options li-tab-option" id="test-box-2">
+									<i class="fa a1 sidebar-menu-icon fa-check-square" aria-hidden="true" id="nav-icon"></i>
+									<span>Success</span>
+								</li>
+								<li class="clk-options li-tab-option" id="test-box-3"><span>Fail</span></li>
+								<li class="clk-options li-tab-option" id="test-box-4"><span>Server Charge</span></li>
 							</ul>
 						</div>
 					</div>
-					<div class="dropdown-box" style="padding-bottom: 10px;">
-						<div class="dropdown-div" style="width: 150px;">
-							<div class="select custom-bkgd">
-			                    <span class="selected-data change-site">Website</span>
-			                    <span class="pull-right"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
-			                </div>
-							<ul class="dropdown-menu cos-dropdown-menu">
-		                        <li class='opt-site-chk' data-website="aks">AKS</li>
-		                        <li class='opt-site-chk' data-website="cdd">CDD</li>
-		                        <li class='opt-site-chk' data-website="brexitgbp">BREXITGBP</li>
-	                       	</ul>
+						<div class="dropdown-box dbox-hide" style="padding-bottom: 5px;">
+							<div class="dropdown-div" style="width: 150px;">
+								<div class="select custom-bkgd">
+					                <span class="selected-data change-site">Website</span>
+					                <span class="pull-right"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+					            </div>
+								<ul class="dropdown-menu cos-dropdown-menu">
+				                    <li class='opt-site-chk' data-website="aks">AKS</li>
+				                    <li class='opt-site-chk' data-website="cdd">CDD</li>
+				                    <li class='opt-site-chk' data-website="brexitgbp">BREXITGBP</li>
+			                    </ul>
+							</div>
+							<div class="pull-right">
+								<input style="color:#fff;" type="button" name="" class="m-d col-xs-3 btn custom-bkgd" id="btn-getchksumreports" value="TABLE" data-toggle="modal" data-target="#checksum-modal">
+							</div>
 						</div>
-					</div>
-					<div class="card-style" style="height: 70%; padding: 10px; border: 1px solid #eaeaea;">
+					<div class="card-style dbox-content" style="height: 70%; padding: 5px;">
 						<div class="checksum-chart content-hide" style="height: 100%;">
 							<canvas id="checksum-4" class="checksum-canvas"></canvas>
 						</div>
@@ -520,6 +544,12 @@
 						</div>
 						<div class="test-box-2 content-hide" style="height: 100%; display: none;">
 							<h1>TEST BOX 2</h1>
+						</div>
+						<div class="test-box-3 content-hide" style="height: 100%; display: none;">
+							<h1>TEST BOX 3</h1>
+						</div>
+						<div class="test-box-4 content-hide" style="height: 100%; display: none;">
+							<h1>TEST BOX 4</h1>
 						</div>
 					</div>
 
@@ -531,6 +561,7 @@
 
 <style type="text/css">
 .ul-tab-option {
+	font-size: 13px;
 	list-style-type: none; 
 	margin: 0;
 	padding: 0;
@@ -539,19 +570,26 @@
 	border-radius: 5px;
     display: inline-block;
     padding: 10px;
+    /*padding: 5px 10px 5px 10px;*/
 }
 .active-tab {
-    background-color: #fff;
-    color: #004ea3;
+    background-color: rgba(255, 255, 255, .2);
+    color: #fff;
+    /*color: #004ea3;*/
 }
 .li-tab-option{
 	border: none;
-	font-weight: 700;
+	font-weight: 600;
 	cursor: pointer;
 }
 .li-tab-option:hover{
-	background-color: #fff;
-	color: #004ea3;
+	background-color: rgba(255, 255, 255, .2);
+	color: #fff;
+
+	-webkit-transition: .4s ease-in-out;
+    -moz-transition: .4s ease-in-out;
+    -o-transition: .4s ease-in-out;
+    transition: .4s background-color ease-in-out ;
 }
 
 
@@ -630,8 +668,47 @@
 .cos-dropdown-menu li:hover{
 	background: linear-gradient(60deg, #004ea3, #0062cc);
 	color: white;
-	transition: all .09s ease-in-out;
 	font-weight: bold;
+
+	-webkit-transition: .4s ease-in-out;
+    -moz-transition: .4s ease-in-out;
+    -o-transition: .4s ease-in-out;
+    transition: .4s background-color ease-in-out ;
+}
+
+
+/*-----     Modal TABLE */
+.modal-con-override {
+    background-color: #edf0f5;
+}
+.modal-checksum-data table thead tr {
+    border: solid 1px #fff;
+}
+.modal-checksum-data table thead tr th{
+    background-color: #fff;
+}
+.modal-checksum-data th:nth-child(1) {
+    width: 25%; /*set width of 1st child*/
+}
+.table thead th,
+.table td{
+	border: none; /*remove border default of modal*/
+	padding: 8px;
+}
+.table thead th{
+	color: #0062cc;
+}
+.modal-checksum-data tbody .tbody-td-1,
+.modal-checksum-data tbody .tbody-td-2,
+.modal-checksum-data tbody .tbody-td-3 {
+	border:solid 1px #fff;
+}
+.modal-checksum-data tbody .tbody-td-2 {
+	word-break: break-all;
+	width: 150px;
+}
+.modal-checksum-data tbody .tbody-td-3 {
+	width: 100px;
 }
 
 </style>

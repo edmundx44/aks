@@ -97,6 +97,10 @@ class Ajax {
 				}
 
 				foreach($getProductByNormalisedName as $key => $value) {
+					$getMerchantArr[$value->merchant] = (!empty($getMerchantArr[$value->merchant])) ? $getMerchantArr[$value->merchant] : '';
+					$getRegionsArr[$value->region]    = (!empty($getRegionsArr[$value->region])) ? $getRegionsArr[$value->region] : '';
+					$getEditionArr[$value->edition]   = (!empty($getEditionArr[$value->edition])) ? $getEditionArr[$value->edition] : '';
+
 					array_push($getProductArr, array(
 						'id' 		=> $value->id, 
 						'nname' 	=> $value->normalised_name, 
@@ -111,7 +115,7 @@ class Ajax {
 						'site'		=> $getInput->get('site')
 					));
 				}
-				
+				//var_dump($getProductArr);
 				return $getProductArr;
 			break;
 			case 'storeUpdateProduct':

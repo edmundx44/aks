@@ -139,3 +139,24 @@
 		right: 55px !important;
 	}
 }
+
+@media (min-width:768px){
+
+	/*---------------------CHECKSUM TABLE MOBILE DISPLAY */
+	.checksum-dialog{
+		max-width: 768px !important;
+	}
+	.table-checksum{ font-size: 13px; }
+	.modal-checksum-data th:nth-child(1){ width: 20%; }
+	.modal-checksum-data th:nth-child(2){ width: 35%; }
+	.modal-checksum-data th:nth-child(3){ width: 22%; }
+	.modal-checksum-data th:nth-child(4){ width: 10%; }
+
+	/*---------------------CHECKSUM TABLE MOBILE DISPLAY-----------------------------------*/
+	.sf-dialog{
+		width: 650px !important;
+	}
+	.sf-date{
+		font-size: 12px;
+	}
+}
