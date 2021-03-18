@@ -298,3 +298,70 @@
         </div>
     </div>
 </div>
+
+
+<!-- checksum Modal -->
+<div id="checksum-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog checksum-dialog">
+
+    <!-- Modal content-->
+        <div class="modal-content modal-con-override">
+            <div class="modal-header" style="background: linear-gradient(60deg, #004ea3, #0062cc);color: #fff;letter-spacing: 1px;">
+                <h5 class="modal-title dateChange">CHECKSUM 
+                    <?php 
+                        echo "(PH:". $today = date('M d',strtotime(date('M d'))).")";
+                    ?>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="col-sm-12 modal-checksum-site" data-modal-checksumsite="aks" style="margin-bottom: 5px;margin-top: 5px;">
+                <div class="dropdown-box dbox-hide">
+                    <div class="dropdown-div" style="width: 150px;">
+                        <div class="select custom-bkgd">
+                            <span class="selected-data change-site">Website</span>
+                            <span class="pull-right"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                        </div>
+                        <ul class="dropdown-menu cos-dropdown-menu">
+                            <li class='opt-site-chk' data-website="aks">AKS</li>
+                            <li class='opt-site-chk' data-website="cdd">CDD</li>
+                            <li class='opt-site-chk' data-website="brexitgbp">BREXITGBP</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+                <div class="modal-checksum-data col-sm-12">
+                    <table class="table table-checksum">
+                        <thead>
+                            <tr>
+                                <th>Merchant</th>
+                                <th>Checksum Data</th>
+                                <th>Last Update</th>
+                                <th>Status(Today)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="checksum-body">
+                            <tr class='getCount'>
+                                <td class="tbody-td-1" data-tbl-td="Merchant"><b>Royal Key Software (285)</b></td>
+                                <td class="tbody-td-2" data-tbl-td="Checksum">4fa0d3f7068cff3c95993c23734461e0</td>
+                                <td class="tbody-td-3" data-tbl-td="Last Update">Mar 17 2021 05:50 PM</td>
+                                <td class="tbody-td-1 text-center" data-tbl-td="Status"><b>Updated</b></td>
+                            </tr>
+                            <tr class='getCount'>
+                                <td class="tbody-td-1" data-tbl-td="Merchant"><b>Eneba (285)</b></td>
+                                <td class="tbody-td-2" data-tbl-td="Checksum">4fa0d3f7068cff3c95993c23734461e0</td>
+                                <td class="tbody-td-3" data-tbl-td="Last Update">Mar 17 2021 05:50 PM</td>
+                                <td class="tbody-td-1 text-center" data-tbl-td="Status"><b>Updated</b></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="loader-checksum-mdata col-sm-12" style="display: none; height: 500px;"><?php //$this->loader('layouts','loader'); ?></div>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-success addChangeLog">Submit</button> -->
+            </div>
+        </div>
+
+    </div>
+</div>

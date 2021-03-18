@@ -31,6 +31,9 @@ class Ajax {
 		// ***** NOTE *****
 
 		switch ($post) {
+			case 'displayReport':
+				return $getInput->get('to'). ' ' .$getInput->get('what');
+			break;
 			case 'displayStore':
 				$sql = "SELECT * FROM `allkeyshops`.sale_page order by vols_nom asc";
 				$result = $db->query($sql)->results();
@@ -97,6 +100,10 @@ class Ajax {
 				}
 
 				foreach($getProductByNormalisedName as $key => $value) {
+					$getMerchantArr[$value->merchant] = (!empty($getMerchantArr[$value->merchant])) ? $getMerchantArr[$value->merchant] : '';
+					$getRegionsArr[$value->region]    = (!empty($getRegionsArr[$value->region])) ? $getRegionsArr[$value->region] : '';
+					$getEditionArr[$value->edition]   = (!empty($getEditionArr[$value->edition])) ? $getEditionArr[$value->edition] : '';
+
 					array_push($getProductArr, array(
 						'id' 		=> $value->id, 
 						'nname' 	=> $value->normalised_name, 
@@ -111,7 +118,7 @@ class Ajax {
 						'site'		=> $getInput->get('site')
 					));
 				}
-				
+				//var_dump($getProductArr);
 				return $getProductArr;
 			break;
 			case 'storeUpdateProduct':
@@ -134,6 +141,17 @@ class Ajax {
 
 				return $db->update('`'.$site.'`.`pt_products`', $getInput->get('id'), $fields);
 			break;
+			case 'displaySnapshot':
+                $getSite = $getInput->get('website');
+                
+                $addQuery = ($getSite == 'CDD')? "AND `merchantID` NOT IN('1','31')" : "AND `merchantID` NOT IN('1')";
+                $sql = "SELECT * FROM `test-server`.`bot_admin_snapshot` WHERE `website` = '$getSite' $addQuery";
+                return $db->query($sql)->results();
+                
+            break;
+            case 'sample':
+            	return 'nakoha';
+            break;
 		}
 	}
 

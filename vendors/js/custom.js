@@ -51,14 +51,23 @@ $(document).ready(function(){
     });
 
     $(document).on('click', '.switch-checkbox',function(){
-    	if ($(this).is(":checked")) { 
-            alert("onn"); 
-      	} else { 
-           alert("off"); 
-		} 
-    })
+    	alert(($(this).is(":checked"))? "onn" : "off");
 
-    
+		// -- code dark mode if all function done
+		// 30 30 47 = #1e1e2f
+		// 39 41 61 = #27293d
+
+		// .card
+		// 	background-color: rgba(39, 41, 61, 0.9) !important;
+		// card-title-p
+		// card-val-p
+		// 	color: #fff;
+
+		// hcf-back
+		// 	background-image: linear-gradient(to right, #1e1e2f 30%, transparent 280%), url(../image/login/b6.jpg);
+
+
+    });
 
 	$(document).on('click', '.btn-add-edit', function(){
 		$('.add-edit-store-game-modal').modal('show');
@@ -104,8 +113,37 @@ $(document).ready(function(){
 	
 }); // end docuemtn ready
 
+// dashboard function here -----------------------------------
+function displayIcon(){
+	var iconList = [
+		"fa-pie-chart",
+		"fa-bar-chart",
+		"fa-google-wallet",
+		"fa-briefcase",
+		"fa-line-chart",
+		"fa-ravelry",
+		"fa-modx"
+	];
 
-// custom function here -------------------------------------------------------------------------
+	$('i#nav-icon').each(function(i){
+		$(this).addClass(iconList[i])
+	});
+}
+
+// ajax call function ---------------------------------------
+function AjaxCall($url, $data) {
+	// NOTE: 
+	// 	done = success
+	// 	always = complete
+
+	return $.ajax({
+		url: $url,
+		type: "POST",
+		data : $data
+	})
+}
+
+// custom function here -------------------------------------
 function scrollThis(){
 	switch(localStorage.getItem("sidebar-active")) {
 	case 'sidebar-yes':
@@ -153,24 +191,7 @@ function scrollThis(){
 	}
 }
 
-
-// dashboard function here -----------------------------------
-function displayIcon(){
-	var iconList = [
-		"fa-pie-chart",
-		"fa-bar-chart",
-		"fa-google-wallet",
-		"fa-briefcase",
-		"fa-line-chart",
-		"fa-ravelry",
-		"fa-modx"
-	];
-
-	$('i#nav-icon').each(function(i){
-		$(this).addClass(iconList[i])
-	});
-}
-
+// sidebar function ------------------------------------
 function sidebarDiv() {
 	var cssvar = '.sidebar-menu-value, .li-nav-dd, .sidebar-footer-welcome, .sidebar-footer-name, .sidebar-footer-logout-icon';
 	if (toggleVal == 0) { 
@@ -178,7 +199,7 @@ function sidebarDiv() {
 		$('.sidebar-logo-img-1').hide();
 		$('.sidebar-logo-img-2').fadeIn();
 		$('.sidebar-minimize-icon').removeClass('fa-angle-double-left').addClass('fa-angle-double-right');
-		$('.sidebar-minimize').css({'background': 'linear-gradient(60deg, #ab47bc, #8e24aa)', 'color':'#fff'});
+		$('.sidebar-minimize').css({'background': 'linear-gradient(60deg, #004ea3, #0062cc)', 'color':'#fff'});
 		toggleVal = 1;
 	} else { 
 		$(cssvar).fadeIn(600); 
@@ -223,6 +244,4 @@ function sidebarDiv() {
 		}
 	}	
 }
-
-
 
