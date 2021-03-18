@@ -3,13 +3,49 @@ var currentDisplay = 0,
 	total = '',
 	toSearch = '',
 	toClose = '';
-
-$(document).ready(function(){
+	
+$(function (){	
 	displayStore();
 
 	$(document).on('click', '.store-games-data-table-tbody-data', function(){
 		var selection = window.getSelection();
-		if(selection.type != "Range") displayStoreGamesByNormalizedName($(this).data('nname'), $('.dropdown-menu-btn').text());
+		if(selection.type != "Range") {
+
+			var dataRequest =  {
+				action: 'displayStoreGamesByNormalizedName',
+				nnameID: $(this).data('nname'),
+				site: $('.dropdown-menu-btn').text()
+			}
+
+			AjaxCall(url+'dashboard', dataRequest).done(function(data) {
+				$('.productName').text(data[0].searchName);
+				$('.productNormalizedName').text(data[0].nname);
+				$('#displayStoreGamesByNormalizedName').modal('show');
+				$('.nname-modal-tbody').empty();
+
+				for(var i in data) {
+					var append = 	'<div class="nname-modal-tbody-div '+data[i].id+'">';
+						append +=	'<div class="modal-child-tbody-1">'+data[i].merchant+'</div>';
+						append +=	'<div class="modal-child-tbody-2">'+data[i].region+'</div>';
+						append +=	'<div class="modal-child-tbody-3">'+data[i].edition+'</div>';
+						append +=	'<div class="modal-child-tbody-sub modal-child-tbody-4"><input class="modal-val-btn" type="button" 	data-prodId="'+data[i].id+'" 	value="'+data[i].status+'"></div>';
+						append +=	'<div class="modal-child-tbody-sub modal-child-tbody-5"><input class="modal-val-txt" type="text" 	data-prodId="'+data[i].id+'"	value="'+data[i].price+'"></div>';
+						append +=	'<div class="modal-child-tbody-sub modal-child-tbody-6">';
+						append += 	'<div class="show-menu" id="'+data[i].id+'">';
+						append += 	'<ul class="modal-setting-ul">';
+						append += 	'<li class="modal-setting-ul-li"><i class="fa fa-pencil" aria-hidden="true"></i><span class="msulspan add-edit-from-display" data-toeditid="'+data[i].id+'">Edit</span></li>';
+						append += 	'<li class="modal-setting-ul-li"><i class="fa fa-times" aria-hidden="true"></i><span class="msulspan">Delete</span></li>';
+						append += 	'<li class="modal-setting-ul-li"><i class="fa fa-dot-circle-o" aria-hidden="true"></i><span class="msulspan">Others</span></li>';
+						append += 	'</ul>';
+						append +=	'</div>';
+						append += 	'<button class="btn action-btn '+data[i].site+'-btn" id="'+data[i].id+'"> <i class="fa fa-cogs btn-icon-acb" aria-hidden="true"></i></button>';
+						append +=   '</div>';
+						append +=	'<div><p class="nname-modal-tfoot"><a href="'+data[i].buy_url+'" target="_blank">'+data[i].buy_url+'</a></p></div>';
+						append +=	'</div>';
+					$(".nname-modal-tbody").append(append);
+				}
+			});
+		}
 	});
 
 	$(document).on('keyup paste', '.store-page-search', function(){
@@ -88,7 +124,17 @@ $(document).ready(function(){
 	});
 
 	$(document).on('change', '.modal-val-txt', function(){
-		storeUpdateProduct($(this).attr('data-prodId'), 'price', $(this).val(), $('.dropdown-menu-btn').text());
+		var dataRequest = { 
+			action: 'storeUpdateProduct',
+			id: $(this).attr('data-prodId'),
+			toWhat: 'price',
+			dataTo: $(this).val(),
+			site: $('.dropdown-menu-btn').text()
+		};
+
+		AjaxCall(url+'dashboard', dataRequest).done(function(data) {
+			console.log(data)
+		});
 	});
 			
 	$(document).on('click', '.modal-val-btn', function(){
@@ -139,3 +185,107 @@ $(document).ready(function(){
 		}
 	});		
 }); // end document ready ---------------------------- //
+
+function searchKeyUp($searchVal) {
+	currentDisplay = 0;
+	currentID = '';
+	total = '';
+	toSearch = '';
+
+	if($searchVal != ''){
+		$('.store-data-div').hide();
+		$('.store-games-data-div').show();
+		$('.store-games-data-table-tbody').empty();
+		$('.breadcrumbs-ul').empty();
+		toSearch = $searchVal;
+		breadCrumbs('Search');
+
+		displayStoreGames('', 0, 0, $searchVal, $('.dropdown-menu-btn').text());
+
+	}else{
+		$('.store-games-data-table-tbody').empty();
+		$('.store-data-div').show();
+		$('.store-games-data-div, .store-games-data-table-tfoot').hide();
+		$('.games-bcrumbs').remove();
+		currentDisplay = 0;
+		currentID = '';
+		total = '';
+		toSearch = '';
+	}
+}
+
+function displayStoreGames($merchantID, $offset, $limit, $toSearch, $site){
+	var dataRequest =  {
+		action: 'displayStoreGames',
+		merchantID: $merchantID,
+		offset: $offset,
+		limit: $limit,
+		toSearch: $toSearch,
+		site: $site
+	}
+
+	AjaxCall(url+'dashboard', dataRequest).done(function(data) {
+		var showHide = (data[0].total >= 50 || (data[0].total != '' && data[0].total >= 50))? $('.store-games-data-table-tfoot').show() : $('.store-games-data-table-tfoot').hide();
+		for(var i in data){
+			for(var j in data[0].data){
+				var getStatus = (data[0].data[j].dispo == 1)? 'In Stock' : 'Out Of Stock';
+				var append = '<tr class="store-games-data-table-tbody-data" data-nname='+data[0].data[j].normalised_name+'>';
+					append += '<td class="child-1">'+data[0].data[j].buy_url+'</td>';
+					append += '<td class="child-2">'+data[0].data[j].price+'</td>';
+					append += '<td class="child-3">'+getStatus+'</td>';
+					append += '</tr>';
+
+					$('.store-games-data-table-tbody').append(append);
+			}
+		}
+
+		currentDisplay += data[0].currentDisplay;
+		currentID = $merchantID;
+		total = data[0].total;
+	}).always(function() { 
+		var hideIfMax = (currentDisplay == total)? $('.store-games-data-table-tfoot').hide() : '';
+	});
+}
+
+function displayStore(){
+	var dataRequest =  {
+		action: 'displayStore'
+	}
+
+	AjaxCall(url+'dashboard', dataRequest).done(function(data) {
+		for(var i in data){
+			var append =  '<div class="col-md-12 col-lg-6 col-xl-3  store-list-div">';
+				append += '<div class="card store-list-card" id="'+data[i].vols_id+'" data-nname="'+data[i].vols_nom+'">';
+				append += '<img class="card-img-top store-list-card-img-style" src="<?=PROOT?>vendors/image/store/.jpg" onerror="noImage(this);">';
+				append += '<div class="card-body store-list-card-body">';
+				append += '<p class="card-title store-list-store-name">'+data[i].vols_nom+' - '+data[i].vols_id+'</p>';
+				append += '</div>';
+				append += '</div>';
+				append += '</div>';
+
+				$(".store-data-div").append(append);
+		}
+	});
+}
+
+function noImage(image) {
+	image.onerror = "";
+	image.src = url+"vendors/image/no-image.jpg";
+	return true;
+}
+
+function breadCrumbs($name){
+	var append =  '<li class="site-bcrumbs"><span class="site-bcrumbs-span">'+$('.dropdown-menu-btn').text()+'</span></li>';	
+		append += '<li class="store-bcrumbs">&nbsp;<i class="fa fa-arrow-right breadcrumbs-arrow" aria-hidden="true"></i> Store</li>';	
+		append += '<li class="games-bcrumbs"><i class="fa fa-arrow-right breadcrumbs-arrow" aria-hidden="true"></i> '+ $name +'</li>';
+		append += '<li class="">'
+		append += '<button type="button" class="btn dropdown-toggle sticky-dropdown" data-toggle="dropdown"></button>'
+		append += '<div class="dropdown-menu col-12 dropdown-menu-div sticky-dropdown-menu-div">'
+		append += '<a class="dropdown-item dropdown-items-store-page-search" >AKS</a>'
+		append += '<a class="dropdown-item dropdown-items-store-page-search" >CDD</a>'
+		append += '<a class="dropdown-item dropdown-items-store-page-search" >BREX</a>'
+		append += '</div>'
+		append += '</li>'
+
+		$(".breadcrumbs-ul").append(append);
+}

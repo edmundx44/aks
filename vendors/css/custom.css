@@ -42,7 +42,7 @@ html, body {
 	-webkit-transition: .3s ease-in-out;
 	-moz-transition: .3s ease-in-out;
 	-o-transition: .3s ease-in-out;
-	transition: .3s ease-in-out !important;
+	transition: .3s ease-in-out;
 }
 /*box shadow css codes here --------------------------------------------------------------------------------------*/
 /*.side-bar,*/
@@ -346,7 +346,7 @@ html, body {
 	cursor: pointer;
 }
 .sidebar-minimize:hover{
-	background: linear-gradient(60deg, #ab47bc, #8e24aa) !important;
+	background: linear-gradient(60deg, #004ea3, #0062cc) !important;
 }
 .sidebar-minimize:hover > i {
 	color: #fff;
@@ -565,7 +565,6 @@ html, body {
 	width: calc(100% - 260px);
 	height: 100%;
 	position: fixed ;
-	background-color: red;
 	right:  0;
 	background-image: linear-gradient(to right, #eee 30%, transparent 280%), url("../image/login/b6.jpg");
 	background-repeat: no-repeat;

@@ -272,7 +272,53 @@
 			$(this).find('.dropdown-menu').slideUp(200);
 		});
 
+		$(document).on('click', '.card-body-div-i', function(){
+			switch($(this).data('what')){
+				case 'menu-disabled':
+					$('.menu-snapshot, .menu-dbfeed, .menu-others').hide();
+					$('.'+$(this).data('what')).toggle();
+				break;
+				case 'menu-snapshot':
+					$('.menu-disabled, .menu-dbfeed, .menu-others').hide();
+					$('.'+$(this).data('what')).toggle();
+				break;
+				case 'menu-dbfeed':
+					$('.menu-disabled, .menu-snapshot, .menu-others').hide();
+					$('.'+$(this).data('what')).toggle();
+				break;
+				case 'menu-others':
+					$('.menu-disabled, .menu-snapshot, .menu-dbfeed').hide();
+					$('.'+$(this).data('what')).toggle();
+				break;
+
+			}
+		});
+
+		$(document).on('click', '.cbm-span', function(){
+			displayReport($(this).data('to'), $(this).text());
+		});
+
+		$(document).on('click', function(event){    
+			if(!$(event.target).is('.card-body-div-i, .menu-disabled *, .menu-snapshot *, .menu-dbfeed *, .menu-others *')) {
+				$('.card-body-menu-div').hide();
+			}
+	});		
+
+		
+
 	});
+
+	function displayReport($to, $what){
+		var dataRequest =  {
+				action: 'displayReport',
+				to: $to,
+				what: $what
+			}
+
+			AjaxCall(url+'dashboard', dataRequest).done(function(data) {
+				console.log(data)
+			});
+	}
 
 	//para sa checksum beforeUpdate
 	function arr_implode(array){
@@ -346,7 +392,237 @@
 		// });
 		// Chart.controllers.derivedBar = customBar;
 </script>
+<style type="text/css">
 
+/*card codes start ---------------------------------*/
+.card-bulletin {
+	position: relative;
+	top: 20px; 
+	padding-left:20px; 
+	padding-right:20px;
+	color: #fff;
+	letter-spacing: 1px;
+}
+.card-bulletin-desc{
+	position: relative;
+	top: 3px; 
+	padding-left:20px; 
+	padding-right:20px;
+	color: #fff;
+	font-size: 13px;
+}
+.card-title-p {
+	position: absolute; 
+	top:15px;
+	right: 15px;
+	color: #000;
+}
+.card-val-p {
+	position: absolute; 
+	top:38px;
+	right: 15px;
+	color: #000;
+	font-size: 18px;
+	letter-spacing: 1px;
+	font-weight: 500;
+}
+.card-val-p-sub {
+	position: absolute; 
+	top:65px;
+	right: 15px;
+	color: #000;
+	font-size: 15px;
+	letter-spacing: 1px;
+	font-weight: 500;
+}
+.card-body-style {
+	padding-bottom: 15px !important;
+}
+.card-body-div {
+	width: 100%;
+	height:30px;
+}
+.card-body-div-sub {
+	position: relative;	
+	top:10px;
+	color: #999;
+	cursor: pointer;
+}
+.card-body-div-sub-span {
+	font-size: 14px;
+	position: relative;	
+	top:-1px;
+}
+.card-body-div-i {
+	position: relative;	
+	top:11px;
+	color: #999;
+	font-size: 20px;
+	cursor: pointer;
+}
+.card-body-div-i:hover{
+	margin-left: -2px;
+	margin-top: -2px;
+	font-size: 25px;
+	transition: all .1s ease-in-out;
+	color: #6b6d70 !important;
+}
+
+.card-body-menu-div {
+	top: 9px;
+	left: 45px;
+	width: 150px;
+	height: 125px;
+	border-radius: 5px;
+	background-color: #fff;
+	box-shadow: 0 2px 10px 0 rgb(0 0 0 / 26%);
+	position: absolute;
+	z-index: 1;
+	display: none;
+}
+.card-body-menu-div:after {
+	position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    bottom: 10px;
+    left: 1px;
+    box-sizing: border-box;
+    border: 5px solid black;
+    border-color: transparent transparent #fff #fff;
+    transform-origin: 0 0;
+    transform: rotate(45deg);
+    box-shadow: -1px 1px 3px 0 rgb(0 0 0 / 20%);
+}
+.card-body-menu-div-ul {
+	list-style-type: none;
+	padding: 0;
+	font-size: 14px;
+	position: absolute;
+	bottom: -10px;
+	width: 100%;
+
+}
+.card-body-menu-div-li {
+	padding: 5px 5px 5px 15px;
+	letter-spacing: 1px;
+	font-weight: 700;
+	cursor: pointer;
+}
+.cbm-span {
+	margin-left: 5px;
+}
+.cbm-span:hover {
+	text-decoration: underline;
+}
+
+/*card codes end -----------------------------------*/
+.ul-tab-option {
+	list-style-type: none; 
+	margin: 0;
+	padding: 0;
+}
+.ul-tab-option li {
+	border-radius: 5px;
+    display: inline-block;
+    padding: 10px;
+}
+.active-tab {
+    background-color: #fff;
+    color: #004ea3;
+}
+.li-tab-option{
+	border: none;
+	font-weight: 700;
+	cursor: pointer;
+}
+.li-tab-option:hover{
+	background-color: #fff;
+	color: #004ea3;
+}
+
+
+.dropdown-menu{
+	min-width: 150px;
+}
+
+.dropdown-div {
+  width: 100%;
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 0 2px rgb(204, 204, 204);
+  transition: all .5s ease;
+  position: relative;
+  font-size: 14px;
+  color: #474747;
+  height: 100%;
+  text-align: left;
+  z-index: 999;
+}
+.dropdown-div .select {
+    cursor: pointer;
+    display: block;
+    padding: 10px;
+    background-color: #3f51b5;
+    color: #fff;
+}
+.dropdown-div .select > i {
+    font-size: 13px;
+    color: #fff;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    float: right;
+    line-height: 20px
+}
+.dropdown-div:hover {
+    box-shadow: 0 0 4px rgb(204, 204, 204)
+}
+.dropdown-div:active {
+    background-color: #f8f8f8
+}
+.dropdown-div .dropdown-menu {
+    position: absolute;
+    background-color: #fff;
+    width: 100%;
+    left: 0;
+    margin-top: 1px;
+    box-shadow: 0 1px 2px rgb(204, 204, 204);
+    border-radius: 0 1px 2px 2px;
+    overflow: hidden;
+    display: none;
+    overflow-y: auto;
+    z-index: 9
+}
+.dropdown-div .dropdown-menu li {
+    padding: 10px;
+    transition: all .2s ease-in-out;
+    cursor: pointer
+} 
+.dropdown-div .dropdown-menu {
+    padding: 0;
+    list-style: none
+}
+.dropdown-div .dropdown-menu li:hover {
+    background-color: #f2f2f2
+}
+.dropdown-div .dropdown-menu li:active {
+    background-color: #e2e2e2
+}
+.custom-bkgd{
+	border-radius: 5px;
+	background: linear-gradient(60deg, #004ea3, #0062cc);
+	font-weight: bold;
+}
+.cos-dropdown-menu li:hover{
+	background: linear-gradient(60deg, #004ea3, #0062cc);
+	color: white;
+	transition: all .09s ease-in-out;
+	font-weight: bold;
+}
+
+
+</style>
 <?php $this->end(); ?>
 
 <?php $this->start('body')?>
@@ -357,8 +633,8 @@
 			<div class="card card-style">
 				<div class="card-body no-padding row-1-card-body"> 
 					<div class="card-div-overflow-style row-1-card-div-overflow-style row-1-card-div-overflow-style-1">
-						<p style="position: relative;top: 20px; padding-left:20px; padding-right:20px;color: #fff;letter-spacing: 1px;">Header</p>
-						<p style="position: relative;top: 3px; padding-left:20px; padding-right:20px;color: #fff;font-size: 13px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+						<p class="card-bulletin">Bulletin</p>
+						<p class="card-bulletin-desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 					</div>
 				</div>
 			</div>
@@ -380,15 +656,24 @@
 					<div class="text-center card-div-overflow-style row-2-card-div-overflow-style row-2-card-div-overflow-style-1">
 						<i class="fa fa-ban row-2-icon" aria-hidden="true"></i>
 					</div>
-					<p class="card-title-p" style="position: absolute; top:15px;right: 15px;color: #000;"> 21 - 130</p>
-					<p class="card-val-p" style="position: absolute; top:38px;right: 15px;color: #000;font-size: 18px;letter-spacing: 1px;font-weight: 500;">Disabled</p>
-					<p class="card-val-p" style="position: absolute; top:65px;right: 15px;color: #000;font-size: 15px;letter-spacing: 1px;font-weight: 500;">Default - STORE</p>
+					<p class="card-title-p"> 21 - 130</p>
+					<p class="card-val-p">Disabled</p>
+					<p class="card-val-p-sub">STORE - SELECTED</p>
 				</div>
-				<div class="card-body no-padding" style="padding-bottom: 15px !important;">
-					<div style="width: 100%;height:30px;"> 
-						<div class="pull-right" style="position: relative;	top:10px;color: #999;cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"> </i> <span class="" style="font-size: 14px;position: relative;	top:-1px;">view more</span></div>
+				<div class="card-body no-padding card-body-style">
+					<div class="card-body-div"> 
+						<div class="pull-right card-body-div-sub">
+							<i class="fa fa-eye" aria-hidden="true"> </i> 
+							<span class="card-body-div-sub-span">view more</span>
+						</div>
 						
-						<i class="fa fa-sliders float-left" aria-hidden="true" style="position: relative;	top:11px;color: #999;font-size: 20px;cursor: pointer;"></i>
+						<i class="fa fa-sliders float-left card-body-div-i" data-what="menu-disabled" aria-hidden="true"></i>
+						<div class="card-body-menu-div menu-disabled">
+							<ul class="card-body-menu-div-ul">
+								<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span" data-to="menu-disabled">Store</span></li>
+								<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span" data-to="menu-disabled">Metacritics</span></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -399,16 +684,26 @@
 					<div class="text-center card-div-overflow-style row-2-card-div-overflow-style row-2-card-div-overflow-style-2">
 						<i class="fa fa-snapchat row-2-icon" aria-hidden="true"></i>
 					</div>
-					<p class="card-title-p" style="position: absolute; top:15px;right: 15px;color: #000;">140</p>
-					<p class="card-val-p" style="position: absolute; top:35px;right: 15px;color: #000;font-size: 18px;letter-spacing: 1px;font-weight: 500;"> Snapshot</p>
-					<p class="card-val-p" style="position: absolute; top:65px;right: 15px;color: #000;font-size: 15px;letter-spacing: 1px;font-weight: 500;">Default - AKS</p>
+					<p class="card-title-p">140</p>
+					<p class="card-val-p"> Snapshot</p>
+					<p class="card-val-p-sub">AKS - SELECTED</p>
 
 				</div>
-				<div class="card-body no-padding" style="padding-bottom: 15px !important;">
-					<div style="width: 100%;height:30px;"> 
-						<div class="pull-right" style="position: relative;	top:10px;color: #999;cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"> </i> <span class="" style="font-size: 14px;position: relative;	top:-1px;">view more</span></div>
+				<div class="card-body no-padding card-body-style">
+					<div class="card-body-div"> 
+						<div class="pull-right card-body-div-sub">
+							<i class="fa fa-eye" aria-hidden="true"> </i> 
+							<span class="card-body-div-sub-span">view more</span>
+						</div>
 						
-						<i class="fa fa-sliders float-left" aria-hidden="true" style="position: relative;	top:11px;color: #999;font-size: 20px;cursor: pointer;"></i>
+						<i class="fa fa-sliders float-left card-body-div-i" data-what="menu-snapshot" aria-hidden="true"></i>
+						<div class="card-body-menu-div menu-snapshot">
+							<ul class="card-body-menu-div-ul">
+								<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span" data-to="menu-snapshot">AKS</span></li>
+								<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span" data-to="menu-snapshot">CDD</span></li>
+								<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span" data-to="menu-snapshot">BREXIT</span></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -419,14 +714,24 @@
 					<div class="text-center card-div-overflow-style row-2-card-div-overflow-style row-2-card-div-overflow-style-3">
 						<i class="fa fa-database row-2-icon" aria-hidden="true"></i>
 					</div>
-					<p class="card-title-p" style="position: absolute; top:15px;right: 15px;color: #000;">65</p>
-					<p class="card-val-p" style="position: absolute; top:35px;right: 15px;color: #000;font-size: 18px;letter-spacing: 1px;font-weight: 500;"> DB Feed</p>
+					<p class="card-title-p">65</p>
+					<p class="card-val-p"> DB Feed</p>
 				</div>
-				<div class="card-body no-padding" style="padding-bottom: 15px !important;">
-					<div style="width: 100%;height:30px;"> 
-						<div class="pull-right" style="position: relative;	top:10px;color: #999;cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"> </i> <span class="" style="font-size: 14px;position: relative;	top:-1px;">view more</span></div>
+				<div class="card-body no-padding card-body-style">
+					<div class="card-body-div"> 
+						<div class="pull-right card-body-div-sub">
+							<i class="fa fa-eye" aria-hidden="true"> </i> 
+							<span class="card-body-div-sub-span">view more</span>
+						</div>
 						
-						<i class="fa fa-sliders float-left" aria-hidden="true" style="position: relative;	top:11px;color: #999;font-size: 20px;cursor: pointer;"></i>
+						<i class="fa fa-sliders float-left card-body-div-i" data-what="menu-dbfeed" aria-hidden="true" ></i>
+						<div class="card-body-menu-div menu-dbfeed">
+							<ul class="card-body-menu-div-ul">
+								<!-- <li class="card-body-menu-div-li"><i class="fa fa-share-square-o" aria-hidden="true"></i><span class="cbm-span">AKS</span></li>
+								<li class="card-body-menu-div-li"><i class="fa fa-share-square-o" aria-hidden="true"></i><span class="cbm-span">CDD</span></li>
+								<li class="card-body-menu-div-li"><i class="fa fa-share-square-o" aria-hidden="true"></i><span class="cbm-span">BREXIT</span></li> -->
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -437,14 +742,24 @@
 					<div class="text-center card-div-overflow-style row-2-card-div-overflow-style row-2-card-div-overflow-style-4">
 						<i class="fa fa-random row-2-icon" aria-hidden="true"></i>
 					</div>
-					<p class="card-title-p" style="position: absolute; top:15px;right: 15px;color: #000;">0</p>
-					<p class="card-val-p" style="position: absolute; top:35px;right: 15px;color: #000;font-size: 18px;letter-spacing: 1px;font-weight: 500;">Random</p>
+					<p class="card-title-p">0</p>
+					<p class="card-val-p">Others</p>
 				</div>
-				<div class="card-body no-padding" style="padding-bottom: 15px !important;">
-					<div style="width: 100%;height:30px;"> 
-						<div class="pull-right" style="position: relative;	top:10px;color: #999;cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"> </i> <span class="" style="font-size: 14px;position: relative;	top:-1px;">view more</span></div>
+				<div class="card-body no-padding card-body-style">
+					<div class="card-body-div"> 
+						<div class="pull-right card-body-div-sub">
+							<i class="fa fa-eye" aria-hidden="true"> </i> 
+							<span class="card-body-div-sub-span">view more</span>
+						</div>
 						
-						<i class="fa fa-sliders float-left" aria-hidden="true" style="position: relative;	top:11px;color: #999;font-size: 20px;cursor: pointer;"></i>
+						<i class="fa fa-sliders float-left card-body-div-i" data-what="menu-others" aria-hidden="true"></i>
+						<div class="card-body-menu-div menu-others">
+							<ul class="card-body-menu-div-ul">
+								<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Others</span></li>
+								<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Others</span></li>
+								<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Others</span></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -559,6 +874,7 @@
 	</div>
 </div>
 
+<<<<<<< HEAD
 <style type="text/css">
 .ul-tab-option {
 	font-size: 13px;
@@ -714,4 +1030,6 @@
 </style>
 
 
+=======
+>>>>>>> d3e5005e0439df1174868b0e0ec8d486f4e083e3
 <?php $this->end()?>

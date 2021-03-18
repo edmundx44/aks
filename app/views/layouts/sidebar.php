@@ -146,8 +146,8 @@ input:checked + .switch-slider:before {
 		<i class="fa fa-sign-out sidebar-footer-logout-icon" aria-hidden="true" alt="Logout" title="Logout"></i>
 	</div>
 	<div class="div-img-logout-settings" style="" id="div-img-logout-settings-id">
-		<div class="dils-div-1" style="border:solid 1px red;width: 20%;height: 100%;position: absolute;"> asd </div>
-		<div class="dils-div-2" style="border:solid 1px red;width: 80%;height: 100%;position: absolute;left: 20%;">
+		<div class="dils-div-1" style="width: 20%;height: 100%;position: absolute;"> asd </div>
+		<div class="dils-div-2" style="width: 80%;height: 100%;position: absolute;left: 20%;">
 			<ul style="list-style-type: none;margin:0;padding:0;color: #000;">
 				<li style="padding:5px;font-size: 13px;">Option</li>
 				<li style="padding:5px;font-size: 13px;">Option</li>
