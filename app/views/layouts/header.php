@@ -11,19 +11,42 @@
 		width: 100%;
 		padding-right: 15px;
 		padding-left: 15px;
+		-webkit-transition: .3s ease-in-out;
+		-moz-transition: .3s ease-in-out;
+		-o-transition: .3s ease-in-out;
+		transition: .3s ease-in-out;
+	}
+	.navbar-style {
+		padding-top: 20px;
+		padding-bottom: 20px;
+		border-radius: 0 0 5px 5px;
+
+	}
+	.navbar-brand {
+		color: #000;
+		letter-spacing: 2px;
+		text-transform: uppercase;
 	}
 	.header-content-stickey {
 		position: fixed;
+		background: rgba(255, 255, 255, 1);
+		box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
 		width: calc(100% - 290px);
 		z-index: 6;
 	}
 	.minimized-sb-sticky-header {
 		width: calc(100% - 130px) !important;
 	}
+	.sidebar-menu-btn {
+		z-index: 9;
+		color: #fff;
+		background-color: #fff;
+		outline: none;
+	}
 </style>
 <div class="header-content">
-	<nav class="navbar navbar-expand-md navbar-light" style="background: rgba(255, 255, 255, 1);box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);padding-top: 20px;padding-bottom: 20px;border-bottom-left-radius: .25rem;border-bottom-right-radius: .25rem;">
-		<a href="#" class="navbar-brand" style="color: #000;letter-spacing: 2px;">
+	<nav class="navbar navbar-expand-md navbar-light navbar-style">
+		<a href="#" class="navbar-brand">
 			<?php foreach ($menu as $key => $val): 
 				$title = ($val == $currentPage)? $key:''; ?>
 				<?php if(is_array($val)): ?>
@@ -36,7 +59,7 @@
 				<?php endif; ?>
 			<?php endforeach; ?>
 		</a>
-		<button type="button" class="navbar-toggler sidebar-menu-btn" data-toggle="collapse" style="z-index: 9;color: #fff;background-color: #fff;outline: none;">
+		<button type="button" class="navbar-toggler sidebar-menu-btn" data-toggle="collapse">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 

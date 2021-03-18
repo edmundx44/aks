@@ -18,6 +18,7 @@ use Core\Session;
 
     <script src="<?=PROOT?>vendors/js/jQuery-2.2.4.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script> var url = '<?= PROOT ?>'; </script>
 
     <?= $this->content('head'); ?>
   </head>
