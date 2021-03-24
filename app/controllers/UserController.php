@@ -14,7 +14,7 @@ class UserController extends Controller {
   }
 
   public function loginAction() {
-    echo '<script type="text/javascript">localStorage.clear();</script>'; //clear localstorage
+    echo '<script type="text/javascript">var bodyMode = localStorage.getItem("body-mode") localStorage.clear() localStorage.setItem("body-mode", bodyMode) localStorage.setItem("sidebar-active", "sidebar-no"); </script>'; //clear localstorage
 
     $loginModel = new Login();
     if($this->request->isPost()) {
