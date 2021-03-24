@@ -305,7 +305,7 @@
   <div class="modal-dialog checksum-dialog">
 
     <!-- Modal content-->
-        <div class="modal-content modal-con-override">
+        <div class="modal-content modal-con-override" style="border-radius: .5rem">
             <div class="modal-header" style="background: linear-gradient(60deg, #004ea3, #0062cc);color: #fff;letter-spacing: 1px;">
                 <h5 class="modal-title dateChange">CHECKSUM 
                     <?php 
@@ -327,6 +327,7 @@
                             <li class='opt-site-chk' data-website="brexitgbp">BREXITGBP</li>
                         </ul>
                     </div>
+                    <div class="pull-right custom-bkgd chkTable-total" style="padding: 8px;width: 120px;color: #fff;text-align: center;">TOTAL</div>
                 </div>
             </div>
                 <div class="modal-checksum-data col-sm-12">
@@ -340,18 +341,6 @@
                             </tr>
                         </thead>
                         <tbody class="checksum-body">
-                            <tr class='getCount'>
-                                <td class="tbody-td-1" data-tbl-td="Merchant"><b>Royal Key Software (285)</b></td>
-                                <td class="tbody-td-2" data-tbl-td="Checksum">4fa0d3f7068cff3c95993c23734461e0</td>
-                                <td class="tbody-td-3" data-tbl-td="Last Update">Mar 17 2021 05:50 PM</td>
-                                <td class="tbody-td-1 text-center" data-tbl-td="Status"><b>Updated</b></td>
-                            </tr>
-                            <tr class='getCount'>
-                                <td class="tbody-td-1" data-tbl-td="Merchant"><b>Eneba (285)</b></td>
-                                <td class="tbody-td-2" data-tbl-td="Checksum">4fa0d3f7068cff3c95993c23734461e0</td>
-                                <td class="tbody-td-3" data-tbl-td="Last Update">Mar 17 2021 05:50 PM</td>
-                                <td class="tbody-td-1 text-center" data-tbl-td="Status"><b>Updated</b></td>
-                            </tr>
 
                         </tbody>
                     </table>

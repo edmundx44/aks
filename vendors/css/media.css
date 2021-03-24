@@ -112,7 +112,9 @@
 		width: calc(100% - 123px) !important;
 	}
 	
-
+	.modal-checksum-data{
+		font-size: 12px;
+	}
 }
 
 /* extra small devices (576px)*/
@@ -138,6 +140,69 @@
 	.store-search-btn-sticky {
 		right: 55px !important;
 	}
+
+
+	/*---------------------CHECKSUM TABLE MOBILE DISPLAY-----------------------------------*/
+	.dh-title{
+		left: 0 !important;
+	}
+	.modal-checksum-data{
+		padding-top: 10px;
+	}
+	.table-checksum{
+		font-size: 12px;
+	}
+	.table-checksum tr,
+	.table-checksum td{
+		display: block;
+	}
+	.checksum-body tr:not(:last-child){
+		margin-bottom: 10px;
+	}
+	.table-checksum th{
+		display: none;
+	}
+	.modal-checksum-data thead tr,
+	.modal-checksum-data tbody .tbody-td-1{
+		border: 0 !important;
+	}
+	.modal-checksum-data tbody .tbody-td-2,
+	.modal-checksum-data tbody .tbody-td-3{
+		width: 100% !important;
+		border: 0 !important;
+	}
+	.checksum-body td{
+		padding-left: 30% !important;
+		text-align: left;
+		position: relative;
+	}
+	.table-checksum td::before{
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		padding: 8px;
+	    line-height: 1.42857143;
+	    vertical-align: top;
+		width: 27%;
+		content: attr(data-tbl-td);
+		font-weight: bold;
+		background-color: #3f51b5;
+		color: #ffffff;
+	}
+	.checksum-body .getCount{
+		border:solid 1px #fff !important;
+		background-color: #fff;
+	}
+	/*---------------------SUCCESS/FAIL MOBILE DISPLAY-----------------------------------*/
+/*	.sf-name,
+	.sf-site{
+		font-size: 13px;
+	}
+	.sf-date{
+		font-size: 12px;
+	}*/
+
 }
 
 @media (min-width:768px){
