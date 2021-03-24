@@ -1,2 +1,48 @@
 [18-Mar-2021 11:12:02 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\akss\app\models\Ajax.php:121) in C:\xampp\htdocs\akss\core\Controller.php on line 25
 [18-Mar-2021 11:12:02 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\akss\app\models\Ajax.php:121) in C:\xampp\htdocs\akss\core\Controller.php on line 26
+[18-Mar-2021 12:15:00 Europe/Berlin] PHP Parse error:  syntax error, unexpected '=', expecting ')' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 70
+[18-Mar-2021 12:16:25 Europe/Berlin] PHP Parse error:  syntax error, unexpected '=', expecting ')' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 70
+[18-Mar-2021 12:56:43 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class 'App\Models\DashboardController' not found in D:\xampp\htdocs\akss\app\models\Ajax.php:87
+Stack trace:
+#0 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(49): App\Models\Ajax::ajaxData('displayReport')
+#1 [internal function]: App\Controllers\DashboardController->indexAction()
+#2 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#3 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#4 {main}
+  thrown in D:\xampp\htdocs\akss\app\models\Ajax.php on line 87
+[18-Mar-2021 12:56:48 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class 'App\Models\DashboardController' not found in D:\xampp\htdocs\akss\app\models\Ajax.php:87
+Stack trace:
+#0 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(49): App\Models\Ajax::ajaxData('displayReport')
+#1 [internal function]: App\Controllers\DashboardController->indexAction()
+#2 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#3 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#4 {main}
+  thrown in D:\xampp\htdocs\akss\app\models\Ajax.php on line 87
+[18-Mar-2021 12:56:53 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class 'App\Models\DashboardController' not found in D:\xampp\htdocs\akss\app\models\Ajax.php:87
+Stack trace:
+#0 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(49): App\Models\Ajax::ajaxData('displayReport')
+#1 [internal function]: App\Controllers\DashboardController->indexAction()
+#2 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#3 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#4 {main}
+  thrown in D:\xampp\htdocs\akss\app\models\Ajax.php on line 87
+[18-Mar-2021 14:41:53 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'return' (T_RETURN) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 123
+[18-Mar-2021 14:41:53 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'return' (T_RETURN) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 123
+[18-Mar-2021 14:42:07 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'return' (T_RETURN) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 123
+[18-Mar-2021 14:42:07 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'return' (T_RETURN) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 123
+[18-Mar-2021 14:42:31 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'return' (T_RETURN) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 123
+[18-Mar-2021 14:42:31 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'return' (T_RETURN) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 123
+[18-Mar-2021 15:32:04 Europe/Berlin] PHP Notice:  Undefined variable: addQuery in D:\xampp\htdocs\akss\app\models\Ajax.php on line 121
+[19-Mar-2021 12:48:20 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$toWhat' (T_VARIABLE) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 129
+[19-Mar-2021 12:48:20 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$toWhat' (T_VARIABLE) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 129
+[19-Mar-2021 12:48:20 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$toWhat' (T_VARIABLE) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 129
+[19-Mar-2021 12:48:34 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$toWhat' (T_VARIABLE) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 129
+[19-Mar-2021 12:48:34 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$toWhat' (T_VARIABLE) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 129
+[19-Mar-2021 12:48:34 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$toWhat' (T_VARIABLE) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 129
+[19-Mar-2021 12:49:23 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$toWhat' (T_VARIABLE) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 129
+[19-Mar-2021 12:49:23 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$toWhat' (T_VARIABLE) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 129
+[19-Mar-2021 12:49:23 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$toWhat' (T_VARIABLE) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 129
+[19-Mar-2021 12:50:15 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$toWhatDB' (T_VARIABLE) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 129
+[19-Mar-2021 12:50:15 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$toWhatDB' (T_VARIABLE) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 129
+[19-Mar-2021 12:50:15 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$toWhatDB' (T_VARIABLE) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 129
+[19-Mar-2021 12:50:48 Europe/Berlin] PHP Notice:  Undefined variable: addQuery in D:\xampp\htdocs\akss\app\models\Ajax.php on line 120

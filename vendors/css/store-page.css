@@ -313,7 +313,10 @@
 .breadcrumbs-ul-fixed, .store-page-search.form-control { width: calc(100% - 383px) }
 .nname-modal-tbody-div, .store-games-data-div-table { word-break: break-all }
 
-/*custom css---------------------------------------------------*/
+
+
+/*normal css -------------------------------------------------------------------------------------------*/
+/*custom css ---------------------------------------------------*/
 .minimized-sb-sticky {
 	width: calc(100% - 223px) !important;
 }
