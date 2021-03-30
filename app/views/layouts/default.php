@@ -34,7 +34,7 @@ use Core\Session;
         <div class="sidebar">
           <?php include 'sidebar.php'; ?>
         </div>
-        <div class="hcf-back"></div>
+        <div class="hcf-back hcf-back-normal"></div>
         <div class="header-content-footer">
           <?php include 'header.php'; ?>
           <?= $this->content('body'); ?>

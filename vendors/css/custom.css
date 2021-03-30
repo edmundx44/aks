@@ -1,15 +1,13 @@
 html, body {
 	font-family: 'Raleway', sans-serif !important;
 	color: #6b6d70 !important;
-	background-color: #eee !important;
 }
-
 
 .tooltip {
 	z-index: 9999 !important;
 }
 /*scrollbar css codes here --------------------------------------------------------------------------------------*/
-.scrollbar-custom::-webkit-scrollbar {
+/*.scrollbar-custom::-webkit-scrollbar {
 	width: 8px;
 	border-radius: 8px;
 }
@@ -19,7 +17,7 @@ html, body {
 }
 .scrollbar-custom-ds::-webkit-scrollbar-track {
 	border-radius: 10px;
-	/*background: #3f51b5;*/
+	background: #3f51b5;
 }
 .scrollbar-custom-akssnap::-webkit-scrollbar-track {
   background: #4caf50;
@@ -29,8 +27,43 @@ html, body {
 }
 .scrollbar-custom-dbfc::-webkit-scrollbar-track {
   background: #e64a19;
-}
+}*/
 
+/*css code here ---------------------------------------------------------*/
+/*start with letter B -------------------------------*/
+.active-class,
+.sidebar-minimize:hover {
+	background: linear-gradient(60deg, #004ea3, #0062cc) !important;
+}
+.float-anywhere,
+.float-settings-menu {
+	background-color: #004ea3;
+}
+.active-class,
+.div-img-logout-settings,
+.card-div-overflow-style,
+.li-nav-and-sub-darkmode:hover,
+.li-nav-and-sub-normal:hover {
+	border-radius: 5px;
+}
+.float-anywhere,
+.float-anywhere:before,
+.float-settings-menu {
+	border-radius: 50%;
+}
+.float-anywhere,
+.menu-0,
+.menu-1,
+.menu-2,
+.menu-3,
+.menu-4,
+.menu-5,
+.menu-6,
+.menu-7,
+.sidebar,
+.sidebar-minimize {
+	box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%), 0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
+}
 /*transition css codes here --------------------------------------------------------------------------------------*/
 .sidebar,
 .sidebar-minimize-icon,
@@ -38,7 +71,12 @@ html, body {
 .sidebar-menu,
 .sidebar-menu-icon,
 .sidebar-content-wrapper,
-.header-content-footer{
+.header-content-footer,
+.hcf-back-darkmode,
+.card-darkmode,
+.card-header-darkmode,
+.hcf-back-normal,
+.card-normalmode {
 	-webkit-transition: .3s ease-in-out;
 	-moz-transition: .3s ease-in-out;
 	-o-transition: .3s ease-in-out;
@@ -58,15 +96,14 @@ html, body {
 .mtop-35px {
 	margin-top: 35px;
 }
+
 /*custom css codes here ------------------------------------------------------------------------------------------*/
 .no-padding {
 	padding: 0 !important;
 }
-.active-class{
-	background: linear-gradient(60deg, #004ea3, #0062cc) !important;
+.active-class {
 	/*background: linear-gradient(60deg, #ab47bc, #8e24aa) !important;*/
 	/*color: #fff !important;*/
-	border-radius: 5px;
 	box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
 	display: block;
 	height: 50px;
@@ -131,18 +168,14 @@ html, body {
 	position:fixed;
 	width: 50px; 
 	height: 50px; 
-	border-radius: 50%;
 	cursor: pointer;
 	z-index: 1200;
-	box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%), 0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
-	background-color: #004ea3;
 }
 .float-anywhere:before {
 	content: '';
 	position: absolute;
 	width: 40px; 
 	height: 40px; 
-	border-radius: 50%;
 	background-color: #eee;
 	z-index: 11;
 	top: 5px;
@@ -182,8 +215,6 @@ html, body {
 	position: absolute;
 	width: 15px;
 	height: 15px;
-	border-radius: 50%;
-	background-color: #004ea3;
 	/*background: linear-gradient(60deg, #004ea3, #0062cc) !important;*/
 	z-index: 11;
 	margin-left: auto;
@@ -216,7 +247,6 @@ html, body {
 	width: 30px;
 	height: 30px;
 	top: -40px;
-	box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%), 0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
 	-webkit-transition: .1s ease-in-out;
 	-moz-transition: .1s ease-in-out;
 	-o-transition: .1s ease-in-out;
@@ -227,7 +257,6 @@ html, body {
 	height: 30px;
 	top:-24px;
 	left: -72px;
-	box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%), 0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
 	-webkit-transition: .2s ease-in-out;
 	-moz-transition: .2s ease-in-out;
 	-o-transition: .2s ease-in-out;
@@ -238,7 +267,6 @@ html, body {
 	height: 30px;
 	top: 10px;
 	left: -105px;
-	box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%), 0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
 	-webkit-transition: .3s ease-in-out;
 	-moz-transition: .3s ease-in-out;
 	-o-transition: .3s ease-in-out;
@@ -249,7 +277,6 @@ html, body {
 	height: 30px;
 	top: 45px;
 	left: -70px;
-	box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%), 0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
 	-webkit-transition: .4s ease-in-out;
 	-moz-transition: .4s ease-in-out;
 	-o-transition: .4s ease-in-out;
@@ -259,7 +286,6 @@ html, body {
 	width: 30px;
 	height: 30px;
 	top:60px;
-	box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%), 0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
 	-webkit-transition: .5s ease-in-out;
 	-moz-transition: .5s ease-in-out;
 	-o-transition: .5s ease-in-out;
@@ -270,7 +296,6 @@ html, body {
 	height: 30px;
 	top: 45px;
 	left: 45px;
-	box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%), 0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
 	-webkit-transition: .6s ease-in-out;
 	-moz-transition: .6s ease-in-out;
 	-o-transition: .6s ease-in-out;
@@ -281,7 +306,6 @@ html, body {
 	height: 30px;
 	top: 13px;
 	left: 63px;
-	box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%), 0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
 	-webkit-transition: .7s ease-in-out;
 	-moz-transition: .7s ease-in-out;
 	-o-transition: .7s ease-in-out;
@@ -292,7 +316,6 @@ html, body {
 	height: 30px;
 	top:-22px;
 	left: 47px;
-	box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%), 0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
 	-webkit-transition: .8s ease-in-out;
 	-moz-transition: .8s ease-in-out;
 	-o-transition: .8s ease-in-out;
@@ -307,7 +330,6 @@ html, body {
     left: 0;
     z-index: 2;
     width: 260px;
-    box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%), 0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
     background-image: url("../image/sidebar-1.jpg");
     background-position: center;
 	background-repeat: no-repeat;
@@ -319,7 +341,6 @@ html, body {
 	width: 260px;
 	height: 100%;
 	max-height: 100%;
-	background: rgba(255, 255, 255, 0.9);
 }
 
 .sidebar-content {
@@ -342,11 +363,7 @@ html, body {
 	top: 70px;
 	border-radius: 25px;
 	background: #f2f2f2;
-	box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%), 0 4px 25px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
 	cursor: pointer;
-}
-.sidebar-minimize:hover{
-	background: linear-gradient(60deg, #004ea3, #0062cc) !important;
 }
 .sidebar-minimize:hover > i {
 	color: #fff;
@@ -403,11 +420,7 @@ html, body {
 
 }
 
-.li-nav-div:hover,
-.sub-li-nav-div:hover{
-	background-color: #e1e1e2;
-	border-radius: 5px;
-}
+
 
 #nav-icon {
 	font-size: 20px;
@@ -450,7 +463,6 @@ html, body {
 
 .sidebar-menu-value {
 	/*color : #3C4858;*/
-	color : #000;
 	position: absolute;
 	width: 170px;
 	left: 40px;
@@ -466,9 +478,7 @@ html, body {
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
-
 .div-img-logout-settings {
-	border-radius: 5px;
 	position: absolute;
 	background-color: #fff;
 	width: 230px;
@@ -566,7 +576,6 @@ html, body {
 	height: 100%;
 	position: fixed ;
 	right:  0;
-	background-image: linear-gradient(to right, #eee 30%, transparent 280%), url("../image/login/b6.jpg");
 	background-repeat: no-repeat;
 	background-size: 100% 100%, cover;
 	 /*url('https://i.imgur.com/waDgcnc.jpg');*/
@@ -579,9 +588,7 @@ html, body {
 	width: 100% !important;
 }
 */
-.card {
-	background-color: rgba(255, 255, 255, 0.5) !important;
-}
+
 .card-header {
 	background-color: transparent !important;
 }
@@ -591,9 +598,7 @@ html, body {
 	border:0;
 	box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
 }
-
 .card-div-overflow-style {
-	border-radius: 5px;
 	position: relative;
 	top: -20px;
 }
@@ -732,4 +737,59 @@ html, body {
 	font-size: 11px;
 	opacity: 1;
 	color: blue !important;
+}
+
+
+/*darkmode -----------------------*/
+.sidebar-content-wrapper-darkmode {
+	background: rgba(39, 41, 61, 0.9);
+}
+.li-nav-and-sub-darkmode:hover {
+	background-color: #1f2030;
+}
+.sidebar-footer-darkmode,
+.html-body-darkmode {
+	background-color: #1e1e2f;
+}
+.hcf-back-darkmode {
+	background-image: linear-gradient(to right, #1e1e2f 30%, transparent 280%), url(../image/login/b6.jpg);
+}
+.card-darkmode {
+	background-color: rgba(39, 41, 61, 0.9) !important;
+}
+.sidebar-menu-value-darkmode,
+.header-title-darkmode,
+.card-title-p-darkmode,
+.card-val-p-darkmode,
+.card-val-p-sub-darkmode {
+	color: #fff;
+}
+.card-header-darkmode {
+	border-bottom: 1px solid rgba(255,255,255,.125) !important;
+}
+
+/*normalmode ---------------------*/
+.sidebar-content-wrapper-normal {
+	background: rgba(255, 255, 255, 0.9);
+}
+.li-nav-and-sub-normal:hover {
+	background-color: #e1e1e2;
+}
+.sidebar-footer-normal,
+html, 
+body  {
+	background-color: #eee ;
+}
+.hcf-back-normal {
+	background-image: linear-gradient(to right, #eee 30%, transparent 280%), url("../image/login/b6.jpg");
+}
+.card-normalmode {
+	background-color: rgba(255, 255, 255, 0.5) !important;
+}
+.sidebar-menu-value-normal,
+.header-title-normal,
+.card-title-p-normal,
+.card-val-p-normal,
+.card-val-p-sub-normal {
+	color: #000;
 }

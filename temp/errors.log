@@ -1,2 +1,0 @@
-[18-Mar-2021 11:12:02 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\akss\app\models\Ajax.php:121) in C:\xampp\htdocs\akss\core\Controller.php on line 25
-[18-Mar-2021 11:12:02 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\akss\app\models\Ajax.php:121) in C:\xampp\htdocs\akss\core\Controller.php on line 26

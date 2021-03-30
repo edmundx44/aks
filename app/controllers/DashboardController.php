@@ -51,4 +51,15 @@ class DashboardController extends Controller {
         }
         $this->view->render('admin/dashboard/index');
     }
+
+     /*------------------ USED THIS TO GET METACRITIC DISABLED OR NOT --------------*/
+    public static function getMetacriticsNumberOfLinks($db,$id){
+            $sql = "SELECT count(*) as count FROM `metacritic`.`statistics` WHERE `game_id` = $id";
+            return $db->query($sql)->first();
+        }
+
+    public static function getMetacriticsDisabledLinks($db,$id){
+        $sql = "SELECT count(*) as count1 FROM `metacritic`.`statistics` WHERE `game_id` = $id AND `status` = 1";
+        return $db->query($sql)->first();
+    }
 }

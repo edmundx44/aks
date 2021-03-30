@@ -33,6 +33,7 @@
 		box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
 		width: calc(100% - 290px);
 		z-index: 6;
+		border-radius: 0 0 5px  5px;
 	}
 	.minimized-sb-sticky-header {
 		width: calc(100% - 130px) !important;
@@ -55,7 +56,7 @@
 						<span><?= $titles ?></span>
 					<?php endforeach; ?>
 				<?php else:?>
-					<span><?= $title ?></span>
+					<span class="header-title header-title-normal"><?= $title ?></span>
 				<?php endif; ?>
 			<?php endforeach; ?>
 		</a>
