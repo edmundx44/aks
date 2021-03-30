@@ -4,10 +4,10 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script type="text/javascript">
 
-	let doughnut_PTZ;
-	let donot2;
-	let donot3;
-	let checksumChart;
+	var doughnut_PTZ;
+	var donot2;
+	var donot3;
+	var checksumChart;
 	var $checksumSite = 'aks';
 
 	var D = new Date();
@@ -16,7 +16,6 @@
 	var strDate = dmonth + "/" + D.getDate() + "/" + D.getFullYear();
 	var timeStampData = D.getFullYear() + '-' + dmonth + '-' + dday;
 
-<<<<<<< HEAD
 	$(function (){	
 			initChecksumChart();
 			$.when(displayReport('menu-disabled', 'Store'), displayReport('menu-snapshot', 'AKS'), displayReport('menu-dbfeed', 'AKS'));
@@ -120,29 +119,25 @@
 				//     }
 				// }] 
 			 //  });
-
-
-		//checksumDone(checksumChart);
-		
 		// doughnutResize(donot2,'mobile');
 		// doughnutResize(donot3,'mobile');
 		
-		//FOR TABBING CONTENT
-		$(document).on('click','.clk-options', function(){
-			//alert($(this).attr('id'));
-			$('.content-hide').hide();
-			$('.'+$(this).attr('id')).show();	
-			$('.clk-options').removeClass('active-tab');
-			$('#'+$(this).attr('id')).addClass('active-tab');
+		// //FOR TABBING CONTENT
+		// $(document).on('click','.clk-options', function(){
+		// 	//alert($(this).attr('id'));
+		// 	$('.content-hide').hide();
+		// 	$('.'+$(this).attr('id')).show();	
+		// 	$('.clk-options').removeClass('active-tab');
+		// 	$('#'+$(this).attr('id')).addClass('active-tab');
 
-			if($(this).attr('id') != 'checksum-chart'){
-				$('.dbox-content').css({'height':'80%'})
-				$('.dbox-hide').hide();
-			}else{
-				$('.dbox-content').css({'height':'70%'})
-				$('.dbox-hide').show();
-			}
-		});
+		// 	if($(this).attr('id') != 'checksum-chart'){
+		// 		$('.dbox-content').css({'height':'80%'})
+		// 		$('.dbox-hide').hide();
+		// 	}else{
+		// 		$('.dbox-content').css({'height':'70%'})
+		// 		$('.dbox-hide').show();
+		// 	}
+		// });
 
 		//FOR DROP DOWN SELECT ANIMATION
 		$('.dropdown-div').click(function () {
@@ -244,14 +239,88 @@
 
 		});
 		
+		//FOR TABBING CONTENT
+		$(document).on('click','.clk-options', function(){
+			//alert($(this).attr('id'));
+			$('.content-hide').hide();
+			$('.'+$(this).attr('id')).show();	
+			$('.clk-options').removeClass('active-tab');
+			$('#'+$(this).attr('id')).addClass('active-tab');
 
+			if($(this).attr('id') != 'checksum-chart'){
+				$('.dbox-content').css({'height':'80%'})
+				$('.dbox-hide').hide();
+			}else{
+				$('.dbox-content').css({'height':'70%'})
+				$('.dbox-hide').show();
+			}
+		});
+
+		// menu icon click
+		$(document).on('click', '.card-body-div-i', function(){
+			switch($(this).data('what')){
+				case 'menu-disabled':
+					$('.menu-snapshot, .menu-dbfeed, .menu-others').hide();
+					$('.'+$(this).data('what')).toggle();
+				break;
+				case 'menu-snapshot':
+					$('.menu-disabled, .menu-dbfeed, .menu-others').hide();
+					$('.'+$(this).data('what')).toggle();
+				break;
+				case 'menu-dbfeed':
+					$('.menu-disabled, .menu-snapshot, .menu-others').hide();
+					$('.'+$(this).data('what')).toggle();
+				break;
+				case 'menu-others':
+					$('.menu-disabled, .menu-snapshot, .menu-dbfeed').hide();
+					$('.'+$(this).data('what')).toggle();
+				break;
+
+			}
+		});
+
+		// menu icon list
+		$(document).on('click', '.card-body-menu-div-li', function(){
+			displayReport($(this).data('to'), $(this).data('what'));
+		});
+
+		// view more click
+		
+		
+		$(document).on('click', '.card-body-div-sub-span, .view-more-icon', function(){
+			
+			switch($(this).data('to')){
+				case 'menu-disabled':
+					displayMoreReport('menu-disabled', $('.menu-disabled-what').text())
+					$('#reportModal').modal('show');
+				
+				break;
+				case 'menu-snapshot':
+					displayMoreReport('menu-snapshot', $('.menu-snapshot-what').text())
+					$('#reportModal').modal('show');
+				break;
+				case 'menu-dbfeed':
+					displayMoreReport('menu-dbfeed', $('.menu-dbfeed-what').text())
+					$('#reportModal').modal('show');
+				break;
+			}
+		});
+
+		
+
+
+		$(document).on('click', function(event){    
+			if(!$(event.target).is('.card-body-div-i, .menu-disabled *, .menu-snapshot *, .menu-dbfeed *, .menu-others *')) {
+				$('.card-body-menu-div').hide();
+			}
+		});
+		
 	});
 	
 
 	// ------------------------------------------checksum chart
 	xhr_getChecksumDisplay(url,timeStampData,$checksumSite).done(function(data) {
-		  //console.log(data)
-		  checksumDone(data);
+		 checksumDone(data);
 	});
 
 	// ------------------------------------------Store Count chart
@@ -388,15 +457,6 @@
 		});
 	}
 
-
-
-
-
-
-
-
-
-
 	function displayReport($to, $what){
 		var dataRequest =  {
 				action: 'displayReport',
@@ -501,7 +561,7 @@
 			},
 			//beforeSend: function() {showLoading(target)}
 		}).always(function() {
-			$('#checksum-chart').removeAttr('disabled');
+			//$('#checksum-chart').removeAttr('disabled');
 			//$('.loader-checksum').hide();
 		});
 	}
@@ -647,102 +707,8 @@
 				    }
 			  	}]	
 			});
-
-		checksumDone(checksumChart);
-		
-		doughnutResize(donot1,'mobile');
-		doughnutResize(donot2,'mobile');
-		doughnutResize(donot3,'mobile');
-		
-		//FOR TABBING CONTENT
-		$(document).on('click','.clk-options', function(){
-			//alert($(this).attr('id'));
-			$('.content-hide').hide();
-			$('.'+$(this).attr('id')).show();	
-			$('.clk-options').removeClass('active-tab');
-			$('#'+$(this).attr('id')).addClass('active-tab');
-
-			if($(this).attr('id') != 'checksum-chart'){
-				$('.dbox-content').css({'height':'80%'})
-				$('.dbox-hide').hide();
-			}else{
-				$('.dbox-content').css({'height':'70%'})
-				$('.dbox-hide').show();
-			}
-		});
-
-		//FOR DROP DOWN SELECT ANIMATION
-		$('.dropdown-div').click(function () {
-			$(this).find('.dropdown-menu').slideToggle(200);
-		});
-		$('.dropdown-div').focusout(function () {
-			$(this).find('.dropdown-menu').slideUp(200);
-		});
-
-
-		// menu icon click
-		$(document).on('click', '.card-body-div-i', function(){
-			switch($(this).data('what')){
-				case 'menu-disabled':
-					$('.menu-snapshot, .menu-dbfeed, .menu-others').hide();
-					$('.'+$(this).data('what')).toggle();
-				break;
-				case 'menu-snapshot':
-					$('.menu-disabled, .menu-dbfeed, .menu-others').hide();
-					$('.'+$(this).data('what')).toggle();
-				break;
-				case 'menu-dbfeed':
-					$('.menu-disabled, .menu-snapshot, .menu-others').hide();
-					$('.'+$(this).data('what')).toggle();
-				break;
-				case 'menu-others':
-					$('.menu-disabled, .menu-snapshot, .menu-dbfeed').hide();
-					$('.'+$(this).data('what')).toggle();
-				break;
-
-			}
-		});
-
-		// menu icon list
-		$(document).on('click', '.card-body-menu-div-li', function(){
-			displayReport($(this).data('to'), $(this).data('what'));
-		});
-
-		// view more click
-		
-		
-		$(document).on('click', '.card-body-div-sub-span, .view-more-icon', function(){
-			
-			switch($(this).data('to')){
-				case 'menu-disabled':
-					displayMoreReport('menu-disabled', $('.menu-disabled-what').text())
-					$('#reportModal').modal('show');
-				
-				break;
-				case 'menu-snapshot':
-					displayMoreReport('menu-snapshot', $('.menu-snapshot-what').text())
-					$('#reportModal').modal('show');
-				break;
-				case 'menu-dbfeed':
-					displayMoreReport('menu-dbfeed', $('.menu-dbfeed-what').text())
-					$('#reportModal').modal('show');
-				break;
-			}
-		});
-
-		
-
-
-		$(document).on('click', function(event){    
-			if(!$(event.target).is('.card-body-div-i, .menu-disabled *, .menu-snapshot *, .menu-dbfeed *, .menu-others *')) {
-				$('.card-body-menu-div').hide();
-			}
-	});		
-
-		
-
-	});
-
+		}
+	
 	function displayReport($to, $what){
 		var dataRequest =  {
 				action: 'displayReport',
@@ -907,16 +873,6 @@
 		var combine = matchDate[1]+" "+matchDate[2];
 		return (epoch != '') ? combine : 'No Data';
 	}
-
-	function checksumDone(myChart){
-		//Dapat e replace sa naku ang mga space ' ' into \n ang label
-		var dataCount = [];
-		var chklabels = ['2game','Voidu','Greenman gaming','Livecards_es','Kinguin','Eneba','Royal Key Software','Electronic First'];
-		var checksumLastUpdate = [1614671906,1614669606,1614667906,1614667906,1614666906,1614666906,1614665606,1614665606];
-		for(var i in chklabels){
-			chklabels[i] = (/(\s|_)/.test(chklabels[i])) ? chklabels[i].replace(/(\s|_)/g,'\n') : chklabels[i];
-			dataCount.push(chklabels[i]);
-		}
 
 		//IF USED THID change first the type of the chart from bar to derivedBar
 		// //for type derivedDoughnut
