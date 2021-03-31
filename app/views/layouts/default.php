@@ -68,7 +68,7 @@ use Core\Session;
           <div class="float-settings-menu">
             <i class="fa fa-bullseye float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Add tooltip title"></i>
           </div>
-          <div class="float-settings-menu" style="background-color: #eee;"></div> <!-- *background -->
+          <div class="float-settings-menu" style="top:6px;background-color: #eee;width: 35px;height: 35px;"></div> <!-- *background -->
         </div>
 
         <?php include 'modal.php'; ?>

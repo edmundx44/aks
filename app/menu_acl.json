@@ -6,12 +6,13 @@
     "Suspicious Double" : "utilities/ambot",
     "Metacritics Double" : "utilities/ambot"
   },
+  "Reports" : "reports",
   "Store" : "store",
   "Tools" : {
-    "Merchant Edition" : "utilities",
-    "Price Check" : "utilities",
-    "Romain" : "utilities",
-    "Rhyn" : "utilities/ambot"
+    "Merchant Edition" : "tools/merchantEdition",
+    "Price Check" : "tools/priceCheck",
+    "Rhyn" : "tools/rhyn",
+    "Romain" : "tools/romain"
   },
   "Logout" : "user/logout"
 }

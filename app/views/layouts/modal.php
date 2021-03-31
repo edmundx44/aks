@@ -367,21 +367,82 @@
 </div>
 
 <!-- report modal -->
-    <div class="modal fade" id="reportModal" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title report-modal-header"></h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="display-more-report">
+<div class="modal fade" id="reportModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title report-modal-header"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="display-more-report">
                         
-                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Create reports reports modal -->
+<div class="modal fade" id="createReportModal" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Create reports</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="user-input-wrp">
+                            <br/>
+                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
+                            <span class="floating-label">URL</span>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <br/>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle cr-select-site-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;text-align: left;">Select Site</button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
+                                        <a class="dropdown-item" href="#">AKS</a>
+                                        <a class="dropdown-item" href="#">CDD</a>
+                                        <a class="dropdown-item" href="#">BREX</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <br/>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle cr-select-problem-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;text-align: left;">Select Problem</button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
+                                        <a class="dropdown-item" href="#">Wrong price</a>
+                                        <a class="dropdown-item" href="#">Wrong stock</a>
+                                        <a class="dropdown-item" href="#">Other</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">SUBMIT</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    .dropdown-toggle::after {
+        position: absolute;
+        right: 15px;
+        top: 17px;
+    }
+</style>

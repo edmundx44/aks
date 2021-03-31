@@ -48,9 +48,10 @@ $(function (){
 		}
 	});
 
-	$(document).on('keyup paste', '.store-page-search', function(){
+	$(document).on('keyup paste', '.store-page-search', _.debounce(function(){
+		// console.log($(this).val());
 		searchKeyUp($(this).val());
-	});
+	}, 200));
 
 	
 	$(document).on('click', '.add-edit-from-display', function(evt){
@@ -224,12 +225,13 @@ function displayStoreGames($merchantID, $offset, $limit, $toSearch, $site){
 		site: $site
 	}
 
+	var getMode = (localStorage.getItem("body-mode") == 'darkmode')? 'darkmode':'normal';
 	AjaxCall(url+'dashboard', dataRequest).done(function(data) {
 		var showHide = (data[0].total >= 50 || (data[0].total != '' && data[0].total >= 50))? $('.store-games-data-table-tfoot').show() : $('.store-games-data-table-tfoot').hide();
 		for(var i in data){
 			for(var j in data[0].data){
 				var getStatus = (data[0].data[j].dispo == 1)? 'In Stock' : 'Out Of Stock';
-				var append = '<tr class="store-games-data-table-tbody-data" data-nname='+data[0].data[j].normalised_name+'>';
+				var append = '<tr class="store-games-data-table-tbody-data store-games-data-table-tbody-data-'+getMode+'" data-nname='+data[0].data[j].normalised_name+'>';
 					append += '<td class="child-1">'+data[0].data[j].buy_url+'</td>';
 					append += '<td class="child-2">'+data[0].data[j].price+'</td>';
 					append += '<td class="child-3">'+getStatus+'</td>';
@@ -255,7 +257,7 @@ function displayStore(){
 	AjaxCall(url+'dashboard', dataRequest).done(function(data) {
 		for(var i in data){
 			var append =  '<div class="col-md-12 col-lg-6 col-xl-3  store-list-div">';
-				append += '<div class="card store-list-card" id="'+data[i].vols_id+'" data-nname="'+data[i].vols_nom+'">';
+				append += '<div class="card store-list-card" id="'+data[i].vols_id+'" data-nname="'+data[i].vols_nom+'"">';
 				append += '<img class="card-img-top store-list-card-img-style" src="<?=PROOT?>vendors/image/store/.jpg" onerror="noImage(this);">';
 				append += '<div class="card-body store-list-card-body">';
 				append += '<p class="card-title store-list-store-name">'+data[i].vols_nom+' - '+data[i].vols_id+'</p>';
@@ -288,4 +290,14 @@ function breadCrumbs($name){
 		append += '</li>'
 
 		$(".breadcrumbs-ul").append(append);
+}
+
+function debounce(fun, mil){
+    var timer; 
+    return function(){
+        clearTimeout(timer); 
+        timer = setTimeout(function(){
+            fun(); 
+        }, mil); 
+    };
 }

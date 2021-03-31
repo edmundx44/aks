@@ -6,7 +6,7 @@ use App\Models\Users;
 use App\Models\Ajax;
 use Core\DB;
 
-class StoreController extends Controller {
+class ReportsController extends Controller {
 
 	public function __construct($controller, $action) {
 		parent::__construct($controller, $action);
@@ -16,7 +16,8 @@ class StoreController extends Controller {
 		// $db = DB::getInstance();
 
 		self::ajaxFunction();
-		$this->view->render('admin/store/index');
+		$this->view->pageTitle = 'Reports';
+		$this->view->render('admin/reports/index');
 	}
 
 	public function ajaxFunction(){
@@ -25,13 +26,4 @@ class StoreController extends Controller {
 			$this->jsonResponse($ajaxResult);
 		}
 	}
-
-	// public static function checkUrl($url){
-	// 	$path = parse_url($url, PHP_URL_PATH);
-	// 	$encoded_path = array_map('urlencode', explode('/', $path));
-	// 	$url = str_replace($path, implode('/', $encoded_path), $url);
-
-	// 	return filter_var($url, FILTER_VALIDATE_URL) ? true : false;
-	// }
-
 }

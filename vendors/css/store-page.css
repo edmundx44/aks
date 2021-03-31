@@ -30,11 +30,11 @@
 .background-BREX-btn {
 	background-color: #ef5350 !important;
 }
-
 .show-menu,
-.store-games-data-table-tbody-data {
+.store-games-data-table-tbody-data-normal {
 	background-color: #fff;
 }
+
 .store-page-search-sticky,
 .store-page-search-sticky.form-control:focus {
 	background-color: #fff !important;
@@ -536,7 +536,6 @@
 .store-games-data-table-tbody-data:hover {
 	transform: scale(1.02); 
 	box-shadow: 0 1px 4px 0 rgb(0 0 0 / 100%);
-	/*background-color: #e1e1e2;*/
 }
 .data-display-function {
 	background: linear-gradient(60deg, #004ea3, #0062cc);
@@ -570,3 +569,10 @@
 	outline: none !important;
 }
 		
+
+/*/darkmode -----------------------------------*/
+.store-games-data-table-tbody-data-darkmode {
+	background-color: #1e1e2f;
+}
+
+/*/normalmode -----------------------------------*/

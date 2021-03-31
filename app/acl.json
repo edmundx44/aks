@@ -10,7 +10,9 @@
     },
     "User" : ["logout"],
     "Dashboard" : ["*"],
+    "Reports" : ["*"],
     "Store": ["*"],
-    "Utilities": ["*"]
+    "Utilities": ["*"],
+    "Tools": ["*"]
   }
 }
