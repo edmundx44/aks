@@ -5,10 +5,11 @@
 <script type="text/javascript">
 
 	var doughnut_PTZ;
-	var donot2;
-	var donot3;
+	var doughnut_RDB;
+	var doughnut_FRT;
 	var checksumChart;
 	var $checksumSite = 'aks';
+	var lineChart = 'checksum-4';
 
 	var D = new Date();
 	var dmonth = ((D.getMonth()+1) < 10) ? "0"+(D.getMonth()+1) : D.getMonth()+1;
@@ -17,127 +18,14 @@
 	var timeStampData = D.getFullYear() + '-' + dmonth + '-' + dday;
 
 	$(function (){	
-			initChecksumChart();
-			$.when(displayReport('menu-disabled', 'Store'), displayReport('menu-snapshot', 'AKS'), displayReport('menu-dbfeed', 'AKS'));
-			// var ctx1 = document.getElementById('priceToZeroPercent-1').getContext('2d');//select a canvas
-			// var ctx2 = document.getElementById('priceToZeroPercent-2').getContext('2d');//select a canvas
-			// var ctx3 = document.getElementById('priceToZeroPercent-3').getContext('2d');//select a canvas
+		initChecksumChart(lineChart); //initialize checksum chart
+		checkWidthFB(); //it will take effect it its reload
 
-			// var options = {
-			// 	  	cutoutPercentage: 55, //60 if circle thickness
-			// 	  	circumference:(2 * Math.PI)/2, //comment this to make it circle
-			// 	  	rotation: 1 * Math.PI, //comment this to make it circle
-			// 	  	responsive: true,
-			// 	  	maintainAspectRatio: false, //to maintain the size of chart
-			// 	  	animation: {
-		 //          	animateScale: true,
-   //    				animateRotate: true,
-		 //          	duration: 1500
-		 //            },
-			// 	title: {
-			// 	    display: true,
-			// 	    position: "top",
-			// 	    text: "Price to Zero",
-			// 	    fontSize: '14',
-			// 		fontColor: '#ededed',
-			// 	},
-			// 	layout: {
-			//         padding: {
-			//             left: 0,
-			//             right: 0,
-			//             top: 0,
-			//             bottom: 0
-			//         }
-			//     },
-			// 	legend: {
-			// 	    display: true,
-			// 	    position: "left", //360width- bottom pos  , 460width+ left position
-			// 	    onHover: function(e) {
-			// 			e.target.style.cursor = 'pointer';
-			// 		},
-			// 	    labels: {
-			// 	      	fontColor: "#edf0f5",
-			// 	      	fontSize: 14,
-			// 	      	usePointStyle:true,
-			// 	      	padding: 20
-			// 	    }
-			// 	  },
-			// 	 tooltips: {
-			// 			mode: 'label',
-			// 			//optional cutom tooltips
-			// 			//callbacks: {
-			// 			//     label: function(tooltipItem, $data) {
-			// 			//     	console.log($data['datasets'][0]['data'][tooltipItem['index']])
-			// 			//     	console.log($data['labels'])
-			// 			//     	return $data['labels'][tooltipItem['index']]+': '+$data['datasets'][0]['data'][tooltipItem['index']] + '%';
-			// 			//   }
-			// 			//}
-			// 		},
-			// 	};
+		$.when(displayReport('menu-disabled', 'Store'), displayReport('menu-snapshot', 'AKS'), displayReport('menu-dbfeed', 'AKS'));
 
-			//   //doughnut chart data
-			//   var data1 = {
-			//     labels: ["AKS", "CDD"],
-			//     datasets: [
-			//       {
-			//         label: "Websites",
-			//         data: [30, 50 , 25],
-			//         backgroundColor: [
-			//           "#2E8B57",
-			//           "#F4A460",
-			//           "#17a2b8"
-			//         ],
-			//         borderColor: [
-			//           "#ededed",
-			//           "#ededed",
-			//           "#ededed"
-			//         ],
-			//         borderWidth: 2
-			//       }
-			//     ]
-			//   };
-
-
-
-			//  donot2 = new Chart(ctx2, {
-			//     type: "doughnut",
-			//     data: data1,
-			//     options: options,
-			//     plugins: [{
-			// 	    resize: function (myChart) {
-			// 	    	doughnutResize(myChart);
-			// 	    }
-			// 	}] 
-			//   });
-			 // donot3 = new Chart(ctx3, {
-			 //    type: "doughnut",
-			 //    data: data1,
-			 //    options: options,
-			 //    plugins: [{
-				//     resize: function (myChart) {
-				//     	doughnutResize(myChart);
-				//     }
-				// }] 
-			 //  });
-		// doughnutResize(donot2,'mobile');
-		// doughnutResize(donot3,'mobile');
-		
-		// //FOR TABBING CONTENT
-		// $(document).on('click','.clk-options', function(){
-		// 	//alert($(this).attr('id'));
-		// 	$('.content-hide').hide();
-		// 	$('.'+$(this).attr('id')).show();	
-		// 	$('.clk-options').removeClass('active-tab');
-		// 	$('#'+$(this).attr('id')).addClass('active-tab');
-
-		// 	if($(this).attr('id') != 'checksum-chart'){
-		// 		$('.dbox-content').css({'height':'80%'})
-		// 		$('.dbox-hide').hide();
-		// 	}else{
-		// 		$('.dbox-content').css({'height':'70%'})
-		// 		$('.dbox-hide').show();
-		// 	}
-		// });
+		$(window).on('resize',function() {
+			checkWidthFB(); //take effect when its resize
+		});
 
 		//FOR DROP DOWN SELECT ANIMATION
 		$('.dropdown-div').click(function () {
@@ -145,28 +33,6 @@
 		});
 		$('.dropdown-div').focusout(function () {
 			$(this).find('.dropdown-menu').slideUp(200);
-		});
-
-		$(document).on('click', '.card-body-div-i', function(){
-			switch($(this).data('what')){
-				case 'menu-disabled':
-					$('.menu-snapshot, .menu-dbfeed, .menu-others').hide();
-					$('.'+$(this).data('what')).toggle();
-				break;
-				case 'menu-snapshot':
-					$('.menu-disabled, .menu-dbfeed, .menu-others').hide();
-					$('.'+$(this).data('what')).toggle();
-				break;
-				case 'menu-dbfeed':
-					$('.menu-disabled, .menu-snapshot, .menu-others').hide();
-					$('.'+$(this).data('what')).toggle();
-				break;
-				case 'menu-others':
-					$('.menu-disabled, .menu-snapshot, .menu-dbfeed').hide();
-					$('.'+$(this).data('what')).toggle();
-				break;
-
-			}
 		});
 
 		$(document).on('click', '.cbm-span', function(){
@@ -257,25 +123,30 @@
 		});
 
 		// menu icon click
-		$(document).on('click', '.card-body-div-i', function(){
+		$(document).on('click', '.card-body-div-i,.card-body-div-fb', function(){
 			switch($(this).data('what')){
 				case 'menu-disabled':
-					$('.menu-snapshot, .menu-dbfeed, .menu-others').hide();
+					$('.menu-snapshot, .menu-dbfeed, .menu-others, .menu-feedbots').hide();
 					$('.'+$(this).data('what')).toggle();
 				break;
 				case 'menu-snapshot':
-					$('.menu-disabled, .menu-dbfeed, .menu-others').hide();
+					$('.menu-disabled, .menu-dbfeed, .menu-others, .menu-feedbots').hide();
 					$('.'+$(this).data('what')).toggle();
 				break;
 				case 'menu-dbfeed':
-					$('.menu-disabled, .menu-snapshot, .menu-others').hide();
+					$('.menu-disabled, .menu-snapshot, .menu-others, .menu-feedbots').hide();
 					$('.'+$(this).data('what')).toggle();
 				break;
 				case 'menu-others':
-					$('.menu-disabled, .menu-snapshot, .menu-dbfeed').hide();
+					$('.menu-disabled, .menu-snapshot, .menu-dbfeed, .menu-feedbots').hide();
+					$('.'+$(this).data('what')).toggle();
+				break;
+				case 'menu-feedbots':
 					$('.'+$(this).data('what')).toggle();
 				break;
 
+				default: alert('Invalid');
+				break;
 			}
 		});
 
@@ -285,8 +156,6 @@
 		});
 
 		// view more click
-		
-		
 		$(document).on('click', '.card-body-div-sub-span, .view-more-icon', function(){
 			
 			switch($(this).data('to')){
@@ -305,22 +174,19 @@
 				break;
 			}
 		});
-
-		
-
-
-		$(document).on('click', function(event){    
-			if(!$(event.target).is('.card-body-div-i, .menu-disabled *, .menu-snapshot *, .menu-dbfeed *, .menu-others *')) {
-				$('.card-body-menu-div').hide();
-			}
-		});
 		
 	});
-	
-
-	// ------------------------------------------checksum chart
-	xhr_getChecksumDisplay(url,timeStampData,$checksumSite).done(function(data) {
-		 checksumDone(data);
+						
+	// ------------------------------------------run and success chart
+	xhr_getDisplayRunAndSuccess(url).done(function(data){
+		var dataCount = [];
+		var $chartTitle = 'Feedbot Runtime';
+		//console.log(data);
+		for (var i in data){
+			dataCount.push(data[i].success,data[i].fail,data[i].serverCharge);
+		}
+		var resizeDonot = displayReportChart(dataCount,'feedBotRuntime-1',$chartTitle,doughnut_FRT);
+		doughnutResize(resizeDonot,'mobile');
 	});
 
 	// ------------------------------------------Store Count chart
@@ -339,23 +205,61 @@
 		doughnutResize(resizeDonot,'mobile');
 
 	});
+
+	// ------------------------------------------checksum chart
+	xhr_getChecksumDisplay(url,timeStampData,$checksumSite).done(function(data) {
+		 checksumDone(data);
+	});
 	
 	xhr_getDisplayrealDoubleLinkCount(url).done(function(data) {
 		var realDoubleLinkCount = [];
-		//console.log(data)
 		for (var i in data){
 			realDoubleLinkCount.push(data[i].aks,data[i].cdd);
 		}
-		//var $chartTitle = 'Real Double Links Count';
-		//displayReportChart(realDoubleLinkCount,'realDoubleCounts',$chartTitle,doughnut_RDB)
+		var $chartTitle = 'Real Double Links Count';
+		displayReportChart(realDoubleLinkCount,'realDoubleCounts-1',$chartTitle,doughnut_RDB)
 	});
 
+
+	// -------------------------- javascript function here ----------------------------
+
+	function xhr_getDisplayRunAndSuccess($url){
+		return $.ajax({
+			url: $url,
+			type: "POST",
+			data : {
+				action: 'displayRunAndSuccessAction',
+			}
+		}).always(function() {
+			//$('.loader-sucfail').remove();
+		});
+	}
 
 	function displayReportChart($data,$domId,$chartTitle,chartVarirable){
 		var ctx = document.getElementById(''+$domId+'').getContext('2d');	//select a canvas
 
+		var label_0 = ['AKS', 'CDD'];
+		var label_1 = ['Success','Fail', 'Server Charge'];
+		var dataset = [{ 
+				label: "Websites",
+			    data: $data,
+			    backgroundColor: [
+			        "#2E8B57",
+			        "#F4A460",
+			        "#17a2b8"
+			    ],
+			    borderColor: [
+			        "#ededed",
+			        "#ededed",
+			        "#ededed"
+			    ],
+			    borderWidth: 2
+			}];
+
 		switch($domId){
 			case 'priceToZeroPercent-1':
+			case 'realDoubleCounts-1':
+			case 'feedBotRuntime-1':
 			var option = {
 				  	cutoutPercentage: 55, //60 if circle thickness
 				  	circumference:(2 * Math.PI)/2, //comment this to make it circle
@@ -392,37 +296,23 @@
 						callbacks: {  //optional cutom tooltips
 						    label: function(tooltipItem, $data) {
 						    	//console.log($data['datasets'][0]['data'][tooltipItem['index']]); console.log($data['labels']);
-						    	return $data['labels'][tooltipItem['index']]+': '+$data['datasets'][0]['data'][tooltipItem['index']] + '%';
+						    	var chartTooltips = $data['labels'][tooltipItem['index']]+': '+$data['datasets'][0]['data'][tooltipItem['index']];
+						    	var textPercent = '%'; 
+						    	return ($domId == 'priceToZeroPercent-1') ? chartTooltips+textPercent : chartTooltips;
 						  	}
 						}
 					},
 				};
-				
-			case '':
-			
-				//doughnut chart data
-			 	var label = ['AKS', 'CDD'];
-			 	var dataset = [{
-			 		label: "Websites",
-			        data: $data,
-			        backgroundColor: [
-			          	"#2E8B57",
-			          	"#F4A460",
-			          	"#17a2b8"
-			        ],
-			        borderColor: [
-			          	"#ededed",
-			          	"#ededed",
-			          	"#ededed"
-			        ],
-			        borderWidth: 2
-			 	}];
+			default:
+			break;
+		}
 
-			 	var datas = {
-						labels: label,
-						datasets: dataset
-					}
-
+		switch($domId){
+			case 'priceToZeroPercent-1':
+			case 'realDoubleCounts-1':
+			 	var datas = { labels: label_0,
+							  datasets: dataset
+				}
 				chartVarirable = new Chart(ctx, {
 					type: 'doughnut',
 					data: datas,
@@ -436,10 +326,25 @@
 
 				return chartVarirable;
 			break;
-
+			case 'feedBotRuntime-1':
+			 	var datas = { labels: label_1,
+							  datasets: dataset
+				}
+				chartVarirable = new Chart(ctx, {
+					type: 'doughnut',
+					data: datas,
+					options: option,
+					plugins: [{
+						resize: function (myChart) {
+							doughnutResize(myChart);
+						}
+					}] 
+				});
+				return chartVarirable;
+			break;
+				
 			default:
 			break;
-
 		}
 
 	}
@@ -586,8 +491,8 @@
 	}
 
 	// ------------------------------------------checksum chart
-	function initChecksumChart(){
-		var ctx4 = document.getElementById('checksum-4').getContext('2d');
+	function initChecksumChart(lineChart){
+		var ctx4 = document.getElementById(''+lineChart+'').getContext('2d');
 		var gradientStroke = ctx4.createLinearGradient(500, 0, 100, 0);
 			gradientStroke.addColorStop(0, 	'#3e9df6');
 			gradientStroke.addColorStop(0.3,'#4caf50');
@@ -851,6 +756,17 @@
 	}
 
 
+	function checkWidthFB(){
+		if ($('.check-width').width() < 488) {
+			$('.pc-fb-opt').hide();
+			$('.m-fb-opt').show();
+		}else{
+			$('.pc-fb-opt').show();
+			$('.m-fb-opt').hide();
+			$('.menu-feedbots').hide();
+		}
+	}
+
 	//para sa checksum beforeUpdate
 	function arr_implode(array){
 		//check if ang array kai array type sya e join if array if not array check if have \n then replace ' ' to join
@@ -874,48 +790,15 @@
 		return (epoch != '') ? combine : 'No Data';
 	}
 
-		//IF USED THID change first the type of the chart from bar to derivedBar
-		// //for type derivedDoughnut
-		// Chart.defaults.derivedDoughnut = Chart.defaults.doughnut;
-		// var customDoughnut = Chart.controllers.doughnut.extend({
-		//   //optional custom
-		//    draw: function(ease) {
-		//    Chart.controllers.doughnut.prototype.draw.apply(this, [ease]);
-		// 	    //var width = this.chart.chart.width,
-		// 	    //   height = this.chart.chart.height,
-		// 	    //   titleHeight = this.chart.titleBlock.height,
-		// 	    //   legendHeight = this.chart.legend.height;
-		// 	    // //var total = this.getMeta().total;
-		// 	    // var fontSize = (height / 114).toFixed(2);
-		// 	    // var ctx = this.chart.chart.ctx;
-		// 	    // ctx.font = fontSize + "em Verdana";
-		// 	    // ctx.textBaseline = "middle";
-		// 	    // ctx.textAlign = 'left';
-		// 	    // var text = 'HELLO',
-		// 	    //   textX= Math.round(this.chart.chart.width/2);
-		// 	    //   textY= this.chart.chart.height/1.15;
-		// 	    // ctx.fillText(text, textX, textY);
-		//   	}
-		// });
-		// Chart.controllers.derivedDoughnut = customDoughnut;
-
-		// Chart.defaults.derivedBar = Chart.defaults.bar; 
-		// var customBar = Chart.controllers.bar.extend({
-		//    draw: function(ease) {
-		//    	Chart.controllers.bar.prototype.draw.apply(this, [ease]);
-		//    		//console.log(this.chart.config.data.labels)
-		// 	}
-		// });
-		// Chart.controllers.derivedBar = customBar;
-		function disabledDiv($merchantName, $merchantID){
-			var appendData = "<div class=''>";
-				appendData += "<p>";
-				appendData += "<span>"+$merchantName+"</span>";
-				appendData += "<span> ("+$merchantID+") </span>";
-				appendData += "</p>";
-				appendData += "</div>";
-				$('.display-more-report').append(appendData);
-		}
+	function disabledDiv($merchantName, $merchantID){
+		var appendData = "<div class=''>";
+			appendData += "<p>";
+			appendData += "<span>"+$merchantName+"</span>";
+			appendData += "<span> ("+$merchantID+") </span>";
+			appendData += "</p>";
+			appendData += "</div>";
+			$('.display-more-report').append(appendData);
+	}
 		function snapshotDiv($merchantName,$merchantID,$resCalcData,$difference,$updatedCount,$databaseCount,$timeToScan,$timeSinceScan){
 
 			var appendData =  "<div class='report-snapshot-con-wrap'>";
@@ -1126,6 +1009,17 @@
 	transition: all .1s ease-in-out;
 	color: #6b6d70 !important;
 }
+.card-body-div-fb{
+	position: relative;	
+	cursor: pointer;
+}
+.card-body-div-fb:hover{
+	margin-left: -4px;
+	margin-top: -4px;
+	margin-top: -3px;
+	font-size: 35px !important;
+	transition: all .1s ease-in-out;
+}
 
 .card-body-menu-div {
 	top: 9px;
@@ -1139,7 +1033,21 @@
 	z-index: 1;
 	display: none;
 }
-.card-body-menu-div:after {
+.card-body-menu-div-fbots {
+	top: -81px;
+	left: 55px;
+	width: 150px;
+	height: 135px;
+	border-radius: 5px;
+	background-color: #fff;
+	box-shadow: 0 2px 10px 0 rgb(0 0 0 / 26%);
+	position: absolute;
+	z-index: 1;
+	display: none;
+}
+
+.card-body-menu-div:after, 
+.card-body-menu-div-fbots:after {
 	position: absolute;
     content: "";
     width: 0;
@@ -1178,113 +1086,6 @@
 /*.cbm-span:hover {
 	
 }*/
-
-/*card codes end -----------------------------------*/
-.ul-tab-option {
-	list-style-type: none; 
-	margin: 0;
-	padding: 0;
-}
-.ul-tab-option li {
-	border-radius: 5px;
-    display: inline-block;
-    padding: 10px;
-}
-.active-tab {
-    background-color: #fff;
-    color: #004ea3;
-}
-.li-tab-option{
-	border: none;
-	font-weight: 700;
-	cursor: pointer;
-}
-.li-tab-option:hover{
-	background-color: #fff;
-	color: #004ea3;
-}
-
-
-.dropdown-menu{
-	min-width: 150px;
-}
-
-.dropdown-div {
-  width: 100%;
-  display: inline-block;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 0 2px rgb(204, 204, 204);
-  transition: all .5s ease;
-  position: relative;
-  font-size: 14px;
-  color: #474747;
-  height: 100%;
-  text-align: left;
-  z-index: 999;
-}
-.dropdown-div .select {
-    cursor: pointer;
-    display: block;
-    padding: 10px;
-    background-color: #3f51b5;
-    color: #fff;
-}
-.dropdown-div .select > i {
-    font-size: 13px;
-    color: #fff;
-    cursor: pointer;
-    transition: all .3s ease-in-out;
-    float: right;
-    line-height: 20px
-}
-.dropdown-div:hover {
-    box-shadow: 0 0 4px rgb(204, 204, 204)
-}
-.dropdown-div:active {
-    background-color: #f8f8f8
-}
-.dropdown-div .dropdown-menu {
-    position: absolute;
-    background-color: #fff;
-    width: 100%;
-    left: 0;
-    margin-top: 1px;
-    box-shadow: 0 1px 2px rgb(204, 204, 204);
-    border-radius: 0 1px 2px 2px;
-    overflow: hidden;
-    display: none;
-    overflow-y: auto;
-    z-index: 9
-}
-.dropdown-div .dropdown-menu li {
-    padding: 10px;
-    transition: all .2s ease-in-out;
-    cursor: pointer
-} 
-.dropdown-div .dropdown-menu {
-    padding: 0;
-    list-style: none
-}
-.dropdown-div .dropdown-menu li:hover {
-    background-color: #f2f2f2
-}
-.dropdown-div .dropdown-menu li:active {
-    background-color: #e2e2e2
-}
-.custom-bkgd{
-	border-radius: 5px;
-	background: linear-gradient(60deg, #004ea3, #0062cc);
-	font-weight: bold;
-}
-.cos-dropdown-menu li:hover{
-	background: linear-gradient(60deg, #004ea3, #0062cc);
-	color: white;
-	transition: all .09s ease-in-out;
-	font-weight: bold;
-}
-
-
 </style>
 <?php $this->end(); ?>
 
@@ -1448,7 +1249,7 @@
 			<div class="card card-style card-normalmode">
 				<div class="card-header no-padding row-3-card-header"> 
 					<div class="card-div-overflow-style row-3-card-div-overflow-style row-3-card-div-overflow-style-2" style="padding: 10px;height: 210px;">
-						<canvas id="re" class="priceToZeroPercent-canvas" height="120"></canvas>
+						<canvas id="realDoubleCounts-1" class="priceToZeroPercent-canvas" height="120"></canvas>
 					</div>
 				</div>
 				<div class="card-body">
@@ -1460,7 +1261,7 @@
 			<div class="card card-style card-normalmode">
 				<div class="card-header no-padding row-3-card-header"> 
 					<div class="card-div-overflow-style row-3-card-div-overflow-style row-3-card-div-overflow-style-3" style="padding: 10px;height: 210px;">
-						<canvas id="priceToZeroPercent-3" class="priceToZeroPercent-canvas" height="120"></canvas>
+						<canvas id="feedBotRuntime-1" class="priceToZeroPercent-canvas" height="120"></canvas>
 					</div>
 				</div>
 				<div class="card-body">
@@ -1482,9 +1283,21 @@
 			<div class="card card-style card-normalmode">
 				<div class="card-body no-padding row-4-card-body"> 
 
-					<div class="card-div-overflow-style row-4-card-div-overflow-style row-4-card-div-overflow-style-2" style="color: white;"> 
+					<div class="card-div-overflow-style row-4-card-div-overflow-style row-4-card-div-overflow-style-2 check-width" style="color: white;"> 
 						<div style="padding-top: 20px; padding-left: 10px;">
-							<ul class="ul-tab-option">
+							<ul class="ul-tab-option m-fb-opt" style="display: none;">
+								<i class="fa fa-sliders float-left card-body-div-fb" data-what="menu-feedbots"></i>
+								<li class="fb-opt-1">FEED BOTS</li>
+							</ul>
+							<div class="card-body-menu-div-fbots menu-feedbots" style="color: #6b6d70 !important;">
+								<ul class="card-body-menu-div-ul">
+									<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Checksum</span></li>
+									<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Success</span></li>
+									<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Fail</span></li>
+									<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Server Charge</span></li>
+								</ul>
+							</div>
+							<ul class="ul-tab-option pc-fb-opt" style="display: none;">
 								<li>FEED BOTS: </li>
 								<li class="clk-options li-tab-option active-tab" id="checksum-chart">
 									<i class="fa a1 sidebar-menu-icon fa-bar-chart" aria-hidden="true" id="nav-icon"></i>
@@ -1522,13 +1335,49 @@
 						<div class="test-box-1 content-hide" style="height: 100%; display: none;">
 							<h1>TEST BOX 1</h1>
 						</div>
-						<div class="test-box-2 content-hide" style="height: 100%; display: none;">
+						<div class="test-box-2 content-hide" style="height: 100%; overflow-y: auto; display: none;">
+							<h1>TEST BOX 2</h1>
+							<h1>TEST BOX 2</h1>
+							<h1>TEST BOX 2</h1>
+							<h1>TEST BOX 2</h1>
+							<h1>TEST BOX 2</h1>
+							<h1>TEST BOX 2</h1>
+							<h1>TEST BOX 2</h1>
+							<h1>TEST BOX 2</h1>
+							<h1>TEST BOX 2</h1>
+							<h1>TEST BOX 2</h1>
+							<h1>TEST BOX 2</h1>
+							<h1>TEST BOX 2</h1>
+							<h1>TEST BOX 2</h1>
 							<h1>TEST BOX 2</h1>
 						</div>
-						<div class="test-box-3 content-hide" style="height: 100%; display: none;">
+						<div class="test-box-3 content-hide" style="height: 100%; overflow-y: auto; display: none;">
+							<h1>TEST BOX 3</h1>
+							<h1>TEST BOX 3</h1>
+							<h1>TEST BOX 3</h1>
+							<h1>TEST BOX 3</h1>
+							<h1>TEST BOX 3</h1>
+							<h1>TEST BOX 3</h1>
+							<h1>TEST BOX 3</h1>
+							<h1>TEST BOX 3</h1>
+							<h1>TEST BOX 3</h1>
+							<h1>TEST BOX 3</h1>
+							<h1>TEST BOX 3</h1>
+							<h1>TEST BOX 3</h1>
+							<h1>TEST BOX 3</h1>
 							<h1>TEST BOX 3</h1>
 						</div>
-						<div class="test-box-4 content-hide" style="height: 100%; display: none;">
+						<div class="test-box-4 content-hide" style="height: 100%; overflow-y: auto; display: none;">
+							<h1>TEST BOX 4</h1>
+							<h1>TEST BOX 4</h1>
+							<h1>TEST BOX 4</h1>
+							<h1>TEST BOX 4</h1>
+							<h1>TEST BOX 4</h1>
+							<h1>TEST BOX 4</h1>
+							<h1>TEST BOX 4</h1>
+							<h1>TEST BOX 4</h1>
+							<h1>TEST BOX 4</h1>
+							<h1>TEST BOX 4</h1>
 							<h1>TEST BOX 4</h1>
 						</div>
 					</div>
@@ -1540,6 +1389,19 @@
 </div>
 
 <style type="text/css">
+
+.m-fb-opt i:nth-child(1){
+	color: #fff;
+	font-size: 30px;
+	padding: 5px 0 0 10px;
+}
+.m-fb-opt .fb-opt-1{
+	font-size: 20px !important;
+	padding: 7px;
+	margin-left: 10px;
+	font-weight: 500;
+}
+
 .ul-tab-option {
 	font-size: 13px;
 	list-style-type: none; 
