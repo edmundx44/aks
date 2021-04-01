@@ -21,19 +21,19 @@ class ToolsController extends Controller {
 	public function priceCheckAction() {
 
 		self::ajaxFunction();
-		$this->view->pageTitle = 'Price check tool';
+		$this->view->pageTitle = 'Price Check Tool';
 		$this->view->render('admin/tools/price-check');
 	}
 
 	public function rhynAction() {
 		self::ajaxFunction();
-		$this->view->pageTitle = 'Rhyn tool';
+		$this->view->pageTitle = 'Rhyn Tool';
 		$this->view->render('admin/tools/rhyn');
 	}
 
 	public function romainAction() {
 		self::ajaxFunction();
-		$this->view->pageTitle = 'Romain tool';
+		$this->view->pageTitle = 'Romain Tool';
 		$this->view->render('admin/tools/romain');
 	}
 

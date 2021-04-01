@@ -1,10 +1,10 @@
 {
   "Dashboard" : "dashboard",
   "Links" : {
-    "Affiliate" : "utilities",
-    "Real Double" : "utilities",
-    "Suspicious Double" : "utilities/ambot",
-    "Metacritics Double" : "utilities/ambot"
+    "Affiliate Check" : "utilities/affiliateCheck",
+    "Real Double" : "utilities/realDouble",
+    "Suspicious Double" : "utilities/suspiciousDouble",
+    "Metacritics Double" : "utilities/metacriticsDouble"
   },
   "Store" : "store",
   "Tools" : {
