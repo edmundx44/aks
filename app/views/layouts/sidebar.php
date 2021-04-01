@@ -101,7 +101,7 @@ input:checked + .switch-slider:before {
 									
 									<ul class="sub-ul-nav <?= $key ?>-sub-ul">
 										<?php foreach($val as $k => $v): 
-											echo ($v == $currentPage)? "<script type='text/javascript'>$('.sub-ul-nav').addClass('show-div');</script>" : '' ;
+											echo ($v == $currentPage)? "<script type='text/javascript'>$('.$key-sub-ul').addClass('show-div');</script>" : '' ;
 											$active = ($v == $currentPage)? 'active-class':''; 
 											$activeVal = ($v == $currentPage)? 'active-class-val':''; 
 										?>

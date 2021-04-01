@@ -274,6 +274,8 @@ function displayMode($mode){
 			$('.card-header').addClass('card-header-darkmode');
 			$('html, body').addClass('html-body-darkmode');
 
+			$('.store-games-data-table-tbody-data').removeClass('store-games-data-table-tbody-data-normal').addClass('store-games-data-table-tbody-data-darkmode')
+
 			localStorage.setItem("body-mode", 'darkmode');
 			$(".switch-checkbox").prop( "checked", true );
 
@@ -297,6 +299,8 @@ function displayMode($mode){
 			$('.card-header').removeClass('card-header-darkmode');
 			$('html, body').removeClass('html-body-darkmode');
 
+			$('.store-games-data-table-tbody-data').removeClass('store-games-data-table-tbody-data-darkmode').addClass('store-games-data-table-tbody-data-normal')
+			
 			localStorage.setItem("body-mode", 'normal');
 			$(".switch-checkbox").prop( "checked", false );
 		break;

@@ -37,3 +37,23 @@
 [01-Apr-2021 12:51:16 Asia/Manila] PHP Notice:  Undefined index: to in C:\xampp\htdocs\akss\core\Input.php on line 33
 [01-Apr-2021 12:51:16 Asia/Manila] PHP Notice:  Undefined index: to in C:\xampp\htdocs\akss\core\Input.php on line 33
 [01-Apr-2021 12:51:45 Asia/Manila] PHP Notice:  Undefined index: to in C:\xampp\htdocs\akss\core\Input.php on line 33
+[01-Apr-2021 17:30:35 Asia/Manila] PHP Notice:  Undefined index: to in C:\xampp\htdocs\akss\core\Input.php on line 33
+[01-Apr-2021 17:30:41 Asia/Manila] PHP Notice:  Undefined index: to in C:\xampp\htdocs\akss\core\Input.php on line 33
+[01-Apr-2021 17:31:00 Asia/Manila] PHP Notice:  Undefined index: to in C:\xampp\htdocs\akss\core\Input.php on line 33
+[01-Apr-2021 17:31:04 Asia/Manila] PHP Notice:  Undefined index: to in C:\xampp\htdocs\akss\core\Input.php on line 33
+[01-Apr-2021 17:31:08 Asia/Manila] PHP Notice:  Undefined index: to in C:\xampp\htdocs\akss\core\Input.php on line 33
+[01-Apr-2021 12:28:04 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class 'App\Controllers\UtilitiesController' not found in C:\xampp\htdocs\akss\core\Router.php:32
+Stack trace:
+#0 C:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\akss\core\Router.php on line 32
+[01-Apr-2021 12:28:13 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class 'App\Controllers\UtilitiesController' not found in C:\xampp\htdocs\akss\core\Router.php:32
+Stack trace:
+#0 C:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\akss\core\Router.php on line 32
+[01-Apr-2021 12:28:19 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class 'App\Controllers\UtilitiesController' not found in C:\xampp\htdocs\akss\core\Router.php:32
+Stack trace:
+#0 C:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#1 {main}
+  thrown in C:\xampp\htdocs\akss\core\Router.php on line 32

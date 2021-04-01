@@ -13,7 +13,7 @@ class DashboardController extends Controller {
   }
 
     public function indexAction() {
-        $db = DB::getInstance();
+        //$db = DB::getInstance();
 
         // insert/update sample custom query
         // $fields = [
