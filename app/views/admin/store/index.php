@@ -1,5 +1,6 @@
 <?php $this->start('head'); ?>
 	<link rel="stylesheet" href="<?=PROOT?>vendors/css/store-page.css" media="screen" title="no title" charset="utf-8">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.12.0/underscore-min.js"></script>
 	<script type="text/javascript" src="<?=PROOT?>vendors/js/store-page.js"></script>
 <?php $this->end(); ?>
 

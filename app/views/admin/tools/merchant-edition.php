@@ -1,6 +1,4 @@
 <?php $this->setSiteTitle($this->pageTitle); ?>
-
 <?php $this->start('body')?>
-
-
-<?php $this->end()?>
+<p>	merchant edition price check tool</p>
+<?php $this->end()?> 
