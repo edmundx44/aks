@@ -1297,14 +1297,12 @@
 									<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Server Charge</span></li>
 								</ul>
 							</div>
-							<ul class="ul-tab-option pc-fb-opt" style="display: none;">
+							<ul class="ul-tab-option pc-fb-opt" style="display: none; margin-top: 2px;">
 								<li>FEED BOTS: </li>
 								<li class="clk-options li-tab-option active-tab" id="checksum-chart">
-									<i class="fa a1 sidebar-menu-icon fa-bar-chart" aria-hidden="true" id="nav-icon"></i>
 									<span>Checksum</span>
 								</li>
 								<li class="clk-options li-tab-option" id="test-box-2">
-									<i class="fa a1 sidebar-menu-icon fa-check-square" aria-hidden="true" id="nav-icon"></i>
 									<span>Success</span>
 								</li>
 								<li class="clk-options li-tab-option" id="test-box-3"><span>Fail</span></li>
