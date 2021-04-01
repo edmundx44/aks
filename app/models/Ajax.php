@@ -312,6 +312,34 @@ class Ajax {
             return $runCounts;
             break;
 
+            case 'displayRunAndSuccessAction':
+
+                $fail = "SELECT * FROM `test-server`.`bot_admin`
+                        WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 4 HOUR)
+                        AND (status = 1 OR status = 2) AND bot_type = 'feed'
+                        ORDER by successRunTime desc";
+
+                $success= "SELECT * FROM `test-server`.`bot_admin`
+                        WHERE successRunTime > DATE_ADD(NOW(), INTERVAL 4 HOUR)
+                        AND (status = 1 OR status = 2) AND bot_type = 'feed'
+                        ORDER by successRunTime desc";
+
+                $serverCharge= "SELECT * FROM `test-server`.`bot_admin`
+                        WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 4 HOUR)
+                        AND (status = 1 OR status = 2)
+                        AND bot_type = 'feed'
+                        AND failed_on_server_charge = 1
+                        ORDER by successRunTime desc";
+
+                    $runSuc = array();
+                        array_push($runSuc, array(
+                          'fail' => $db->query($fail)->count(),
+                          'success' => $db->query($success)->count(),
+                          'serverCharge' => $db->query($serverCharge)->count()
+                    ));
+                return $runSuc;
+            break;
+
             case 'displayCheckSumAction':
 				//$dateNow = $getInput->get('dateNow'); //from ajax
                 $dateTime = date('Y-m-d');
