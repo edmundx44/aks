@@ -11,6 +11,8 @@ class DB {
     try {
       $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname=allkeyshops', DB_USER, DB_PASSWORD);
       $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname=test-server', DB_USER, DB_PASSWORD);
+      $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname=brexitgbp', DB_USER, DB_PASSWORD);
+      $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname=compareprices', DB_USER, DB_PASSWORD);
       $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname=checksum_feeds', DB_USER, DB_PASSWORD);
       $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname=aks_bot_teamph', DB_USER, DB_PASSWORD);
       $this->_pdo = new PDO('mysql:host='.DB_HOST.';dbname=aks', DB_USER, DB_PASSWORD);

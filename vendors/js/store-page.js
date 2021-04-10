@@ -292,12 +292,3 @@ function breadCrumbs($name){
 		$(".breadcrumbs-ul").append(append);
 }
 
-function debounce(fun, mil){
-    var timer; 
-    return function(){
-        clearTimeout(timer); 
-        timer = setTimeout(function(){
-            fun(); 
-        }, mil); 
-    };
-}

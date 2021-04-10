@@ -249,3 +249,262 @@ Stack trace:
 #0 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
 #1 {main}
   thrown in D:\xampp\htdocs\akss\core\Router.php on line 32
+[01-Apr-2021 12:18:57 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'break' (T_BREAK) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 269
+[01-Apr-2021 12:19:17 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE `buy_url` like '%https://www.g2a.com/ark-survival-evolved-steam-key-glo...' at line 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('SELECT * FROM  ...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(280): Core\DB->query('SELECT * FROM  ...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-site')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[01-Apr-2021 12:21:10 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE `buy_url` like '%https://www.g2a.com/ark-survival-evolved-steam-key-glo...' at line 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('SELECT * FROM  ...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(280): Core\DB->query('SELECT * FROM  ...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-site')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[01-Apr-2021 13:52:02 Europe/Berlin] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 178
+[01-Apr-2021 13:52:02 Europe/Berlin] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 179
+[01-Apr-2021 17:01:51 Europe/Berlin] PHP Notice:  Undefined index: toInsert in D:\xampp\htdocs\akss\core\Input.php on line 33
+[01-Apr-2021 17:01:58 Europe/Berlin] PHP Notice:  Undefined index: toInsert in D:\xampp\htdocs\akss\core\Input.php on line 33
+[01-Apr-2021 17:07:43 Europe/Berlin] PHP Notice:  Undefined index: toInsert in D:\xampp\htdocs\akss\core\Input.php on line 33
+[01-Apr-2021 17:08:32 Europe/Berlin] PHP Notice:  Undefined index: getProblem in D:\xampp\htdocs\akss\core\Input.php on line 33
+[01-Apr-2021 17:17:34 Europe/Berlin] PHP Notice:  Undefined index: getProblem in D:\xampp\htdocs\akss\core\Input.php on line 33
+[01-Apr-2021 17:24:04 Europe/Berlin] PHP Warning:  htmlentities() expects parameter 1 to be string, array given in D:\xampp\htdocs\akss\core\FH.php on line 64
+[01-Apr-2021 17:25:40 Europe/Berlin] PHP Warning:  htmlentities() expects parameter 1 to be string, array given in D:\xampp\htdocs\akss\core\FH.php on line 64
+[01-Apr-2021 17:27:47 Europe/Berlin] PHP Warning:  htmlentities() expects parameter 1 to be string, array given in D:\xampp\htdocs\akss\core\FH.php on line 64
+[01-Apr-2021 17:29:15 Europe/Berlin] PHP Warning:  htmlentities() expects parameter 1 to be string, array given in D:\xampp\htdocs\akss\core\FH.php on line 64
+[01-Apr-2021 17:29:39 Europe/Berlin] PHP Warning:  htmlentities() expects parameter 1 to be string, array given in D:\xampp\htdocs\akss\core\FH.php on line 64
+[01-Apr-2021 17:30:00 Europe/Berlin] PHP Warning:  htmlentities() expects parameter 1 to be string, array given in D:\xampp\htdocs\akss\core\FH.php on line 64
+[01-Apr-2021 17:43:47 Europe/Berlin] PHP Warning:  htmlentities() expects parameter 1 to be string, array given in D:\xampp\htdocs\akss\core\FH.php on line 64
+[02-Apr-2021 08:55:10 Europe/Berlin] PHP Warning:  htmlentities() expects parameter 1 to be string, array given in D:\xampp\htdocs\akss\core\FH.php on line 64
+[02-Apr-2021 09:01:20 Europe/Berlin] PHP Notice:  Undefined index: toInsert[] in D:\xampp\htdocs\akss\core\Input.php on line 33
+[02-Apr-2021 09:02:02 Europe/Berlin] PHP Warning:  htmlentities() expects parameter 1 to be string, array given in D:\xampp\htdocs\akss\core\FH.php on line 64
+[02-Apr-2021 09:16:11 Europe/Berlin] PHP Warning:  htmlentities() expects parameter 1 to be string, array given in D:\xampp\htdocs\akss\core\FH.php on line 64
+[02-Apr-2021 11:58:11 Europe/Berlin] PHP Notice:  Undefined variable: addQuery in D:\xampp\htdocs\akss\app\models\Ajax.php on line 120
+[02-Apr-2021 12:09:22 Europe/Berlin] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 266
+[02-Apr-2021 12:09:25 Europe/Berlin] PHP Notice:  Undefined index: toInsert in D:\xampp\htdocs\akss\app\models\Ajax.php on line 291
+[02-Apr-2021 12:09:25 Europe/Berlin] PHP Warning:  filter_var_array() expects parameter 1 to be array, null given in D:\xampp\htdocs\akss\app\models\Ajax.php on line 291
+[02-Apr-2021 12:15:12 Europe/Berlin] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 266
+[02-Apr-2021 12:18:03 Europe/Berlin] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 266
+[02-Apr-2021 14:22:18 Europe/Berlin] PHP Parse error:  syntax error, unexpected '{', expecting ']' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 302
+[02-Apr-2021 14:22:20 Europe/Berlin] PHP Parse error:  syntax error, unexpected '{', expecting ']' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 302
+[02-Apr-2021 14:34:09 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column '0' in 'field list' in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `ak...')
+#1 D:\xampp\htdocs\akss\core\DB.php(137): Core\DB->query('INSERT INTO `ak...', Array)
+#2 D:\xampp\htdocs\akss\app\models\Ajax.php(314): Core\DB->insert('`aks`.`tblrepor...', Array)
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#4 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#5 [internal function]: App\Controllers\ReportsController->indexAction()
+#6 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#7 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#8 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[02-Apr-2021 14:39:44 Europe/Berlin] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 311
+[02-Apr-2021 14:39:46 Europe/Berlin] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 311
+[02-Apr-2021 14:40:51 Europe/Berlin] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW) in D:\xampp\htdocs\akss\app\models\Ajax.php on line 311
+[02-Apr-2021 14:41:27 Europe/Berlin] PHP Parse error:  syntax error, unexpected '{' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 310
+[02-Apr-2021 14:44:02 Europe/Berlin] PHP Notice:  Undefined index: toInsert in D:\xampp\htdocs\akss\app\models\Ajax.php on line 294
+[02-Apr-2021 14:44:02 Europe/Berlin] PHP Warning:  filter_var_array() expects parameter 1 to be array, null given in D:\xampp\htdocs\akss\app\models\Ajax.php on line 294
+[02-Apr-2021 14:44:02 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in D:\xampp\htdocs\akss\app\models\Ajax.php on line 298
+[02-Apr-2021 14:44:07 Europe/Berlin] PHP Notice:  Undefined index: toInsert in D:\xampp\htdocs\akss\app\models\Ajax.php on line 294
+[02-Apr-2021 14:44:07 Europe/Berlin] PHP Warning:  filter_var_array() expects parameter 1 to be array, null given in D:\xampp\htdocs\akss\app\models\Ajax.php on line 294
+[02-Apr-2021 14:44:07 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in D:\xampp\htdocs\akss\app\models\Ajax.php on line 298
+[02-Apr-2021 14:49:44 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in D:\xampp\htdocs\akss\core\DB.php on line 129
+[02-Apr-2021 15:00:19 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'aks.pt_products' doesn't exist in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `pt...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(317): Core\DB->query('INSERT INTO `pt...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[02-Apr-2021 15:49:50 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 266
+[02-Apr-2021 16:03:33 Europe/Berlin] PHP Notice:  Undefined index: toInsert in D:\xampp\htdocs\akss\app\models\Ajax.php on line 303
+[02-Apr-2021 16:03:33 Europe/Berlin] PHP Warning:  filter_var_array() expects parameter 1 to be array, null given in D:\xampp\htdocs\akss\app\models\Ajax.php on line 303
+[02-Apr-2021 16:03:33 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in D:\xampp\htdocs\akss\app\models\Ajax.php on line 308
+[02-Apr-2021 16:03:33 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `ak...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(321): Core\DB->query('INSERT INTO `ak...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[02-Apr-2021 16:05:52 Europe/Berlin] PHP Notice:  Undefined index: toInsert in D:\xampp\htdocs\akss\app\models\Ajax.php on line 303
+[02-Apr-2021 16:05:52 Europe/Berlin] PHP Warning:  filter_var_array() expects parameter 1 to be array, null given in D:\xampp\htdocs\akss\app\models\Ajax.php on line 303
+[02-Apr-2021 16:05:52 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in D:\xampp\htdocs\akss\app\models\Ajax.php on line 308
+[02-Apr-2021 16:05:52 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `ak...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(321): Core\DB->query('INSERT INTO `ak...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[02-Apr-2021 16:34:01 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 266
+[02-Apr-2021 16:35:07 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 266
+[02-Apr-2021 16:35:19 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 266
+[02-Apr-2021 16:35:23 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 266
+[02-Apr-2021 16:35:25 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 266
+[03-Apr-2021 13:54:57 Europe/Berlin] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 178
+[03-Apr-2021 13:54:57 Europe/Berlin] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 179
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantSite' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 310
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 310
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantSqlID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 311
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 311
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 312
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 312
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantNMID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 313
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 313
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantLink' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 314
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 314
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantSite' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 310
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 310
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantSqlID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 311
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 311
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 312
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 312
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantNMID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 313
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 313
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantLink' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 314
+[05-Apr-2021 10:07:50 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 314
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantSite' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 310
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 310
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantSqlID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 311
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 311
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 312
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 312
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantNMID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 313
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 313
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantLink' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 314
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 314
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantSite' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 310
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 310
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantSqlID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 311
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 311
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 312
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 312
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantNMID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 313
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 313
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantLink' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 314
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 314
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantSite' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 310
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 310
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantSqlID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 311
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 311
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 312
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 312
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantNMID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 313
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 313
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantLink' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 314
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 314
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantSite' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 310
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 310
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantSqlID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 311
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 311
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 312
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 312
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantNMID' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 313
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 313
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Illegal string offset 'merchantLink' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 314
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Notice:  Uninitialized string offset: 0 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 314
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\xampp\htdocs\akss\app\models\Ajax.php:310) in D:\xampp\htdocs\akss\core\Controller.php on line 25
+[05-Apr-2021 10:08:29 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\xampp\htdocs\akss\app\models\Ajax.php:310) in D:\xampp\htdocs\akss\core\Controller.php on line 26
+[05-Apr-2021 14:15:51 Europe/Berlin] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 178
+[05-Apr-2021 14:15:51 Europe/Berlin] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 179
+[05-Apr-2021 15:06:10 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 266
+[08-Apr-2021 11:05:47 Europe/Berlin] PHP Notice:  Undefined index: $url in D:\xampp\htdocs\akss\app\models\Merchant.php on line 28
+[08-Apr-2021 11:17:32 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function App\Models\Merchant::merchantData(), 2 passed in D:\xampp\htdocs\akss\app\models\Ajax.php on line 333 and exactly 3 expected in D:\xampp\htdocs\akss\app\models\Merchant.php:5
+Stack trace:
+#0 D:\xampp\htdocs\akss\app\models\Ajax.php(333): App\Models\Merchant::merchantData('g2a', 'i10000001612012')
+#1 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-get-cac-data')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#3 [internal function]: App\Controllers\ReportsController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\app\models\Merchant.php on line 5
+[08-Apr-2021 11:35:08 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function App\Models\Merchant::merchantData(), 2 passed in D:\xampp\htdocs\akss\app\models\Ajax.php on line 334 and exactly 3 expected in D:\xampp\htdocs\akss\app\models\Merchant.php:6
+Stack trace:
+#0 D:\xampp\htdocs\akss\app\models\Ajax.php(334): App\Models\Merchant::merchantData('g2a', 'i10000001612012')
+#1 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-get-cac-data')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#3 [internal function]: App\Controllers\ReportsController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\app\models\Merchant.php on line 6
+[08-Apr-2021 11:35:53 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function App\Models\Merchant::merchantData(), 2 passed in D:\xampp\htdocs\akss\app\models\Ajax.php on line 334 and exactly 3 expected in D:\xampp\htdocs\akss\app\models\Merchant.php:6
+Stack trace:
+#0 D:\xampp\htdocs\akss\app\models\Ajax.php(334): App\Models\Merchant::merchantData('g2a', 'i10000001612012')
+#1 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-get-cac-data')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#3 [internal function]: App\Controllers\ReportsController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\app\models\Merchant.php on line 6
+[08-Apr-2021 11:52:09 Europe/Berlin] PHP Notice:  Undefined index: site in D:\xampp\htdocs\akss\core\Input.php on line 33
+[08-Apr-2021 11:52:09 Europe/Berlin] PHP Notice:  Undefined index: url in D:\xampp\htdocs\akss\core\Input.php on line 33
+[08-Apr-2021 11:52:09 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Merchant.php on line 8
+[08-Apr-2021 12:17:44 Europe/Berlin] PHP Notice:  Undefined index: dataID in D:\xampp\htdocs\akss\core\Input.php on line 33
+[08-Apr-2021 12:18:11 Europe/Berlin] PHP Notice:  Undefined index: dataID in D:\xampp\htdocs\akss\core\Input.php on line 33
+[08-Apr-2021 12:18:11 Europe/Berlin] PHP Notice:  Undefined index: dataID in D:\xampp\htdocs\akss\core\Input.php on line 33
+[08-Apr-2021 12:26:53 Europe/Berlin] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Merchant.php on line 29
+[08-Apr-2021 12:33:57 Europe/Berlin] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Merchant.php on line 29
+[08-Apr-2021 12:35:20 Europe/Berlin] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Merchant.php on line 29
+[08-Apr-2021 12:46:03 Europe/Berlin] PHP Notice:  Undefined index: i10000001612012 in D:\xampp\htdocs\akss\app\models\Merchant.php on line 29
+[08-Apr-2021 12:46:43 Europe/Berlin] PHP Notice:  Undefined index: $outputG2aId[1] in D:\xampp\htdocs\akss\app\models\Merchant.php on line 29
+[08-Apr-2021 12:47:34 Europe/Berlin] PHP Notice:  Undefined index: i10000001612012 in D:\xampp\htdocs\akss\app\models\Merchant.php on line 29
+[08-Apr-2021 12:50:18 Europe/Berlin] PHP Notice:  Undefined index: i10000001612012 in D:\xampp\htdocs\akss\app\models\Merchant.php on line 29
+[08-Apr-2021 12:50:51 Europe/Berlin] PHP Notice:  Undefined index: i10000001612012 in D:\xampp\htdocs\akss\app\models\Merchant.php on line 29
+[08-Apr-2021 12:51:47 Europe/Berlin] PHP Notice:  Undefined index: i10000001612012 in D:\xampp\htdocs\akss\app\models\Merchant.php on line 29
+[08-Apr-2021 14:41:05 Europe/Berlin] PHP Notice:  Undefined variable: getG2aPluse in D:\xampp\htdocs\akss\app\models\Merchant.php on line 17
+[08-Apr-2021 14:41:05 Europe/Berlin] PHP Warning:  preg_match(): Empty regular expression in D:\xampp\htdocs\akss\app\models\Merchant.php on line 17
+[08-Apr-2021 14:41:05 Europe/Berlin] PHP Notice:  Trying to access array offset on value of type null in D:\xampp\htdocs\akss\app\models\Merchant.php on line 18
+[08-Apr-2021 14:42:19 Europe/Berlin] PHP Notice:  Undefined variable: getG2aPluse in D:\xampp\htdocs\akss\app\models\Merchant.php on line 17
+[08-Apr-2021 14:42:19 Europe/Berlin] PHP Warning:  preg_match(): Empty regular expression in D:\xampp\htdocs\akss\app\models\Merchant.php on line 17
+[10-Apr-2021 07:32:54 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `ak...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(322): Core\DB->query('INSERT INTO `ak...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[10-Apr-2021 07:34:26 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `ak...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(322): Core\DB->query('INSERT INTO `ak...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[10-Apr-2021 09:25:14 Europe/Berlin] PHP Notice:  Undefined index: changeReported in D:\xampp\htdocs\akss\core\Input.php on line 33
+[10-Apr-2021 10:32:27 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'break' (T_BREAK), expecting ';' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 358

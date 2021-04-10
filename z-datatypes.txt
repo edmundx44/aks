@@ -18,13 +18,16 @@ create table tblMerchant(
 );
 create table tblReports(
 	id int primary key auto_increment,
-	merchantSqlID int(20) default null,
-	merchantName varchar(255) default null,
-	merchantID int(20) default null,
 	merchantSite varchar(30) default null,
+	merchantSqlID int(20) default null,
+	merchantID int(20) default null,
+	merchantNMID int(20) default null,
 	merchantLink varchar(255) default null,
 	merchantCssSelector varchar(255) default null,
 	problem varchar(255) default null,
+	status int(10) default null,
+	toMerchant int(10) default 0,
+	rating int(10) default null,
 	date timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 

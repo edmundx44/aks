@@ -325,9 +325,6 @@
 			}
 		});
 
-		
-
-
 		$(document).on('click', function(event){    
 			if(!$(event.target).is('.card-body-div-i, .menu-disabled *, .menu-snapshot *, .menu-dbfeed *, .menu-others *')) {
 				$('.card-body-menu-div').hide();

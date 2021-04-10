@@ -388,7 +388,7 @@
 
 <!-- Create reports reports modal -->
 <div class="modal fade" id="createReportModal" role="dialog">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Create reports</h4>
@@ -399,32 +399,58 @@
                     <div class="col-12">
                         <div class="user-input-wrp">
                             <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
+                            <input type="text" value='' class="inputText" id="cr-url-txtbox" onkeyup="this.setAttribute('value', this.value);"/>
                             <span class="floating-label">URL</span>
                         </div>
+                        <div style="padding: 10px;margin-left: 15px;font-size: 12px;letter-spacing: 1px;" class="url-msg">
+                            
+                        </div>
                     </div>
+                    <br/> 
+                    <br/> 
+                    <br/>
+                    <div class="col-12 ">
 
-                    <div class="col-6">
-                        <br/>
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle cr-select-site-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;text-align: left;">Select Site</button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
-                                        <a class="dropdown-item" href="#">AKS</a>
-                                        <a class="dropdown-item" href="#">CDD</a>
-                                        <a class="dropdown-item" href="#">BREX</a>
+                        <div style="border:solid 2px #777;padding: 15px;">
+                            <span style="position: absolute;top: -10px;right: 30px;background-color: #777;color: #fff;font-size: 13px;padding: 0 15px 0 15px;">SELECT SITE</span>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input checkbox-site" type="checkbox" id="AKS" value="option1" style="margin-top: -1px;cursor: pointer;" disabled/>
+                                <label class="form-check-label" for="AKS" style="cursor: pointer;font-size: 15px;">AKS</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input checkbox-site" type="checkbox" id="CDD" value="option2" style="margin-top: -1px;cursor: pointer;" disabled/>
+                                <label class="form-check-label" for="CDD" style="cursor: pointer;font-size: 15px;">CDD</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input checkbox-site" type="checkbox" id="BREX" value="option2" style="margin-top: -1px;cursor: pointer;" disabled/>
+                                <label class="form-check-label" for="BREX" style="cursor: pointer;font-size: 15px;">BREXIT</label>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-12">
                         <br/>
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle cr-select-problem-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;text-align: left;">Select Problem</button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
-                                        <a class="dropdown-item" href="#">Wrong price</a>
-                                        <a class="dropdown-item" href="#">Wrong stock</a>
-                                        <a class="dropdown-item" href="#">Other</a>
+                                <a class="dropdown-item cr-select-problem-btn-dd" href="#">Wrong price</a>
+                                <a class="dropdown-item cr-select-problem-btn-dd" href="#">Wrong stock</a>
+                                <a class="dropdown-item cr-select-problem-btn-dd" href="#">Price to zero</a>
+                                <a class="dropdown-item cr-select-problem-btn-dd" href="#">Other's</a>
                             </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="col-12 cr-txtbox-problem-div" style="display: none;">
+                        <div class="user-input-wrp">
+                            <br/>
+                            <input type="text" value='' class="inputText cr-txtbox-problem-div" id="" onkeyup="this.setAttribute('value', this.value);"/>
+                            <span class="floating-label">Enter problem</span>
                         </div>
                     </div>
 
@@ -433,16 +459,145 @@
                
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">SUBMIT</button>
+                <button type="button" class="btn btn-default" id="cr-submit-btn">SUBMIT</button>
             </div>
         </div>
     </div>
 </div>
+
+
+<!-- Create reports reports modal -->
+<div class="modal fade" id="crcac" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title" style="font-weight: 500;">
+                    <span>CHECK AND COMPARE</span>
+                    <br>
+                    <span class="" style="font-size: 13px;position: relative;">ID: <span class="span-what-id"></span></span>
+                    <br> 
+                    <span class="span-what-problem" style="font-size: 13px;position: relative;"></span>
+                    <span class="span-what-rating" style="font-size: 13px;position: relative;"></span>
+                    <span class="span-what-reported" style="font-size: 13px;position: relative;"></span>
+                    <span class="span-what-tblid" style="font-size: 13px;position: relative;"></span>
+                    
+
+                </p>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <span class="cr-cac-site" style="position: relative; text-align: center;letter-spacing: 2px; font-weight: 700;background-color: #777;padding: 0 15px 0 15px;color: #fff;z-index: 1;"></span>
+                        <div class="site-data">
+                            
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <span style="position: relative; text-align: center;letter-spacing: 2px; font-weight: 700;background-color: #777;padding: 0 15px 0 15px;color: #fff;z-index: 1;">MERCHANT FEED</span>
+                        <div class="mfeed-data">
+                           
+                        </div>
+                    </div>
+                    <div class="col-12" style="height: 100px;">
+                        <textarea placeholder="add image here" style="width: 100%;height: 100%;resize: none;border: solid 2px #777;"></textarea>
+                    </div>
+                </div>
+               
+            </div>
+            <div class="modal-footer justify-content-between">
+                <!-- <button type="button" class="btn btn-primary">CHECK SITE</button>
+                <button type="button" class="btn btn-primary">REPORT TO MERCHANT</button>
+                <button type="button" class="btn btn-primary">PRICE TO ZERO</button>
+                <button type="button" class="btn btn-primary">CHANGE RATINGS</button>
+                <button type="button" class="btn btn-primary">FIXED</button> -->
+                <div class="pull-left">
+                    <a class="btn btn-primary cr-msite-btn" target="_blank">Open merchant site</a>
+                    <button type="button" class="btn btn-success">Fixed</button>
+                </div>
+                <div class="pull-right">
+                    <div class="cr-modal-cac-list">
+                        <ul class="cr-modal-cac-list-ul">
+                            <li class="cr-cac-list-btn" id="cr-rtm"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Report to merchant</span></li>
+                            <li class="cr-cac-list-btn" id="cr-spdf"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Small price difference, fixed</span></li>
+                            <li class="cr-cac-list-btn" id="cr-pbf"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Proxy problem, fixed</span></li>
+                            <li class="cr-cac-list-btn" id="cr-cr"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Set ratings "<b><span class="cac-list-btn-rating"></span></b>"</span></li>
+                            <li class="cr-cac-list-btn" id="cr-ptz"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Price to zero</span></li>
+                        </ul>
+                    </div>
+                    <i class="fa fa-cog cr-modal-show-list" aria-hidden="true" style="font-size: 30px;color: #0062cc;margin-top: 8px; cursor: pointer;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <style type="text/css">
     .dropdown-toggle::after {
         position: absolute;
         right: 15px;
         top: 17px;
+    }
+    .site-data, 
+    .mfeed-data {
+        top: -12px;
+        
+       /* border: none;
+        border-top: solid 2px #777;*/
+        position: relative;
+        padding: 20px 15px 15px 15px;
+    }
+    .ms-data-price {
+        font-weight: 700;
+    }
+    .ms-data-price,
+    .ms-data-stock,
+    .ms-data-url {
+        font-size: 15px;
+    }
+    .ms-data-url {
+        word-break: break-all;
+    }
+    .cr-modal-cac-list {
+        width: 250px;
+        height: 200px;
+        position: absolute;
+        bottom: 5px;
+        right: 55px;
+        box-shadow: 0 1px 5px 0 rgb(0 0 0 / 56%);
+        background-color: #fff;
+        display: none;
+    }
+    .cr-modal-cac-list:after {
+        content: "";
+        width: 0;
+        height: 0;
+        bottom: 10px;
+        right: -10px ;
+        box-sizing: border-box;
+        border: 5px solid black;
+        border-color: transparent transparent #fff #fff;
+        transform-origin: 0 0;
+        transform: rotate(-135deg);
+        box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 20%);
+        position: absolute;
+    }
+    .cr-modal-cac-list-ul {
+        list-style-type: none;
+        margin-top: 10px;
+        padding: 0px;
+    }
+    .cr-modal-cac-list-ul li {
+        padding: 5px 15px 5px 15px;
+        cursor: pointer;
+        /*border: solid 1px red;*/
+    }
+    .cr-modal-cac-list-ul li:hover > span {
+        text-decoration: underline;
+    }
+    .cr-modal-show-list:hover {
+        color: #004ea3 !important;
     }
 </style>
