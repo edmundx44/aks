@@ -21,7 +21,15 @@
 		initChecksumChart(lineChart); //initialize checksum chart
 		checkWidthFB(); //it will take effect it its reload
 
-		$.when(displayReport('menu-disabled', 'Store'), displayReport('menu-snapshot', 'AKS'), displayReport('menu-dbfeed', 'AKS'));
+		$.when(
+			xhr_AjaxCall(url+'dashboard','POST','displayRunAndSuccessAction').done(function(data){ displayRunAndSuccess(data) }),
+			xhr_AjaxCall(url+'dashboard','POST','displayPriceToZeroCountsCounts').done(function(data) { displayPriceToZero(data) }),
+			xhr_getChecksumDisplay(url+'dashboard',timeStampData,$checksumSite).done(function(data) { checksumDone(data); }),
+			displayReport('menu-snapshot', 'AKS'), 
+			displayReport('menu-dbfeed', 'AKS'),
+			displayReport('menu-disabled', 'Store'),
+			xhr_AjaxCall(url+'dashboard','POST','displayRealDoubleCounts').done(function(data) { displayRealDouble(data); }),
+		)
 
 		$(window).on('resize',function() {
 			checkWidthFB(); //take effect when its resize
@@ -33,10 +41,6 @@
 		});
 		$('.dropdown-div').focusout(function () {
 			$(this).find('.dropdown-menu').slideUp(200);
-		});
-
-		$(document).on('click', '.cbm-span', function(){
-			displayReport($(this).data('to'), $(this).text());
 		});
 
 		$(document).on('click', function(event){    
@@ -52,14 +56,14 @@
 			switch($(this).attr('data-website')){
 				case 'aks':
 					//Modal
-					xhr_toggleChecksum(url,'aks').done(function(data){
+					xhr_toggleChecksum(url+'dashboard','aks').done(function(data){
 						checksumSelectDone('aks',data);
 					}).fail(function (jqXHR, textStatus, error) {
 				        console.log("Post error: " + error);
 				    });
 
 				    //Chart
-					xhr_getChecksumDisplay(url,timeStampData,'aks').done(function(data) {
+					xhr_getChecksumDisplay(url+'dashboard',timeStampData,'aks').done(function(data) {
 			  			checksumDone(data);
 					}).fail(function (jqXHR, textStatus, error) {
 				        console.log("Post error: " + error);
@@ -68,14 +72,14 @@
 
 				case 'cdd':
 					//Modal
-					xhr_toggleChecksum(url,'cdd').done(function(data){
+					xhr_toggleChecksum(url+'dashboard','cdd').done(function(data){
 						checksumSelectDone('cdd',data);
 					}).fail(function (jqXHR, textStatus, error) {
 				        console.log("Post error: " + error);
 				    });
 
 					//Chart
-					xhr_getChecksumDisplay(url,timeStampData,'cdd').done(function(data) {
+					xhr_getChecksumDisplay(url+'dashboard',timeStampData,'cdd').done(function(data) {
 			  			checksumDone(data);
 					}).fail(function (jqXHR, textStatus, error) {
 				        console.log("Post error: " + error);
@@ -84,14 +88,14 @@
 
 				case 'brexitgbp':
 					//Modal
-					xhr_toggleChecksum(url,'brexitgbp').done(function(data){
+					xhr_toggleChecksum(url+'dashboard','brexitgbp').done(function(data){
 						checksumSelectDone('brexitgbp',data);
 					}).fail(function (jqXHR, textStatus, error) {
 				        console.log("Post error: " + error);
 				    });
 
 					//Chart
-					xhr_getChecksumDisplay(url,timeStampData,'brexitgbp').done(function(data) {
+					xhr_getChecksumDisplay(url+'dashboard',timeStampData,'brexitgbp').done(function(data) {
 			  			checksumDone(data);
 					}).fail(function (jqXHR, textStatus, error) {
 				        console.log("Post error: " + error);
@@ -177,8 +181,28 @@
 		
 	});
 						
-	// ------------------------------------------run and success chart
-	xhr_getDisplayRunAndSuccess(url).done(function(data){
+
+	// -------------------------- javascript function here ----------------------------
+	//USE THIS IF ONLY 1 ACTION
+	function xhr_AjaxCall($url,$type,$action){
+		switch($action){
+			case 'displayRunAndSuccessAction': $action = 'displayRunAndSuccessAction';
+			break;
+			case 'displayRealDoubleCounts': $action = 'displayRealDoubleCounts';
+			break;
+			case 'displayPriceToZeroCountsCounts': $action = 'displayPriceToZeroCountsCounts';
+			break;
+			default:
+			break;
+		}
+		return $.ajax({
+			url: $url,
+			type: $type,
+			data : { action: $action }
+		}).always(function() { /* $('.loader-sucfail').remove(); */ });
+	}
+	// ------------------------------------------Run and Success chart
+	function displayRunAndSuccess(data){
 		var dataCount = [];
 		var $chartTitle = 'Feedbot Runtime';
 		//console.log(data);
@@ -187,10 +211,9 @@
 		}
 		var resizeDonot = displayReportChart(dataCount,'feedBotRuntime-1',$chartTitle,doughnut_FRT);
 		doughnutResize(resizeDonot,'mobile');
-	});
-
+	}
 	// ------------------------------------------Store Count chart
-	xhr_getDisplayPriceToZero(url).done(function(data) {
+	function displayPriceToZero(data){
 		//console.log(data);
 		var priceTozero = [];
 		for (var i in data){
@@ -203,36 +226,34 @@
 		}
 		var resizeDonot = displayReportChart(priceTozero,'priceToZeroPercent-1',$chartTitle,doughnut_PTZ);
 		doughnutResize(resizeDonot,'mobile');
-
-	});
-
-	// ------------------------------------------checksum chart
-	xhr_getChecksumDisplay(url,timeStampData,$checksumSite).done(function(data) {
-		 checksumDone(data);
-	});
-	
-	xhr_getDisplayrealDoubleLinkCount(url).done(function(data) {
+	}
+	// ------------------------------------------Real Double Links chart
+	function displayRealDouble(data){
 		var realDoubleLinkCount = [];
 		for (var i in data){
 			realDoubleLinkCount.push(data[i].aks,data[i].cdd);
 		}
 		var $chartTitle = 'Real Double Links Count';
 		displayReportChart(realDoubleLinkCount,'realDoubleCounts-1',$chartTitle,doughnut_RDB)
-	});
+	}
 
+	// ------------------------------------------checksum chart
+	function checksumDone(data){
+		//Dapat e replace sa naku ang mga space ' ' into \n ang label
+		//console.log(data)
+		var checksumLabel = [];
+		var checksumLastUpdate = [];
 
-	// -------------------------- javascript function here ----------------------------
-
-	function xhr_getDisplayRunAndSuccess($url){
-		return $.ajax({
-			url: $url,
-			type: "POST",
-			data : {
-				action: 'displayRunAndSuccessAction',
-			}
-		}).always(function() {
-			//$('.loader-sucfail').remove();
-		});
+		for(var i in data){
+			var mN = data[i].merchant_name;
+			var lUp= data[i].lastupdate;
+			mN = (/(\s|_)/.test(mN)) ? mN.replace(/(\s|_)/g,'\n') : mN;
+			checksumLabel.push(mN);
+			checksumLastUpdate.push(lUp);
+		}
+		checksumChart.data.labels = checksumLabel;
+		checksumChart.data.datasets[0].data = checksumLastUpdate;
+		checksumChart.update();
 	}
 
 	function displayReportChart($data,$domId,$chartTitle,chartVarirable){
@@ -350,18 +371,6 @@
 	}
 
 
-	function xhr_getDisplayrealDoubleLinkCount($url){
-		return $.ajax({
-			url: $url,
-			type: "POST",
-			data : {
-				action: 'displayRealDoubleCounts',
-			}
-		}).always(function() {	
-			//$('.loader-realDoubleCounts').remove();
-		});
-	}
-
 	function displayReport($to, $what){
 		var dataRequest =  {
 				action: 'displayReport',
@@ -395,19 +404,6 @@
 		var matchDate = dateY.match(/,\s(\d.+):\d.+(AM|PM)/)
 		var combine = matchDate[1]+" "+matchDate[2];
 		return (epoch != '') ? combine : 'No Data';
-	}
-
-
-	function xhr_getDisplayPriceToZero($url){
-		return $.ajax({
-			url: $url,
-			type: "POST",
-			data : {
-				action: 'displayPriceToZeroCountsCounts',
-			}
-		}).always(function() {
-			$('.loader-priceToZero').remove();
-		});
 	}
 
 	// ------------------------------------------checksum TABLE
@@ -470,26 +466,7 @@
 			//$('.loader-checksum').hide();
 		});
 	}
-
-	// ------------------------------------------checksum chart
-	function checksumDone(data){
-		//Dapat e replace sa naku ang mga space ' ' into \n ang label
-		//console.log(data)
-		var checksumLabel = [];
-		var checksumLastUpdate = [];
-
-		for(var i in data){
-			var mN = data[i].merchant_name;
-			var lUp= data[i].lastupdate;
-			mN = (/(\s|_)/.test(mN)) ? mN.replace(/(\s|_)/g,'\n') : mN;
-			checksumLabel.push(mN);
-			checksumLastUpdate.push(lUp);
-		}
-		checksumChart.data.labels = checksumLabel;
-		checksumChart.data.datasets[0].data = checksumLastUpdate;
-		checksumChart.update();
-	}
-
+	
 	// ------------------------------------------checksum chart
 	function initChecksumChart(lineChart){
 		var ctx4 = document.getElementById(''+lineChart+'').getContext('2d');
@@ -612,6 +589,7 @@
 				    }
 			  	}]	
 			});
+
 		}
 	
 	function displayReport($to, $what){
@@ -622,6 +600,7 @@
 			}
 
 		AjaxCall(url+'dashboard', dataRequest).done(function(data) {
+			//console.log(data)
 			switch(data.to){
 				case 'Store':
 					$('.disable-count').html(data.count);

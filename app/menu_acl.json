@@ -1,11 +1,12 @@
 {
   "Dashboard" : "dashboard",
   "Links" : {
-    "Affiliate Check" : "utilities/affiliateCheck",
     "Real Double" : "utilities/realDouble",
+    "Affiliate Check" : "utilities/affiliateCheck",
     "Suspicious Double" : "utilities/suspiciousDouble",
     "Metacritics Double" : "utilities/metacriticsDouble"
   },
+  "Reports" : "reports",
   "Store" : "store",
   "Tools" : {
     "Merchant Edition" : "tools/merchantEdition",

@@ -13,7 +13,8 @@ class StoreController extends Controller {
 	}
 
 	public function indexAction() {
-		//$db = DB::getInstance();
+
+		// $db = DB::getInstance();
 
 		self::ajaxFunction();
 		$this->view->render('admin/store/index');

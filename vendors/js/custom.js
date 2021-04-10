@@ -11,15 +11,30 @@ var toggleVal = 0,
 	scroll = '',
 	pageSwitch = 0;
 
+var crProblemArr = [];
+
 	$div.css({
 		left: Math.floor( Math.random() * widthMax ),
 		top: Math.floor( Math.random() * heightMax )
 	});
+var uri = window.location.pathname;
+//ESCAPE SPECIAL CHARACTERS
+var entityMap = {
+	'&': '&amp;',
+	'<': '&lt;',
+	'>': '&gt;',
+	'"': '&quot;',
+	"'": '&#39;',
+	'/': '&#x2F;',
+	'`': '&#x60;',
+	'=': '&#x3D;',
+	'¤': '&#164;'
+};
 
 $(document).ready(function(){
 	displayIcon();
 	displayMode(localStorage.getItem("body-mode"));
-
+	//console.log(removeSiteInLocalStorage(uri));
 
 	// var pathname = window.location.pathname;     
 	// var origin   = window.location.origin;
@@ -27,9 +42,17 @@ $(document).ready(function(){
 	// localStorage.clear();
 
 	$(document).keydown(function(event){
-		if(( event.which === 65 && event.ctrlKey && event.shiftKey ) || (event.which === 69 && event.ctrlKey && event.shiftKey)) {
+		
+
+		if((event.which === 65 && event.altKey)) {
+			$('.modal').modal('hide');
 			$('.add-edit-store-game-modal').modal('show');
-		}    
+		}
+		if((event.which === 82 && event.altKey)) {
+			$('.modal').modal('hide');
+			crProblemArr = [];
+			$('#createReportModal').modal('show');
+		}   
 	}); 
 
 	$(window).scroll(function(){
@@ -63,8 +86,20 @@ $(document).ready(function(){
 		}
     });
 
-	$(document).on('click', '.btn-add-edit', function(){
-		$('.add-edit-store-game-modal').modal('show');
+
+	$(document).on('click', '.float-settings-menu', function(){
+		$('.modal').modal('hide');
+		switch($(this).attr('id')){
+			case 'btn-create-report':
+				crProblemArr = [];
+				$('#createReportModal').modal('show');
+			break;
+			case 'btn-add-edit':
+				$('.add-edit-store-game-modal').modal('show');
+			break;
+
+		}
+		
 	});
 
 	$(document).on('click', '.settings-icon', function(){
@@ -300,9 +335,71 @@ function displayMode($mode){
 			$('html, body').removeClass('html-body-darkmode');
 
 			$('.store-games-data-table-tbody-data').removeClass('store-games-data-table-tbody-data-darkmode').addClass('store-games-data-table-tbody-data-normal')
-			
 			localStorage.setItem("body-mode", 'normal');
 			$(".switch-checkbox").prop( "checked", false );
 		break;
 	}
+}
+
+
+function html_decode(string) {
+  return String(string).replace(/[&<>"'`=\/¤]/g, function (s) {
+    return entityMap[s];
+  });
+}
+
+function debounce(fun, mil){
+    var timer; 
+    return function(){
+        clearTimeout(timer); 
+        timer = setTimeout(function(){
+            fun(); 
+        }, mil); 
+    };
+}
+
+function selectOption(inputs,className,classParent){
+	var	opt = 		'<div class="select custom-bkgd">';
+		opt += 			'<span class="selected-data change-site">Website</span>';
+		opt += 			'<span class="pull-right"><i class="fa fa-caret-down" aria-hidden="true"></i></span>';
+		opt += 		'</div>';
+		opt += 		'<ul class="dropdown-menu cos-dropdown-menu '+classParent+'">'
+		opt += 			'<li class='+className+' data-website='+inputs[0].site+'>AKS</li>';
+		opt += 			'<li class='+className+' data-website='+inputs[1].site+'>CDD</li>';
+		opt += 			'<li class='+className+' data-website='+inputs[2].site+'>BREXITGBP</li>';
+		opt += 		'</ul>';
+	return opt
+}
+
+function localStorageCheck(){
+	return (typeof(Storage) !== "undefined") ? true : false;
+}
+function returnSite($site){
+	switch($site){
+		case 'aks' : $site;
+		break;
+		case 'cdd' : $site;
+		break;
+		case 'brexitgbp' : $site;
+		break;
+		default: $site = 'invalid';
+		break
+	}
+	return $site;
+}
+function getLocalStorageSite($site,$name){
+	if(localStorageCheck()){
+		//var getLocalStorage = localStorage.getItem($name);
+			$site = localStorage.getItem($name); //override
+			$site = ($site == null) ? 'aks' : $site;
+	}
+	return $site;
+}
+
+//for select option website
+function removeSiteInLocalStorage($path){
+	if($path == url){
+		localStorage.removeItem('RDBsite'); 
+	}
+	return $path;	
 }

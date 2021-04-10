@@ -2,5 +2,4 @@
 
 <?php $this->start('body')?>
 <p>Price Check</p>
-
 <?php $this->end()?>

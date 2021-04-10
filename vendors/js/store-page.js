@@ -3,7 +3,12 @@ var currentDisplay = 0,
 	total = '',
 	toSearch = '',
 	toClose = '';
-	
+
+var inputs = {
+    text: "text",
+    number: "number",
+    button: "button"
+}
 $(function (){	
 	displayStore();
 	//console.log(url);
@@ -17,7 +22,7 @@ $(function (){
 				site: $('.dropdown-menu-btn').text()
 			}
 
-			AjaxCall(url+'dashboard', dataRequest).done(function(data) {
+			AjaxCall(url+'store', dataRequest).done(function(data) {
 				$('.productName').text(data[0].searchName);
 				$('.productNormalizedName').text(data[0].nname);
 				$('#displayStoreGamesByNormalizedName').modal('show');
@@ -29,7 +34,7 @@ $(function (){
 						append +=	'<div class="modal-child-tbody-2">'+data[i].region+'</div>';
 						append +=	'<div class="modal-child-tbody-3">'+data[i].edition+'</div>';
 						append +=	'<div class="modal-child-tbody-sub modal-child-tbody-4"><input class="modal-val-btn" type="button" 	data-prodId="'+data[i].id+'" 	value="'+data[i].status+'"></div>';
-						append +=	'<div class="modal-child-tbody-sub modal-child-tbody-5"><input class="modal-val-txt" type="text" 	data-prodId="'+data[i].id+'"	value="'+data[i].price+'"></div>';
+						append +=	'<div class="modal-child-tbody-sub modal-child-tbody-5"><input id="price-update" class="modal-val-txt" type="number" 	data-prodId="'+data[i].id+'"	value="'+data[i].price+'"></div>';
 						append +=	'<div class="modal-child-tbody-sub modal-child-tbody-6">';
 						append += 	'<div class="show-menu" id="'+data[i].id+'">';
 						append += 	'<ul class="modal-setting-ul">';
@@ -40,7 +45,7 @@ $(function (){
 						append +=	'</div>';
 						append += 	'<button class="btn action-btn '+data[i].site+'-btn" id="'+data[i].id+'"> <i class="fa fa-cogs btn-icon-acb" aria-hidden="true"></i></button>';
 						append +=   '</div>';
-						append +=	'<div><p class="nname-modal-tfoot"><a href="'+data[i].buy_url+'" target="_blank">'+data[i].buy_url+'</a></p></div>';
+						append +=	'<div><p class="nname-modal-tfoot"><a href="'+data[i].buy_url+'" target="_blank">'+html_decode(data[i].buy_url)+'</a></p></div>';
 						append +=	'</div>';
 					$(".nname-modal-tbody").append(append);
 				}
@@ -51,7 +56,7 @@ $(function (){
 	$(document).on('keyup paste', '.store-page-search', _.debounce(function(){
 		// console.log($(this).val());
 		searchKeyUp($(this).val());
-	}, 200));
+	}, 350));
 
 	
 	$(document).on('click', '.add-edit-from-display', function(evt){
@@ -124,23 +129,31 @@ $(function (){
 		if($('.store-page-search').val() != '' && scroll >= 220) $('.sticky-dropdown-menu-div').toggle();
 	});
 
+	//PRICE CHANGE UPDATE
 	$(document).on('change', '.modal-val-txt', function(){
-		var dataRequest = { 
-			action: 'storeUpdateProduct',
-			id: $(this).attr('data-prodId'),
-			toWhat: 'price',
-			dataTo: $(this).val(),
-			site: $('.dropdown-menu-btn').text()
-		};
-
-		AjaxCall(url+'dashboard', dataRequest).done(function(data) {
-			console.log(data)
-		});
+		var dataReturn = storeUpdateProduct($(this).attr('data-prodId'), 'price', $(this).val(), $('.dropdown-menu-btn').text());
+		var $this = $(this);
+		//FOR Mozilla because type number not working
+		if(dataReturn == true){
+			alert("Check your input price...")	
+		}else{
+			if($this.attr("type") == "number" && dataReturn.dataTo != '')
+				AjaxCall(url+'store', dataReturn).done(function(data) {
+					if(data) alert("SUCCESS")
+				});
+			else
+				alert("Check your input price...")	
+		}
 	});
-			
+	// STOCK CHANGE UPDATE
 	$(document).on('click', '.modal-val-btn', function(){
-		storeUpdateProduct($(this).attr('data-prodId'), 'stock', $(this).val(), $('.dropdown-menu-btn').text());
-		$stock = ($(this).val() == 'Out Of Stock')? $(this).val('In stock'): $(this).val('Out Of Stock'); 
+		var dataReturn = storeUpdateProduct($(this).attr('data-prodId'), 'stock', $(this).val(), $('.dropdown-menu-btn').text());
+		var $this = $(this);
+		if($this.attr('type') == 'button'){
+			AjaxCall(url+'store', dataReturn).done(function(data) { console.log(data); alert("SUCCESS" )});
+			$stock = ($(this).val() == 'Out Of Stock')? $(this).val('In stock'): $(this).val('Out Of Stock');
+		}else
+			alert("Theres something wrong please try again");
 	});
 
 	$(document).on('click', '.dall-function', function(){
@@ -192,8 +205,7 @@ function searchKeyUp($searchVal) {
 	currentID = '';
 	total = '';
 	toSearch = '';
-
-	if($searchVal != ''){
+	if($searchVal != '' && $searchVal.length >= 3){
 		$('.store-data-div').hide();
 		$('.store-games-data-div').show();
 		$('.store-games-data-table-tbody').empty();
@@ -226,13 +238,13 @@ function displayStoreGames($merchantID, $offset, $limit, $toSearch, $site){
 	}
 
 	var getMode = (localStorage.getItem("body-mode") == 'darkmode')? 'darkmode':'normal';
-	AjaxCall(url+'dashboard', dataRequest).done(function(data) {
+	AjaxCall(url+'store', dataRequest).done(function(data) {
 		var showHide = (data[0].total >= 50 || (data[0].total != '' && data[0].total >= 50))? $('.store-games-data-table-tfoot').show() : $('.store-games-data-table-tfoot').hide();
 		for(var i in data){
 			for(var j in data[0].data){
 				var getStatus = (data[0].data[j].dispo == 1)? 'In Stock' : 'Out Of Stock';
 				var append = '<tr class="store-games-data-table-tbody-data store-games-data-table-tbody-data-'+getMode+'" data-nname='+data[0].data[j].normalised_name+'>';
-					append += '<td class="child-1">'+data[0].data[j].buy_url+'</td>';
+					append += '<td class="child-1">'+html_decode(data[0].data[j].buy_url)+'</td>';
 					append += '<td class="child-2">'+data[0].data[j].price+'</td>';
 					append += '<td class="child-3">'+getStatus+'</td>';
 					append += '</tr>';
@@ -254,7 +266,7 @@ function displayStore(){
 		action: 'displayStore'
 	}
 
-	AjaxCall(url+'dashboard', dataRequest).done(function(data) {
+	AjaxCall(url+'store', dataRequest).done(function(data) {
 		for(var i in data){
 			var append =  '<div class="col-md-12 col-lg-6 col-xl-3  store-list-div">';
 				append += '<div class="card store-list-card" id="'+data[i].vols_id+'" data-nname="'+data[i].vols_nom+'"">';
@@ -292,12 +304,33 @@ function breadCrumbs($name){
 		$(".breadcrumbs-ul").append(append);
 }
 
-function debounce(fun, mil){
-    var timer; 
-    return function(){
-        clearTimeout(timer); 
-        timer = setTimeout(function(){
-            fun(); 
-        }, mil); 
-    };
-} 
+
+function storeUpdateProduct($productID,$toWhat,$dataTo,$site){
+	var dataRequest = { 
+		action: 'storeUpdateProduct',
+		id: $productID,
+		toWhat: $toWhat,
+		dataTo: $dataTo,
+		site: $site
+	};
+	switch($toWhat){
+		case 'price':
+			var $checkedPrice = $dataTo.match(/(\d+\.[\d+]{1,2}|\d+)/);
+			var $checkedWords = $dataTo.match(/([^.\d])/);
+			if($checkedWords)
+				flag = true; //theres an error
+			else{
+				if($checkedPrice){
+					flag = false;
+					dataRequest.dataTo = $checkedPrice[1]
+				}
+				else
+					flag = true; //theres an error
+			}
+			return (flag) ? true : dataRequest ;
+		break;
+		case 'stock': return dataRequest;
+		break;
+	}
+}
+

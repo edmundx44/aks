@@ -5,9 +5,11 @@ use Core\DB;
 use Core\Input;
 use Core\Session;
 use App\Models\Users;
+use App\Models\Merchant;
 use App\Controllers\DashboardController;
 use App\Controllers\StoreController;
-
+use App\Controllers\UtilitiesController;
+use App\Controllers\ReportsController;
 
 class Ajax {
 
@@ -111,7 +113,7 @@ class Ajax {
 								$addQuery = "AND `merchantID` NOT IN('1','31')";
 							break;
 							case 'BREXIT':
-								
+								$addQuery = '';
 							break;
 						}
 
@@ -194,8 +196,12 @@ class Ajax {
 				$getRegionsArr = array();
 
 				$getMerchant = $db->find('`allkeyshops`.`sale_page`',['order' => "vols_nom ASC"]);
-				$getEdition = $db->find('`'.$site.'`.`pt_editions_eu`');
-				$getRegions = $db->find('`'.$site.'`.`pt_regions_amaurer`');
+				// $getEdition = $db->find('`'.$site.'`.`pt_editions_eu`');
+				// $getRegions = $db->find('`'.$site.'`.`pt_regions_amaurer`');
+
+				$getEdition = $db->find('`test-server`.`pt_editions_eu`'); // in test-server only
+				$getRegions = $db->find('`test-server`.`pt_regions_amaurer`'); // in test-server only
+
 				$getProductByNormalisedName =  $db->find('`'.$site.'`.`pt_products`',[
 					'conditions' => ['normalised_name = ?'],
 					'bind' => [$getNname],
@@ -253,8 +259,7 @@ class Ajax {
 
 				return $db->update('`'.$site.'`.`pt_products`', $getInput->get('id'), $fields);
 			break;
-			case 'displaySnapshot':
-                $getSite = $getInput->get('website');
+			                $getSite = $getInput->get('website');
                 
                 $addQuery = ($getSite == 'CDD')? "AND `merchantID` NOT IN('1','31')" : "AND `merchantID` NOT IN('1')";
                 $sql = "SELECT * FROM `test-server`.`bot_admin_snapshot` WHERE `website` = '$getSite' $addQuery";
@@ -428,6 +433,350 @@ class Ajax {
                 return $returnData;
             break;
 
+            case 'AjaxRealDblLinks':
+                $getWebsite = $getInput->get('websiteSent');
+                switch ($getWebsite) {
+                	case 'aks':
+                		 $sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs, `id`,`price`, `dispo` 
+                            FROM `test-server`.`pt_products` 
+                            WHERE merchant != 1   AND merchant != 67 AND 
+                            merchant != 157 AND merchant != 33 AND
+                            merchant != 333 AND normalised_name != 50
+                            GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
+                    	$returnResults = $db->query($sql)->results();
+                    	$returnSite = 'aks';
+                	break;
+                	case 'cdd':
+                		$sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs, `id`,`price`, `dispo` 
+                            FROM `compareprices`.`pt_products` WHERE merchant != 1   AND merchant != 67 AND 
+                            merchant != 157 AND merchant != 33 AND
+                            merchant != 333 AND normalised_name != 50
+                            GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
+                    	$returnResults = $db->query($sql)->results();
+                    	$returnSite = 'cdd';
+                	break;
+                	case 'brexitgbp':
+                		$sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs , `id`,`price`, `dispo` 
+                            FROM `brexitgbp`.`pt_products` WHERE merchant != 1   AND merchant != 67 AND 
+                            merchant != 157 AND merchant != 33 AND
+                            merchant != 333 AND normalised_name != 50
+                            GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
+                    	$returnResults = $db->query($sql)->results();
+                    	$returnSite = 'brexitgbp';
+                	break;
+                	default:
+                		return "INVALID INFORMATION";
+                	break;
+                }
+                return $returnResults;
+            break;
+            case 'sample':
+            	return 'nakoha';
+            break;
+
+            case 'displayPriceToZeroCountsCounts':
+
+                $today = date('Y-m-d');
+                $sqlAks = "SELECT AVG(percentage) as zeroPercentage FROM `test-server`.`romain_tool_zero_prices_data` WHERE DATE(`date`) = '$today'";
+                $sqlCdd = "SELECT AVG(percentage) as zeroPercentage FROM `compareprices`.`romain_tool_zero_prices_data` WHERE DATE(`date`) = '$today'";
+
+                $resultAks = $db->query($sqlAks)->results();
+                $resultCdd = $db->query($sqlCdd)->results();
+
+                foreach ($resultAks as $key) {
+                    $avgAks = $key->zeroPercentage;
+                }
+                foreach ($resultCdd as $key) {
+                    $avgCdd = $key->zeroPercentage;
+                }
+                $runCounts = array();
+                    array_push($runCounts, array(
+                        'aks' => round((float)$avgAks,2),
+                        'cdd' => round((float)$avgCdd,2),
+                        //'brexitgbp' =>  $avgZeroBrexit
+                ));
+                return $runCounts;
+            break;
+            
+            case 'displayRealDoubleCounts':
+
+                $sql = "SELECT COUNT(*) as occurs FROM `test-server`.`pt_products` 
+                    WHERE merchant NOT IN('1','67','157','33','333') AND normalised_name != 50 
+                    GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1";
+             
+                $sql1 = "SELECT COUNT(*) as occurs FROM `compareprices`.`pt_products` 
+                    WHERE merchant NOT IN('1','67','157','33','333') AND normalised_name != 50 
+                    GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1";
+            
+                // $sql2 = "SELECT COUNT(*) as occurs FROM `brexitgbp`.`pt_products` 
+                //      WHERE merchant NOT IN('1','67','157','33','333') AND normalised_name != 50 
+                //     GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1";
+
+                $runCounts = array();
+                    array_push($runCounts, array(
+                        'aks' => $db->query($sql)->count(),
+                        'cdd' => $db->query($sql1)->count(),
+                        //'brexitgbp' =>  $db->query($sql2)->count()
+                ));
+            return $runCounts;
+            break;
+
+            case 'displayRunAndSuccessAction':
+
+                $fail = "SELECT * FROM `test-server`.`bot_admin`
+                        WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 4 HOUR)
+                        AND (status = 1 OR status = 2) AND bot_type = 'feed'
+                        ORDER by successRunTime desc";
+
+                $success= "SELECT * FROM `test-server`.`bot_admin`
+                        WHERE successRunTime > DATE_ADD(NOW(), INTERVAL 4 HOUR)
+                        AND (status = 1 OR status = 2) AND bot_type = 'feed'
+                        ORDER by successRunTime desc";
+
+                $serverCharge= "SELECT * FROM `test-server`.`bot_admin`
+                        WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 4 HOUR)
+                        AND (status = 1 OR status = 2)
+                        AND bot_type = 'feed'
+                        AND failed_on_server_charge = 1
+                        ORDER by successRunTime desc";
+
+                    $runSuc = array();
+                        array_push($runSuc, array(
+                          'fail' => $db->query($fail)->count(),
+                          'success' => $db->query($success)->count(),
+                          'serverCharge' => $db->query($serverCharge)->count()
+                    ));
+                return $runSuc;
+            break;
+
+            case 'displayCheckSumAction':
+				//$dateNow = $getInput->get('dateNow'); //from ajax
+                $dateTime = date('Y-m-d');
+                $checksumSite = $getInput->get('checksumSite');
+
+                $arr = file_get_contents( ROOT . DS . 'app' . DS .'getStores.json');
+                $getStores = json_decode($arr, true);
+
+                $sql = "SELECT COUNT(id) AS 'dataID', merchant_id ,lastupdate
+                        FROM `aks_bot_teamph`.aks_checksum 
+                        WHERE date(`lastupdate`) = '$dateTime' AND checksum_site = '$checksumSite' 
+                        GROUP BY merchant_id ORDER BY lastupdate DESC limit 8";//local
+                $resultCheksum = $db->query($sql)->results();
+                $newChecksumDisplay = array();
+
+                foreach ($resultCheksum as $key) {
+                   if(array_key_exists($key->merchant_id, $getStores)){
+                        $newChecksumDisplay[] = array(
+                            'dataID' => $key->dataID,
+                            'lastupdate' => strtotime($key->lastupdate),
+                            'merchant_id' => $key->merchant_id,
+                            'merchant_name' => $getStores[$key->merchant_id]
+                        );
+                   }
+                }
+                return $newChecksumDisplay;
+
+			break;
+
+			case 'displayChecksumUsingToggleSiteOnly': //toggle site
+                $getWebsite = $getInput->get('getWebsiteSent'); 
+                $dateNow1 = date('Y-m-d');           
+                //USING INNER JOIN TO GET THE STATUS DATA IN BOT ADMIN SO THAT IT WILL DISPLAY ONLY THE STATUS 0 OR 1
+                $sql1 = "SELECT aa.merchant_id, aa.checksum_data, aa.checksum_site, aa.lastupdate, tb.name, tb.website, tb.status, tb.bot_type 
+                        FROM `aks_bot_teamph`.`aks_checksum` aa 
+                        INNER JOIN `test-server`.`bot_admin` tb 
+                        ON aa.merchant_id = tb.merchant_id AND aa.checksum_site = tb.website 
+                        WHERE  (tb.status = 1 OR tb.status = 2) AND aa.checksum_site = '$getWebsite' AND tb.website = '$getWebsite' AND tb.bot_type = 'feed' ORDER BY aa.lastupdate DESC LIMIT 300";
+
+                $sql2= "SELECT COUNT(id) as 'countToday', merchant_id, checksum_data, checksum_site FROM `aks_bot_teamph`.`aks_checksum` 
+                        WHERE checksum_site = '$getWebsite' AND date(lastupdate) = '$dateNow1'
+                        GROUP BY merchant_id";
+
+                $resultFirstQuery = $db->query($sql1)->results(); //1st query
+                $resultSecondQuery = $db->query($sql2)->results();; //2nd query
+                $newArray1 =array();
+                $mergeResult1 = array();
+
+                foreach($resultSecondQuery as $key => $value){
+                    if(!array_key_exists($value->merchant_id, $newArray1))
+                        $id1 = $value->merchant_id;
+                    if(isset($id1)){
+                        $newArray1[$id1]=array(
+                            'count' => $value->countToday,
+                            'merchant_id' => $value->merchant_id
+                        );
+                    }          
+                }
+
+                //final result combine sql and sql1 with count
+               foreach ($resultFirstQuery as $key) {
+                    if(array_key_exists($key->merchant_id, $newArray1)){
+                        $mergeResult1[] =array(
+                            'merchant_id' => $key->merchant_id,
+                            'merchant_name' => ucfirst($key->name),
+                            'checksum_data' => $key->checksum_data,
+                            'checksum_site' => $key->checksum_site,
+                            'lastupdate' => date('M d Y h:i A',strtotime($key->lastupdate)),
+                            'count' => $newArray1[$key->merchant_id]['count']
+                        );
+                    }else{
+                        $mergeResult1[] =array(
+                            'merchant_id' => $key->merchant_id,
+                            'merchant_name' => ucfirst($key->name),
+                            'checksum_data' => $key->checksum_data,
+                            'checksum_site' => $key->checksum_site,
+                            'lastupdate' => date('M d Y h:i A',strtotime($key->lastupdate)),
+                            'count' => 0
+                        );
+                    }
+                }
+                    $returnData['success']= array(
+                        'data' => $mergeResult1,
+                        'currentPhTime' => $dateNow1
+                    );
+                return $returnData;
+            break;
+
+            case 'AjaxRealDblLinks':
+                $getWebsite = $getInput->get('websiteSent');
+                switch ($getWebsite) {
+                	case 'aks':
+                		 $sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs, `id`,`price`, `dispo` 
+                            FROM `test-server`.`pt_products` 
+                            WHERE merchant != 1   AND merchant != 67 AND 
+                            merchant != 157 AND merchant != 33 AND
+                            merchant != 333 AND normalised_name != 50
+                            GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
+                    	$returnResults = $db->query($sql)->results();
+                    	$returnSite = 'aks';
+                	break;
+                	case 'cdd':
+                		$sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs, `id`,`price`, `dispo` 
+                            FROM `compareprices`.`pt_products` WHERE merchant != 1   AND merchant != 67 AND 
+                            merchant != 157 AND merchant != 33 AND
+                            merchant != 333 AND normalised_name != 50
+                            GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
+                    	$returnResults = $db->query($sql)->results();
+                    	$returnSite = 'cdd';
+                	break;
+                	case 'brexitgbp':
+                		$sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs , `id`,`price`, `dispo` 
+                            FROM `brexitgbp`.`pt_products` WHERE merchant != 1   AND merchant != 67 AND 
+                            merchant != 157 AND merchant != 33 AND
+                            merchant != 333 AND normalised_name != 50
+                            GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
+                    	$returnResults = $db->query($sql)->results();
+                    	$returnSite = 'brexitgbp';
+                	break;
+                	default:
+                		return "INVALID INFORMATION";
+                	break;
+                }
+                return $returnResults;
+            break;
+
+			case 'displaySnapshot':
+				$getSite = $getInput->get('website');
+				
+				$addQuery = ($getSite == 'CDD')? "AND `merchantID` NOT IN('1','31')" : "AND `merchantID` NOT IN('1')";
+				$sql = "SELECT * FROM `test-server`.`bot_admin_snapshot` WHERE `website` = '$getSite' $addQuery";
+				return $db->query($sql)->results();
+		
+			break;
+			case 'cr-checkurl':
+				preg_match('/^.*\/\/([.w]+\.+|)(.*)\.com/', $getInput->get('getUrl'), $outputMatch);
+				$getPattern = ReportsController::getPattern($outputMatch[2]);
+				
+				preg_match($getPattern, $getInput->get('getUrl'), $matches);
+				$getUrl = $matches[1];
+
+				$sql = "SELECT * FROM tblreports WHERE `merchantLink` like '%".htmlspecialchars_decode($getUrl)."%'";
+				return $db->query($sql)->results();
+			break;
+			case 'cr-site':
+				preg_match('/^.*\/\/([.w]+\.+|)(.*)\.com/', $getInput->get('getUrl'), $outputMatch);
+				$getPattern = ReportsController::getPattern($outputMatch[2]);
+				
+				preg_match($getPattern, $getInput->get('getUrl'), $matches);
+				$getUrl = $matches[1];
+				$toReturn = array();
+
+				switch ($getInput->get('getSite')) {
+					case 'AKS':
+						$sqlTable = '`test-server`.`pt_products`';
+					break;
+					case 'CDD':
+						$sqlTable = '`compareprices`.`pt_products`';
+					break;
+					case 'BREX':
+						$sqlTable = '`brexitgbp`.`pt_products`';
+					break;
+				}
+
+				$sql = "SELECT id, merchant, normalised_name, buy_url, rating FROM $sqlTable WHERE `buy_url` like '%".htmlspecialchars_decode($getUrl)."%'";
+				array_push($toReturn, array(
+					'site' 	=> $getInput->get('getSite'), 
+					'data' 	=> $db->query($sql)->results()	
+				));
+
+				return $toReturn;
+			break;
+			case 'cr-submit-report':
+				$toInsert = filter_var_array($_POST['toInsert']); //use native $_POST if array
+				$getProblem	= $getInput->get('getProblem');
+
+				$fieldsToInsert = array();
+				$mysqlField = '`merchantSite`, `merchantSqlID`, `merchantID`, `merchantNMID`, `merchantLink`, `problem`, `status`, `rating`'; 
+				foreach ($toInsert as $key) {
+					$fieldsToInsert[] = '(
+					 	"'.$key['merchantSite'].'",
+						"'.$key['merchantSqlID'].'",
+						"'.$key['merchantID'].'",
+						"'.$key['merchantNMID'].'",
+						"'.$key['merchantLink'].'",
+						"'.$getInput->get('getProblem').'",
+						"1",
+						"'.$key['merchantRating'].'"
+					)';
+				}
+
+                $sql = 'INSERT INTO `aks`.`tblreports` ('.$mysqlField.') VALUES '.implode(',', $fieldsToInsert).'';
+                return $db->query($sql) ? true : fail;
+			break;
+			case 'cr-problem-list':
+				$getProblemList =  $db->find('`aks`.`tblreports`',[
+					'conditions' => ['status = ?'],
+					'bind' => [1],
+					'order' => "id DESC",
+				]);
+				return $getProblemList;
+			break;
+			case 'cr-get-cac-data':
+				if($getInput->get('site') == 'BREX') {
+					return $getInput->get('site'). " Not Available for the momment";
+					break;
+				}
+				$getSiteData =  $db->find('`'.self::getSite($getInput->get('site')).'`.`pt_products`', ['conditions' => ['id = ?'], 'bind' => [$getInput->get('dataID')]]);
+				$resulNi = array(
+					'site' 	=> $getSiteData,
+					'mfeed'	=> Merchant::merchantData($getInput->get('site'), $getInput->get('url'))
+				);
+				return $resulNi;
+			break;
+			case 'cr-rtm':
+				$fields = [
+					'toMerchant' => $getInput->get('reportStatus'),
+				];
+				return $db->update('`aks`.`tblReports`', $getInput->get('idToUpdate'), $fields);
+			break;
+			case 'cr-cr': 
+				$fields = [
+					'rating' => $getInput->get('changeRatings'),
+				];
+				$updateOnSite = $db->update('`'.self::getSite($getInput->get('site')).'`.`pt_products`', $getInput->get('idToUpdate'), $fields);
+				$updateOnProblem = $db->update('`aks`.`tblReports`', $getInput->get('idToUpdateReport'), $fields);
+
+			break;
 		}
 	}
 
@@ -443,7 +792,8 @@ class Ajax {
 				$site = 'brexitgbp';
 			break;
 		}
-
 		return $site;
 	}
+
+	
 }

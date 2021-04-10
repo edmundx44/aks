@@ -26,4 +26,16 @@ class ReportsController extends Controller {
 			$this->jsonResponse($ajaxResult);
 		}
 	}
+
+	public static function getPattern($merchantName){
+		switch ($merchantName) {
+			case 'g2a':
+				$pattern = '/(?<url>.*i\d+).*$/';
+			break;
+			default:
+				$pattern = '/(?<url>.*).*$/';
+		}
+		return $pattern;
+	}
 }
+
