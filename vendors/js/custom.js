@@ -368,7 +368,7 @@ function returnSite($site){
 }
 function getLocalStorageSite($site,$name){
 	if(localStorageCheck()){
-		var getLocalStorage = localStorage.getItem($name);
+		//var getLocalStorage = localStorage.getItem($name);
 			$site = localStorage.getItem($name); //override
 			$site = ($site == null) ? 'aks' : $site;
 	}

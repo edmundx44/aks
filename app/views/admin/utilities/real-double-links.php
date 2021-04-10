@@ -26,7 +26,6 @@
 			if(localStorageCheck())
 				site = getLocalStorageSite(site,'RDBsite');
 			var validSite = returnSite(site);
-
 			if(validSite != 'invalid'){
 				ajaxCall_RDB($url,'POST',validSite).done(function(data){
 					done_ajaxCall_RDB(validSite,data)
@@ -64,8 +63,8 @@
 			    	var site = (indexInput == 0 ) ? inputs[0].site : (indexInput == 1 ) ? inputs[1].site : (indexInput == 2 ) ? inputs[2].site : '';
 					
 					if(localStorageCheck()){
-				    	localStorage.setItem('RBDsite',site); //after select it sets the local storage
-				    	console.log(localStorage.getItem('RBDsite'))
+				    	localStorage.setItem('RDBsite',site); //after select it sets the local storage
+				    	console.log(localStorage.getItem('RDBsite'))
 					}
 				    else
 				    	console.log('Localstorage is not supported in this browser');
