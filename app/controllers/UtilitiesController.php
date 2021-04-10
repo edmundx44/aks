@@ -12,17 +12,16 @@ class UtilitiesController extends Controller {
 		parent::__construct($controller, $action);
 	}
 
+	public function realDoubleAction() {
+		self::ajaxFunction();
+		$this->view->pageTitle = 'Real Double Links';
+		$this->view->render('admin/utilities/real-double-links');
+	}
+
 	public function affiliateCheckAction() {
 		self::ajaxFunction();
 		$this->view->pageTitle = 'Affiliate Link Check';
 		$this->view->render('admin/utilities/affiliate-link-check');
-	}
-
-	public function realDoubleAction() {
-
-		self::ajaxFunction();
-		$this->view->pageTitle = 'Real Double Links';
-		$this->view->render('admin/utilities/real-double-links');
 	}
 
 	public function suspiciousDoubleAction() {

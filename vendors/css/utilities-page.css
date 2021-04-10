@@ -1,0 +1,103 @@
+.dropdown-menu{
+  min-width: 150px;
+}
+ /*na na ni sa index.php sa dashboards*/
+.dropdown-div {
+  width: 100%;
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 0 2px rgb(204, 204, 204);
+  transition: all .5s ease;
+  position: relative;
+  font-size: 14px;
+  color: #474747;
+  height: 100%;
+  text-align: left;
+  z-index: 999;
+}
+.dropdown-div .select {
+    cursor: pointer;
+    display: block;
+    padding: 10px;
+    background-color: #3f51b5;
+    color: #fff;
+}
+.dropdown-div .select > i {
+    font-size: 13px;
+    color: #fff;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    float: right;
+    line-height: 20px
+}
+.dropdown-div:hover {
+    box-shadow: 0 0 4px rgb(204, 204, 204)
+}
+.dropdown-div:active {
+    background-color: #f8f8f8
+}
+.dropdown-div .dropdown-menu {
+    position: absolute;
+    background-color: #fff;
+    width: 100%;
+    left: 0;
+    margin-top: 1px;
+    box-shadow: 0 1px 2px rgb(204, 204, 204);
+    border-radius: 0 1px 2px 2px;
+    overflow: hidden;
+    display: none;
+    overflow-y: auto;
+    z-index: 9
+}
+.dropdown-div .dropdown-menu li {
+    padding: 10px;
+    transition: all .2s ease-in-out;
+    cursor: pointer
+} 
+.dropdown-div .dropdown-menu {
+    padding: 0;
+    list-style: none
+}
+.dropdown-div .dropdown-menu li:hover {
+    background-color: #f2f2f2
+}
+.dropdown-div .dropdown-menu li:active {
+    background-color: #e2e2e2
+}
+.custom-bkgd{
+  border-radius: 5px;
+  background: linear-gradient(60deg, #004ea3, #0062cc);
+  font-weight: bold;
+}
+.custom-bkgd-1{
+  border-radius: 5px;
+  background: linear-gradient(60deg, #b00, #c60202);
+  font-weight: bold;
+}
+.cos-dropdown-menu li:hover{
+  background: linear-gradient(60deg, #004ea3, #0062cc);
+  color: white;
+  font-weight: bold;
+
+  -webkit-transition: .4s ease-in-out;
+    -moz-transition: .4s ease-in-out;
+    -o-transition: .4s ease-in-out;
+    transition: .4s background-color ease-in-out ;
+}
+
+
+.rdl-card-main-wrap{
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+.title-rdb-0{
+  word-break: break-all;
+} 
+.d-true{ 
+  text-align: center; 
+}
+#div-DBL-body{
+  padding-top: 10px;
+  padding-bottom: 20px;
+}

@@ -7,6 +7,7 @@ use Core\Session;
 use App\Models\Users;
 use App\Controllers\DashboardController;
 use App\Controllers\StoreController;
+use App\Controllers\UtilitiesController;
 
 
 class Ajax {
@@ -111,7 +112,7 @@ class Ajax {
 								$addQuery = "AND `merchantID` NOT IN('1','31')";
 							break;
 							case 'BREXIT':
-								
+								$addQuery = '';
 							break;
 						}
 
@@ -194,8 +195,12 @@ class Ajax {
 				$getRegionsArr = array();
 
 				$getMerchant = $db->find('`allkeyshops`.`sale_page`',['order' => "vols_nom ASC"]);
-				$getEdition = $db->find('`'.$site.'`.`pt_editions_eu`');
-				$getRegions = $db->find('`'.$site.'`.`pt_regions_amaurer`');
+				// $getEdition = $db->find('`'.$site.'`.`pt_editions_eu`');
+				// $getRegions = $db->find('`'.$site.'`.`pt_regions_amaurer`');
+
+				$getEdition = $db->find('`test-server`.`pt_editions_eu`'); // in test-server only
+				$getRegions = $db->find('`test-server`.`pt_regions_amaurer`'); // in test-server only
+
 				$getProductByNormalisedName =  $db->find('`'.$site.'`.`pt_products`',[
 					'conditions' => ['normalised_name = ?'],
 					'bind' => [$getNname],
@@ -428,6 +433,43 @@ class Ajax {
                 return $returnData;
             break;
 
+            case 'AjaxRealDblLinks':
+                $getWebsite = $getInput->get('websiteSent');
+                switch ($getWebsite) {
+                	case 'aks':
+                		 $sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs, `id`,`price`, `dispo` 
+                            FROM `test-server`.`pt_products` 
+                            WHERE merchant != 1   AND merchant != 67 AND 
+                            merchant != 157 AND merchant != 33 AND
+                            merchant != 333 AND normalised_name != 50
+                            GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
+                    	$returnResults = $db->query($sql)->results();
+                    	$returnSite = 'aks';
+                	break;
+                	case 'cdd':
+                		$sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs, `id`,`price`, `dispo` 
+                            FROM `compareprices`.`pt_products` WHERE merchant != 1   AND merchant != 67 AND 
+                            merchant != 157 AND merchant != 33 AND
+                            merchant != 333 AND normalised_name != 50
+                            GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
+                    	$returnResults = $db->query($sql)->results();
+                    	$returnSite = 'cdd';
+                	break;
+                	case 'brexitgbp':
+                		$sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs , `id`,`price`, `dispo` 
+                            FROM `brexitgbp`.`pt_products` WHERE merchant != 1   AND merchant != 67 AND 
+                            merchant != 157 AND merchant != 33 AND
+                            merchant != 333 AND normalised_name != 50
+                            GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
+                    	$returnResults = $db->query($sql)->results();
+                    	$returnSite = 'brexitgbp';
+                	break;
+                	default:
+                		return "INVALID INFORMATION";
+                	break;
+                }
+                return $returnResults;
+            break;
 		}
 	}
 

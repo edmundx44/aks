@@ -93,6 +93,16 @@
 		width: 100%;	
 		top: 0 !important;	
 	}
+
+	.title-rdb-0{
+		word-break: normal !important;
+	}
+	#table-real-double-link .text-center{
+		text-align: left !important;
+	}
+	.dataTables_filter input[type="search"]{
+		width: 100% !important;
+	}
 }
 
 /* small devices (tablets, 768px)*/
