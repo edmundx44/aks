@@ -148,7 +148,8 @@ $(function (){
 	// STOCK CHANGE UPDATE
 	$(document).on('click', '.modal-val-btn', function(){
 		var dataReturn = storeUpdateProduct($(this).attr('data-prodId'), 'stock', $(this).val(), $('.dropdown-menu-btn').text());
-		if($this.attr('type') == 'text'){
+		var $this = $(this);
+		if($this.attr('type') == 'button'){
 			AjaxCall(url+'store', dataReturn).done(function(data) { console.log(data); alert("SUCCESS" )});
 			$stock = ($(this).val() == 'Out Of Stock')? $(this).val('In stock'): $(this).val('Out Of Stock');
 		}else
