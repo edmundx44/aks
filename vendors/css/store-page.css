@@ -30,11 +30,11 @@
 .background-BREX-btn {
 	background-color: #ef5350 !important;
 }
-
 .show-menu,
-.store-games-data-table-tbody-data-normal{
+.store-games-data-table-tbody-data-normal {
 	background-color: #fff;
 }
+
 .store-page-search-sticky,
 .store-page-search-sticky.form-control:focus {
 	background-color: #fff !important;
@@ -568,7 +568,7 @@
 	top: 11px;
 	outline: none !important;
 }
-
+		
 
 /*/darkmode -----------------------------------*/
 .store-games-data-table-tbody-data-darkmode {
@@ -576,8 +576,3 @@
 }
 
 /*/normalmode -----------------------------------*/
-
-.err-data{
-	border-radius: 3px !important;
-	border: 2px solid red !important;
-}

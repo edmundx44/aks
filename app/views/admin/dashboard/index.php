@@ -589,6 +589,7 @@
 				    }
 			  	}]	
 			});
+
 		}
 	
 	function displayReport($to, $what){

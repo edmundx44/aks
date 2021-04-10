@@ -298,6 +298,8 @@ body {
 .hcf-back {
 	right: 0;
 }
+
+/*start with letter T -------------------------------*/
 /*transition css codes here --------------------------------------------------------------------------------------*/
 .sidebar,
 .sidebar-minimize-icon,
@@ -317,7 +319,6 @@ body {
 	transition: .3s ease-in-out;
 }
 /*box shadow css codes here --------------------------------------------------------------------------------------*/
-
 .sidebar-footer-logout-icon,
 .settings-icon,
 .float-settings-menu,
@@ -548,7 +549,7 @@ body {
 	max-height: 100%;
 }
 .sidebar-menu {
-	width:249px;
+	width: 249px;
 	padding-right: 19px;
 	height: calc(100% - 170px);
 	overflow-y: auto;
@@ -573,7 +574,6 @@ body {
    margin-left: -18px;
    position:relative;
 }
-
 .sidebar-logo-img-2 {
 	margin-left: 0 !important;
 }
@@ -591,23 +591,18 @@ body {
 	top: 2px;
 	color: #a9afbb;
 }
-
 .li-nav-div-span {
 	margin-left: 20px;
 }
-
 .li-nav-dd {
 	right: 10px;
 }
-
 .sub-li-nav {
 	margin-bottom: 10px;
 }
-
 .sub-li-nav-div-span {
 	padding-left: 25px;
 }
-
 .sidebar-menu-value {
 	/*color : #3C4858;*/
 	width: 170px;
@@ -619,11 +614,9 @@ body {
 	width: 230px;
 	height: 300px;
 	bottom: 75px;
-	left: 15px; 
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 26%);
-    display: none;
 }
-.div-img-logout-settings::after{
+.div-img-logout-settings::after {
     content: "";
     width: 0;
     height: 0;
@@ -635,7 +628,6 @@ body {
     transform: rotate(-45deg);
     box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.2); 
 }
-
 .sidebar-footer-online-dot {
 	width: 15px;
 	height: 15px;
@@ -643,7 +635,6 @@ body {
 	top: 40px;
 	left: 50px;
 }
-
 .sidebar-footer-img {
 	width: 45px;
 	height: 45px;
@@ -654,29 +645,27 @@ body {
 	background-size: cover;
 	margin-left: 6px;
 }
-
 .sidebar-footer-welcome {
 	font-size: 9px;
 	color: #06a963;
 }
-
 .sidebar-footer-name {
+
 	top:28px;
 }
-
 .sidebar-footer-logout-icon {
 	top:22px;
 	right: 20px;
 }
 
 .sidebar-footer-logout-icon:hover{
-	top:21px;
+	top: 21px;
 	right: 18px;
 	font-size: 28px;
 }
 
 /*header content footer ----------------------------------------------*/
-.header-content-footer{
+.header-content-footer {
     float: right;
 }
 .hcf-back {
@@ -715,7 +704,7 @@ body {
 .row-2-card-div-overflow-style-3 i{
 	font-size: 40px;
 }
-.row-2-card-div-overflow-style-4 i{
+.row-2-card-div-overflow-style-4 i {
 	font-size: 45px;
 }
 
@@ -740,10 +729,7 @@ body {
 .row-4-card-div-overflow-style {
 	height: 80px;
 }
-
-
 /* modal ----------------------------------------------------------------------------*/
-
 .user-input-wrp .inputText {
 	outline: none;
 	border: none;
@@ -755,14 +741,12 @@ body {
 	border-color: blue;
 	border-width: medium medium 2px;
 }
-
 .user-input-wrp .floating-label {
 	pointer-events: none;
 	top: 25px;
 	left: 10px;
 	transition: 0.2s ease all;
 }
-
 .user-input-wrp input:focus ~ .floating-label,
 .user-input-wrp input:not([value='']) ~ .floating-label {
 	opacity: 1;

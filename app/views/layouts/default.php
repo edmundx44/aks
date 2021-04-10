@@ -23,7 +23,6 @@ use Core\Session;
     <?= $this->content('head'); ?>
   </head>
   <body>
-    
     <?php if(preg_match('/user\/login/m', "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]") == 1 or preg_match('/user\/register/m', "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")): ?>
       <?= Session::displayMsg() ?>
       <?= $this->content('body'); ?>
@@ -47,10 +46,10 @@ use Core\Session;
           <div class="float-settings-menu">
             <i class="fa fa-history float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Activity logs"></i>
           </div>
-          <div class="float-settings-menu">
+          <div class="float-settings-menu" id="btn-create-report">
             <i class="fa fa-user-circle float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Add tooltip title"></i>
           </div>
-          <div class="float-settings-menu btn-add-edit">
+          <div class="float-settings-menu" id="btn-add-edit">
             <i class="fa fa-plus-circle float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Add OR Edit Games" ></i>
           </div>
           <div class="float-settings-menu">

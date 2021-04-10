@@ -5,10 +5,15 @@ use Core\DB;
 use Core\Input;
 use Core\Session;
 use App\Models\Users;
+use App\Models\Merchant;
 use App\Controllers\DashboardController;
 use App\Controllers\StoreController;
+<<<<<<< HEAD
 use App\Controllers\UtilitiesController;
 
+=======
+use App\Controllers\ReportsController;
+>>>>>>> e7996a85553735a3515927eaeb322998ee851335
 
 class Ajax {
 
@@ -259,6 +264,7 @@ class Ajax {
 				return $db->update('`'.$site.'`.`pt_products`', $getInput->get('id'), $fields);
 			break;
 			case 'displaySnapshot':
+<<<<<<< HEAD
                 $getSite = $getInput->get('website');
                 
                 $addQuery = ($getSite == 'CDD')? "AND `merchantID` NOT IN('1','31')" : "AND `merchantID` NOT IN('1')";
@@ -470,6 +476,109 @@ class Ajax {
                 }
                 return $returnResults;
             break;
+=======
+				$getSite = $getInput->get('website');
+				
+				$addQuery = ($getSite == 'CDD')? "AND `merchantID` NOT IN('1','31')" : "AND `merchantID` NOT IN('1')";
+				$sql = "SELECT * FROM `test-server`.`bot_admin_snapshot` WHERE `website` = '$getSite' $addQuery";
+				return $db->query($sql)->results();
+		
+			break;
+			case 'cr-checkurl':
+				preg_match('/^.*\/\/([.w]+\.+|)(.*)\.com/', $getInput->get('getUrl'), $outputMatch);
+				$getPattern = ReportsController::getPattern($outputMatch[2]);
+				
+				preg_match($getPattern, $getInput->get('getUrl'), $matches);
+				$getUrl = $matches[1];
+
+				$sql = "SELECT * FROM tblreports WHERE `merchantLink` like '%".htmlspecialchars_decode($getUrl)."%'";
+				return $db->query($sql)->results();
+			break;
+			case 'cr-site':
+				preg_match('/^.*\/\/([.w]+\.+|)(.*)\.com/', $getInput->get('getUrl'), $outputMatch);
+				$getPattern = ReportsController::getPattern($outputMatch[2]);
+				
+				preg_match($getPattern, $getInput->get('getUrl'), $matches);
+				$getUrl = $matches[1];
+				$toReturn = array();
+
+				switch ($getInput->get('getSite')) {
+					case 'AKS':
+						$sqlTable = '`test-server`.`pt_products`';
+					break;
+					case 'CDD':
+						$sqlTable = '`compareprices`.`pt_products`';
+					break;
+					case 'BREX':
+						$sqlTable = '`brexitgbp`.`pt_products`';
+					break;
+				}
+
+				$sql = "SELECT id, merchant, normalised_name, buy_url, rating FROM $sqlTable WHERE `buy_url` like '%".htmlspecialchars_decode($getUrl)."%'";
+				array_push($toReturn, array(
+					'site' 	=> $getInput->get('getSite'), 
+					'data' 	=> $db->query($sql)->results()	
+				));
+
+				return $toReturn;
+			break;
+			case 'cr-submit-report':
+				$toInsert = filter_var_array($_POST['toInsert']); //use native $_POST if array
+				$getProblem	= $getInput->get('getProblem');
+
+				$fieldsToInsert = array();
+				$mysqlField = '`merchantSite`, `merchantSqlID`, `merchantID`, `merchantNMID`, `merchantLink`, `problem`, `status`, `rating`'; 
+				foreach ($toInsert as $key) {
+					$fieldsToInsert[] = '(
+					 	"'.$key['merchantSite'].'",
+						"'.$key['merchantSqlID'].'",
+						"'.$key['merchantID'].'",
+						"'.$key['merchantNMID'].'",
+						"'.$key['merchantLink'].'",
+						"'.$getInput->get('getProblem').'",
+						"1",
+						"'.$key['merchantRating'].'"
+					)';
+				}
+
+                $sql = 'INSERT INTO `aks`.`tblreports` ('.$mysqlField.') VALUES '.implode(',', $fieldsToInsert).'';
+                return $db->query($sql) ? true : fail;
+			break;
+			case 'cr-problem-list':
+				$getProblemList =  $db->find('`aks`.`tblreports`',[
+					'conditions' => ['status = ?'],
+					'bind' => [1],
+					'order' => "id DESC",
+				]);
+				return $getProblemList;
+			break;
+			case 'cr-get-cac-data':
+				if($getInput->get('site') == 'BREX') {
+					return $getInput->get('site'). " Not Available for the momment";
+					break;
+				}
+				$getSiteData =  $db->find('`'.self::getSite($getInput->get('site')).'`.`pt_products`', ['conditions' => ['id = ?'], 'bind' => [$getInput->get('dataID')]]);
+				$resulNi = array(
+					'site' 	=> $getSiteData,
+					'mfeed'	=> Merchant::merchantData($getInput->get('site'), $getInput->get('url'))
+				);
+				return $resulNi;
+			break;
+			case 'cr-rtm':
+				$fields = [
+					'toMerchant' => $getInput->get('reportStatus'),
+				];
+				return $db->update('`aks`.`tblReports`', $getInput->get('idToUpdate'), $fields);
+			break;
+			case 'cr-cr': 
+				$fields = [
+					'rating' => $getInput->get('changeRatings'),
+				];
+				$updateOnSite = $db->update('`'.self::getSite($getInput->get('site')).'`.`pt_products`', $getInput->get('idToUpdate'), $fields);
+				$updateOnProblem = $db->update('`aks`.`tblReports`', $getInput->get('idToUpdateReport'), $fields);
+
+			break;
+>>>>>>> e7996a85553735a3515927eaeb322998ee851335
 		}
 	}
 
@@ -485,7 +594,8 @@ class Ajax {
 				$site = 'brexitgbp';
 			break;
 		}
-
 		return $site;
 	}
+
+	
 }
