@@ -477,10 +477,10 @@
                     <span class="" style="font-size: 13px;position: relative;">ID: <span class="span-what-id"></span></span>
                     <br> 
                     <span class="span-what-problem" style="font-size: 13px;position: relative;"></span>
-                    <span class="span-what-rating" style="font-size: 13px;position: relative;"></span>
-                    <span class="span-what-reported" style="font-size: 13px;position: relative;"></span>
-                    <span class="span-what-tblid" style="font-size: 13px;position: relative;"></span>
-                    
+                    <span class="span-what-rating d-none"></span>
+                    <span class="span-what-reported d-none"></span>
+                    <span class="span-what-tblid d-none"></span>
+
 
                 </p>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>

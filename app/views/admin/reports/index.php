@@ -20,7 +20,6 @@
 
 			$('#crcac').on('hidden.bs.modal', function () {
 				$('#'+$('.span-what-id').html()).removeClass('cr-tbody-tr-active');
-				crProblemList()
 			});
 
 			$(document).on('click', '.cr-btn-cac', function(){
@@ -35,35 +34,30 @@
 				$('.span-what-rating').html($(this).data('rating'));
 				$('.span-what-reported').html($(this).data('reported'));
 				$('.span-what-tblid').html($(this).data('tblid'));
-
-
 				$(".cr-msite-btn").attr("href", $(this).data('url'))
 				
-				
+				var dataRequest =  {
+					action: 'cr-get-cac-data',
+					site: $(this).data('site'),
+					url: $(this).data('url'),
+					dataID: $(this).data('id')
+				}
 
-				// var dataRequest =  {
-				// 	action: 'cr-get-cac-data',
-				// 	site: $(this).data('site'),
-				// 	url: $(this).data('url'),
-				// 	dataID: $(this).data('id')
-				// }
-
-				// AjaxCall(url+'reports', dataRequest).done(function(data) {
-				// 	globalRating = data.site[0].rating;
-				// 	var getStock = (data.site[0].dispo == 1)? 'In Stock':'Out of Stock';
-				// 	var appendSite = '<p class="ms-data-price"><span><b>PRICE : </b></span><span>'+data.site[0].price+'</span></p>';
-				// 		appendSite += '<p class="ms-data-stock"><span><b>STOCK : </b></span><span>'+getStock+'</span></p>';
-				// 		appendSite += '<p class="ms-data-url"><span><b>URL : </b></span><span>'+data.site[0].buy_url+'</span></p>';
-				// 		appendSite += '<p class="ms-data-stock"><span><b>RATING : </b></span><span>'+data.site[0].rating+'</span></p>';
+				AjaxCall(url+'reports', dataRequest).done(function(data) {
+					globalRating = data.site[0].rating;
+					var getStock = (data.site[0].dispo == 1)? 'In Stock':'Out of Stock';
+					var appendSite = '<p class="ms-data-price"><span><b>PRICE : </b></span><span>'+data.site[0].price+'</span></p>';
+						appendSite += '<p class="ms-data-stock"><span><b>STOCK : </b></span><span>'+getStock+'</span></p>';
+						appendSite += '<p class="ms-data-url"><span><b>URL : </b></span><span>'+data.site[0].buy_url+'</span></p>';
+						appendSite += '<p class="ms-data-stock"><span><b>RATING : </b></span><span>'+data.site[0].rating+'</span></p>';
 						
-				// 	var appendMfeed = '<p class="ms-data-price"><span><b>PRICE : </b></span><span>'+data.mfeed[0].price+'</span></p>';
-				// 		appendMfeed += '<p class="ms-data-stock"><span><b>STOCK : </b></span><span>'+data.mfeed[0].stock+'</span></p>';
-				// 		appendMfeed += '<p class="ms-data-url"><span><b>URL : </b></span><span>'+data.mfeed[0].url+'</span></p>';
+					var appendMfeed = '<p class="ms-data-price"><span><b>PRICE : </b></span><span>'+data.mfeed[0].price+'</span></p>';
+						appendMfeed += '<p class="ms-data-stock"><span><b>STOCK : </b></span><span>'+data.mfeed[0].stock+'</span></p>';
+						appendMfeed += '<p class="ms-data-url"><span><b>URL : </b></span><span>'+data.mfeed[0].url+'</span></p>';
 
-				// 	$(".site-data").append(appendSite);
-				// 	$(".mfeed-data").append(appendMfeed);
-
-				// });
+					$(".site-data").append(appendSite);
+					$(".mfeed-data").append(appendMfeed);
+				});
 			});
 			$(document).on('click', '.cr-tbody-td-1', function(){
 				var changeReported = ($(this).data('reported') == 0)? 1 : 0;
@@ -110,6 +104,10 @@
 							idToUpdateReport: $.trim($('.span-what-tblid').html()),
 							changeRatings: changeRatings
 						}
+
+						var changeRatingss = ($('.cac-list-btn-rating').html() == 0)? 101 : 0;
+						$('.cac-list-btn-rating').html(changeRatingss)
+						$('.span-what-rating').html(changeRatings)
 					break;
 					case 'cr-ptz':
 					break;
@@ -118,6 +116,7 @@
 				AjaxCall(url+'reports', dataRequest).done(function(data) {
 				}).always(_.debounce(function(){
 					crProblemList()
+					
 				}), 200);
 				
 			});
@@ -286,7 +285,7 @@
 	</script>
 	<style type="text/css">
 		.cr-tbody-tr-active {
-			background-color: #cccccc !important;
+			background-color: #cccccc;
 		}
 		.rating-101-back {
 			background-color: #ffa726;
