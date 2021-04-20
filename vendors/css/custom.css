@@ -788,3 +788,22 @@ body {
 .card-normalmode {
 	background-color: rgba(255, 255, 255, 0.5) !important;
 }
+
+.aks_bg_color{
+  background: linear-gradient(60deg, #0b5509, #7a9d18);
+}
+.cdd_bg_color{
+  background: linear-gradient( 60deg, #ae6524, #e6ba33) !important
+}
+.brexit_bg_color{
+  background: linear-gradient(60deg, #591657, #b94749) !important
+}
+.aks_color{ color: #0b5509 !important }
+.cdd_color{ color: #f79b26 !important }
+.brexit_color{ color: #8c338a  !important }
+
+.btn-delete {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}

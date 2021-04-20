@@ -70,6 +70,7 @@
   background: linear-gradient(60deg, #004ea3, #0062cc);
   font-weight: bold;
 }
+/* Red color for Delete button or use .btn-delete in utilies css*/
 .custom-bkgd-1{
   border-radius: 5px;
   background: linear-gradient(60deg, #b00, #c60202);
@@ -100,4 +101,8 @@
 #div-DBL-body{
   padding-top: 10px;
   padding-bottom: 20px;
+}
+.div_rad{
+  border-radius: 5px;
+  font-weight: bold;
 }

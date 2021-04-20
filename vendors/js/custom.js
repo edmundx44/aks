@@ -30,6 +30,11 @@ var entityMap = {
 	'=': '&#x3D;',
 	'¤': '&#164;'
 };
+const inputs = {
+	0: { site: "aks" },
+	1: { site: "cdd" },
+	2: { site: "brexitgbp" },
+}
 
 $(document).ready(function(){
 	displayIcon();
@@ -358,8 +363,8 @@ function debounce(fun, mil){
     };
 }
 
-function selectOption(inputs,className,classParent){
-	var	opt = 		'<div class="select custom-bkgd">';
+function OptionSite(inputs,className,classParent,bgColor){
+	var	opt = 		'<div class="select '+bgColor+'">';
 		opt += 			'<span class="selected-data change-site">Website</span>';
 		opt += 			'<span class="pull-right"><i class="fa fa-caret-down" aria-hidden="true"></i></span>';
 		opt += 		'</div>';
@@ -369,10 +374,6 @@ function selectOption(inputs,className,classParent){
 		opt += 			'<li class='+className+' data-website='+inputs[2].site+'>BREXITGBP</li>';
 		opt += 		'</ul>';
 	return opt
-}
-
-function localStorageCheck(){
-	return (typeof(Storage) !== "undefined") ? true : false;
 }
 function returnSite($site){
 	switch($site){
@@ -387,19 +388,77 @@ function returnSite($site){
 	}
 	return $site;
 }
-function getLocalStorageSite($site,$name){
-	if(localStorageCheck()){
-		//var getLocalStorage = localStorage.getItem($name);
-			$site = localStorage.getItem($name); //override
-			$site = ($site == null) ? 'aks' : $site;
+
+function localStorageCheck(){
+	return (typeof(Storage) !== "undefined") ? true : false;
+}
+function sessionStorageCheck(){
+	return (typeof(Storage) !== "undefined") ? true : false;
+}
+function setStorage($type,$key,$value){
+	switch($type){
+		case 'localStorage':
+			localStorage.setItem($key,$value);
+		break;
+		case 'sessionStorage':
+			sessionStorage.setItem($key,$value);
+		break;
+		default:
+		break;
 	}
-	return $site;
+}
+function getStorage($type,$key){
+	switch($type){
+		case 'localStorage':
+			var items = localStorage.getItem($key);
+		break;
+		case 'sessionStorage':
+			var items = sessionStorage.getItem($key);
+		break;
+		default:
+			return 'invalid';
+		break;
+	}
+	return items;
 }
 
-//for select option website
-function removeSiteInLocalStorage($path){
-	if($path == url){
-		localStorage.removeItem('RDBsite'); 
+function removeExistingItem($type,$key,$path){
+	switch($type){
+		case 'localStorage':
+			var object = JSON.parse(localStorage.getItem($key));	
+			if (object === null)  return true;
+			else if($path == object.path) return true;
+		    else if($path != object.path){
+		    	localStorage.removeItem($key);
+		    	return false;
+		    }
+		break;
+		case 'sessionStorage':
+			var object = JSON.parse(sessionStorage.getItem($key));	
+			if (object === null)  return true;
+			else if($path == object.path) return true;
+		    else if($path != object.path){
+		    	sessionStorage.removeItem($key);
+		    	return false;
+		    }
+		break;
+		default:
+			return true;
+		break;
 	}
-	return $path;	
+}
+
+function removedKeyNormal($type,$key){
+	switch($type){
+		case 'localStorage':
+			localStorage.removeItem($key);
+		break;
+		case 'sessionStorage':
+			sessionStorage.removeItem($key);
+		break;
+		default:
+			return false;
+		break;
+	}
+	return true;
 }
