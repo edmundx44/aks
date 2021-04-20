@@ -636,7 +636,7 @@ class Ajax {
                     );
                 return $returnData;
             break;
-
+			// real-double-links.php
             case 'AjaxRealDblLinks':
                 $getWebsite = $getInput->get('websiteSent');
                 switch ($getWebsite) {

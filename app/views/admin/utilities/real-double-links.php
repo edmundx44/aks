@@ -4,39 +4,41 @@
 
 <?php $this->start('head'); ?>
 	<link rel="stylesheet" href="<?=PROOT?>vendors/css/utilities-page.css" media="screen" title="no title" charset="utf-8">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.12.0/underscore-min.js"></script>
 	<!-- data tables -->
 	<link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" >
     <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css">
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.2.7/js/dataTables.rowReorder.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+	<!-- another method for responsive reorder datatables -->
+    <!-- <script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.2.7/js/dataTables.rowReorder.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script> -->
     <!-- data tables -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.12.0/underscore-min.js"></script>
 
 	<script type="text/javascript">
-		var inputs = {
-		    0: { site: "aks" },
-		    1: { site: "cdd" },
-		    2: { site: "brexitgbp" },
-		}
-		var site = 'aks';
 		var $url = url+'utilities/realDouble';
 
 		$(function(){
-			if(localStorageCheck())
-				site = getLocalStorageSite(site,'RDBsite');
-			var validSite = returnSite(site);
-			if(validSite != 'invalid'){
-				ajaxCall_RDB($url,'POST',validSite).done(function(data){
-					done_ajaxCall_RDB(validSite,data)
-				})
-				console.log(validSite)
-			}else{
-				console.log(validSite)
+			if (!removeExistingItem('sessionStorage','OptionSite',uri)){
+				console.log('Item has been removed');
+			}
+			if(sessionStorageCheck()){
+				var object = JSON.parse(getStorage('sessionStorage','OptionSite'));
+				if(object != null){
+					site = returnSite(object.site);
+					if(site != 'invalid'){
+						ajaxCall_RDB($url,'POST',site).done(function(data){
+							done_ajaxCall_RDB(site,data)
+						})
+					}else{ if(removedKeyNormal('sessionStorage','OptionSite')) console.log("Item has been removed") } //remove key if invalid site
+				}else{
+					//if null default value is aks
+					ajaxCall_RDB($url,'POST',inputsSite[0].site).done(function(data){
+						done_ajaxCall_RDB(inputsSite[0].site,data)
+					})
+				}
 			}
 
-
-			$('.dropdown-div').html(selectOption(inputs,'opt-site-rdb','slc-options')); //selectOption na a sa custom.js
+			$('.dropdown-div').html(OptionSite(inputsSite,'opt-site-rdb','slc-options','custom-bkgd')); //OptionSite na a sa custom.js
 			// na na ni sa index.php sa dashboards
 			//FOR DROP DOWN SELECT ANIMATION
 			$('.dropdown-div').click(function () {
@@ -54,32 +56,18 @@
 			// } );
 
 			$(document).on('click', '.opt-site-rdb', function() {
-				//every click it rest the value if modify in console
-				$('.dropdown-div').html(selectOption(inputs,'opt-site-rdb','slc-options')); //selectOption na a sa custom.js
-
-
+				//every click it reset the value if modify in console
+				$('.dropdown-div').html(OptionSite(inputsSite,'opt-site-rdb','slc-options','custom-bkgd')); //OptionSite na a sa custom.js
 			    var indexInput = $(this).parent().prevObject.index(); //get the index of li
 			    if($(this).parent()[0].childNodes.length == 3 ){
-			    	var site = (indexInput == 0 ) ? inputs[0].site : (indexInput == 1 ) ? inputs[1].site : (indexInput == 2 ) ? inputs[2].site : '';
-					
-					if(localStorageCheck()){
-				    	localStorage.setItem('RDBsite',site); //after select it sets the local storage
-				    	console.log(localStorage.getItem('RDBsite'))
-					}
-				    else
-				    	console.log('Localstorage is not supported in this browser');
-
-				    
+			    	site = ((indexInput == 0 ) ? inputsSite[0].site : (indexInput == 1 )) ? inputsSite[1].site : (indexInput == 2 ) ? inputsSite[2].site : '';
+					var $data = { 'site': site, 'path': $url }
+					if(sessionStorageCheck()){ setStorage('sessionStorage','OptionSite',JSON.stringify($data)) }
 				    ajaxCall_RDB($url,'POST',site).done(function(data){
 						done_ajaxCall_RDB(site,data)
 					})
-			    }else{
-			    	console.log("Theres somethink wrong....")
-			    }
-			    
+			    }else{ window.location.reload(); }
 			});
-
-
 		});
 
 		function ajaxCall_RDB($url,$type,$site){
@@ -125,7 +113,7 @@
 				            { title : "GAME_ID", class: 'text-center'},
 				            { title : "ACTION", class: 'd-true all'}
 				        ]
-				    }).columns.adjust().responsive.recalc();
+				    }) //.columns.adjust().responsive.recalc(); //commented caused i commented the reorder
 				}
 			$('.change-site').text(site.toUpperCase());
 			$('.dataTables_filter input[type="search"]').
@@ -136,9 +124,9 @@
 
 		function dispoDisplay(dispo){
 	        if(dispo == 1){
-	            return dispo = '<span class="text-success"><b>in stock</b></span>';
+	            return dispo = '<span class="text-success"><b>In Stock</b></span>';
 	        }else{
-	            return dispo = '<span class="text-danger"><b>out of stock</b></span>';
+	            return dispo = '<span class="text-danger"><b>Unavailable</b></span>';
 	        }
     	}
 
@@ -182,11 +170,11 @@
 						<div>
 							<div class="dropdown-box dbox-hide" style="padding-bottom: 5px;">
  								<div class="dropdown-div" style="width: 150px;">
-									<!-- <div class="select custom-bkgd">
+									 <!-- <div class="select custom-bkgd">
 						                <span class="selected-data change-site">Website</span>
 						                <span class="pull-right"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
-						            </div>
-									<ul class="dropdown-menu cos-dropdown-menu slc-options">
+						            </div> -->
+									<!-- <ul class="dropdown-menu cos-dropdown-menu slc-options">
 										<li class="opt-site-rdb" data-website="aks">AKS</li>
 										<li class="opt-site-rdb" data-website="cdd">CDD</li>
 										<li class="opt-site-rdb" data-website="brexitgbp">BREXITGBP</li>
@@ -201,7 +189,6 @@
 									
 									</table>
 								</div>
-							</div>
 						</div>
 					</div>
 				</div>
