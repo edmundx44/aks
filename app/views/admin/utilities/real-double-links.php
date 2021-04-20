@@ -32,13 +32,13 @@
 					}else{ if(removedKeyNormal('sessionStorage','OptionSite')) console.log("Item has been removed") } //remove key if invalid site
 				}else{
 					//if null default value is aks
-					ajaxCall_RDB($url,'POST',inputs[0].site).done(function(data){
-						done_ajaxCall_RDB(inputs[0].site,data)
+					ajaxCall_RDB($url,'POST',inputsSite[0].site).done(function(data){
+						done_ajaxCall_RDB(inputsSite[0].site,data)
 					})
 				}
 			}
 
-			$('.dropdown-div').html(OptionSite(inputs,'opt-site-rdb','slc-options','custom-bkgd')); //OptionSite na a sa custom.js
+			$('.dropdown-div').html(OptionSite(inputsSite,'opt-site-rdb','slc-options','custom-bkgd')); //OptionSite na a sa custom.js
 			// na na ni sa index.php sa dashboards
 			//FOR DROP DOWN SELECT ANIMATION
 			$('.dropdown-div').click(function () {
@@ -57,10 +57,10 @@
 
 			$(document).on('click', '.opt-site-rdb', function() {
 				//every click it reset the value if modify in console
-				$('.dropdown-div').html(OptionSite(inputs,'opt-site-rdb','slc-options','custom-bkgd')); //OptionSite na a sa custom.js
+				$('.dropdown-div').html(OptionSite(inputsSite,'opt-site-rdb','slc-options','custom-bkgd')); //OptionSite na a sa custom.js
 			    var indexInput = $(this).parent().prevObject.index(); //get the index of li
 			    if($(this).parent()[0].childNodes.length == 3 ){
-			    	site = ((indexInput == 0 ) ? inputs[0].site : (indexInput == 1 )) ? inputs[1].site : (indexInput == 2 ) ? inputs[2].site : '';
+			    	site = ((indexInput == 0 ) ? inputsSite[0].site : (indexInput == 1 )) ? inputsSite[1].site : (indexInput == 2 ) ? inputsSite[2].site : '';
 					var $data = { 'site': site, 'path': $url }
 					if(sessionStorageCheck()){ setStorage('sessionStorage','OptionSite',JSON.stringify($data)) }
 				    ajaxCall_RDB($url,'POST',site).done(function(data){

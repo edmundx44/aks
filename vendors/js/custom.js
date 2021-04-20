@@ -30,7 +30,7 @@ var entityMap = {
 	'=': '&#x3D;',
 	'¤': '&#164;'
 };
-const inputs = {
+const inputsSite = {
 	0: { site: "aks" },
 	1: { site: "cdd" },
 	2: { site: "brexitgbp" },
