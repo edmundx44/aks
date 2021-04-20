@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="<?=PROOT?>vendors/css/modal.css" media="screen" title="no title" charset="utf-8">
+
 <div class="modal" id="displayStoreGamesByNormalizedName">
     <div class="modal-dialog displayStoreGamesByNormalizedNameDialog">
         <div class="modal-content displayStoreGamesByNormalizedNameContent">
@@ -388,12 +390,10 @@
                     <div class="col-12">
                         <div class="user-input-wrp">
                             <br/>
-                            <input type="text" value='' class="inputText" id="cr-url-txtbox" onkeyup="this.setAttribute('value', this.value);"/>
+                            <input type="text" value='' class="inputText cr-url-txtbox-class" id="cr-url-txtbox" onkeyup="this.setAttribute('value', this.value);"/>
                             <span class="floating-label">URL</span>
                         </div>
-                        <div style="padding: 10px;margin-left: 15px;font-size: 12px;letter-spacing: 1px;" class="url-msg">
-                            
-                        </div>
+                        <div style="padding: 10px;margin-left: 15px;font-size: 12px;letter-spacing: 1px;" class="url-msg"></div>
                     </div>
                     <br/> 
                     <br/> 
@@ -438,7 +438,7 @@
                     <div class="col-12 cr-txtbox-problem-div" style="display: none;">
                         <div class="user-input-wrp">
                             <br/>
-                            <input type="text" value='' class="inputText cr-txtbox-problem-div" id="" onkeyup="this.setAttribute('value', this.value);"/>
+                            <input type="text" value='' class="inputText cr-txtbox-problem" id="" onkeyup="this.setAttribute('value', this.value);"/>
                             <span class="floating-label">Enter problem</span>
                         </div>
                     </div>
@@ -455,7 +455,7 @@
 </div>
 
 
-<!-- Create reports reports modal -->
+<!-- Create check and compare reports modal -->
 <div class="modal fade" id="crcac" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -469,6 +469,13 @@
                     <span class="span-what-rating d-none"></span>
                     <span class="span-what-reported d-none"></span>
                     <span class="span-what-tblid d-none"></span>
+                    <span class="span-what-mfeed-price d-none"></span>
+                    <span class="span-what-mfeed-stock d-none"></span>
+                    <span class="span-what-merchant-id d-none"></span>
+                    <span class="span-what-normalized-name d-none"></span>
+                    <span class="span-what-link d-none"></span>
+                    <span class="span-what-site-price d-none"></span>
+                    <span class="span-what-site-stock d-none"></span>
 
 
                 </p>
@@ -478,19 +485,16 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6">
-                        <span class="cr-cac-site" style="position: relative; text-align: center;letter-spacing: 2px; font-weight: 700;background-color: #777;padding: 0 15px 0 15px;color: #fff;z-index: 1;"></span>
-                        <div class="site-data">
-                            
-                        </div>
+                        <span class="cr-cac-tittle cr-cac-site"></span>
+                        <p class="basic-loader-padding"></p>
+                        <div class="basic-loader"></div>
+                        <div class="site-data"></div>
                     </div>
                     <div class="col-6">
-                        <span style="position: relative; text-align: center;letter-spacing: 2px; font-weight: 700;background-color: #777;padding: 0 15px 0 15px;color: #fff;z-index: 1;">MERCHANT FEED</span>
-                        <div class="mfeed-data">
-                           
-                        </div>
-                    </div>
-                    <div class="col-12" style="height: 100px;">
-                        <textarea placeholder="add image here" style="width: 100%;height: 100%;resize: none;border: solid 2px #777;"></textarea>
+                        <span class="cr-cac-tittle">MERCHANT FEED</span>
+                        <p class="basic-loader-padding"></p>
+                        <div class="basic-loader"></div>
+                        <div class="mfeed-data"></div>
                     </div>
                 </div>
                
@@ -502,15 +506,24 @@
                 <button type="button" class="btn btn-primary">CHANGE RATINGS</button>
                 <button type="button" class="btn btn-primary">FIXED</button> -->
                 <div class="pull-left">
+                    <button type="button" class="btn btn-success" id="btn-fixed">Fixed</button>
                     <a class="btn btn-primary cr-msite-btn" target="_blank">Open merchant site</a>
-                    <button type="button" class="btn btn-success">Fixed</button>
+                    <button class="btn btn-primary" id="cr-cac-recheck-btn"><i class="fa fa-recycle" aria-hidden="true"></i></button>  
+                    <div class="div-recheck">
+                       <ul class="div-recheck-ul">
+                           <li class="div-recheck-ul-li" id='r-swp'><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Still wrong price</span></li>
+                           <li class="div-recheck-ul-li"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Others</span></li>
+                           <li class="div-recheck-ul-li"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Others</span></li>
+                           <li class="div-recheck-ul-li" id="r-ols"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Open Logs</span></li>
+                       </ul>
+                    </div>  
                 </div>
                 <div class="pull-right">
                     <div class="cr-modal-cac-list">
                         <ul class="cr-modal-cac-list-ul">
                             <li class="cr-cac-list-btn" id="cr-rtm"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Report to merchant</span></li>
-                            <li class="cr-cac-list-btn" id="cr-spdf"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Small price difference, fixed</span></li>
-                            <li class="cr-cac-list-btn" id="cr-pbf"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Proxy problem, fixed</span></li>
+                            <!-- <li class="cr-cac-list-btn" id="cr-spdf"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Small price difference, fixed</span></li>
+                            <li class="cr-cac-list-btn" id="cr-pbf"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Proxy problem, fixed</span></li> -->
                             <li class="cr-cac-list-btn" id="cr-cr"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Set ratings "<b><span class="cac-list-btn-rating"></span></b>"</span></li>
                             <li class="cr-cac-list-btn" id="cr-ptz"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Price to zero</span></li>
                         </ul>
@@ -522,71 +535,58 @@
     </div>
 </div>
 
+<!-- report recheck log modal -->
+<div class="modal fade" id="report-recheck-modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>RECHECK LOG</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <table class="" style="width: 100%;background-color: #fff;">
+                    <thead>
+                        <tr class="" style="background: linear-gradient(60deg, #004ea3, #0062cc);color: #fff;letter-spacing: 2px">
+                            <td class="" style="padding: 5px 15px 5px 15px">FEEDBACK</td>
+                            <td class="" style="padding: 5px 15px 5px 15px">CHECKER</td>
+                            <td class="" style="padding: 5px 15px 5px 15px">DATE</td>
+                        </tr> 
+                    </thead>
+                    <tbody class="ols-display">
+                                
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-<style type="text/css">
-    .dropdown-toggle::after {
-        position: absolute;
-        right: 15px;
-        top: 17px;
-    }
-    .site-data, 
-    .mfeed-data {
-        top: -12px;
-        
-       /* border: none;
-        border-top: solid 2px #777;*/
-        position: relative;
-        padding: 20px 15px 15px 15px;
-    }
-    .ms-data-price {
-        font-weight: 700;
-    }
-    .ms-data-price,
-    .ms-data-stock,
-    .ms-data-url {
-        font-size: 15px;
-    }
-    .ms-data-url {
-        word-break: break-all;
-    }
-    .cr-modal-cac-list {
-        width: 250px;
-        height: 200px;
-        position: absolute;
-        bottom: 5px;
-        right: 55px;
-        box-shadow: 0 1px 5px 0 rgb(0 0 0 / 56%);
-        background-color: #fff;
-        display: none;
-    }
-    .cr-modal-cac-list:after {
-        content: "";
-        width: 0;
-        height: 0;
-        bottom: 10px;
-        right: -10px ;
-        box-sizing: border-box;
-        border: 5px solid black;
-        border-color: transparent transparent #fff #fff;
-        transform-origin: 0 0;
-        transform: rotate(-135deg);
-        box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 20%);
-        position: absolute;
-    }
-    .cr-modal-cac-list-ul {
-        list-style-type: none;
-        margin-top: 10px;
-        padding: 0px;
-    }
-    .cr-modal-cac-list-ul li {
-        padding: 5px 15px 5px 15px;
-        cursor: pointer;
-        /*border: solid 1px red;*/
-    }
-    .cr-modal-cac-list-ul li:hover > span {
-        text-decoration: underline;
-    }
-    .cr-modal-show-list:hover {
-        color: #004ea3 !important;
-    }
-</style>
+<!-- report recheck log modal -->
+<div class="modal fade" id="report-modal-confirmation" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" style="border-radius: 0;background-clip: initial;">
+            <div class="modal-body">
+                <div class="modal-content-header row">
+                    <div class="col-12">
+                        <h6 class="pull-left confirmation-tittle"></h6>
+                        <button type="button" class="close pull-right" data-dismiss="modal" style="opacity: 1;outline:none;left: 30px;top: -32px;border-radius: 20px; position: relative;background-color: #fff; width: 20px;height: 20px;padding: 0;"><span style="position: relative;top: -3px;">&times;</span></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 modal-content-body">
+                        
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer confirmation-modal-footer">
+              
+            </div>
+        </div>
+    </div>
+</div>
+
+

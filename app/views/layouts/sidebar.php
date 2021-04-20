@@ -142,7 +142,7 @@ input:checked + .switch-slider:before {
 		<div class="sidebar-footer-online-dot"></div>
 		<div class="sidebar-footer-img"></div>
 		<p class="sidebar-footer-welcome">#WELCOME</p>
-		<p class="sidebar-footer-name">Herpaul</p>
+		<p class="sidebar-footer-name"><?= ucfirst(Users::currentUser()->fname) ?></p>
 		<?php foreach ($menu as $key => $val): ?>
 			<?php if($key == 'Logout'): ?>
 				<a href="<?= $val ?>"><i class="fa fa-sign-out sidebar-footer-logout-icon" aria-hidden="true" alt="Logout" title="Logout"></i></a>

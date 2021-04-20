@@ -31,3 +31,29 @@ create table tblReports(
 	date timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+create table tblReportRecheck(
+	id int primary key auto_increment,
+	reportID int(20) default null,
+	reportFeedback varchar(255) default null,
+	checker varchar(255) default null,
+	date timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+create table tblReportsComplete (
+	id int primary key auto_increment,
+	merchantSite varchar(30) default null,
+	merchantSqlID int(20) default null,
+	merchantID int(20) default null,
+	merchantNMID int(20) default null,
+	merchantLink varchar(255) default null,
+	problem varchar(255) default null,
+	siteProbs varchar(30) default null,
+	feedProbs varchar(30) default null,
+	msiteProbs varchar(30) default null,
+	rating int(10) default null,
+	reportFeedback varchar(255) default null,
+	checker varchar(255) default null,
+	date timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+

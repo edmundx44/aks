@@ -690,7 +690,7 @@ class Ajax {
 				preg_match($getPattern, $getInput->get('getUrl'), $matches);
 				$getUrl = $matches[1];
 
-				$sql = "SELECT * FROM tblreports WHERE `merchantLink` like '%".htmlspecialchars_decode($getUrl)."%'";
+				$sql = "SELECT * FROM tblreports WHERE `merchantLink` like '%".htmlspecialchars_decode($getUrl)."%' ";
 				return $db->query($sql)->results();
 			break;
 			case 'cr-site':
@@ -734,22 +734,29 @@ class Ajax {
 						"'.$key['merchantID'].'",
 						"'.$key['merchantNMID'].'",
 						"'.$key['merchantLink'].'",
-						"'.$getInput->get('getProblem').'",
+						"'.$getProblem.'",
 						"1",
 						"'.$key['merchantRating'].'"
 					)';
 				}
 
-                $sql = 'INSERT INTO `aks`.`tblreports` ('.$mysqlField.') VALUES '.implode(',', $fieldsToInsert).'';
-                return $db->query($sql) ? true : fail;
+				$sql = 'INSERT INTO `aks`.`tblreports` ('.$mysqlField.') VALUES '.implode(',', $fieldsToInsert).'';
+				return $db->query($sql) ? true : fail;
 			break;
 			case 'cr-problem-list':
-				$getProblemList =  $db->find('`aks`.`tblreports`',[
-					'conditions' => ['status = ?'],
-					'bind' => [1],
-					'order' => "id DESC",
-				]);
+				if($getInput->get('date') == '') {
+					$getProblemList =  $db->find('`aks`.`tblreports`', ['order' => "id DESC"]);
+				}else{
+					$getProblemList =  $db->find('`aks`.`tblreports`',[
+						'conditions' => ['status = ?', 'date(`date`) = ?'],
+						'bind' => [1, $getInput->get('date')],
+						'order' => "id DESC"
+					]);
+				}
+				
+
 				return $getProblemList;
+
 			break;
 			case 'cr-get-cac-data':
 				if($getInput->get('site') == 'BREX') {
@@ -775,7 +782,89 @@ class Ajax {
 				];
 				$updateOnSite = $db->update('`'.self::getSite($getInput->get('site')).'`.`pt_products`', $getInput->get('idToUpdate'), $fields);
 				$updateOnProblem = $db->update('`aks`.`tblReports`', $getInput->get('idToUpdateReport'), $fields);
+			break;
+			case 'cr-fixed-problem':
+				$getStock = ($getInput->get('mfeedStock') == 'in stock')? 1 : 0;
 
+				switch ($getInput->get('getProblem')) {
+					case 'Wrong price':
+						$fields = [
+							'price' => $getInput->get('mfeedPrice'),
+							'rating' => 0
+						];
+					break;
+					case 'Wrong stock':
+						$fields = [
+							'dispo' => $getStock,
+							'rating' => 0
+						];
+					break;
+					case 'Price to zero':
+						$fields = [
+							'price' => 0.00,
+							'dispo' => 0,
+						];
+					break;
+					default:
+						$fields = [];
+					break;
+				}
+
+				$fieldsComplete = [
+					'merchantSite' => $getInput->get('getSite'),
+					'merchantSqlID' => $getInput->get('getID'),
+					'merchantID' => $getInput->get('getMerchantId'),
+					'merchantNMID' => $getInput->get('getNormalizedName'),
+					'merchantLink' => $getInput->get('getLink'),
+					'problem' => $getInput->get('getProblem'),
+					'siteProbs' => $getInput->get('getSiteProblem'),
+					'feedProbs' => $getInput->get('getFeedProblem'),
+					'msiteProbs' => $getInput->get('getmerchantSiteProbs'),
+					'rating' => $getInput->get('getRating'),
+					'reportFeedback' => $getInput->get('getreportFeedback'),
+					'checker' => ucfirst(Users::currentUser()->fname)
+				];
+
+				$insertToComplete = $db->insert('`aks`.`tblReportsComplete`', $fieldsComplete);
+				$updateOnSite = $db->update('`'.self::getSite($getInput->get('getSite')).'`.`pt_products`', $getInput->get('getID'), $fields);
+				$updateOnProblem = $db->delete('`aks`.`tblReports`', $getInput->get('idToUpdateReport'));
+				
+			break;
+			case 'cr-recheck':
+				switch ($getInput->get('toWhat')) {
+					case 'r-swp':
+						$fields = [
+							'reportID' => $getInput->get('rID'),
+							'reportFeedback' => 'Still wrong price',
+							'checker' => ucfirst(Users::currentUser()->fname)
+						];
+						$run = $db->insert('`aks`.`tblReportRecheck`', $fields);
+					break;
+					case 'r-ols':
+						$getSiteData =  $db->find('`aks`.`tblReportRecheck`', [
+							'conditions' => ['reportID = ?'], 
+							'bind' => [$getInput->get('rID')]
+						]);
+						return $getSiteData;
+					break;
+				}
+			break;
+			case 'cr-display-completed':
+				return $db->find('`aks`.`tblReportsComplete`');
+			break;
+			case 'cr-reopen-problem':
+				$fields = [
+					'merchantSite' => $getInput->get('getcsite'),
+					'merchantSqlID' =>  $getInput->get('getccmysqlid'),
+					'merchantID' =>  $getInput->get('getcmid'),
+					'merchantNMID' =>  $getInput->get('getcmnm'),
+					'merchantLink' =>  $getInput->get('getcmlink'),
+					'problem' => $getInput->get('getcproblem'),
+					'status' => 1,
+					'rating' => $getInput->get('getcrating'),
+				];
+				$updateOnComplete = $db->delete('`aks`.`tblReportsComplete`', $getInput->get('getcid'));
+				$insertOnReport = $db->insert('`aks`.`tblReports`', $fields);
 			break;
 		}
 	}
