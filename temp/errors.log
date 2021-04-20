@@ -508,3 +508,293 @@ Stack trace:
   thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
 [10-Apr-2021 09:25:14 Europe/Berlin] PHP Notice:  Undefined index: changeReported in D:\xampp\htdocs\akss\core\Input.php on line 33
 [10-Apr-2021 10:32:27 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'break' (T_BREAK), expecting ';' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 358
+[10-Apr-2021 14:39:08 Europe/Berlin] PHP Notice:  Undefined index: getProblem in D:\xampp\htdocs\akss\core\Input.php on line 33
+[10-Apr-2021 14:39:08 Europe/Berlin] PHP Notice:  Undefined index: getProblem in D:\xampp\htdocs\akss\core\Input.php on line 33
+[10-Apr-2021 14:41:47 Europe/Berlin] PHP Notice:  Undefined index: getProblem in D:\xampp\htdocs\akss\core\Input.php on line 33
+[10-Apr-2021 14:42:21 Europe/Berlin] PHP Notice:  Undefined index: getProblem in D:\xampp\htdocs\akss\core\Input.php on line 33
+[10-Apr-2021 14:51:35 Europe/Berlin] PHP Notice:  Undefined variable: mysqlField in D:\xampp\htdocs\akss\app\models\Ajax.php on line 322
+[10-Apr-2021 14:51:36 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `ak...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(323): Core\DB->query('INSERT INTO `ak...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[10-Apr-2021 14:57:19 Europe/Berlin] PHP Notice:  Undefined variable: mysqlField in D:\xampp\htdocs\akss\app\models\Ajax.php on line 322
+[10-Apr-2021 14:57:19 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `ak...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(323): Core\DB->query('INSERT INTO `ak...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[10-Apr-2021 14:57:19 Europe/Berlin] PHP Notice:  Undefined variable: mysqlField in D:\xampp\htdocs\akss\app\models\Ajax.php on line 322
+[10-Apr-2021 14:57:19 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `ak...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(323): Core\DB->query('INSERT INTO `ak...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[10-Apr-2021 14:58:37 Europe/Berlin] PHP Notice:  Undefined variable: mysqlField in D:\xampp\htdocs\akss\app\models\Ajax.php on line 322
+[10-Apr-2021 14:58:37 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `ak...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(323): Core\DB->query('INSERT INTO `ak...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[10-Apr-2021 14:58:37 Europe/Berlin] PHP Notice:  Undefined variable: mysqlField in D:\xampp\htdocs\akss\app\models\Ajax.php on line 322
+[10-Apr-2021 14:58:37 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `ak...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(323): Core\DB->query('INSERT INTO `ak...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[10-Apr-2021 14:58:57 Europe/Berlin] PHP Notice:  Undefined variable: mysqlField in D:\xampp\htdocs\akss\app\models\Ajax.php on line 322
+[10-Apr-2021 14:58:57 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `ak...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(323): Core\DB->query('INSERT INTO `ak...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[10-Apr-2021 15:00:22 Europe/Berlin] PHP Notice:  Undefined variable: mysqlField in D:\xampp\htdocs\akss\app\models\Ajax.php on line 322
+[10-Apr-2021 15:00:22 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `ak...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(323): Core\DB->query('INSERT INTO `ak...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[10-Apr-2021 15:00:59 Europe/Berlin] PHP Notice:  Undefined variable: mysqlField in D:\xampp\htdocs\akss\app\models\Ajax.php on line 322
+[10-Apr-2021 15:00:59 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `ak...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(323): Core\DB->query('INSERT INTO `ak...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[10-Apr-2021 15:02:41 Europe/Berlin] PHP Notice:  Undefined variable: mysqlField in D:\xampp\htdocs\akss\app\models\Ajax.php on line 322
+[10-Apr-2021 15:02:41 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `ak...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(323): Core\DB->query('INSERT INTO `ak...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[10-Apr-2021 15:02:41 Europe/Berlin] PHP Notice:  Undefined variable: mysqlField in D:\xampp\htdocs\akss\app\models\Ajax.php on line 322
+[10-Apr-2021 15:02:41 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `ak...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(323): Core\DB->query('INSERT INTO `ak...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[10-Apr-2021 15:03:17 Europe/Berlin] PHP Notice:  Undefined variable: mysqlField in D:\xampp\htdocs\akss\app\models\Ajax.php on line 322
+[10-Apr-2021 15:03:17 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `ak...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(323): Core\DB->query('INSERT INTO `ak...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[10-Apr-2021 15:04:13 Europe/Berlin] PHP Notice:  Undefined variable: mysqlField in D:\xampp\htdocs\akss\app\models\Ajax.php on line 322
+[10-Apr-2021 15:04:13 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('INSERT INTO `ak...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(323): Core\DB->query('INSERT INTO `ak...')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-submit-repor...')
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#4 [internal function]: App\Controllers\ReportsController->indexAction()
+#5 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#7 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[10-Apr-2021 16:15:11 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE id = 132443825' at line 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('UPDATE `test-se...')
+#1 D:\xampp\htdocs\akss\core\DB.php(153): Core\DB->query('UPDATE `test-se...', Array)
+#2 D:\xampp\htdocs\akss\app\models\Ajax.php(382): Core\DB->update('`test-server`.`...', '132443825', Array)
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-fixed-problm...')
+#4 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#5 [internal function]: App\Controllers\ReportsController->indexAction()
+#6 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#7 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#8 { in D:\xampp\htdocs\akss\core\DB.php on line 35
+[10-Apr-2021 16:15:30 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE id = 132443825' at line 1 in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('UPDATE `test-se...')
+#1 D:\xampp\htdocs\akss\core\DB.php(153): Core\DB->query('UPDATE `test-se...', Array)
+#2 D:\xampp\htdocs\akss\app\models\Ajax.php(382): Core\DB->update('`test-server`.`...', '132443825', Array)
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-fixed-problm...')
+#4 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#5 [internal function]: App\Controllers\ReportsController->indexAction()
+#6 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#7 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#8 { in D:\xampp\htdocs\akss\core\DB.php on line 35
+[10-Apr-2021 16:38:57 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[10-Apr-2021 16:39:11 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[10-Apr-2021 16:40:34 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[10-Apr-2021 16:40:36 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[10-Apr-2021 16:41:16 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[10-Apr-2021 16:41:19 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[10-Apr-2021 16:41:20 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[10-Apr-2021 16:42:35 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[10-Apr-2021 16:44:37 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[10-Apr-2021 16:45:18 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[10-Apr-2021 16:45:20 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[12-Apr-2021 12:58:25 Europe/Berlin] PHP Notice:  Undefined index: problem in D:\xampp\htdocs\akss\core\Input.php on line 33
+[12-Apr-2021 12:58:25 Europe/Berlin] PHP Notice:  Undefined index: date in D:\xampp\htdocs\akss\core\Input.php on line 33
+[12-Apr-2021 13:27:44 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[12-Apr-2021 13:28:46 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[12-Apr-2021 13:28:49 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[12-Apr-2021 13:30:56 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[12-Apr-2021 13:30:57 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[12-Apr-2021 13:32:56 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[12-Apr-2021 13:50:13 Europe/Berlin] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 270
+[12-Apr-2021 13:50:13 Europe/Berlin] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 280
+[12-Apr-2021 13:50:14 Europe/Berlin] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 280
+[12-Apr-2021 13:50:15 Europe/Berlin] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 280
+[12-Apr-2021 13:50:16 Europe/Berlin] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 280
+[12-Apr-2021 13:50:29 Europe/Berlin] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 270
+[12-Apr-2021 13:50:54 Europe/Berlin] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 270
+[12-Apr-2021 13:52:42 Europe/Berlin] PHP Notice:  Undefined index: date in D:\xampp\htdocs\akss\core\Input.php on line 33
+[12-Apr-2021 14:33:59 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[12-Apr-2021 15:50:41 Europe/Berlin] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 179
+[12-Apr-2021 15:50:41 Europe/Berlin] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 180
+[13-Apr-2021 14:31:27 Europe/Berlin] PHP Notice:  Undefined index: username in D:\xampp\htdocs\akss\app\models\Ajax.php on line 396
+[13-Apr-2021 14:32:36 Europe/Berlin] PHP Notice:  Undefined index: username in D:\xampp\htdocs\akss\app\views\layouts\sidebar.php on line 145
+[13-Apr-2021 14:32:41 Europe/Berlin] PHP Notice:  Undefined index: username in D:\xampp\htdocs\akss\app\views\layouts\sidebar.php on line 145
+[13-Apr-2021 18:08:31 Europe/Berlin] PHP Notice:  Undefined index: action in D:\xampp\htdocs\akss\core\Input.php on line 33
+[13-Apr-2021 18:08:33 Europe/Berlin] PHP Notice:  Undefined index: action in D:\xampp\htdocs\akss\core\Input.php on line 33
+[13-Apr-2021 18:08:34 Europe/Berlin] PHP Notice:  Undefined index: action in D:\xampp\htdocs\akss\core\Input.php on line 33
+[14-Apr-2021 08:33:37 Europe/Berlin] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 179
+[14-Apr-2021 08:33:37 Europe/Berlin] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 180
+[14-Apr-2021 08:33:38 Europe/Berlin] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 179
+[14-Apr-2021 08:33:38 Europe/Berlin] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 180
+[14-Apr-2021 16:16:46 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[14-Apr-2021 16:16:50 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[14-Apr-2021 16:18:40 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[14-Apr-2021 16:43:58 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[14-Apr-2021 16:47:37 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[15-Apr-2021 13:07:55 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[15-Apr-2021 13:07:56 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[15-Apr-2021 13:08:15 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[15-Apr-2021 13:08:20 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[15-Apr-2021 13:10:22 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[15-Apr-2021 13:10:24 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[15-Apr-2021 13:10:51 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[15-Apr-2021 14:33:19 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[15-Apr-2021 14:33:32 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[15-Apr-2021 15:10:46 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[15-Apr-2021 15:11:21 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[16-Apr-2021 15:15:41 Europe/Berlin] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 267
+[16-Apr-2021 15:24:18 Europe/Berlin] PHP Notice:  Undefined index: problem in D:\xampp\htdocs\akss\core\Input.php on line 33
+[16-Apr-2021 15:24:18 Europe/Berlin] PHP Notice:  Undefined index: site in D:\xampp\htdocs\akss\core\Input.php on line 33
+[16-Apr-2021 15:24:18 Europe/Berlin] PHP Notice:  Undefined index: idToUpdate in D:\xampp\htdocs\akss\core\Input.php on line 33
+[16-Apr-2021 15:24:18 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1102 Incorrect database name '' in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('UPDATE ``.`pt_p...')
+#1 D:\xampp\htdocs\akss\core\DB.php(153): Core\DB->query('UPDATE ``.`pt_p...', Array)
+#2 D:\xampp\htdocs\akss\app\models\Ajax.php(403): Core\DB->update('``.`pt_products...', '', Array)
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-fixed-proble...')
+#4 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#5 [internal function]: App\Controllers\ReportsController->indexAction()
+#6 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#7 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#8 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[16-Apr-2021 15:27:44 Europe/Berlin] PHP Notice:  Undefined index: problem in D:\xampp\htdocs\akss\core\Input.php on line 33
+[16-Apr-2021 15:27:44 Europe/Berlin] PHP Notice:  Undefined index: site in D:\xampp\htdocs\akss\core\Input.php on line 33
+[16-Apr-2021 15:27:44 Europe/Berlin] PHP Notice:  Undefined index: idToUpdate in D:\xampp\htdocs\akss\core\Input.php on line 33
+[16-Apr-2021 15:27:44 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1102 Incorrect database name '' in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('UPDATE ``.`pt_p...')
+#1 D:\xampp\htdocs\akss\core\DB.php(153): Core\DB->query('UPDATE ``.`pt_p...', Array)
+#2 D:\xampp\htdocs\akss\app\models\Ajax.php(403): Core\DB->update('``.`pt_products...', '', Array)
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-fixed-proble...')
+#4 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#5 [internal function]: App\Controllers\ReportsController->indexAction()
+#6 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#7 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#8 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[16-Apr-2021 15:37:57 Europe/Berlin] PHP Notice:  Undefined index: problem in D:\xampp\htdocs\akss\core\Input.php on line 33
+[16-Apr-2021 15:37:57 Europe/Berlin] PHP Notice:  Undefined index: site in D:\xampp\htdocs\akss\core\Input.php on line 33
+[16-Apr-2021 15:37:57 Europe/Berlin] PHP Notice:  Undefined index: idToUpdate in D:\xampp\htdocs\akss\core\Input.php on line 33
+[16-Apr-2021 15:37:57 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1102 Incorrect database name '' in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('UPDATE ``.`pt_p...')
+#1 D:\xampp\htdocs\akss\core\DB.php(153): Core\DB->query('UPDATE ``.`pt_p...', Array)
+#2 D:\xampp\htdocs\akss\app\models\Ajax.php(403): Core\DB->update('``.`pt_products...', '', Array)
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-fixed-proble...')
+#4 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#5 [internal function]: App\Controllers\ReportsController->indexAction()
+#6 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#7 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#8 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[16-Apr-2021 15:41:32 Europe/Berlin] PHP Notice:  Undefined index: site in D:\xampp\htdocs\akss\core\Input.php on line 33
+[16-Apr-2021 15:41:32 Europe/Berlin] PHP Notice:  Undefined index: idToUpdate in D:\xampp\htdocs\akss\core\Input.php on line 33
+[16-Apr-2021 15:41:32 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1102 Incorrect database name '' in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('UPDATE ``.`pt_p...')
+#1 D:\xampp\htdocs\akss\core\DB.php(153): Core\DB->query('UPDATE ``.`pt_p...', Array)
+#2 D:\xampp\htdocs\akss\app\models\Ajax.php(403): Core\DB->update('``.`pt_products...', '', Array)
+#3 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-fixed-proble...')
+#4 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#5 [internal function]: App\Controllers\ReportsController->indexAction()
+#6 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#7 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#8 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[16-Apr-2021 17:52:01 Europe/Berlin] PHP Notice:  Undefined index: date in D:\xampp\htdocs\akss\core\Input.php on line 33
+[16-Apr-2021 18:02:58 Europe/Berlin] PHP Notice:  Undefined index: date in D:\xampp\htdocs\akss\core\Input.php on line 33
+[16-Apr-2021 18:02:59 Europe/Berlin] PHP Notice:  Undefined index: date in D:\xampp\htdocs\akss\core\Input.php on line 33
+[17-Apr-2021 15:56:30 Europe/Berlin] PHP Notice:  Undefined index: getRating in D:\xampp\htdocs\akss\core\Input.php on line 33

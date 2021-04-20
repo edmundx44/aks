@@ -22,6 +22,10 @@ $(document).ready(function(){
 	displayIcon();
 	displayMode(localStorage.getItem("body-mode"));
 
+	$('.modal-dialog').draggable({
+		handle: ".modal-content",
+		cancel: 'span, input'
+	});
 
 	// var pathname = window.location.pathname;     
 	// var origin   = window.location.origin;
@@ -298,8 +302,14 @@ function displayMode($mode){
 
 			$('.store-games-data-table-tbody-data').removeClass('store-games-data-table-tbody-data-normal').addClass('store-games-data-table-tbody-data-darkmode')
 
+			//report page
+			$('.pltb-report, .problem-lis-tab-btn, .hide-extra, .pltb-completed, .td-1st-child').removeClass('normal-mode').addClass('dark-mode');
+			// $('.problem-lis-tab-btn').removeClass('problem-lis-tab-btn-normal').addClass('problem-lis-tab-btn-darkmode');
+
 			localStorage.setItem("body-mode", 'darkmode');
 			$(".switch-checkbox").prop( "checked", true );
+
+
 
 			
 		break;
@@ -323,6 +333,9 @@ function displayMode($mode){
 
 			$('.store-games-data-table-tbody-data').removeClass('store-games-data-table-tbody-data-darkmode').addClass('store-games-data-table-tbody-data-normal')
 
+			//report page
+			$('.pltb-report, .problem-lis-tab-btn, .hide-extra, .pltb-completed, .td-1st-child').removeClass('dark-mode').addClass('normal-mode');
+
 			localStorage.setItem("body-mode", 'normal');
 			$(".switch-checkbox").prop( "checked", false );
 		break;
@@ -337,4 +350,11 @@ function debounce(fun, mil){
             fun(); 
         }, mil); 
     };
+}
+
+function confirmationModal($appendtoheader, $appendtobody, $appendtofooter){
+	$('#report-modal-confirmation').modal('show');
+	$('.confirmation-tittle').empty().html($appendtoheader);
+	$('.modal-content-body').empty().append($appendtobody)
+	$('.confirmation-modal-footer').empty().append($appendtofooter)
 }
