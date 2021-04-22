@@ -560,9 +560,10 @@ body {
 	width: 32px;
 	right: -15px;
 	border-radius: 25px;
+	background-color: #fff;
 }
 .sidebar-minimize:hover > i {
-	background-color: #f2f2f2;
+	/*background-color: #f2f2f2;*/
 }
 .sidebar-minimize-icon {
 	margin-top: 2.5px;

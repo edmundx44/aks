@@ -339,9 +339,9 @@ $(document).on('click', '.open-info', function(){
 			});
 			
 			$(document).on('click', '#cr-cac-recheck-btn', function(){
-				$('.div-recheck').fadeToggle();
-			});
 
+				$('.div-recheck').toggle();
+			});
 			
 			$(document).on('click', '.div-recheck-ul-li', function(){
 				$('.ols-display').empty();
@@ -402,12 +402,14 @@ $(document).on('click', '.open-info', function(){
 				$('.checkbox-site').attr('checked', false); // Unchecks All
 				$('.checkbox-site').attr('disabled','disabled');
 				$('.cr-select-problem-btn').html('Select Problem');
+				$('.display-found-url').empty();
 				$('#createReportModal').modal('show');
 				onOpen = 1;
 			});
 
-			$(document).on('change', '#cr-url-txtbox', _.debounce(function(){
-				crProblemArr = [];
+
+			$(document).on('key-up change paste', '#cr-url-txtbox', _.debounce(function(){
+				
 				$('.checkbox-site').attr('checked', false); // Unchecks All
 
 				if($(this).val() != ''){
@@ -423,6 +425,7 @@ $(document).on('click', '.open-info', function(){
 					}
 
 					AjaxCall(url+'reports', dataRequest).done(function(data) {
+						console.log(data);
 						if(data.length >= 1) {
 							var getSite = '';
 							for(var i in data){
@@ -475,11 +478,19 @@ $(document).on('click', '.open-info', function(){
 					}
 
 					AjaxCall(url+'reports', dataRequest).done(function(data) {
-
+						console.log(data)
 						if((data[0].data).length == 0) {
 							$('#'+data[0].site).attr('checked', false); // Unchecks it
 							alert('NO DATA FOUND IN ' + data[0].site);
 						}else{
+
+							
+							var appendTo = '<section class="sec-'+data[0].site+'">'
+								appendTo +=	'<p style="position: relative;">Data found on '+data[0].site+'</p>'
+                            	appendTo += '<ul style="margin: 0; position: relative; top: -15px;" class="display-found-url-ul-'+data[0].site+'"></ul>'
+                            	appendTo += '</section>'
+                            	$('.display-found-url').append(appendTo);
+
 							for(var i in data[0].data){
 								crProblemArr.push({
 									'merchantSite': data[0].site, 
@@ -489,11 +500,16 @@ $(document).on('click', '.open-info', function(){
 									'merchantLink':  data[0].data[i].buy_url,
 									'merchantRating':  data[0].data[i].rating
 								});
+								
+        						$('.display-found-url-ul-'+data[0].site+'').append('<li>Merchant '+data[0].data[i].merchant+' , Game ID '+ data[0].data[i].normalised_name +'</li>');
+
 							}
 						}
 					});
 
 				}else{
+					
+					$('.sec-'+$(this).attr('id')).remove();
 					var toRemove = $(this).attr('id');
 					for(var i in crProblemArr) {
 						if(crProblemArr[i].merchantSite == toRemove) delete crProblemArr[i];
@@ -515,7 +531,7 @@ $(document).on('click', '.open-info', function(){
 					$('.cr-modal-cac-list').hide();
 				}
 
-				if(!$(event.target).is('#cr-cac-recheck-btn, .div-recheck, .div-recheck-ul *')){
+				if(!$(event.target).is('#cr-cac-recheck-btn, .cr-cac-recheck-btn-icon, .div-recheck, .div-recheck-ul *')){
 					$('.div-recheck').hide();
 				}
 

@@ -726,7 +726,7 @@ class Ajax {
 				$getProblem	= $getInput->get('getProblem');
 
 				$fieldsToInsert = array();
-				$mysqlField = '`merchantSite`, `merchantSqlID`, `merchantID`, `merchantNMID`, `merchantLink`, `problem`, `status`, `rating`'; 
+				$mysqlField = '`merchantSite`, `merchantSqlID`, `merchantID`, `merchantNMID`, `merchantLink`, `problem`, `status`, `rating`, `checker`'; 
 				foreach ($toInsert as $key) {
 					$fieldsToInsert[] = '(
 					 	"'.$key['merchantSite'].'",
@@ -736,7 +736,8 @@ class Ajax {
 						"'.$key['merchantLink'].'",
 						"'.$getProblem.'",
 						"1",
-						"'.$key['merchantRating'].'"
+						"'.$key['merchantRating'].'",
+						"'.ucfirst(Users::currentUser()->fname).'"
 					)';
 				}
 
