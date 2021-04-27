@@ -26,7 +26,13 @@ class Input {
       // return entire request array and sanitize it
       $data = [];
       foreach($_REQUEST as $field => $value){
-        $data[$field] = FH::sanitize($value);
+        if(is_array($value)){
+          foreach ($value as $field_1 => $value_1) {
+            $data[$field_1] = FH::sanitize($value_1);
+          }
+        }else{
+          $data[$field] = FH::sanitize($value);
+        }
       }
       return $data;
     }

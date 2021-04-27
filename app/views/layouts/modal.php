@@ -590,3 +590,90 @@
 </div>
 
 
+<!-- Affiliate Link Check Edit Modal -->
+<div class="modal fade" id="affiliate-link-edit-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content modal-con-override">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Edit Affiliate Link</h5>
+            </div>
+
+            <div class="modal-body col-sm-12">
+                <div class="col-sm-12" data-merId-modal="" data-name-modal="">
+                    <div class="pull-left">
+                        <div c>Merchant Id</div>
+                        <input type="text" id="aff-link-merchant-idv2" name="" readonly>
+                    </div>
+                    <div class="pull-right">
+                        <div>Merchant Name</div>
+                        <input type="text" id="aff-link-namev2" name="" readonly>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="">
+                        <div>AKS AFFILIATE LINK</div>
+                        <input type="text" id="aff-link-aksv2" name="">
+                    </div>
+                    <div class="">
+                        <div>CDD AFFILIATE LINK</div>
+                        <input type="text" id="aff-link-cddv2" name="">
+                    </div>
+                    <div class="">
+                        <div>BREXITGBP AFFILIATE LINK</div>
+                        <input type="text" id="aff-link-brexitgbpv2" name="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btn-affiliate-edit-save">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Affiliate Link Check Edit Modal -->
+<div class="modal fade" id="affiliate-link-add-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content modal-con-override">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Add Affiliate Link</h5>
+            </div>
+
+            <div class="modal-body col-sm-12">
+                <div class="col-sm-12" data-merId-modal="" data-name-modal="">
+                    <div class="pull-left">
+                        <div c>Merchant Id</div>
+                        <input type="text" id="aff-link-merchant-idv2-add" name="" readonly>
+                    </div>
+                    <div class="pull-right">
+                        <div>Merchant Name</div>
+                        <input type="text" id="aff-link-namev2-add" name="" readonly>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="">
+                        <div>AKS AFFILIATE LINK</div>
+                        <input type="text" id="aff-link-aksv2-add" name="">
+                    </div>
+                    <div class="">
+                        <div>CDD AFFILIATE LINK</div>
+                        <input type="text" id="aff-link-cddv2-add" name="">
+                    </div>
+                    <div class="">
+                        <div>BREXITGBP AFFILIATE LINK</div>
+                        <input type="text" id="aff-link-brexitgbpv2-add" name="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btn-affiliate-add-save">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

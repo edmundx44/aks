@@ -36,18 +36,32 @@
 		});
 
 		//FOR DROP DOWN SELECT ANIMATION
-		$('.dropdown-div').click(function () {
-			$(this).find('.dropdown-menu').slideToggle(200);
-		});
-		$('.dropdown-div').focusout(function () {
-			$(this).find('.dropdown-menu').slideUp(200);
-		});
+		$('.dropdown-div').click(function () { $(this).find('.dropdown-menu').slideToggle(200); });
+		$('.dropdown-div').focusout(function () { $(this).find('.dropdown-menu').slideUp(200); });
 
 		$(document).on('click', function(event){    
 			if(!$(event.target).is('.card-body-div-i, .menu-disabled *, .menu-snapshot *, .menu-dbfeed *, .menu-others *')) {
 				$('.card-body-menu-div').hide();
 			}
 		});		
+
+		//FOR FEED SUCCESS
+		$(document).on('click', '.feedbots-opt', function(){
+			switch($(this).attr("data-feedbots")){
+				case 'getSuccessStores':
+					console.log('getSuccessStores');
+				break;
+				case 'getFailedStores':
+					console.log('getFailedStores');
+				break;
+				case 'getServerChargeStore':
+					console.log('getServerChargeStore');
+				break;
+
+				default:
+				break;
+			}
+		});
 
 		//CHECKSUM
 		$(document).on('click', '.opt-site-chk', function(){
@@ -1278,14 +1292,10 @@
 							</div>
 							<ul class="ul-tab-option pc-fb-opt" style="display: none; margin-top: 2px;">
 								<li>FEED BOTS: </li>
-								<li class="clk-options li-tab-option active-tab" id="checksum-chart">
-									<span>Checksum</span>
-								</li>
-								<li class="clk-options li-tab-option" id="test-box-2">
-									<span>Success</span>
-								</li>
-								<li class="clk-options li-tab-option" id="test-box-3"><span>Fail</span></li>
-								<li class="clk-options li-tab-option" id="test-box-4"><span>Server Charge</span></li>
+								<li class="feedbots-opt clk-options li-tab-option active-tab" id="checksum-chart"><span>Checksum</span></li>
+								<li data-feedbots="getSuccessStores" class="feedbots-opt clk-options li-tab-option" id="feed-success"><span>Success</span></li>
+								<li data-feedbots="getFailedStores" class="feedbots-opt clk-options li-tab-option" id="test-box-3"><span>Fail</span></li>
+								<li data-feedbots="getServerChargeStore" class="feedbots-opt clk-options li-tab-option" id="test-box-4"><span>Server Charge</span></li>
 							</ul>
 						</div>
 					</div>
@@ -1312,21 +1322,8 @@
 						<div class="test-box-1 content-hide" style="height: 100%; display: none;">
 							<h1>TEST BOX 1</h1>
 						</div>
-						<div class="test-box-2 content-hide" style="height: 100%; overflow-y: auto; display: none;">
-							<h1>TEST BOX 2</h1>
-							<h1>TEST BOX 2</h1>
-							<h1>TEST BOX 2</h1>
-							<h1>TEST BOX 2</h1>
-							<h1>TEST BOX 2</h1>
-							<h1>TEST BOX 2</h1>
-							<h1>TEST BOX 2</h1>
-							<h1>TEST BOX 2</h1>
-							<h1>TEST BOX 2</h1>
-							<h1>TEST BOX 2</h1>
-							<h1>TEST BOX 2</h1>
-							<h1>TEST BOX 2</h1>
-							<h1>TEST BOX 2</h1>
-							<h1>TEST BOX 2</h1>
+						<div id="feed-success-append" class="feed-success content-hide" style="height: 100%; overflow-y: auto; display: none;">
+							
 						</div>
 						<div class="test-box-3 content-hide" style="height: 100%; overflow-y: auto; display: none;">
 							<h1>TEST BOX 3</h1>
