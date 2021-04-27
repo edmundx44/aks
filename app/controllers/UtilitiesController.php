@@ -43,4 +43,23 @@ class UtilitiesController extends Controller {
 		}
 	}
 
+	public static function get_good_sqlv2($merchant_id,$affiliate_link,$dbName){
+		$sql="SELECT buy_url,id,normalised_name
+			FROM  `$dbName`.`pt_products` 
+			WHERE  `merchant` = '$merchant_id'
+			AND  `buy_url` NOT LIKE CONVERT( _utf8 '%$affiliate_link%'
+			USING latin1 ) 
+			AND normalised_name != 50 AND  `buy_url` != ''
+			LIMIT 0 , 100";
+		return $sql;
+	}
+	public static function loop_result($affiliate,$results,$getUrl,$getWhat,$urlCheck){
+		foreach ($results as $key ) {
+			if ($key->$affiliate != '') {
+				$sqlarr[] = '('.$urlCheck.' != "" AND normalised_name != 50 AND merchant = '.$key->merchant_id.' AND '.$getUrl.' '.$getWhat.' LIKE "%'.htmlspecialchars_decode($key->$affiliate).'%")';
+			}
+		}
+		return $sqlarr;
+	}
+	
 }

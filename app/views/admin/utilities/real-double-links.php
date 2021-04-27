@@ -18,27 +18,27 @@
 		var $url = url+'utilities/realDouble';
 
 		$(function(){
-			if (!removeExistingItem('sessionStorage','OptionSite',uri)){
-				console.log('Item has been removed');
-			}
+			$('.dropdown-div').html(OptionSite(inputsSite,'opt-site-rdb','slc-options','custom-bkgd')); //OptionSite na a sa custom.js
+			// if (!removeExistingItem('sessionStorage','OptionSite',uri)){
+			// 	console.log('Item has been removed');
+			// }
 			if(sessionStorageCheck()){
+				$('.change-site').text('LOADING...');
 				var object = JSON.parse(getStorage('sessionStorage','OptionSite'));
 				if(object != null){
 					site = returnSite(object.site);
 					if(site != 'invalid'){
-						ajaxCall_RDB($url,'POST',site).done(function(data){
+						_ajaxCall($url,"POST","AjaxRealDblLinks",site).done(function(data){
 							done_ajaxCall_RDB(site,data)
-						})
+						});
 					}else{ if(removedKeyNormal('sessionStorage','OptionSite')) console.log("Item has been removed") } //remove key if invalid site
 				}else{
 					//if null default value is aks
-					ajaxCall_RDB($url,'POST',inputsSite[0].site).done(function(data){
-						done_ajaxCall_RDB(inputsSite[0].site,data)
-					})
+					_ajaxCall($url,"POST","AjaxRealDblLinks",site).done(function(data){
+						done_ajaxCall_RDB(site,data)
+					});
 				}
 			}
-
-			$('.dropdown-div').html(OptionSite(inputsSite,'opt-site-rdb','slc-options','custom-bkgd')); //OptionSite na a sa custom.js
 			// na na ni sa index.php sa dashboards
 			//FOR DROP DOWN SELECT ANIMATION
 			$('.dropdown-div').click(function () {
@@ -58,28 +58,18 @@
 			$(document).on('click', '.opt-site-rdb', function() {
 				//every click it reset the value if modify in console
 				$('.dropdown-div').html(OptionSite(inputsSite,'opt-site-rdb','slc-options','custom-bkgd')); //OptionSite na a sa custom.js
+				$('.change-site').text('LOADING...');
 			    var indexInput = $(this).parent().prevObject.index(); //get the index of li
 			    if($(this).parent()[0].childNodes.length == 3 ){
-			    	site = ((indexInput == 0 ) ? inputsSite[0].site : (indexInput == 1 )) ? inputsSite[1].site : (indexInput == 2 ) ? inputsSite[2].site : '';
+			    	site = (indexInput == 0 ) ? inputsSite[0].site : (indexInput == 1 ) ? inputsSite[1].site : (indexInput == 2 ) ? inputsSite[2].site : '';
 					var $data = { 'site': site, 'path': $url }
 					if(sessionStorageCheck()){ setStorage('sessionStorage','OptionSite',JSON.stringify($data)) }
-				    ajaxCall_RDB($url,'POST',site).done(function(data){
+					_ajaxCall($url,"POST","AjaxRealDblLinks",site).done(function(data){
 						done_ajaxCall_RDB(site,data)
-					})
+					});
 			    }else{ window.location.reload(); }
 			});
 		});
-
-		function ajaxCall_RDB($url,$type,$site){
-			return $.ajax({
-				url:$url,
-				type:$type,
-				data:{
-					action: 'AjaxRealDblLinks',
-					websiteSent: $site
-					}
-				}).always(function (){ })
-		}
 
 		function done_ajaxCall_RDB(site,data){
 			var items = [];

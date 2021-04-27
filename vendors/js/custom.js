@@ -182,6 +182,18 @@ function AjaxCall($url, $data) {
 	})
 }
 
+// ajax call function ---------------------------------------
+function _ajaxCall($url,$type,$action,$data){
+	return $.ajax({
+		url:$url,
+		type:$type,
+		data:{
+			action:$action,
+			data: $data
+		}
+	})
+}
+
 // custom function here -------------------------------------
 function scrollThis(){
 	switch(localStorage.getItem("sidebar-active")) {
@@ -438,6 +450,11 @@ function getStorage($type,$key){
 }
 
 function removeExistingItem($type,$key,$path){
+	//$path is path of the utilities page u can use uri variable
+	//use this to remove existing key 
+	// if (!removeExistingItem('sessionStorage','OptionSite',uri)){
+	// 		console.log('Item has been removed');
+	// 	}
 	switch($type){
 		case 'localStorage':
 			var object = JSON.parse(localStorage.getItem($key));	
