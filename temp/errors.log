@@ -53,3 +53,317 @@ Stack trace:
 #6 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
 #7 {main}
   thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[23-Apr-2021 20:12:57 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1017 Can't find file: '.\aks_bot_teamph\aks_checksum.MYI' (errno: 2 "No such file or directory") in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('SELECT COUNT(id...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(360): Core\DB->query('SELECT COUNT(id...')
+#2 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(20): App\Models\Ajax::ajaxData('displayCheckSum...')
+#3 [internal function]: App\Controllers\DashboardController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[23-Apr-2021 23:05:35 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1017 Can't find file: '.\aks_bot_teamph\aks_checksum.MYI' (errno: 2 "No such file or directory") in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('SELECT COUNT(id...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(360): Core\DB->query('SELECT COUNT(id...')
+#2 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(20): App\Models\Ajax::ajaxData('displayCheckSum...')
+#3 [internal function]: App\Controllers\DashboardController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[24-Apr-2021 17:58:05 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$getInput' (T_VARIABLE), expecting ')' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 771
+[24-Apr-2021 17:58:16 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$getInput' (T_VARIABLE), expecting ')' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 771
+[24-Apr-2021 23:59:07 Asia/Manila] PHP Fatal error:  Uncaught Error: Class 'App\Models\DOMDocument' not found in D:\xampp\htdocs\akss\app\models\Merchant.php:72
+Stack trace:
+#0 D:\xampp\htdocs\akss\app\models\Ajax.php(771): App\Models\Merchant::merchantSiteXpath('https://www.g2a...')
+#1 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-get-cac-data')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#3 [internal function]: App\Controllers\ReportsController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\app\models\Merchant.php on line 72
+[24-Apr-2021 23:59:31 Asia/Manila] PHP Fatal error:  Uncaught Error: Class 'App\Models\DOMDocument' not found in D:\xampp\htdocs\akss\app\models\Merchant.php:72
+Stack trace:
+#0 D:\xampp\htdocs\akss\app\models\Ajax.php(771): App\Models\Merchant::merchantSiteXpath('https://www.g2a...')
+#1 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-get-cac-data')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#3 [internal function]: App\Controllers\ReportsController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\app\models\Merchant.php on line 72
+[25-Apr-2021 00:02:41 Asia/Manila] PHP Notice:  Trying to get property 'nodeValue' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 81
+[25-Apr-2021 00:05:45 Asia/Manila] PHP Notice:  Trying to get property 'nodeValue' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 81
+[25-Apr-2021 00:36:34 Asia/Manila] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function App\Models\Merchant::merchantSiteXpath(), 0 passed in D:\xampp\htdocs\akss\app\models\Ajax.php on line 775 and exactly 1 expected in D:\xampp\htdocs\akss\app\models\Merchant.php:65
+Stack trace:
+#0 D:\xampp\htdocs\akss\app\models\Ajax.php(775): App\Models\Merchant::merchantSiteXpath()
+#1 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-get-cac-data')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#3 [internal function]: App\Controllers\ReportsController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\app\models\Merchant.php on line 65
+[25-Apr-2021 00:37:55 Asia/Manila] PHP Parse error:  syntax error, unexpected '$html' (T_VARIABLE) in D:\xampp\htdocs\akss\app\models\Merchant.php on line 75
+[25-Apr-2021 00:55:52 Asia/Manila] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function App\Models\Merchant::merchantSiteXpath(), 0 passed in D:\xampp\htdocs\akss\app\models\Ajax.php on line 775 and exactly 1 expected in D:\xampp\htdocs\akss\app\models\Merchant.php:65
+Stack trace:
+#0 D:\xampp\htdocs\akss\app\models\Ajax.php(775): App\Models\Merchant::merchantSiteXpath()
+#1 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-get-cac-data')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#3 [internal function]: App\Controllers\ReportsController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\app\models\Merchant.php on line 65
+[25-Apr-2021 00:56:11 Asia/Manila] PHP Notice:  Undefined variable: txt in D:\xampp\htdocs\akss\app\models\Merchant.php on line 115
+[25-Apr-2021 00:59:43 Asia/Manila] PHP Warning:  fwrite() expects parameter 2 to be string, array given in D:\xampp\htdocs\akss\app\models\Merchant.php on line 115
+[25-Apr-2021 01:00:10 Asia/Manila] PHP Warning:  fwrite() expects parameter 2 to be string, array given in D:\xampp\htdocs\akss\app\models\Merchant.php on line 115
+[25-Apr-2021 01:03:33 Asia/Manila] PHP Notice:  Undefined variable: fileId in D:\xampp\htdocs\akss\app\models\Merchant.php on line 77
+[25-Apr-2021 01:06:26 Asia/Manila] PHP Warning:  fwrite() expects parameter 2 to be string, array given in D:\xampp\htdocs\akss\app\models\Merchant.php on line 78
+[25-Apr-2021 01:07:54 Asia/Manila] PHP Warning:  fwrite() expects parameter 2 to be string, array given in D:\xampp\htdocs\akss\app\models\Merchant.php on line 78
+[25-Apr-2021 02:05:10 Asia/Manila] PHP Notice:  Undefined index: url in D:\xampp\htdocs\akss\core\Input.php on line 33
+[25-Apr-2021 02:05:25 Asia/Manila] PHP Notice:  Undefined index: url in D:\xampp\htdocs\akss\core\Input.php on line 33
+[25-Apr-2021 02:05:40 Asia/Manila] PHP Notice:  Undefined index: url in D:\xampp\htdocs\akss\core\Input.php on line 33
+[25-Apr-2021 02:06:45 Asia/Manila] PHP Notice:  Undefined index: url in D:\xampp\htdocs\akss\core\Input.php on line 33
+[24-Apr-2021 20:19:34 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'as' (T_AS), expecting ')' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 769
+[24-Apr-2021 20:19:45 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'as' (T_AS), expecting ')' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 769
+[24-Apr-2021 20:20:22 Europe/Berlin] PHP Parse error:  syntax error, unexpected 'as' (T_AS), expecting ')' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 769
+[25-Apr-2021 02:21:05 Asia/Manila] PHP Notice:  Undefined variable: Merchant in D:\xampp\htdocs\akss\app\models\Ajax.php on line 769
+[25-Apr-2021 02:21:05 Asia/Manila] PHP Fatal error:  Uncaught Error: Class name must be a valid object or a string in D:\xampp\htdocs\akss\app\models\Ajax.php:769
+Stack trace:
+#0 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-get-cac-data')
+#1 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#2 [internal function]: App\Controllers\ReportsController->indexAction()
+#3 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#4 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#5 {main}
+  thrown in D:\xampp\htdocs\akss\app\models\Ajax.php on line 769
+[25-Apr-2021 02:23:26 Asia/Manila] PHP Notice:  Trying to get property 'url' of non-object in D:\xampp\htdocs\akss\app\models\Ajax.php on line 770
+[24-Apr-2021 20:23:40 Europe/Berlin] PHP Parse error:  syntax error, unexpected '[', expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 770
+[24-Apr-2021 20:25:42 Europe/Berlin] PHP Parse error:  syntax error, unexpected ';', expecting ')' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 775
+[25-Apr-2021 02:26:18 Asia/Manila] PHP Notice:  Undefined variable: xpathPattern in D:\xampp\htdocs\akss\app\models\Merchant.php on line 79
+[25-Apr-2021 02:26:18 Asia/Manila] PHP Warning:  DOMXPath::query(): Invalid expression in D:\xampp\htdocs\akss\app\models\Merchant.php on line 79
+[25-Apr-2021 02:26:18 Asia/Manila] PHP Fatal error:  Uncaught Error: Call to a member function item() on bool in D:\xampp\htdocs\akss\app\models\Merchant.php:81
+Stack trace:
+#0 D:\xampp\htdocs\akss\app\models\Ajax.php(775): App\Models\Merchant::merchantSiteXpath('https://www.g2a...')
+#1 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-get-cac-data')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#3 [internal function]: App\Controllers\ReportsController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\app\models\Merchant.php on line 81
+[25-Apr-2021 02:37:24 Asia/Manila] PHP Parse error:  syntax error, unexpected '}', expecting ';' in D:\xampp\htdocs\akss\app\models\Merchant.php on line 83
+[25-Apr-2021 02:38:09 Asia/Manila] PHP Parse error:  syntax error, unexpected '}', expecting ';' in D:\xampp\htdocs\akss\app\models\Merchant.php on line 83
+[25-Apr-2021 02:38:21 Asia/Manila] PHP Parse error:  syntax error, unexpected '}', expecting ';' in D:\xampp\htdocs\akss\app\models\Merchant.php on line 83
+[24-Apr-2021 20:46:22 Europe/Berlin] PHP Parse error:  syntax error, unexpected ''msite'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in D:\xampp\htdocs\akss\app\models\Ajax.php on line 770
+[25-Apr-2021 02:57:09 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1017 Can't find file: '.\aks_bot_teamph\aks_checksum.MYI' (errno: 2 "No such file or directory") in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('SELECT COUNT(id...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(360): Core\DB->query('SELECT COUNT(id...')
+#2 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(20): App\Models\Ajax::ajaxData('displayCheckSum...')
+#3 [internal function]: App\Controllers\DashboardController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[26-Apr-2021 22:38:54 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1017 Can't find file: '.\aks_bot_teamph\aks_checksum.MYI' (errno: 2 "No such file or directory") in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('SELECT COUNT(id...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(360): Core\DB->query('SELECT COUNT(id...')
+#2 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(20): App\Models\Ajax::ajaxData('displayCheckSum...')
+#3 [internal function]: App\Controllers\DashboardController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[26-Apr-2021 22:45:59 Asia/Manila] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 180
+[26-Apr-2021 22:45:59 Asia/Manila] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 181
+[26-Apr-2021 22:46:10 Asia/Manila] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 180
+[26-Apr-2021 22:46:10 Asia/Manila] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 181
+[26-Apr-2021 22:46:13 Asia/Manila] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 180
+[26-Apr-2021 22:46:13 Asia/Manila] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 181
+[26-Apr-2021 23:12:07 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:17:02 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:20:44 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:22:56 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:23:45 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:31:25 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:31:50 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:31:52 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:31:53 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:31:54 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:31:57 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:31:57 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:31:59 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:32:00 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:32:01 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:32:23 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:32:24 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:32:25 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:32:27 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:32:28 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:32:29 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:32:29 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:32:35 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:32:48 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 691
+[26-Apr-2021 23:32:49 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:32:51 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:32:52 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:33:23 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:33:27 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:34:25 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:34:29 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:34:55 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:35:00 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:35:40 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:35:43 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:35:50 Asia/Manila] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 698
+[26-Apr-2021 23:36:46 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:36:48 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:36:49 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:36:50 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:36:52 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:36:52 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:36:53 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:39:30 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:39:41 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:39:55 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:42:00 Asia/Manila] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 698
+[26-Apr-2021 23:42:01 Asia/Manila] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 698
+[26-Apr-2021 23:42:02 Asia/Manila] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 698
+[26-Apr-2021 23:42:15 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:43:31 Asia/Manila] PHP Notice:  Undefined offset: 1 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 701
+[26-Apr-2021 23:56:57 Asia/Manila] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 698
+[27-Apr-2021 00:25:54 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1017 Can't find file: '.\aks_bot_teamph\aks_checksum.MYI' (errno: 2 "No such file or directory") in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('SELECT COUNT(id...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(360): Core\DB->query('SELECT COUNT(id...')
+#2 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(20): App\Models\Ajax::ajaxData('displayCheckSum...')
+#3 [internal function]: App\Controllers\DashboardController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[27-Apr-2021 00:36:56 Asia/Manila] PHP Warning:  simplexml_load_file(): SSL: An existing connection was forcibly closed by the remote host.
+ in D:\xampp\htdocs\akss\app\models\Merchant.php on line 19
+[27-Apr-2021 00:36:56 Asia/Manila] PHP Warning:  simplexml_load_file(): SSL: An existing connection was forcibly closed by the remote host.
+ in D:\xampp\htdocs\akss\app\models\Merchant.php on line 19
+[27-Apr-2021 00:36:56 Asia/Manila] PHP Warning:  simplexml_load_file(): https://product-feeder.g2a.com/v1/provider/ALLKEYSHOP/feed/6034cd0d362ef9ea99b001f3:1: parser error : StartTag: invalid element name in D:\xampp\htdocs\akss\app\models\Merchant.php on line 19
+[27-Apr-2021 00:36:56 Asia/Manila] PHP Warning:  simplexml_load_file(): TA[in stock]]&gt;&lt;/Availability&gt;&lt;Platform&gt;&lt;![CDATA[iTunes]]&gt;&lt;/Platform&gt;&lt;/products&gt;&lt; in D:\xampp\htdocs\akss\app\models\Merchant.php on line 19
+[27-Apr-2021 00:36:56 Asia/Manila] PHP Warning:  simplexml_load_file():                                                                                ^ in D:\xampp\htdocs\akss\app\models\Merchant.php on line 19
+[27-Apr-2021 00:36:56 Asia/Manila] PHP Warning:  simplexml_load_file(): https://product-feeder.g2a.com/v1/provider/ALLKEYSHOP/feed/6034cd0d362ef9ea99b001f3:1: parser error : EndTag: '&lt;/' not found in D:\xampp\htdocs\akss\app\models\Merchant.php on line 19
+[27-Apr-2021 00:36:56 Asia/Manila] PHP Warning:  simplexml_load_file(): TA[in stock]]&gt;&lt;/Availability&gt;&lt;Platform&gt;&lt;![CDATA[iTunes]]&gt;&lt;/Platform&gt;&lt;/products&gt;&lt; in D:\xampp\htdocs\akss\app\models\Merchant.php on line 19
+[27-Apr-2021 00:36:56 Asia/Manila] PHP Warning:  simplexml_load_file():                                                                                ^ in D:\xampp\htdocs\akss\app\models\Merchant.php on line 19
+[27-Apr-2021 00:37:54 Asia/Manila] PHP Notice:  Trying to get property 'nodeValue' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 81
+[27-Apr-2021 01:56:45 Asia/Manila] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 177
+[27-Apr-2021 01:56:45 Asia/Manila] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in D:\xampp\htdocs\akss\app\models\Ajax.php on line 178
+[27-Apr-2021 17:48:32 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1017 Can't find file: '.\aks_bot_teamph\aks_checksum.MYI' (errno: 2 "No such file or directory") in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('SELECT COUNT(id...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(357): Core\DB->query('SELECT COUNT(id...')
+#2 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(20): App\Models\Ajax::ajaxData('displayCheckSum...')
+#3 [internal function]: App\Controllers\DashboardController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[27-Apr-2021 18:50:33 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1017 Can't find file: '.\aks_bot_teamph\aks_checksum.MYI' (errno: 2 "No such file or directory") in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('SELECT COUNT(id...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(439): Core\DB->query('SELECT COUNT(id...')
+#2 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(20): App\Models\Ajax::ajaxData('displayCheckSum...')
+#3 [internal function]: App\Controllers\DashboardController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[28-Apr-2021 17:16:27 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1017 Can't find file: '.\aks_bot_teamph\aks_checksum.MYI' (errno: 2 "No such file or directory") in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('SELECT COUNT(id...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(439): Core\DB->query('SELECT COUNT(id...')
+#2 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(20): App\Models\Ajax::ajaxData('displayCheckSum...')
+#3 [internal function]: App\Controllers\DashboardController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[28-Apr-2021 19:35:02 Asia/Manila] PHP Parse error:  syntax error, unexpected '}' in D:\xampp\htdocs\akss\app\models\Merchant.php on line 90
+[28-Apr-2021 19:43:41 Asia/Manila] PHP Notice:  Undefined variable: getMainPrice in D:\xampp\htdocs\akss\app\models\Merchant.php on line 89
+[28-Apr-2021 19:43:41 Asia/Manila] PHP Notice:  Trying to get property 'length' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 89
+[28-Apr-2021 19:54:01 Asia/Manila] PHP Notice:  Trying to get property 'nodeValue' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 89
+[28-Apr-2021 19:54:52 Asia/Manila] PHP Notice:  Trying to get property 'nodeValue' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 89
+[28-Apr-2021 19:56:00 Asia/Manila] PHP Notice:  Trying to get property 'nodeValue' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 89
+[28-Apr-2021 19:56:23 Asia/Manila] PHP Notice:  Trying to get property 'nodeValue' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 89
+[28-Apr-2021 19:56:40 Asia/Manila] PHP Notice:  Trying to get property 'nodeValue' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 89
+[28-Apr-2021 19:56:46 Asia/Manila] PHP Notice:  Trying to get property 'nodeValue' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 89
+[28-Apr-2021 19:57:39 Asia/Manila] PHP Notice:  Trying to get property 'nodeValue' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 89
+[28-Apr-2021 20:00:39 Asia/Manila] PHP Fatal error:  Uncaught Error: Call to undefined function App\Models\getContent() in D:\xampp\htdocs\akss\app\models\Merchant.php:100
+Stack trace:
+#0 D:\xampp\htdocs\akss\app\models\Ajax.php(545): App\Models\Merchant::merchantSiteXpath('https://www.g2a...')
+#1 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(25): App\Models\Ajax::ajaxData('cr-get-cac-data')
+#2 D:\xampp\htdocs\akss\app\controllers\ReportsController.php(18): App\Controllers\ReportsController->ajaxFunction()
+#3 [internal function]: App\Controllers\ReportsController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\app\models\Merchant.php on line 100
+[28-Apr-2021 20:01:26 Asia/Manila] PHP Notice:  Trying to get property 'nodeValue' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 106
+[28-Apr-2021 20:15:44 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1017 Can't find file: '.\aks_bot_teamph\aks_checksum.MYI' (errno: 2 "No such file or directory") in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('SELECT COUNT(id...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(439): Core\DB->query('SELECT COUNT(id...')
+#2 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(20): App\Models\Ajax::ajaxData('displayCheckSum...')
+#3 [internal function]: App\Controllers\DashboardController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[28-Apr-2021 20:41:46 Asia/Manila] PHP Notice:  Trying to get property 'nodeValue' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 92
+[28-Apr-2021 21:47:20 Asia/Manila] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in D:\xampp\htdocs\akss\app\models\Merchant.php on line 125
+[28-Apr-2021 22:36:57 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1017 Can't find file: '.\aks_bot_teamph\aks_checksum.MYI' (errno: 2 "No such file or directory") in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('SELECT COUNT(id...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(439): Core\DB->query('SELECT COUNT(id...')
+#2 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(20): App\Models\Ajax::ajaxData('displayCheckSum...')
+#3 [internal function]: App\Controllers\DashboardController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[29-Apr-2021 16:29:03 Asia/Manila] PHP Notice:  Trying to get property 'nodeValue' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 105
+[29-Apr-2021 16:30:22 Asia/Manila] PHP Notice:  Trying to get property 'nodeValue' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 105
+[29-Apr-2021 16:31:01 Asia/Manila] PHP Notice:  Trying to get property 'nodeValue' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 105
+[29-Apr-2021 22:31:51 Asia/Manila] PHP Notice:  Trying to get property 'nodeValue' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 105
+[29-Apr-2021 22:53:43 Asia/Manila] PHP Notice:  Trying to get property 'nodeValue' of non-object in D:\xampp\htdocs\akss\app\models\Merchant.php on line 104
+[29-Apr-2021 23:07:36 Asia/Manila] PHP Notice:  Undefined index: getreportFeedback in D:\xampp\htdocs\akss\core\Input.php on line 33
+[29-Apr-2021 17:07:36 Europe/Berlin] PHP Notice:  Undefined index: action in D:\xampp\htdocs\akss\core\Input.php on line 33
+[29-Apr-2021 23:08:36 Asia/Manila] PHP Notice:  Undefined index: getreportFeedback in D:\xampp\htdocs\akss\core\Input.php on line 33
+[29-Apr-2021 17:08:37 Europe/Berlin] PHP Notice:  Undefined index: action in D:\xampp\htdocs\akss\core\Input.php on line 33
+[29-Apr-2021 23:33:52 Asia/Manila] PHP Notice:  Undefined index: getreportFeedback in D:\xampp\htdocs\akss\core\Input.php on line 33
+[29-Apr-2021 17:33:52 Europe/Berlin] PHP Notice:  Undefined index: action in D:\xampp\htdocs\akss\core\Input.php on line 33
+[29-Apr-2021 17:39:51 Europe/Berlin] PHP Notice:  Undefined index: action in D:\xampp\htdocs\akss\core\Input.php on line 33
+[29-Apr-2021 17:44:04 Europe/Berlin] PHP Notice:  Undefined index: action in D:\xampp\htdocs\akss\core\Input.php on line 33
+[29-Apr-2021 17:51:44 Europe/Berlin] PHP Notice:  Undefined index: action in D:\xampp\htdocs\akss\core\Input.php on line 33
+[29-Apr-2021 23:59:17 Asia/Manila] PHP Notice:  Undefined index: getreportFeedback in D:\xampp\htdocs\akss\core\Input.php on line 33
+[29-Apr-2021 17:59:18 Europe/Berlin] PHP Notice:  Undefined index: action in D:\xampp\htdocs\akss\core\Input.php on line 33
+[29-Apr-2021 18:01:48 Europe/Berlin] PHP Notice:  Undefined index: action in D:\xampp\htdocs\akss\core\Input.php on line 33
+[30-Apr-2021 15:41:45 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1017 Can't find file: '.\aks_bot_teamph\aks_checksum.MYI' (errno: 2 "No such file or directory") in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('SELECT COUNT(id...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(439): Core\DB->query('SELECT COUNT(id...')
+#2 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(20): App\Models\Ajax::ajaxData('displayCheckSum...')
+#3 [internal function]: App\Controllers\DashboardController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[30-Apr-2021 10:10:39 Europe/Berlin] PHP Notice:  Undefined index: action in D:\xampp\htdocs\akss\core\Input.php on line 33
+[30-Apr-2021 16:10:39 Asia/Manila] PHP Notice:  Undefined index: getFeedProblem in D:\xampp\htdocs\akss\core\Input.php on line 33
+[30-Apr-2021 16:15:00 Asia/Manila] PHP Notice:  Undefined index: getFeedProblem in D:\xampp\htdocs\akss\core\Input.php on line 33
+[30-Apr-2021 10:15:01 Europe/Berlin] PHP Notice:  Undefined index: action in D:\xampp\htdocs\akss\core\Input.php on line 33
+[30-Apr-2021 10:15:31 Europe/Berlin] PHP Notice:  Undefined index: action in D:\xampp\htdocs\akss\core\Input.php on line 33
+[30-Apr-2021 10:15:31 Europe/Berlin] PHP Notice:  Undefined index: action in D:\xampp\htdocs\akss\core\Input.php on line 33

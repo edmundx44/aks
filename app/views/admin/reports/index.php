@@ -60,24 +60,24 @@
 								<br>
 								<div class="display-div">
 									<table class="display-table">
-									<thead>
-										<tr class="thead-tr-style">
-											<!-- <td class="" style="padding: 15px 0 15px 0; text-align: center;">MERCHANT</td> -->
-											<!-- <td class="" style="">WEBSITE</td> -->
-											<!-- <td class="" style="padding: 15px 0 15px 0; text-align: center;">PROBLEM</td> -->
-											<td class="" style="padding: 15px 0 15px 0;text-align:center;">ON SITE</td>
-											<td class="" style="text-align:center;">ON FEED</td>
-											<td class="" style="text-align:center;">ON MSITE</td>
-											<td class="" style="">FEEDBACK</td>
-											<!-- <td class="" style="">CHECKER</td> -->
-											<td class="" style="">DATE</td>
-											<td class="" style="text-align:center;">ACTION</td>
-										</tr>
-									</thead>
-									<tbody class="display-completed-data">
-										
-									</tbody>
-								</table>
+										<thead>
+											<tr class="thead-tr-style">
+												<!-- <td class="" style="padding: 15px 0 15px 0; text-align: center;">MERCHANT</td> -->
+												<!-- <td class="" style="">WEBSITE</td> -->
+												<!-- <td class="" style="padding: 15px 0 15px 0; text-align: center;">PROBLEM</td> -->
+												<td class="" style="padding: 15px 0 15px 0;text-align:center;">ON SITE</td>
+												<td class="" style="text-align:center;">ON FEED</td>
+												<td class="" style="text-align:center;">ON MSITE</td>
+												<td class="" style="">FEEDBACK</td>
+												<!-- <td class="" style="">CHECKER</td> -->
+												<td class="" style="">DATE</td>
+												<td class="" style="text-align:center;">ACTION</td>
+											</tr>
+										</thead>
+										<tbody class="display-completed-data">
+											
+										</tbody>
+									</table>
 								</div>
 								
 							</div>

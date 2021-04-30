@@ -32,6 +32,8 @@ class ReportsController extends Controller {
 			case 'g2a':
 				// $pattern = '/(?<url>.*i\d+).*$/';
 				$pattern = '/^.+\-(i\d+)\?.+/';
+				// ^.*\-(i\d+)\?.*
+
 			break;
 			default:
 				$pattern = '/(?<url>.*).*$/';
