@@ -4,6 +4,7 @@
 
 <?php $this->start('head'); ?>
 	<link rel="stylesheet" href="<?=PROOT?>vendors/css/utilities-page.css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="<?=PROOT?>vendors/css/store-page.css" media="screen" title="no title" charset="utf-8">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.12.0/underscore-min.js"></script>
 	<!-- data tables -->
 	<link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" >
@@ -16,7 +17,7 @@
 
 	<script type="text/javascript">
 		var $url = url+'utilities/realDouble';
-
+		$globalSite=null;
 		$(function(){
 			$('.dropdown-div').html(OptionSite(inputsSite,'opt-site-rdb','slc-options','custom-bkgd')); //OptionSite na a sa custom.js
 			// if (!removeExistingItem('sessionStorage','OptionSite',uri)){
@@ -34,8 +35,9 @@
 					}else{ if(removedKeyNormal('sessionStorage','OptionSite')) console.log("Item has been removed") } //remove key if invalid site
 				}else{
 					//if null default value is aks
-					_ajaxCall($url,"POST","AjaxRealDblLinks",site).done(function(data){
-						done_ajaxCall_RDB(site,data)
+					console.log(inputsSite[0].site)
+					_ajaxCall($url,"POST","AjaxRealDblLinks",inputsSite[0].site).done(function(data){
+						done_ajaxCall_RDB(inputsSite[0].site,data)
 					});
 				}
 			}
@@ -69,11 +71,17 @@
 					});
 			    }else{ window.location.reload(); }
 			});
+
+			$(document).on('click', '#open-store-modal', function(){
+				if($globalSite != null)
+					displayStoreGamesByNormalizedName($(this).data('nname'),$globalSite.toUpperCase());
+			});
+
 		});
 
 		function done_ajaxCall_RDB(site,data){
 			var items = [];
-
+			$globalSite = site;
 			for (var i in data){    
 				var dispo = dispoDisplay(data[i].dispo); 
 				var btnAction = actionRealDblBtn(data[i].id); 
@@ -127,15 +135,16 @@
 
 	    //href buy_url for REAL DOUBLE LINKS
 	    function gotoGameIdPage(websiteToggle,normalised_name,url,path){
-	    	var newPath = path.replace(/akss\/utilities\/realDouble/,'');
+	    	//var newPath = path.replace(/akss\/utilities\/realDouble/,'');
 	    	var newUrl = html_decode(url);
-	        if(websiteToggle === 'aks'){
-	            var  newGoto = newPath+'index.php?game_id='+normalised_name;
-	            return "<a class='href-c' href='"+ newGoto +"' target='_blank'>"+newUrl+"</a>"
-	        }else{
-	            var newGoto = newPath+'index.php?game_id='+normalised_name+'&website='+websiteToggle;
-	            return "<a class='href-c' href='"+ newGoto +"' target='_blank'>"+newUrl+"</a>"
-	        }
+			return "<div id='open-store-modal' class='href-c' data-site="+$globalSite+" data-nname="+normalised_name+">"+newUrl+"</div>";
+	        // if(websiteToggle === 'aks'){
+	        //     //var  newGoto = newPath+'index.php?game_id='+normalised_name;
+	        //     //return "<a class='href-c' href='"+ newGoto +"' target='_blank'>"+newUrl+"</a>"
+	        // }else{
+	        //     var newGoto = newPath+'index.php?game_id='+normalised_name+'&website='+websiteToggle;
+	        //     return "<a class='href-c' href='"+ newGoto +"' target='_blank'>"+newUrl+"</a>"
+	        // }
 	    }
 	</script>
 <?php $this->end(); ?>

@@ -840,6 +840,70 @@ class Ajax {
 
                     return $returnResult;
 			break;
+
+			case 'getFailedStores':
+                $sql = "SELECT `id`,`merchant_id`,`name`,`website`,`successRunTime` FROM `test-server`.`bot_admin` 
+                        WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 4 HOUR)
+                        AND (status = 1 OR status = 2)
+                        AND bot_type = 'feed'
+                        ORDER by successRunTime DESC ";
+                $failedStores = $db->query($sql)->results();
+                $returnFStores = array();
+                foreach ($failedStores as $key) {
+                    $returnFStores[] = array(
+                        'merchant_id' => $key->merchant_id,
+                        'successRunTime' => $key->successRunTime,
+                        'name' => $key->name,
+                        'website' => $key->website,
+                        'successRunTime' => date('M d Y h:i A',strtotime($key->successRunTime))
+                    );
+                }
+                return $returnFStores;
+            break;
+
+            case 'getSuccessStores':
+                $sql = "SELECT `id`,`merchant_id`,`name`,`website`,`successRunTime` FROM `test-server`.`bot_admin`
+                        WHERE successRunTime > DATE_ADD(NOW(), INTERVAL 4 HOUR)
+                        AND (status = 1 OR status = 2)
+                        AND bot_type = 'feed'
+                        ORDER by successRunTime DESC";
+                $successStores = $db->query($sql)->results();
+                $returnSStores = array();
+                foreach ($successStores as $key) {
+                    $returnSStores[] = array(
+                        'merchant_id' => $key->merchant_id,
+                        'successRunTime' => $key->successRunTime,
+                        'name' => $key->name,
+                        'website' => $key->website,
+                        'successRunTime' => date('M d Y h:i A',strtotime($key->successRunTime))
+                    );
+                }
+                return $returnSStores;
+            break;
+
+            case 'getServerChargeStore':
+                $sql = "SELECT `id`,`merchant_id`,`name`,`website`,`successRunTime` FROM `test-server`.`bot_admin`
+                        WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 4 HOUR)
+                        AND (status = 1 OR status = 2) 
+                        AND failed_on_server_charge = 1
+                        AND bot_type = 'feed'
+                        ORDER by successRunTime DESC";
+
+                $serverChargeStore = $db->query($sql)->results();
+                $returnSCStores = array();
+                foreach ($serverChargeStore as $key) {
+                    $returnSCStores[] = array(
+                        'merchant_id' => $key->merchant_id,
+                        'successRunTime' => $key->successRunTime,
+                        'name' => $key->name,
+                        'website' => $key->website,
+                        'successRunTime' => date('M d Y h:i A',strtotime($key->successRunTime))
+                    );
+                }
+                return $returnSCStores;
+            break;
+
+			//END
 		}
 	}
 
