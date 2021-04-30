@@ -30,7 +30,10 @@ class ReportsController extends Controller {
 	public static function getPattern($merchantName){
 		switch ($merchantName) {
 			case 'g2a':
-				$pattern = '/(?<url>.*i\d+).*$/';
+				// $pattern = '/(?<url>.*i\d+).*$/';
+				$pattern = '/^.+\-(i\d+)\?.+/';
+				// ^.*\-(i\d+)\?.*
+
 			break;
 			default:
 				$pattern = '/(?<url>.*).*$/';

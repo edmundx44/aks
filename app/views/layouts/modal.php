@@ -390,7 +390,7 @@
                     <div class="col-12">
                         <div class="user-input-wrp">
                             <br/>
-                            <input type="text" value='' class="inputText cr-url-txtbox-class" id="cr-url-txtbox" onkeyup="this.setAttribute('value', this.value);"/>
+                            <input type="text" value='' class="inputText cr-url-txtbox-class" id="cr-url-txtbox" onkeyup="this.setAttribute('value', this.value);" />
                             <span class="floating-label">URL</span>
                         </div>
                         <div style="padding: 10px;margin-left: 15px;font-size: 12px;letter-spacing: 1px;" class="url-msg"></div>
@@ -398,8 +398,7 @@
                     <br/> 
                     <br/> 
                     <br/>
-                    <div class="col-12 ">
-
+                    <div class="col-12">
                         <div style="border:solid 2px #777;padding: 15px;">
                             <span style="position: absolute;top: -10px;right: 30px;background-color: #777;color: #fff;font-size: 13px;padding: 0 15px 0 15px;">SELECT SITE</span>
 
@@ -418,10 +417,12 @@
                                 <label class="form-check-label" for="BREX" style="cursor: pointer;font-size: 15px;">BREXIT</label>
                             </div>
                         </div>
+                        <div class="display-found-url" style="padding: 15px;">
+                           
+                        </div>
                     </div>
 
                     <div class="col-12">
-                        <br/>
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle cr-select-problem-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;text-align: left;">Select Problem</button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
@@ -476,25 +477,28 @@
                     <span class="span-what-link d-none"></span>
                     <span class="span-what-site-price d-none"></span>
                     <span class="span-what-site-stock d-none"></span>
-
-
+                    
                 </p>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-
+                <button type="button" class="close" data-dismiss="modal" style="opacity: 1;outline: 0;position: absolute; right: 0; top: 0;background-color: #fff;padding: 10px;border-radius: 50px;width: 20px;height: 20px;"> <span style="position: relative;top: -13px;left: -5.5px;">&times;</span></button>
+                <span class="pull-right">By: <span class="checker-span"></span></span>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-4">
                         <span class="cr-cac-tittle cr-cac-site"></span>
                         <p class="basic-loader-padding"></p>
-                        <div class="basic-loader"></div>
                         <div class="site-data"></div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                         <span class="cr-cac-tittle">MERCHANT FEED</span>
                         <p class="basic-loader-padding"></p>
                         <div class="basic-loader"></div>
                         <div class="mfeed-data"></div>
+                    </div>
+                    <div class="col-4">
+                        <span class="cr-cac-tittle ">MERCHANT SITE</span>
+                        <p class="basic-loader-padding"></p>
+                        <div class="msite-data"></div>
                     </div>
                 </div>
                
@@ -508,11 +512,11 @@
                 <div class="pull-left">
                     <button type="button" class="btn btn-success" id="btn-fixed">Fixed</button>
                     <a class="btn btn-primary cr-msite-btn" target="_blank">Open merchant site</a>
-                    <button class="btn btn-primary" id="cr-cac-recheck-btn"><i class="fa fa-recycle" aria-hidden="true"></i></button>  
+                    <button class="btn btn-primary" id="cr-cac-recheck-btn"><i class="fa fa-recycle cr-cac-recheck-btn-icon" aria-hidden="true"></i></button>  
                     <div class="div-recheck">
                        <ul class="div-recheck-ul">
-                           <li class="div-recheck-ul-li" id='r-swp'><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Still wrong price</span></li>
-                           <li class="div-recheck-ul-li"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Others</span></li>
+                           <li class="div-recheck-ul-li" id='r-swp'><i class="fa fa-caret-right" aria-hidden="true"></i> <span class="span-probs"></span></li>
+                           <li class="div-recheck-ul-li"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Not the lowest price</span></li>
                            <li class="div-recheck-ul-li"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Others</span></li>
                            <li class="div-recheck-ul-li" id="r-ols"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Open Logs</span></li>
                        </ul>
@@ -548,6 +552,8 @@
                     <thead>
                         <tr class="" style="background: linear-gradient(60deg, #004ea3, #0062cc);color: #fff;letter-spacing: 2px">
                             <td class="" style="padding: 5px 15px 5px 15px">FEEDBACK</td>
+                            <td class="" style="padding: 5px 15px 5px 15px">FEED</td>
+                            <td class="" style="padding: 5px 15px 5px 15px">SITE</td>
                             <td class="" style="padding: 5px 15px 5px 15px">CHECKER</td>
                             <td class="" style="padding: 5px 15px 5px 15px">DATE</td>
                         </tr> 
