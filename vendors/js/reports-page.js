@@ -137,8 +137,22 @@ var onOpen = '';
 				
 			});
 // open-info section -----------------------------------------------------------------------------------
+// $('#open-additional-info').modal('show');
 $(document).on('click', '.open-info', function(){
-	alert('test')
+	$('.disp-site').html($(this).data('merchantSite'));
+	$('.disp-id').html($(this).data('merchantSqlID'));
+	$('.disp-merchant').html($(this).data('gmerchantID'));
+	$('.disp-nmid').html($(this).data('gmerchantNMID'));
+	$('.disp-link').html($(this).data('gmerchantLink'));
+	$('.disp-prob').html($(this).data('gproblem'));
+	$('.disp-ons').html($(this).data('gsiteProbs'));
+	$('.disp-onmf').html($(this).data('gfeedProbs'));
+	$('.disp-onms').html($(this).data('gmsiteProbs'));
+	$('.disp-cfeedback').html($(this).data('greportFeedback'));
+	$('.disp-checker').html($(this).data('gchecker'));
+	$('.disp-datecompleted').html($(this).data('gdate'));
+ 
+	$('#open-additional-info').modal('show');
 });
 
 // button re-open section ------------------------------------------------------------------------------
@@ -577,13 +591,15 @@ $(document).on('click', '.open-info', function(){
 						// appendData += '<td class="" style="padding: 10px 15px 10px 0;">'+data[i].checker+'</td>'
 						appendData += '<td class="" style="padding: 10px 15px 10px 0;">'+data[i].date+'</td>'
 						appendData += '<td class="" style="padding: 10px;text-align:center;">'
-						appendData += '<i class="fa fa-info-circle open-info" aria-hidden="true" title="Open additional info." style="font-size:20px;position:relative; top:4px;cursor: pointer;"></i>'
+						appendData += '<i class="fa fa-info-circle open-info"  data-merchantSite="'+data[i].merchantSite+'" data-merchantSqlID="'+data[i].merchantSqlID+'" data-gmerchantID="'+data[i].merchantID+'" data-gmerchantNMID="'+data[i].merchantNMID+'" data-gmerchantLink="'+data[i].merchantLink+'" data-gproblem="'+data[i].problem+'" data-gsiteProbs="'+data[i].siteProbs+'" data-gfeedProbs="'+data[i].feedProbs+'" data-gmsiteProbs="'+data[i].msiteProbs+'" data-greportFeedback="'+data[i].reportFeedback+'" data-gchecker="'+data[i].checker+'" data-gdate="'+data[i].date+'"aria-hidden="true" title="Open additional info." style="font-size:20px;position:relative; top:4px;cursor: pointer;"></i>'
 						appendData += '<button data-cid="'+data[i].id+'" data-crating="'+data[i].rating+'" data-cproblem="'+data[i].problem+'" data-cmlink="'+data[i].merchantLink+'" data-cmnm="'+data[i].merchantNMID+'" data-cmid="'+data[i].merchantID+'" data-cmysqlid="'+data[i].merchantSqlID+'" data-csite="'+data[i].merchantSite+'" class="btn btn-primary cr-reopen" style="position: relative;left: 10px;" title="Reopen report">Reopen &nbsp; <i class="fa fa-pencil-square-o" aria-hidden="true" style="position:relative;top:2px;"></i></button>'
 						appendData += '<a href='+data[i].merchantLink+' target="_blank"><i class="fa fa-external-link" aria-hidden="true" title="Open Link" style="font-size:20px;position:relative; top:4px; left: 20px;"></i></a>'
 						appendData += '</td>'
 						appendData += '</tr>'
 					$(".display-completed-data").append(appendData);
 				}
+
+
 			});
 		}
 
