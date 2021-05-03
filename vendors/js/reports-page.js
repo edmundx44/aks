@@ -245,7 +245,7 @@ $(document).on('click', '.open-info', function(){
 				}
 				var captionFix = (merchantsiteData == 'Price to zero')? 'Price to zero' : 'Fixed';
 				//var getVal = (merchantsiteData == 'Price to zero')? 'Price to zero' : $('.merchant-site-'+merchantsiteData).html();
-				var getVal = (merchantsiteData == 'Price to zero')? 'Price to zero' : feedVal;
+				var feedVal = (merchantsiteData == 'Price to zero')? 'Price to zero' : feedVal;
 
 				var	appendtoheader = 'ARE YOU SURE THIS IS FIXED?';
 				var	appendtobody = 	'<div class="user-input-wrp">';
