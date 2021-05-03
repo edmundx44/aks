@@ -77,20 +77,21 @@ var onOpen = '';
 				$('.span-what-link').html($(this).data('url'))
 				$('.checker-span').html($(this).data('checker'))
 
+				$('#crcac .cr-cac-tittle').addClass(returnSiteClass($(this).data('site')));
+
 				var dataRequest =  {
 					action: 'cr-get-cac-data',
 					site: $(this).data('site'),
-					url: $(this).data('url')+'/',
+					url: $(this).data('url'),
 					dataID: $(this).data('id')
 				}
 
 				AjaxCall(url+'reports', dataRequest).done(function(data) {
 					console.log(data)
-
 					var getStock = (data.site[0].dispo == 1)? 'In Stock':'Out of Stock';
 					var appendSite = '<p class="ms-data-price"><span><b>PRICE : </b></span><span>'+data.site[0].price+'</span></p>';
 						appendSite += '<p class="ms-data-stock"><span><b>STOCK : </b></span><span>'+getStock+'</span></p>';
-						appendSite += '<p class="ms-data-url"><span><b>URL : </b></span><span>'+data.site[0].buy_url+'</span></p>';
+						appendSite += '<p class="ms-data-url"><span><b>URL : </b></span><span><a href='+data.site[0].buy_url+' target="_blank">'+data.site[0].buy_url+'</a></span></p>';
 						appendSite += '<p class="ms-data-stock"><span><b>RATING : </b></span><span>'+data.site[0].rating+'</span></p>';
 						$(".span-what-site-price").html(data.site[0].price)
 						$(".span-what-site-stock").html(data.site[0].dispo)
@@ -98,7 +99,7 @@ var onOpen = '';
 					if(data.mfeed.length != 0){
 						var appendMfeed = '<p class="ms-data-price"><span><b>PRICE : </b></span><span class="cac-get-feedprice">'+data.mfeed[0].price+'</span></p>';
 							appendMfeed += '<p class="ms-data-stock"><span><b>STOCK : </b></span><span class="cac-get-feedstock">'+data.mfeed[0].stock+'</span></p>';
-							appendMfeed += '<p class="ms-data-url"><span><b>URL : </b></span><span>'+data.mfeed[0].url+'</span></p>';
+							appendMfeed += '<p class="ms-data-url"><span><b>URL : </b></span><span><a href='+data.mfeed[0].url+' target="_blank">'+data.mfeed[0].url+'</a></span></p>';
 
 						$(".span-what-mfeed-price").html(data.mfeed[0].price)
 						$(".span-what-mfeed-stock").html(data.mfeed[0].stock)
@@ -107,6 +108,7 @@ var onOpen = '';
 					}
 
 					var getSiteStock = (data.msite.siteStock != '')? data.msite.siteStock : 'In stock';
+					
 					var appendSiteData = '<p class="ms-data-price" style="margin-top: 8px;"><span><b>PRICE : </b></span><span class="merchant-site-price">'+data.msite.sitePrice+'</span></p>';
 						appendSiteData += '<p class="ms-data-stock"><span><b>STOCK : </b></span><span class="merchant-site-stock">'+ getSiteStock +'</span></p>';
 					
@@ -228,9 +230,11 @@ $(document).on('click', '.open-info', function(){
 				switch($('.span-what-problem').html()){
 					case 'Wrong price':
 						var merchantsiteData = 'price';
+						var feedVal = $('.cac-get-feedprice').html();
 					break;
 					case 'Wrong stock':
 						var merchantsiteData = 'stock';
+						var feedVal = $('.cac-get-feedstock').html();
 					break;
 					case 'Price to zero':
 						var merchantsiteData = 'Price to zero';
@@ -240,11 +244,13 @@ $(document).on('click', '.open-info', function(){
 					break;
 				}
 				var captionFix = (merchantsiteData == 'Price to zero')? 'Price to zero' : 'Fixed';
-				
+				//var getVal = (merchantsiteData == 'Price to zero')? 'Price to zero' : $('.merchant-site-'+merchantsiteData).html();
+				var getVal = (merchantsiteData == 'Price to zero')? 'Price to zero' : feedVal;
+
 				var	appendtoheader = 'ARE YOU SURE THIS IS FIXED?';
 				var	appendtobody = 	'<div class="user-input-wrp">';
 					appendtobody +=	'<br/>';
-					appendtobody += '<input type="text" value="'+ (merchantsiteData == 'Price to zero')? 'Price to zero' : $('.merchant-site-'+merchantsiteData).html()  +'" class="inputText merchantSiteData-txt" placeholder="Merchant site '+merchantsiteData+'"/>';
+					appendtobody += '<input type="text" value="'+ feedVal +'" class="inputText merchantSiteData-txt" placeholder="Merchant site '+merchantsiteData+'"/>';
 					appendtobody += '</div>';
 					appendtobody += '<br>';
 					appendtobody += '<div class="dropdown">';

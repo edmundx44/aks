@@ -79,6 +79,16 @@ class DB {
       }
     }
 
+    if(isset($params['column'])){
+      if(is_array($params['column'])){
+        $sqlField = ' ' . trim( implode( ',', $params['column'] ) ) . ' ';
+      }else{
+        $sqlField = ' ' . $params['column'] . ' ';
+      }
+    }else{
+      $sqlField = ' * ';
+    }
+
     // bind
     if(array_key_exists('bind', $params)) {
       $bind = $params['bind'];
@@ -99,7 +109,7 @@ class DB {
       $offset = ' OFFSET ' . $params['offset'];
     }
 
-    $sql = "SELECT * FROM {$table}{$conditionString}{$order}{$limit}{$offset}";
+    $sql = "SELECT {$sqlField} FROM {$table}{$conditionString}{$order}{$limit}{$offset}";
     if($this->query($sql, $bind,$class)) {
       if(!count($this->_result)) return false;
       return true;

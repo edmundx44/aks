@@ -43,7 +43,7 @@ $(document).ready(function(){
 
 	$('.modal-dialog').draggable({
 		handle: ".modal-content",
-		cancel: 'span, input'
+		cancel: 'span, input , .nfof-feedback'
 	});
 
 	// var pathname = window.location.pathname;     
@@ -499,6 +499,30 @@ function confirmationModal($appendtoheader, $appendtobody, $appendtofooter){
 	$('.confirmation-tittle').empty().html($appendtoheader);
 	$('.modal-content-body').empty().append($appendtobody)
 	$('.confirmation-modal-footer').empty().append($appendtofooter)
+}
+
+function returnSiteClass($site){
+	switch($site){
+		case 'AKS':
+		case 'aks':
+			var $class = 'aks_bg_color';
+			break;
+		case 'CDD':
+		case 'cdd':
+			var $class = 'cdd_bg_color';
+			break;
+
+		case 'BREX':
+		case 'brex':
+		case 'brexitgbp':
+		case 'BREXITGBP':
+			var $class = 'brexit_bg_color';
+			break;
+
+		default: var $class = 'aks_bg_color';
+		break;
+	}
+	return $class;
 }
 
 function displayStoreGamesByNormalizedName($normalised_name,$site) {

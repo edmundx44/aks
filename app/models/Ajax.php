@@ -528,14 +528,18 @@ class Ajax {
 			case 'cr-get-cac-data':
 				// preg_match('/(?<url>.*i\d+).*$/', $getInput->get('url'), $matches);
 				// $getUrl = $matches[1];
-
-				$getSiteData =  $db->find('`'.self::getSite($getInput->get('site')).'`.`pt_products`', ['conditions' => ['id = ?'], 'bind' => [$getInput->get('dataID')]]);
+				$getSiteData =  $db->find('`'.self::getSite($getInput->get('site')).'`.`pt_products`', [
+					'column' => ['`buy_url`', '`price`' ,'`dispo`', '`rating`'],
+					'conditions' => ['id = ?'], 
+					'bind' => [$getInput->get('dataID')]
+				]);
 				$resulNi = array(
 					'site' 	=> $getSiteData,
 					'mfeed'	=> Merchant::merchantData($getInput->get('site'), $getInput->get('url')),
 					'msite' => Merchant::merchantSiteXpath($getInput->get('url'))
 				);
 				return $resulNi;
+				//return Merchant::merchantSiteXpath($getInput->get('url'));
 				
 			break;
 			case 'cr-rtm':

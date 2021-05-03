@@ -31,6 +31,29 @@ class Merchant {
 						}
 						return $array;
 					break;
+
+					case 'hrkgame':
+						 $array = array();
+						 preg_match('/^.+\/product\/(.+)\//',$url,$hrkContainer);
+						if(isset($hrkContainer[1])){
+							$feed = 'https://www.hrkgame.com/hotdeals/xml-feed/?key=F546F-DFRWE-DS3FV&cur=eur&ver='.time();
+							$xml = simplexml_load_file($feed) or die("Cant open the file");
+							$ns = $xml->getNamespaces(true);
+							foreach($xml->channel->children() as $prod){
+								$link = preg_replace('/^.+\/product(.+)?\//','${1}',$prod->link);
+								$price = str_replace('€','',$prod->children($ns['g'])->price);
+								$stock = $prod->children($ns['g'])->availability;
+								if($hrkContainer[1] == $link){
+									$array[] = array(
+										'price' => "$price", 
+										'stock' => "$stock",
+										'url' 	=> "$prod->link"
+									);
+								}
+							}
+						}else{ return []; }
+						return $array;
+					break;
 				}
 			break;
 			case 'CDD':
@@ -69,6 +92,10 @@ class Merchant {
 			case 'g2a':
 				$getG2aPlus = '/plus/i';
 				preg_match($getG2aPlus, $url, $outputG2aPlus);
+
+				$userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36";
+				$httpHeader = [ 'Accept-Encoding: gzip, deflate, br', 'Accept-Language: fr,en-US;q=0.9,en;q=0.8,fr-FR;q=0.7' ];
+
 				if(isset($outputG2aPlus[0])){
 
 				}else{
@@ -77,19 +104,31 @@ class Merchant {
 					$xpathStock = '//*[@class="product-info"]/div/div[4]/div/span';	
 				}
 			break;
+			case 'hrkgame':
+				$userAgent = "";
+				$httpHeader = [ 'Accept-Language: fr,en-US;q=0.9,en;q=0.8,fr-FR;q=0.7' ];
+
+				$xpathLowerPrice = '//div[@class="huge bw_button_wrapper"]//div[@class="price_list"]//div[@class="price"]';
+				$xpathStock = "//div[contains(@class, 'product_container')]/div/div/div[3]/div[5]/div";
+
+			break;
+
+			default: return $scrapedData = ['sitePrice' => 'Something went wrong !!', 'siteStock' => "Something went wrong !!"];
+			break;
+
 		}
 
 		$scrapedData = array(); 
 		$getUrl = $url;
 		$getUrlSub = $url;
-
-		while (true) {
-		    $html = self::getUrlContent($getUrl);
+		$x = 0;
+		while ($x < 10) {
+		    $html = self::getUrlContent($getUrl ,$userAgent ,$httpHeader);
 		    $getUrl = $html['redirect_url'];
 		    if($html['http_code'] == 200){
 		        $getUrl = $html['url'];
-
-		        $getCont = self::getUrlContent($getUrl);
+		        //$getCont = self::getUrlContent($getUrl ,$userAgent ,$httpHeader);
+		        $getCont = $html;
 		        $doc = new DOMDocument;
 		        $doc->preserveWhiteSpace = false;
 		        @$doc->loadHTML($getCont['content']);
@@ -98,10 +137,14 @@ class Merchant {
 		        $getPriceQuery = $xpath->query($xpathLowerPrice);
 				$getStockQuery = $xpath->query($xpathStock);
 
-				if($getPriceQuery->length == 1) $getPrice = $getPriceQuery->item(0)->nodeValue;
-				else {
-					$getMainPriceQuery = $xpath->query($xpathMainPrice);
-					$getPrice = ($getMainPriceQuery->length == 1)? $getMainPriceQuery->item(0)->nodeValue : '';
+				if($getPriceQuery->length == 1) 
+					$getPrice = $getPriceQuery->item(0)->nodeValue;
+				if($getMerchant == 'g2a'){
+					$getMainPrice = $xpath->query($xpathMainPrice);
+					if($getMainPrice->length == 1){
+						$getMainPrice = $getMainPrice->item(0)->nodeValue;
+						$getPrice = self::xPathCompare($getPrice , $getMainPrice);
+					}
 				}
 
 				$scrapedData = array(
@@ -114,20 +157,24 @@ class Merchant {
 				return $scrapedData;
 		        break;
 		    }
+			$x++;
 		}
+		if($x == 10 )
+			return $scrapedData = ['sitePrice' => 'Something went wrong !!', 'siteStock' => "Something went wrong !!"];
 	}
-	public static function getUrlContent($url) {
+	public static function getUrlContent($url, $userAgent, $httpHeader) {
 		$options = array(
+			CURLOPT_PROXY          => 'http://bot:hidemyass@aksdeveu1.allkeyshop.com:8181',
 			CURLOPT_RETURNTRANSFER => true,     // return web page
 			CURLOPT_HEADER         => false,    // don't return headers
 			CURLOPT_FOLLOWLOCATION => true,     // follow redirects
 			CURLOPT_ENCODING       => "",       // handle all encodings
-			CURLOPT_USERAGENT      => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36",
+			CURLOPT_USERAGENT      => $userAgent,
 			CURLOPT_AUTOREFERER    => true,     // set referer on redirect
 			CURLOPT_CONNECTTIMEOUT => 60,      // timeout on connect
 			CURLOPT_TIMEOUT        => 60,      // timeout on response
-			CURLOPT_MAXREDIRS      => 0,       // stop after 10 redirects
-			CURLOPT_HTTPHEADER     => [ 'Accept-Encoding: gzip, deflate, br', 'Accept-Language: fr,en-US;q=0.9,en;q=0.8,fr-FR;q=0.7' ],
+			CURLOPT_MAXREDIRS      => 9,       // stop after 10 redirects
+			CURLOPT_HTTPHEADER     => $httpHeader,
 		);
 
 		$ch      = curl_init( $url );
@@ -143,4 +190,15 @@ class Merchant {
 		$header['content'] = $content;
 		return $header;
 	}
+
+	public static function xPathCompare($price , $price1){
+		$price = str_replace(',', '.' ,$price);
+		$price1 = str_replace(',', '.' ,$price1);
+
+		if(isset($price) && isset($price1))
+			return $price = ((float)$price < (float)$price1) ? (float)$price : (float)$price1;
+		else 
+			return 'Something went wrong !!';
+	}
+
 }
