@@ -33,7 +33,6 @@ class ReportsController extends Controller {
 				// $pattern = '/(?<url>.*i\d+).*$/';
 				$pattern = '/^.+\-(i\d+)\?.+/';
 				// ^.*\-(i\d+)\?.*
-
 			break;
 			default:
 				$pattern = '/(?<url>.*).*$/';

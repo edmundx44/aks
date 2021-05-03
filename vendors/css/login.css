@@ -439,9 +439,14 @@
 .div-form {
 	margin-top: 50px;
 }
+.class-add-on-icon {
+	width: 50px;
+}
 .class-add-on-icon i {
 	width: 30px;
 	font-size: 20px;
+	top: 20px;
+	position: relative;
 }
 .class-add-on-icon,
 #username,

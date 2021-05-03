@@ -4,6 +4,7 @@ use Core\Controller;
 use Core\Router;
 use App\Models\Users;
 use App\Models\Login;
+use Core\DB;
 
 class UserController extends Controller {
 
@@ -14,12 +15,17 @@ class UserController extends Controller {
   }
 
   public function loginAction() {
-    echo '<script type="text/javascript">var bodyMode = localStorage.getItem("body-mode") localStorage.clear() localStorage.setItem("body-mode", bodyMode) localStorage.setItem("sidebar-active", "sidebar-no"); </script>'; //clear localstorage
+    if(!preg_match('/user\/login/m', "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]") == 1 or preg_match('/user\/register/m', "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")){
+      echo '<script type="text/javascript">var bodyMode = localStorage.getItem("body-mode") localStorage.clear() localStorage.setItem("body-mode", bodyMode) localStorage.setItem("sidebar-active", "sidebar-no"); </script>'; //clear localstorage
+    }
+    
 
     $loginModel = new Login();
     if($this->request->isPost()) {
       // form validation
       // $this->request->csrfCheck(); csrf underconstruction
+
+      //set 1st login get data from allkeyshop 
       $loginModel->assign($this->request->get());
       $loginModel->validator();
       if($loginModel->validationPassed()){
@@ -33,6 +39,8 @@ class UserController extends Controller {
         }
       }
     }
+   
+    // displayNormalErrors
     $this->view->login = $loginModel;
     $this->view->displayErrors = $loginModel->getErrorMessages();
     $this->view->render('user/login');
@@ -55,6 +63,7 @@ class UserController extends Controller {
         Router::redirect('user/login');
       }
     }
+
     $this->view->newUser = $newUser;
     $this->view->displayErrors = $newUser->getErrorMessages();
     $this->view->render('user/register');
