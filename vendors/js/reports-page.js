@@ -240,11 +240,12 @@ $(document).on('click', '.open-info', function(){
 					break;
 				}
 				var captionFix = (merchantsiteData == 'Price to zero')? 'Price to zero' : 'Fixed';
+				var getval = (merchantsiteData == 'Price to zero')? 'Price to zero' : $('.merchant-site-'+merchantsiteData).html();
 				
 				var	appendtoheader = 'ARE YOU SURE THIS IS FIXED?';
 				var	appendtobody = 	'<div class="user-input-wrp">';
 					appendtobody +=	'<br/>';
-					appendtobody += '<input type="text" value="'+ (merchantsiteData == 'Price to zero')? 'Price to zero' : $('.merchant-site-'+merchantsiteData).html()  +'" class="inputText merchantSiteData-txt" placeholder="Merchant site '+merchantsiteData+'"/>';
+					appendtobody += '<input type="text" value="'+ getval +'" class="inputText merchantSiteData-txt" placeholder="Merchant site '+merchantsiteData+'"/>';
 					appendtobody += '</div>';
 					appendtobody += '<br>';
 					appendtobody += '<div class="dropdown">';

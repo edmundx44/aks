@@ -83,4 +83,9 @@ class FH {
     return $html;
   }
 
+  // public static function displayNormalErrors($errors) {
+  //   $hasErrors = (!empty($errors))? ' has-errors' : '';
+  //   $html = '<span>'.$hasErrors.'</span>';
+  //   return $html;
+  // }
 }

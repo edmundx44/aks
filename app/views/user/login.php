@@ -1,3 +1,4 @@
+<?php $this->setSiteTitle('Login'); ?>
 <?php $this->start('head'); ?>
 
 <link rel="stylesheet" href="<?=PROOT?>vendors/css/login.css" media="screen" title="no title" charset="utf-8">
@@ -16,9 +17,11 @@
 
     <div class="login-content-wrapper">
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
+
+            
+            <div class="col-md-4 offset-md-4 ">
                 <div class="aks-logo">
-                    <img src="<?=PROOT?>vendors/image/aks-logo.png" class="img-responsive center-block"/>
+                    <img src="<?=PROOT?>vendors/image/aks-logo.png" class="img-responsive d-block mx-auto"/>
                     <div class="img-out">
                         <div class="img-out-before" ></div>
                     </div>
@@ -33,12 +36,12 @@
                     <div class="div-form">
                         <form class="form" action="<?=PROOT?>user/login" method="post">
                             <div class="input-group">
-                                <span class="input-group-addon class-add-on-icon"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
+                                <span class="input-group-addon class-add-on-icon text-center"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
                                 <input type="text" id="username" name="username" class="form-control class-input" placeholder="Email">
                             </div>
                             <br>
                             <div class="input-group">
-                                <span class="input-group-addon class-add-on-icon"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+                                <span class="input-group-addon class-add-on-icon text-center"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
                                 <input type="password" id="password" name="password" class="form-control class-input" placeholder="Password">
                             </div>
                             <br>
