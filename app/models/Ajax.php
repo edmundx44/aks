@@ -638,9 +638,13 @@ class Ajax {
 					'problem' => $getInput->get('getcproblem'),
 					'status' => 1,
 					'rating' => $getInput->get('getcrating'),
+					'checker' => ucfirst(Users::currentUser()->fname)
 				];
 				$updateOnComplete = $db->delete('`aks`.`tblReportsComplete`', $getInput->get('getcid'));
 				$insertOnReport = $db->insert('`aks`.`tblReports`', $fields);
+			break;
+			case 'cr-remove-report':
+				$updateOnProblem = $db->delete('`aks`.`tblReports`', $getInput->get('idToRemove'));
 			break;
 		}
 	}

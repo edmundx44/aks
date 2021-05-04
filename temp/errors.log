@@ -513,3 +513,45 @@ Stack trace:
 #5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
 #6 {main}
   thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[03-May-2021 20:16:03 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1017 Can't find file: '.\aks_bot_teamph\aks_checksum.MYI' (errno: 2 "No such file or directory") in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('SELECT COUNT(id...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(439): Core\DB->query('SELECT COUNT(id...')
+#2 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(20): App\Models\Ajax::ajaxData('displayCheckSum...')
+#3 [internal function]: App\Controllers\DashboardController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[03-May-2021 20:18:00 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1017 Can't find file: '.\aks_bot_teamph\aks_checksum.MYI' (errno: 2 "No such file or directory") in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('SELECT COUNT(id...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(439): Core\DB->query('SELECT COUNT(id...')
+#2 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(20): App\Models\Ajax::ajaxData('displayCheckSum...')
+#3 [internal function]: App\Controllers\DashboardController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[03-May-2021 23:52:17 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1017 Can't find file: '.\aks_bot_teamph\aks_checksum.MYI' (errno: 2 "No such file or directory") in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('SELECT COUNT(id...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(439): Core\DB->query('SELECT COUNT(id...')
+#2 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(20): App\Models\Ajax::ajaxData('displayCheckSum...')
+#3 [internal function]: App\Controllers\DashboardController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[04-May-2021 19:14:11 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1017 Can't find file: '.\aks_bot_teamph\aks_checksum.MYI' (errno: 2 "No such file or directory") in D:\xampp\htdocs\akss\core\DB.php:35
+Stack trace:
+#0 D:\xampp\htdocs\akss\core\DB.php(35): PDO->prepare('SELECT COUNT(id...')
+#1 D:\xampp\htdocs\akss\app\models\Ajax.php(439): Core\DB->query('SELECT COUNT(id...')
+#2 D:\xampp\htdocs\akss\app\controllers\DashboardController.php(20): App\Models\Ajax::ajaxData('displayCheckSum...')
+#3 [internal function]: App\Controllers\DashboardController->indexAction()
+#4 D:\xampp\htdocs\akss\core\Router.php(35): call_user_func_array(Array, Array)
+#5 D:\xampp\htdocs\akss\index.php(34): Core\Router::route(Array)
+#6 {main}
+  thrown in D:\xampp\htdocs\akss\core\DB.php on line 35
+[04-May-2021 19:43:53 Asia/Manila] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 462
+[04-May-2021 19:43:54 Asia/Manila] PHP Notice:  Undefined offset: 2 in D:\xampp\htdocs\akss\app\models\Ajax.php on line 462

@@ -31,6 +31,29 @@ class Merchant {
 						}
 						return $array;
 					break;
+
+					case 'hrkgame':
+						 $array = array();
+						 preg_match('/^.+\/product\/(.+)\//',$url,$hrkContainer);
+						if(isset($hrkContainer[1])){
+							$feed = 'https://www.hrkgame.com/hotdeals/xml-feed/?key=F546F-DFRWE-DS3FV&cur=eur&ver='.time();
+							$xml = simplexml_load_file($feed) or die("Cant open the file");
+							$ns = $xml->getNamespaces(true);
+							foreach($xml->channel->children() as $prod){
+								$link = preg_replace('/^.+\/product(.+)?\//','${1}',$prod->link);
+								$price = str_replace('€','',$prod->children($ns['g'])->price);
+								$stock = $prod->children($ns['g'])->availability;
+								if($hrkContainer[1] == $link){
+									$array[] = array(
+										'price' => "$price", 
+										'stock' => "$stock",
+										'url' 	=> "$prod->link"
+									);
+								}
+							}
+						}else{ return []; }
+						return $array;
+					break;
 				}
 			break;
 			case 'CDD':
@@ -69,65 +92,85 @@ class Merchant {
 			case 'g2a':
 				$getG2aPlus = '/plus/i';
 				preg_match($getG2aPlus, $url, $outputG2aPlus);
+
+				$userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36";
+				$httpHeader = [ 'Accept-Encoding: gzip, deflate, br', 'Accept-Language: fr,en-US;q=0.9,en;q=0.8,fr-FR;q=0.7' ];
+
 				if(isset($outputG2aPlus[0])){
 
 				}else{
-					$xpathLowerPrice = '//*[@class="offers-list"]/div/div/div[1]/div/div[2]/div/div/div/span[1]';		
-					$xpathMainPrice = '//*[@class="product-info"]/div/div[4]/div/div/div/div[2]/div[2]/div[1]/span[1]';		
-					$xpathStock = '//*[@class="product-info"]/div/div[4]/div/span';	
+					$xpathMainPrice = '//*[@class="product-info"]/div/div[4]/div/div/div/div[2]/div[2]/div[1]/span[1]';	
+					$xpathLowerPrice = '//*[@class="offers-list"]/div/div/div[1]/div/div[2]/div/div/div/span[1]';
+					$xpathStock = '//*[@id="app"]/div/div[2]/div/article/header/div/div[4]/div/div/div/div[2]/div[3]/button/span';	
 				}
 			break;
+			case 'hrkgame':
+				$userAgent = "";
+				$httpHeader = [ 'Accept-Language: fr,en-US;q=0.9,en;q=0.8,fr-FR;q=0.7' ];
+
+				$xpathMainPrice = '';
+				$xpathLowerPrice = '//div[@class="huge bw_button_wrapper"]//div[@class="price_list"]//div[@class="price"]';
+				$xpathStock = '//*[@id="store_form"]/div/div[2]/button';
+			break;
+
+			default: return $scrapedData = ['sitePrice' => 'Something went wrong !!', 'siteStock' => "Something went wrong !!"];
+			break;
+
 		}
 
 		$scrapedData = array(); 
 		$getUrl = $url;
 		$getUrlSub = $url;
+		$x = 0;
+		while ($x < 10) {
+			$html = self::getUrlContent($getUrl ,$userAgent ,$httpHeader);
+			$getUrl = $html['redirect_url'];
+			if($html['http_code'] == 200){
+				$getUrl = $html['url'];
+				//$getCont = self::getUrlContent($getUrl ,$userAgent ,$httpHeader);
+				$getCont = $html;
+				$doc = new DOMDocument;
+				$doc->preserveWhiteSpace = false;
+				@$doc->loadHTML($getCont['content']);
+				$xpath = new DOMXpath($doc);
 
-		while (true) {
-		    $html = self::getUrlContent($getUrl);
-		    $getUrl = $html['redirect_url'];
-		    if($html['http_code'] == 200){
-		        $getUrl = $html['url'];
-
-		        $getCont = self::getUrlContent($getUrl);
-		        $doc = new DOMDocument;
-		        $doc->preserveWhiteSpace = false;
-		        @$doc->loadHTML($getCont['content']);
-		        $xpath = new DOMXpath($doc);
-
-		        $getPriceQuery = $xpath->query($xpathLowerPrice);
+				$getMainPrice = (!empty($xpathMainPrice))? $xpath->query($xpathMainPrice) : '';
+				$get1stPriceQuery = $xpath->query($xpathLowerPrice);
 				$getStockQuery = $xpath->query($xpathStock);
-
-				if($getPriceQuery->length == 1) $getPrice = $getPriceQuery->item(0)->nodeValue;
-				else {
-					$getMainPriceQuery = $xpath->query($xpathMainPrice);
-					$getPrice = ($getMainPriceQuery->length == 1)? $getMainPriceQuery->item(0)->nodeValue : '';
-				}
+			
+				$node1stPrice = ($get1stPriceQuery->length == 1)? $get1stPriceQuery->item(0)->nodeValue : 0 ;
+				$nodeMainPrice = (!empty($getMainPrice) and $getMainPrice->length == 1)? $getMainPrice->item(0)->nodeValue : 0 ;
+	
+				$getPrice = ($node1stPrice <= $nodeMainPrice)? $node1stPrice : $nodeMainPrice;
+				$getStock = ($getStockQuery->length == 1)? 'In stock' : "Out of stock";
 
 				$scrapedData = array(
 					'sitePrice' => $getPrice,
-					'siteStock' => ($getStockQuery->length == 1)? $getStockQuery->item(0)->nodeValue : ''
+					'siteStock' => $getStock 
 				);
 
 				$getUrl = $getUrlSub;
-
 				return $scrapedData;
-		        break;
-		    }
+				break;
+			}
+			$x++;
 		}
+		if($x == 10 ) return $scrapedData = ['sitePrice' => 'Something went wrong !!', 'siteStock' => "Something went wrong !!"];
 	}
-	public static function getUrlContent($url) {
+
+	public static function getUrlContent($url, $userAgent, $httpHeader) {
 		$options = array(
+			CURLOPT_PROXY          => 'http://bot:hidemyass@aksdeveu1.allkeyshop.com:8181',
 			CURLOPT_RETURNTRANSFER => true,     // return web page
 			CURLOPT_HEADER         => false,    // don't return headers
 			CURLOPT_FOLLOWLOCATION => true,     // follow redirects
 			CURLOPT_ENCODING       => "",       // handle all encodings
-			CURLOPT_USERAGENT      => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36",
+			CURLOPT_USERAGENT      => $userAgent,
 			CURLOPT_AUTOREFERER    => true,     // set referer on redirect
 			CURLOPT_CONNECTTIMEOUT => 60,      // timeout on connect
 			CURLOPT_TIMEOUT        => 60,      // timeout on response
-			CURLOPT_MAXREDIRS      => 0,       // stop after 10 redirects
-			CURLOPT_HTTPHEADER     => [ 'Accept-Encoding: gzip, deflate, br', 'Accept-Language: fr,en-US;q=0.9,en;q=0.8,fr-FR;q=0.7' ],
+			CURLOPT_MAXREDIRS      => 9,       // stop after 10 redirects
+			CURLOPT_HTTPHEADER     => $httpHeader,
 		);
 
 		$ch      = curl_init( $url );
@@ -143,4 +186,15 @@ class Merchant {
 		$header['content'] = $content;
 		return $header;
 	}
+
+	public static function xPathCompare($price , $price1){
+		$price = str_replace(',', '.' ,$price);
+		$price1 = str_replace(',', '.' ,$price1);
+
+		if(isset($price) && isset($price1))
+			return $price = ((float)$price < (float)$price1) ? (float)$price : (float)$price1;
+		else 
+			return 'Something went wrong !!';
+	}
+
 }
