@@ -603,6 +603,13 @@ class Ajax {
 				$insertToComplete = $db->insert('`aks`.`tblReportsComplete`', $fieldsComplete);
 				$updateOnSite = $db->update('`'.self::getSite($getInput->get('getSite')).'`.`pt_products`', $getInput->get('getID'), $fields);
 				$updateOnProblem = $db->delete('`aks`.`tblReports`', $getInput->get('idToUpdateReport'));
+
+				$logFields = [
+					'productID' => $getInput->get('getID'),
+					'action' => 'Fixed problem',
+					'employeeID' => Users::currentUser()->id
+				];
+				$insertToLogs = $db->insert('`aks`.`tblLogs`', $logFields);
 			break;
 			case 'cr-recheck':
 				switch ($getInput->get('toWhat')) {

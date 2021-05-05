@@ -15,10 +15,15 @@ use Core\Session;
     <link rel="stylesheet" href="<?=PROOT?>vendors/css/custom.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="<?=PROOT?>vendors/css/media.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 
     <script src="<?=PROOT?>vendors/js/jQuery-2.2.4.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <script> var url = '<?= PROOT ?>'; </script>
+
 
     <?= $this->content('head'); ?>
   </head>
@@ -77,6 +82,29 @@ use Core\Session;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="<?=PROOT?>vendors/js/custom.js"></script>
+    <script type="text/javascript">
+      toastr.options = {
+      "closeButton": true,
+      "newestOnTop": false,
+      // "progressBar": true,
+      "positionClass": "toast-bottom-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
 
+    $(document).ready(function onDocumentReady() {  
+      setInterval(function doThisEveryTwoSeconds() {
+        toastr.success("Hello World!");
+      }, 2000);   // 2000 is 2 seconds  
+    });
+    </script>
   </body>
 </html>
