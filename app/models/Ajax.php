@@ -895,6 +895,9 @@ class Ajax {
             break;
 
 			//END
+			case 'cr-remove-report':
+				$updateOnProblem = $db->delete('`aks`.`tblReports`', $getInput->get('idToRemove'));
+			break;
 		}
 	}
 

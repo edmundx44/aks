@@ -138,6 +138,18 @@ var onOpen = '';
 				}), 200);
 				
 			});
+//removed report serction 
+$(document).on('click', '#remove-report', function(){
+	// alert($(this).data('tblid'));
+	var dataRequest =  {
+		action: 'cr-remove-report',
+		idToRemove: $.trim($(this).data('tblid'))
+	}
+	AjaxCall(url+'reports', dataRequest).done(function(data) {
+		crProblemList($( "#datepickerReport" ).val());
+	});
+});
+
 // open-info section -----------------------------------------------------------------------------------
 // $('#open-additional-info').modal('show');
 $(document).on('click', '.open-info', function(){
@@ -422,29 +434,7 @@ $(document).on('click', '.open-info', function(){
 						$('.url-msg').empty();
 					}
 
-					var dataRequest =  {
-						action: 'cr-checkurl',
-						getUrl: $.trim($(this).val())
-					}
-
-					AjaxCall(url+'reports', dataRequest).done(function(data) {
-						if(data.length >= 1) {
-							var getSite = '';
-							for(var i in data){
-								if(getSite != data[i].merchantSite){
-									if($("#span"+data[i].merchantSqlID).length == 0) {
-										var appendData = "<span id='span"+data[i].merchantSqlID+"' >";
-											appendData += "<i class='fa fa-circle' aria-hidden='true' style='font-size: 12px;'></i> Already reported on <b>'"+data[i].merchantSite+"'</b> <br>";
-											appendData += "</span>";
-											getSite = data[i].merchantSite;
-
-										$('.url-msg').append(appendData);
-										$('#'+data[i].merchantSite).prop('checked', true).attr('disabled','disabled');
-									}
-								}
-							}
-						}
-					});
+					textboxCheckUrl($.trim($(this).val()));
 				}
 			});
 
@@ -562,8 +552,8 @@ $(document).on('click', '.open-info', function(){
 								append +=	'<td class="cr-tbody-td-5 cr-tbody-td">';
 								append +=	'<ul class="cr-ul-action">';
 								append += 	'<li class="cr-action-li cr-btn-cac" data-checker="'+data[i].checker+'" data-normalizedname="'+data[i].merchantNMID+'" data-merchantid="'+data[i].merchantID+'" data-tblid="'+data[i].id+'" data-reported="'+data[i].toMerchant+'" data-rating="'+data[i].rating+'" data-probs="'+data[i].problem+'" data-id="'+data[i].merchantSqlID+'" data-site="'+data[i].merchantSite+'" data-url="'+data[i].merchantLink+'" data-toggle="tooltip" title="Check and compare"><i class="cr-action-btn fa fa-exchange" aria-hidden="true"></i></li>';
-								append += 	'<li class="cr-action-li" data-toggle="tooltip" title="Set status Fixed"><i class="cr-action-btn fa fa-check-circle-o" aria-hidden="true"></i></li>';
 								append += 	'<li class="cr-action-li checked-log-main" data-toggle="tooltip" title="Check log" data-tblid="'+data[i].id+'"><i class="cr-action-btn fa fa-check-circle" aria-hidden="true"></i></li>';
+								append += 	'<li class="cr-action-li" data-toggle="tooltip" title="remove report" id="remove-report" data-tblid="'+data[i].id+'"><i class="cr-action-btn fa fa-trash" aria-hidden="true"></i></li>';
 								// append += 	'<li class="cr-action-li" data-toggle="tooltip" title="Small price Difference, set status fixed"><i class="cr-action-btn fa fa-gavel" aria-hidden="true"></i></li>';
 								// append += 	'<li class="cr-action-li" data-toggle="tooltip" title="Price to Zero"><i class="cr-action-btn fa fa-ban" aria-hidden="true"></i></li>';
 								// append += 	'<li class="cr-action-li" data-toggle="tooltip" title="Rating 101"><i class="cr-action-btn fa fa-level-down" aria-hidden="true"></i></li>';
@@ -681,4 +671,29 @@ $(document).on('click', '.open-info', function(){
 					crProblemList($( "#datepickerReport" ).val());
 				}), 200);
 		}
-		
+
+function textboxCheckUrl($url){
+	var dataRequest =  {
+		action: 'cr-checkurl',
+			getUrl: $url
+		}
+
+		AjaxCall(url+'reports', dataRequest).done(function(data) {
+			if(data.length >= 1) {
+				var getSite = '';
+				for(var i in data){
+					if(getSite != data[i].merchantSite){
+						if($("#span"+data[i].merchantSqlID).length == 0) {
+							var appendData = "<span id='span"+data[i].merchantSqlID+"' >";
+								appendData += "<i class='fa fa-circle' aria-hidden='true' style='font-size: 12px;'></i> Already reported on <b>'"+data[i].merchantSite+"'</b> <br>";
+								appendData += "</span>";
+								getSite = data[i].merchantSite;
+
+							$('.url-msg').append(appendData);
+							$('#'+data[i].merchantSite).prop('checked', true).attr('disabled','disabled');
+						}
+					}
+				}
+			}
+		});
+}

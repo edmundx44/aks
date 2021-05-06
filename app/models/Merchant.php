@@ -102,9 +102,9 @@ class Merchant {
 				if(isset($outputG2aPlus[0])){
 
 				}else{
-					$xpathLowerPrice = '//*[@class="offers-list"]/div/div/div[1]/div/div[2]/div/div/div/span[1]';		
-					$xpathMainPrice = '//*[@class="product-info"]/div/div[4]/div/div/div/div[2]/div[2]/div[1]/span[1]';		
-					$xpathStock = '//*[@class="product-info"]/div/div[4]/div/span';	
+					$xpathMainPrice = '//*[@class="product-info"]/div/div[4]/div/div/div/div[2]/div[2]/div[1]/span[1]';	
+					$xpathLowerPrice = '//*[@class="offers-list"]/div/div/div[1]/div/div[2]/div/div/div/span[1]';
+					$xpathStock = '//*[@id="app"]/div/div[2]/div/article/header/div/div[4]/div/div/div/div[2]/div[3]/button/span';	
 				}
 			break;
 			case 'hrkgame':
@@ -151,11 +151,10 @@ class Merchant {
 
 				$scrapedData = array(
 					'sitePrice' => $getPrice,
-					'siteStock' => ($getStockQuery->length == 1)? $getStockQuery->item(0)->nodeValue : ''
+					'siteStock' => $getStock 
 				);
 
 				$getUrl = $getUrlSub;
-
 				return $scrapedData;
 		        break;
 		    }
