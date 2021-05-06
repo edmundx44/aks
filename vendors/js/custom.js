@@ -39,6 +39,16 @@ const inputsSite = {
 $(document).ready(function(){
 	displayIcon();
 	displayMode(localStorage.getItem("body-mode"));
+
+	// setInterval(function(){ 
+		// setTimeout( function(){ 
+			// logsNotification()
+		// }, 3000 );
+	// }, 1000);
+	
+	// setInterval(function(){ 
+		// logsNotification();
+	// }, 1000);
 	//console.log(removeSiteInLocalStorage(uri));
 
 	$('.modal-dialog').draggable({
