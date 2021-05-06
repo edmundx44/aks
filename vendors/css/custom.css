@@ -562,9 +562,9 @@ body {
 	border-radius: 25px;
 	background-color: #fff;
 }
-.sidebar-minimize:hover > i {
-	/*background-color: #f2f2f2;*/
-}
+/* .sidebar-minimize:hover > i {
+	background-color: #f2f2f2;
+} */
 .sidebar-minimize-icon {
 	margin-top: 2.5px;
 	margin-left: -3px;
@@ -790,18 +790,22 @@ body {
 	background-color: rgba(255, 255, 255, 0.5) !important;
 }
 
-.aks_bg_color{
-  background: linear-gradient(60deg, #0b5509, #7a9d18);
-}
-.cdd_bg_color{
-  background: linear-gradient( 60deg, #ae6524, #e6ba33) !important
-}
-.brexit_bg_color{
-  background: linear-gradient(60deg, #591657, #b94749) !important
-}
-.aks_color{ color: #0b5509 !important }
-.cdd_color{ color: #f79b26 !important }
-.brexit_color{ color: #8c338a  !important }
+.danger_bg_color{ background: linear-gradient(60deg, #792020, #b94749) !important; }
+.default_bg_color{ background: linear-gradient(60deg, #004ea3, #0062cc); }
+.white_bg_color { background-color:#fff; }
+
+.aks_bg_color{ background: linear-gradient(60deg, #0b5509, #7a9d18); }
+.aks_color{ color: #0b5509 !important; }
+.div-aks-bgcolor-2{ background-color: #286026; }
+
+.brexitgbp_bg_color{ background: linear-gradient(60deg, #591657, #b94749) !important; }
+.div-brexitgbp-bgcolor-2{ background-color: #6a2b46; }
+.brexitgbp_color{ color: #8c338a  !important; }
+
+.cdd_bg_color{ background: linear-gradient( 60deg, #ae6524, #e6ba33) !important; }
+.div-cdd-bgcolor-2{ background-color: #a47f27; }
+.div-cdd-bgcolor-3{ background-color: #dba82f; }
+.cdd_color{ color: #f79b26 !important; }
 
 .btn-delete {
     color: #fff;

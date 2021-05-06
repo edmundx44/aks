@@ -34,16 +34,19 @@ class Merchant {
 
 					case 'hrkgame':
 						 $array = array();
-						 preg_match('/^.+\/product\/(.+)\//',$url,$hrkContainer);
-						if(isset($hrkContainer[1])){
+						 $url = preg_replace('/^.+\/product(.+)\/?/', '${1}' ,$url);
+						 $url = preg_replace('/\/$/','',$url);
+						if(isset($url)){
 							$feed = 'https://www.hrkgame.com/hotdeals/xml-feed/?key=F546F-DFRWE-DS3FV&cur=eur&ver='.time();
 							$xml = simplexml_load_file($feed) or die("Cant open the file");
 							$ns = $xml->getNamespaces(true);
 							foreach($xml->channel->children() as $prod){
-								$link = preg_replace('/^.+\/product(.+)?\//','${1}',$prod->link);
+								$link = preg_replace('/^.+\/product(.+)\/?/','${1}',$prod->link);
+								$link = preg_replace('/\/$/','',$link);
+
 								$price = str_replace('€','',$prod->children($ns['g'])->price);
 								$stock = $prod->children($ns['g'])->availability;
-								if($hrkContainer[1] == $link){
+								if($url == $link){
 									$array[] = array(
 										'price' => "$price", 
 										'stock' => "$stock",
@@ -108,6 +111,7 @@ class Merchant {
 				$userAgent = "";
 				$httpHeader = [ 'Accept-Language: fr,en-US;q=0.9,en;q=0.8,fr-FR;q=0.7' ];
 
+				$xpathMainPrice = "";
 				$xpathLowerPrice = '//div[@class="huge bw_button_wrapper"]//div[@class="price_list"]//div[@class="price"]';
 				$xpathStock = "//div[contains(@class, 'product_container')]/div/div/div[3]/div[5]/div";
 
@@ -117,7 +121,7 @@ class Merchant {
 			break;
 
 		}
-
+		//$x("//input[@id='radio486'] [0] / @onclick ")
 		$scrapedData = array(); 
 		$getUrl = $url;
 		$getUrlSub = $url;
@@ -134,18 +138,16 @@ class Merchant {
 		        @$doc->loadHTML($getCont['content']);
 		        $xpath = new DOMXpath($doc);
 
-		        $getPriceQuery = $xpath->query($xpathLowerPrice);
-				$getStockQuery = $xpath->query($xpathStock);
+		        $getMainPrice = (!empty($xpathMainPrice))? $xpath->query($xpathMainPrice) : '';
+                $get1stPriceQuery = $xpath->query($xpathLowerPrice);
+                $getStockQuery = $xpath->query($xpathStock);
+            
+                $node1stPrice = ($get1stPriceQuery->length == 1)? $get1stPriceQuery->item(0)->nodeValue : 0 ;
+                $nodeMainPrice = (!empty($getMainPrice) and $getMainPrice->length == 1)? $getMainPrice->item(0)->nodeValue : 0 ;
+    
+                $getPrice = ($node1stPrice <= $nodeMainPrice)? $node1stPrice : $nodeMainPrice;
+                $getStock = ($getStockQuery->length == 1)? 'In stock' : "Out of stock";
 
-				if($getPriceQuery->length == 1) 
-					$getPrice = $getPriceQuery->item(0)->nodeValue;
-				if($getMerchant == 'g2a'){
-					$getMainPrice = $xpath->query($xpathMainPrice);
-					if($getMainPrice->length == 1){
-						$getMainPrice = $getMainPrice->item(0)->nodeValue;
-						$getPrice = self::xPathCompare($getPrice , $getMainPrice);
-					}
-				}
 
 				$scrapedData = array(
 					'sitePrice' => $getPrice,

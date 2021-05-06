@@ -360,14 +360,14 @@
 <!-- report modal -->
 <div class="modal fade" id="reportModal" role="dialog">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
+        <div class="modal-content modal-con-override">
+            <div class="modal-header rheader-modal">
                 <h4 class="modal-title report-modal-header"></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="display-more-report">
-                        
+                <div class="display-more-report row padding-lr-10">
+
                 </div>
             </div>
             <div class="modal-footer">

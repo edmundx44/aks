@@ -263,9 +263,11 @@ class Ajax {
                 $today = date('Y-m-d');
                 $sqlAks = "SELECT AVG(percentage) as zeroPercentage FROM `test-server`.`romain_tool_zero_prices_data` WHERE DATE(`date`) = '$today'";
                 $sqlCdd = "SELECT AVG(percentage) as zeroPercentage FROM `compareprices`.`romain_tool_zero_prices_data` WHERE DATE(`date`) = '$today'";
+				$sqlBrexit = "SELECT AVG(percentage) as zeroPercentage FROM `brexitgbp`.`romain_tool_zero_prices_data` WHERE DATE(`date`) = '$today'";
 
                 $resultAks = $db->query($sqlAks)->results();
                 $resultCdd = $db->query($sqlCdd)->results();
+				$resultBrexitgbp = $db->query($sqlBrexit)->results();
 
                 foreach ($resultAks as $key) {
                     $avgAks = $key->zeroPercentage;
@@ -273,11 +275,14 @@ class Ajax {
                 foreach ($resultCdd as $key) {
                     $avgCdd = $key->zeroPercentage;
                 }
+				foreach ($resultBrexitgbp as $key) {
+                    $avgBrexitgbp = $key->zeroPercentage;
+                }
                 $runCounts = array();
                     array_push($runCounts, array(
                         'aks' => round((float)$avgAks,2),
                         'cdd' => round((float)$avgCdd,2),
-                        //'brexitgbp' =>  $avgZeroBrexit
+                        'brexitgbp' => round((float)$avgBrexitgbp,2)
                 ));
                 return $runCounts;
             break;
@@ -636,6 +641,7 @@ class Ajax {
 					'problem' => $getInput->get('getcproblem'),
 					'status' => 1,
 					'rating' => $getInput->get('getcrating'),
+					'checker' => ucfirst(Users::currentUser()->fname)
 				];
 				$updateOnComplete = $db->delete('`aks`.`tblReportsComplete`', $getInput->get('getcid'));
 				$insertOnReport = $db->insert('`aks`.`tblReports`', $fields);
