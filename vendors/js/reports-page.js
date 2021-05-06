@@ -85,7 +85,7 @@ var onOpen = '';
 				}
 
 				AjaxCall(url+'reports', dataRequest).done(function(data) {
-					console.log(data)
+					// console.log(data)
 
 					var getStock = (data.site[0].dispo == 1)? 'In Stock':'Out of Stock';
 					var appendSite = '<p class="ms-data-price"><span><b>PRICE : </b></span><span>'+data.site[0].price+'</span></p>';

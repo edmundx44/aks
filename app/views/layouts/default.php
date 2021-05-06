@@ -16,6 +16,13 @@ use Core\Session;
     <link rel="stylesheet" href="<?=PROOT?>vendors/css/media.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <style type="text/css">
+      #toast-container > .toast {
+        width: 450px; 
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+    </style>
 
 
     <script src="<?=PROOT?>vendors/js/jQuery-2.2.4.min.js"></script>
@@ -84,27 +91,74 @@ use Core\Session;
     <script src="<?=PROOT?>vendors/js/custom.js"></script>
     <script type="text/javascript">
       toastr.options = {
-      "closeButton": true,
-      "newestOnTop": false,
-      // "progressBar": true,
-      "positionClass": "toast-bottom-right",
-      "preventDuplicates": false,
-      "onclick": null,
-      "showDuration": "300",
-      "hideDuration": "1000",
-      "timeOut": "5000",
-      "extendedTimeOut": "1000",
-      "showEasing": "swing",
-      "hideEasing": "linear",
-      "showMethod": "fadeIn",
-      "hideMethod": "fadeOut"
-    }
+        "closeButton": true,
+        "newestOnTop": false,
+        // "progressBar": true,
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      }
 
-    $(document).ready(function onDocumentReady() {  
-      setInterval(function doThisEveryTwoSeconds() {
-        toastr.success("Hello World!");
-      }, 2000);   // 2000 is 2 seconds  
-    });
+      const delay = (ms) => {
+        return new Promise((resolve) => {
+          setTimeout(() => resolve(), ms);
+        }, ms);
+      };
+
+      $(function() {
+
+        logsNotification()
+
+        function logsNotification(){
+          var idToUpdate = '';
+          var dataRequest =  {
+            action: 'display-notification'
+          }
+          
+          AjaxCall(url, dataRequest).done(function(data) {
+            if(data != false){
+              console.log(data)
+              let task = delay(2000);
+
+              var counter = 0
+                data.forEach((element,i) => {
+                  task = task
+                    .finally(() => {
+                      toastr.info("<span> " + element.fname + "</span> <span>" + element.action + "<span> on " + element.vols_nom + ".");
+                      counter = counter + 1
+
+                      var dataRequest =  {
+                       action: 'update-notifiction',
+                         id: element.id
+                       }
+                      AjaxCall(url, dataRequest).done(function(data) {})
+                      if(data.length == counter) logsNotification();
+                      
+                    })
+                    .then(() =>  delay(2000))
+                })
+
+            }else{
+              console.log(data)
+              setTimeout( function(){ 
+
+                logsNotification()
+              }, 2000 );
+            
+            }
+          });
+        }
+      });
+
+
     </script>
   </body>
 </html>

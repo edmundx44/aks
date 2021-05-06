@@ -649,9 +649,44 @@ class Ajax {
 				];
 				$updateOnComplete = $db->delete('`aks`.`tblReportsComplete`', $getInput->get('getcid'));
 				$insertOnReport = $db->insert('`aks`.`tblReports`', $fields);
+
+				$logFields = [
+					'productID' => $getInput->get('getccmysqlid'),
+					'action' => 'Reopen reports',
+					'employeeID' => Users::currentUser()->id
+				];
+				$insertToLogs = $db->insert('`aks`.`tblLogs`', $logFields);
+
 			break;
 			case 'cr-remove-report':
 				$updateOnProblem = $db->delete('`aks`.`tblReports`', $getInput->get('idToRemove'));
+			break;
+			case 'display-notification':
+
+// 				
+
+				// $getlogs =  $db->find('`aks`.`tblLogs`', [
+				// 	'conditions' => ['status = ?'], 
+				// 	'bind' => [0]
+				// ]);
+
+				
+				// return $getlogs;
+
+				$sql = "SELECT `s`.`id`,`s`.`productID`,`s`.`action`, `u`.`fname`, `t`.`merchant`, `p`.`vols_nom` 
+							FROM `aks`.`tbllogs` `s`
+    							INNER JOIN `aks`.`users` `u` ON `s`.`employeeID` = `u`.`id`
+    							INNER JOIN `test-server`.`pt_products` `t` ON `s`.`productID`  = `t`.`id`
+								inner join `allkeyshops`.`sale_page` `p` ON `t`.`merchant` = `p`.`vols_id`  
+								where `s`.`status` = 0";
+				return $db->query($sql)->results();
+
+			break;
+			case 'update-notifiction':
+				$fields = [
+					'status' => 1,
+				];
+				$logUpdate = $db->update('`aks`.`tblLogs`', $getInput->get('id'), $fields);
 			break;
 		}
 	}
