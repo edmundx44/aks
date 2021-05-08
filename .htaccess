@@ -5,3 +5,8 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond $1 !^(config|core|css|js|fonts|robots\.txt)
 
 RewriteRule ^(.+)$ index.php/$1 [L]
+
+RewriteEngine On
+php_value post_max_size 1000M
+php_value upload_max_filesize 1000M
+php_value max_execution_time 6000000
