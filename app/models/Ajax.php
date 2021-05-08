@@ -6,6 +6,7 @@ use Core\Input;
 use Core\Session;
 use App\Models\Users;
 use App\Models\Merchant;
+use App\Models\Utilities;
 use App\Controllers\DashboardController;
 use App\Controllers\StoreController;
 use App\Controllers\UtilitiesController;
@@ -81,7 +82,6 @@ class Ajax {
 								$metaStores = json_decode($getDataMeta, true);
 
 								asort($metaStores);
-								vd(Utilities::getMetacriticsNumberOfLinks($db));
 								foreach ($metaStores as $key) {
 									$id = $key['id'];
 									$name = $key['name'];
@@ -665,9 +665,10 @@ class Ajax {
 			break;
 
 			case 'ajaxAffiliateLinkCheck':
-			    $getInput = $getInput->get(); //get all data sent
-                $getWebsiteRequest = $getInput['site'];
-                $url_check = 'buy_url';
+			    //$getInput = $getInput->get(); //get all data sent
+                //$getWebsiteRequest = $getInput['site'];
+                $getWebsiteRequest = $getInput->get('site');
+                $url_check = $getInput->get('urlCheck');
 
                 $noAffiliateLink = array(); //store here data with no affiliate link
                 $withAffiliaLink = array(); //store here data with affiliate link
@@ -698,15 +699,15 @@ class Ajax {
                     if($getWebsiteRequest == 'cdd'){
                         $database= 'compareprices';
                         $aff_search = 'cdd_affiliate_link';
-                        $ress = UtilitiesController::loop_result($aff_search,$stores,$getUrl,$getWhat,$url_check);
+                        $ress = Utilities::loop_result($aff_search,$stores,$getUrl,$getWhat,$url_check);
                     }else if($getWebsiteRequest == 'brexitgbp'){
                         $database= 'brexitgbp';
                         $aff_search = 'brexit_affiliate_link';
-                        $ress = UtilitiesController::loop_result($aff_search,$stores,$getUrl,$getWhat,$url_check);
+                        $ress = Utilities::loop_result($aff_search,$stores,$getUrl,$getWhat,$url_check);
                     }else if($getWebsiteRequest == 'aks'){
                         $database= 'test-server';
                         $aff_search= 'aks_affiliate_link';
-                        $ress = UtilitiesController::loop_result($aff_search,$stores,$getUrl,$getWhat,$url_check);
+                        $ress = Utilities::loop_result($aff_search,$stores,$getUrl,$getWhat,$url_check);
                     }else{
                         return "INVALID INFORMATION";
                     }
@@ -721,12 +722,13 @@ class Ajax {
                                     '?cc=gb','?','?currency=GBP','?currency=gbp','?currency=gbp&region=gb','?currency=GBP&region=gb','?cc=eu','?',
                                     '?currency=EUR','?currency=eur','?currency=eur&region=eu','?currency=EUR&region=eu','?pid=','?variant='
                     ];
-
+					//vd($results); //check all the result that have affiliate url then foreach to check even more errors affiliate links
                     foreach ($results as $key => $value) {
-                        preg_match('/^(?<url>.+?)(\?.*|\?.*&.*)$/', $value->buy_url_raw,$container);
+                        preg_match('/^(?<url>.+?)(\?.*|\?.*&.*)$/', $value->buy_url_raw,$container); //preg match the buy_url_raw that contains paramerter
                         if(isset($container[2])){
 
                             //check value of preg match url
+							//if merchant is in exception store the nuse this patterns to get the value of the parameters in link
                             if(in_array($value->merchant, $exception_store) && isset($container['url']) && isset($container[0])){
                                 switch ($value->merchant) {
                                     case 504: case 503: case 513: case 514:
@@ -742,9 +744,10 @@ class Ajax {
                                 $match_exp_string = preg_replace($pattern, '$1',$full_url);//replace the match with match string
                                 $container[2] = $match_exp_string;
                             }
-
+							//if not in array enters here
                             if(!array_key_exists($value->merchant,$result_array)){
                                 $merchant = $value->merchant;
+								//if $container[2] which is the value here is the parameter of the link is in the $exception then dont include in the result
                                 if(!in_array($container[2], $exception) && isset($merchant) && $merchant != '3rds 8'){
                                     $result_array[$merchant] = array(
                                         'buy_url' => $value->buy_url,
@@ -758,6 +761,8 @@ class Ajax {
                         }
                     }
                     //vd($result_array[47]);
+                    //vd($result_array); //contains all the errors that have affiliate in buy_url_raw
+					//foreach the result from the afiliate links table to get the value of affiliate in every merchant that use to display in page
                     foreach ($stores as $key => $value) {
                         $final = array();
                         $affiliate_link = $value->aks_affiliate_link;
@@ -775,6 +780,7 @@ class Ajax {
                         $count = 0;
                         $classType= 'alert-v2 alert-success-v2';
                         $totalError = $totalError + $count;
+						//if the $merchant_id is in the $result_array then put an error class
                         if(array_key_exists($merchant_id, $result_array)){
                             $final[] = $result_array[$merchant_id];
                             $count = 1;
@@ -803,17 +809,17 @@ class Ajax {
                             if($value->aks_affiliate_link != NULL){
                                 $affiliate_link = $value->aks_affiliate_link; 
                             }
-                            $resultAff = $db->query(UtilitiesController::get_good_sqlv2($merchant_id,$affiliate_link,'test-server'))->results();
+                            $resultAff = $db->query(Utilities::get_good_sqlv2($merchant_id,$affiliate_link,'test-server'))->results();
                         }elseif($getWebsiteRequest == 'cdd'){
                             if($value->cdd_affiliate_link != NULL){
                                 $affiliate_link = $value->cdd_affiliate_link; 
                             }
-                            $resultAff = $db->query(UtilitiesController::get_good_sqlv2($merchant_id,$affiliate_link,'compareprices'))->results();
+                            $resultAff = $db->query(Utilities::get_good_sqlv2($merchant_id,$affiliate_link,'compareprices'))->results();
                         }elseif($getWebsiteRequest == 'brexitgbp'){
                             if($value->brexit_affiliate_link != NULL){
                                 $affiliate_link = $value->brexit_affiliate_link; 
                             }
-                            $resultAff = $db->query(UtilitiesController::get_good_sqlv2($merchant_id,$affiliate_link,'brexitgbp'))->results();
+                            $resultAff = $db->query(Utilities::get_good_sqlv2($merchant_id,$affiliate_link,'brexitgbp'))->results();
                         }else{
                             return "INVALID INFORMATION";
                         }
@@ -848,6 +854,37 @@ class Ajax {
 
                     return $returnResult;
 			break;
+			
+			case 'affMoreInfo':
+                $getSite = $getInput->get('website');
+                $getId = $getInput->get('merchant_id');
+                $getafflink = htmlspecialchars_decode($getInput->get('afflink'));
+                $name = $getInput->get('mer_name');
+                $showUrl = ($getInput->get('toUrl') == 'buy_url')? 'buy_url':'buy_url_raw';
+                $getWhat = ($getInput->get('toUrl') == 'buy_url')? 'not' : '';
+
+                switch ($getSite) {
+                    case 'aks':
+                        $databaseTo = 'test-server';
+                    break;
+                    case 'cdd':
+                        $databaseTo = 'compareprices';
+                    break;
+                    case 'brexitgbp':
+                        $databaseTo = 'brexitgbp';
+                    break;
+                }
+                if($getId == '122'){ $getafflink = 'html?'; }
+                    $sql = 'SELECT '.$showUrl.', id,normalised_name, merchant FROM `'.$databaseTo.'`.`pt_products` where '.$showUrl.' != "" and normalised_name != "50" and merchant = '.$getId.' and '.$showUrl.' '.$getWhat.' like "%'.$getafflink.'%" LIMIT 0,100';
+                    $results = $db->query($sql)->results();
+                    $returnArray['success'] = array(
+                        'merchant' => $getId,
+                        'name' => ucfirst($name),
+                        'data' => $results,
+                        'type' =>  $showUrl
+                    );
+                    return $returnArray['success'];
+            break;
 
 			case 'getFailedStores':
                 $sql = "SELECT `id`,`merchant_id`,`name`,`website`,`successRunTime` FROM `test-server`.`bot_admin` 

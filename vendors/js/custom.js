@@ -191,8 +191,8 @@ function AjaxCall($url, $data) {
 		data : $data
 	})
 }
-
-// ajax call function ---------------------------------------
+//$getInput = $getInput->get(); //use this get all data sent 
+//$var = $getInput['site'];  //var sent {'site':$aks} 
 function _ajaxCall($url,$type,$action,$data){
 	return $.ajax({
 		url:$url,
@@ -201,6 +201,13 @@ function _ajaxCall($url,$type,$action,$data){
 			action:$action,
 			data: $data
 		}
+	})
+}
+function _ajaxCall_01($url,$type,$data){
+	return $.ajax({
+		url:$url,
+		type:$type,
+		data : $data
 	})
 }
 

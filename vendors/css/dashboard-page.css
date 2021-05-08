@@ -521,3 +521,10 @@
 	outline: none !important;
 	color: #fff;
 }
+
+.div-disabled{
+	cursor: not-allowed !important;
+}
+.pointer-events-none {
+    pointer-events: none;
+}

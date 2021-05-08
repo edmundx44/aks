@@ -717,3 +717,33 @@
         </div>
     </div>
 </div>
+
+<!-- Large modal AFF LINK SEE MORE MODAL-->
+<div id="modal-show-more" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content custm-bg">
+            <div class="modal-body display-res">
+                <div class="d-flex" style="display: flex;">
+                    <div class="h3 mer-id" style="display: flex; justify-content: flex-start; width: 50%;">Merchant</div>
+                    <div class="h3 total-c" style="display: flex; justify-content: flex-end; width: 50%;">Total</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table aff-modal">
+                            <thead>
+                                <th>Game Id</th>
+                                <th class="u-type"></th>
+                            </thead>
+                            <tbody class="appendData">
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

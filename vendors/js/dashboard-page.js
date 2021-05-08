@@ -751,23 +751,29 @@
 				to: $to,
 				what: $what
 			}
+		addPointerEvents($what)
+		console.log($what)
 		AjaxCall(url+'dashboard', dataRequest).done(function(data) {
 			switch(data.to){
 				case 'Store':
 					$('.disable-count').html(data.count);
 					$('.disabled-what').html('Store');
+					removedPointerEvents("Store")
 				break;
 				case 'Metacritics':
 					$('.disable-count').html(data.count);
 					$('.disabled-what').html('Metacritics');
+					removedPointerEvents("Metacritics")
 				break;
 				case 'AKS':
 					$('.snapshot-count').html(data.count);
 					$('.snapshot-what').html('AKS');
+					removedPointerEvents("AKS")
 				break;
 				case 'CDD':
 					$('.snapshot-count').html(data.count);
-					$('.snapshot-what').html('CDD');	
+					$('.snapshot-what').html('CDD');
+					removedPointerEvents("CDD")	
 				break;
 				case 'BREXIT':
 					// $('.snapshot-count').html(data.count);
@@ -776,14 +782,17 @@
 				case 'AKSDB':
 					$('.dbfeed-count').html(data.count);
 					$('.dbfeed-what').html('AKS');	
+					removedPointerEvents("AKSDB")
 				break;
 				case 'CDDDB':
 					$('.dbfeed-count').html(data.count);
-					$('.dbfeed-what').html('CDD');	
+					$('.dbfeed-what').html('CDD');
+					removedPointerEvents("CDDDB")
 				break;
 				case 'BREXITDB':
 					$('.dbfeed-count').html(data.count);
-					$('.dbfeed-what').html('BREXIT');		
+					$('.dbfeed-what').html('BREXIT');
+					removedPointerEvents("BREXITDB")		
 				break;
 			}
 		});
@@ -810,6 +819,9 @@
 				break;
 				case 'Metacritics':
 					$('.report-modal-header').html('Disabled Metacritics');
+					for (var i in data.data){
+						disabledDiv(data.data[i].name, data.data[i].id);
+					}
 				break;
 				case 'AKS':
 					$('.report-modal-header').html('AKS Snapshot');
@@ -1011,11 +1023,52 @@
 					$($classTarget).addClass('brexitgbp_bg_color');
 				break;
 				case 'store':
+				case 'metacritics':
 					$($classTarget).addClass('danger_bg_color');
+				break;
 				default:
 					$($classTarget).addClass('default_bg_color');
 				break;
 			}
 			
 
+		}
+
+		function addPointerEvents($to ,$classTarget = ""){
+			$('.card-body-div-sub').removeClass('div-disabled');
+			$('.view-more-icon').removeClass('pointer-events-none');
+			$('.card-body-div-sub-span').removeClass('pointer-events-none');
+
+			switch($to){
+				case 'Store':
+				case 'Metacritics':
+				case 'AKS':
+				case 'CDD':
+				case 'BREXIT':
+				case 'AKSDB':
+				case 'CDDDB':
+				case 'BREXITDB':
+					$('.card-body-div-sub').addClass('div-disabled');
+					$('.view-more-icon').addClass('pointer-events-none');
+					$('.card-body-div-sub-span').addClass('pointer-events-none');
+				break;
+			}
+
+		}
+
+		function removedPointerEvents($to ,$classTarget = ""){
+			switch($to){
+				case 'Store':
+				case 'Metacritics':
+				case 'AKS':
+				case 'CDD':
+				case 'BREXIT':
+				case 'AKSDB':
+				case 'CDDDB':
+				case 'BREXITDB':
+					$('.card-body-div-sub').removeClass('div-disabled');
+					$('.view-more-icon').removeClass('pointer-events-none');
+					$('.card-body-div-sub-span').removeClass('pointer-events-none');
+				break;
+			}
 		}

@@ -10,7 +10,13 @@
 
 <script type="text/javascript">
 	let $url_check = '<?= $url_check ?>';
-	var $url = url+'utilities/affiliateCheck';	
+	var $url = url+'utilities/affiliateCheck';
+
+	var $dataReq = {
+		action: 'ajaxAffiliateLinkCheck',
+		site: 'aks',
+		urlCheck: $url_check,
+	};
 
 	$(function(){
 		//rendered on first load
@@ -22,13 +28,15 @@
 			if(object != null){
 				site = returnSite(object.site);
 				if(site != 'invalid'){
-					_ajaxCall($url,"POST","ajaxAffiliateLinkCheck",{'site':site}).done(function(data){
+					$dataReq.site = site;
+					AjaxCall($url, $dataReq).done(function(data){
 						affiliateLinkCheck(data)
 					});
 				}else{ if(removedKeyNormal('sessionStorage','OptionSite')) console.log("Item has been removed") } //remove key if invalid site
 			}else{
 				console.log('NO VALUE DEFAULT IS AKS');
-				_ajaxCall($url,"POST","ajaxAffiliateLinkCheck",{'site':inputsSite[0].site}).done(function(data){
+				$dataReq.site = inputsSite[0].site;
+				AjaxCall($url, $dataReq).done(function(data){
 					affiliateLinkCheck(data)
 				});
 			}
@@ -49,10 +57,10 @@
 				site = (indexInput == 0 ) ? inputsSite[0].site : (indexInput == 1 ) ? inputsSite[1].site : (indexInput == 2 ) ? inputsSite[2].site : '';
 				var $data = { 'site': site, 'path': $url }
 				if(sessionStorageCheck()){ setStorage('sessionStorage','OptionSite',JSON.stringify($data)) } //store
-				_ajaxCall($url,"POST","ajaxAffiliateLinkCheck",{'site':site}).done(function(data){
-					affiliateLinkCheck(data)
-				});
-	
+					$dataReq.site = site;
+					AjaxCall($url, $dataReq).done(function(data){
+						affiliateLinkCheck(data)
+					});
 			}else{ window.location.reload(); }
 		});
 		//filtered errors
@@ -201,8 +209,58 @@
 	   			alert("DISABLED FOR NOW");
 	    });	
 
-	});
+		//toggle url check
+		$(document).on("click", "#btn-bu",function(){
+			//$url_check = $(this).attr("name");
+			var press_to_chk = $(this).attr("name");
+			var $press_to_chk = (press_to_chk == 'buy_url_raw' ) ? 'buy_url_raw' : 'buy_url';
 
+			window.location.href = "affiliateCheck?url_check="+$press_to_chk;
+		});
+		//See more button in buy_url_raw
+		$(document).on("click" ,"#bur-sm-btn" ,function(event){
+			$(".appendData").empty();
+			let thisbtn = $(this);
+			thisbtn.attr('disabled','disabled');
+			$.ajax({
+				url:"<?=PROOT?>utilities/affiliateCheck",  
+				method:"POST",
+				dataType:'JSON',
+				data:{
+					action:'affMoreInfo',
+					merchant_id: $(this).attr('data-id'),
+					website: $(this).attr('data-site'),
+					afflink: $(this).attr('data-aff'),
+					mer_name: $(this).attr('data-name'),
+					toUrl: $url_check
+				} 
+			}).done(function(data){
+				//console.log(data.data)
+				$data = data.data;
+				$('#modal-show-more').modal('show');
+				$('.display-res .mer-id').text(data.name+" "+data.merchant);
+				$('.display-res .total-c').text("Total: "+$data.length);
+				$('.display-res .u-type').text(data.type);
+				for(var i in $data){
+					var urlNi = ($url_check == "buy_url")? $data[i].buy_url:$data[i].buy_url_raw;
+					var colorText = ($url_check == "buy_url")? '': 'cus-text' ;
+					if(urlNi != null || urlNi != ''){
+						var append =  '<tr>';
+							append += '<td class="gId">'+$data[i].normalised_name+'</td>';
+							append += '<td class="wb-break-all getUrl '+colorText+'">'+target_link($url_check,$data[i].normalised_name,urlNi,)+'</td>';
+							append += '</tr>';
+
+						$(".appendData").append(append);
+					}
+				}
+			}).always(function(){
+				thisbtn.removeAttr("disabled");
+			});
+		});
+
+
+	});
+	
 	function affiliateLinkCheck(data){
 		var href = '<?=PROOT?>utilities/affiliateCheck'; //for goto
 		$('.div-errors-alc').show();
@@ -243,10 +301,12 @@
 		    		app2 += "</div>";
 		    	$('.result-with-affiliate').append(app2);	
 		    }
-			$('.change-site').text(site.toUpperCase());
+			$('.change-site').text(RSite.toUpperCase());
 			$('.total-error-aff').html('<b class="">&nbsp;TOTAL '+data.success.totalError+'</b>');
 		}else{
-			alert(data);
+			//alert(data);
+			$('.div-error').empty();
+			$('.div-error').append('<h1>Opps no result found !!!</h1>');
 		}
 	}
 
@@ -276,25 +336,23 @@
 
 </script>
 <style>
-	.div-topheader{
-		display:flex;
-	}
-	.div-topheader-1{
-		width:100%;
-	}
-	.div-topheader-2{
-		width:10%;
+	/* .div-topheader{ display:flex; }
+	.div-topheader-1{ width:100%; }
+	.div-topheader-2{ width:10%; } */
+	.TU-btns{
+		text-align:center;
 	}
 	.TU-btns input[type=button]{ 
-		font-size: 12px !important;
-		padding: 1px 5px 1px 5px;
+		font-size: 14px !important;
+		padding: 2px 10px 2px 10px;
 		background-color: #fff;
 		color: #3f51b5; 
 		margin-right: 8px;
 		letter-spacing: 2px;
 		font-weight: bold;
-		border-color: #2e6da4;
-		border-radius: 10px;
+		border-color: #0062cc;
+		border-radius: 15px;
+		line-height: 1.8;
 	}
 	.bur-sm-btn input[type=button],
 	.store input[type=button]{ 
@@ -305,19 +363,23 @@
 		letter-spacing: 1.5px;
 		font-weight: bold;
 		border-color: #50b7c8;
+		font-size: 12px;
 	}
 	.TU-btns input[type=button]:hover{
-		background-color:#0e2082e8;
+		background-color:#0062cc;
 		color: #fff !important; 
 	}
 	.act-tu-btn{
 		color: #fff !important;
-		background-color: #3f51b5 !important; 
+		background-color: #0062cc !important; 
 	}
 	.p-text{
 		letter-spacing: 2px;
+		margin-left:2px;
+		margin-right:2px;
+		text-decoration:underline;
 	}
-
+	.div-pages{ text-align:center; }
 	/* Affiliate design area here -----------------------------------------------------------------------------------*/
 	.alert-v2{
 		padding: 15px;
@@ -349,6 +411,28 @@
 	.total-error-aff { font-size: 20px; }
 	.txt-danger{ color: #a94442; }
 	#div-no-affiliate-link-body{ font-size: 14px; }
+
+	/* modal of see more btn */
+	.gId{ width: 15%;}
+	.cus-text{ color: #4e73df; }
+	.getUrl { width: 85%; word-break: break-all; }
+	.wb-break-all{ word-break: break-all; }
+	.custm-bg{ background-color: #edf0f5 !important; }
+	.aff-modal thead th{ background-color: #fff; }
+	.aff-modal tbody td,
+	.aff-modal thead th {
+		border: none;
+		color: #3f51b5;
+		padding: 4px 10px 4px 10px;
+	}
+	.aff-modal > thead > tr > th{
+    	border-bottom: 2px solid #fff !important;
+	}
+	.mer-id,.total-c{
+		letter-spacing: 1.5px;
+		font-weight: bold;
+		color: #3f51b5; 
+	}
 </style>
 <?php $this->end()?> 
 
@@ -362,15 +446,8 @@
 						<!-- HEADER STARTS -->
 						<div class="card-div-overflow-style row-4-card-div-overflow-style row-4-card-div-overflow-style-2" style ="padding-bottom:20px;">
 							<div class="div-topheader" style="padding-top: 20px; padding-left: 10px; color: white;">
-								<div class="div-topheader-1 TU-btns">
+								<div class="div-topheader-1">
 									<h5 style="display: inline-block; margin-right: 10px;">Affiliate Links</h5>
-									<i class="fa fa-hand-o-right" aria-hidden="true"></i>
-									<p style="font-size:12px;font-weight: 500;display: inline-block; padding:0;margin:0">
-										<input id="btn-bu" class="btn <?= ($url_check == 'buy_url') ? 'act-tu-btn':'';?>" type="button" name="buy_url" value="BUY URL">
-									</p>
-									<!-- <p style="font-size:12px;font-weight: 500;display: inline-block; padding:0;margin:0">
-										<input id="btn-bu" class="btn <?= ($url_check == 'buy_url_raw') ? 'act-tu-btn':'';?>" type="button" name="buy_url_raw" value="BUY URL RAW">
-									</p> -->
 									<p style="font-size:12px;font-weight: 500;">Checks the affiliate of the <b class="p-text"><?= $text ?></b> on every merchant</p>
 								</div>
 							</div>
@@ -386,6 +463,11 @@
 									<span class="total-error-aff"></span>
 								</div>
 							</div>
+							<div class="TU-btns">
+									<!-- <i class="fa fa-hand-o-right" aria-hidden="true"></i> -->
+									<input id="btn-bu" class="btn <?= ($url_check == 'buy_url') ? 'act-tu-btn':'';?>" type="button" name="buy_url" value="BUY URL">
+									<input id="btn-bu" class="btn <?= ($url_check == 'buy_url_raw') ? 'act-tu-btn':'';?>" type="button" name="buy_url_raw" value="BUY URL RAW">
+								</div>
 							<div class="mt-4 div-search-alc" style="display:none; margin-bottom: 10px;">
 								<div class="form-group has-feedback has-search">
 									<span class="glyphicon glyphicon-search form-control-feedback"></span>
@@ -394,6 +476,9 @@
 
 							</div>
 							<div class="col-xs-12 div-body-table mt-4" id="div-no-affiliate-link-body">
+								<div class="div-pages div-error col-sm-12">
+								
+								</div>
 								<div class="col-sm-12 no-padding result-no-affiliate search">
 									
 								</div>
