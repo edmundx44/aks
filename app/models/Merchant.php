@@ -52,11 +52,43 @@ class Merchant {
 										'stock' => "$stock",
 										'url' 	=> "$prod->link"
 									);
+									break;
 								}
 							}
 						}else{ return []; }
 						return $array;
 					break;
+
+					case 'mmoga':
+						$array = array();
+						$url = preg_replace('/^(.*)\?ref=615.*/', '${1}', $url);
+						if(isset($url)){
+							$resource = curl_init();
+							$link = 'https://www.mmoga.com/sitemap.html?xml=1&n=mm_affiliate&k=xf2KtbyuUbYTamkBA8TR&no_download=1&key_only=1&currency=EUR';
+							curl_setopt($resource, CURLOPT_USERAGENT,'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:24.0) Gecko/20100101 Firefox/24.0');
+							curl_setopt($resource, CURLOPT_URL, $link);
+							curl_setopt($resource, CURLOPT_HEADER, FALSE);
+							curl_setopt($resource, CURLOPT_FOLLOWLOCATION, TRUE);
+							curl_setopt($resource, CURLOPT_RETURNTRANSFER, true);
+							$data = curl_exec($resource);
+							curl_close($resource);
+							$prod = simplexml_load_string($data)or die("Error: Cannot create object");
+							foreach($prod->product as $keys){
+								$link = str_replace('?ref=615','',$keys->products_url);
+								$price = $keys->products_price;
+								if($url == "$link"){
+									$array[] = array(
+										'price' => "$price",
+										'stock' => 1 ,
+										'url' => "$link"
+									);
+									break;
+								}
+							}
+						}else{ return []; }
+						return $array;
+					break;
+					
 				}
 			break;
 			case 'CDD':
@@ -85,6 +117,9 @@ class Merchant {
 			break;
 			case 'BREX':
 				
+			break;
+
+			default: return [];
 			break;
 		}
 	}
@@ -117,6 +152,16 @@ class Merchant {
 
 			break;
 
+			case 'mmoga':
+				$httpHeader = [];
+				$userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36";
+
+				$xpathMainPrice = "";
+				$xpathLowerPrice = '//div[@class="produktdetail"]//div[@class="proMoney"]//p[@class="now"]';
+				$xpathStock = '//div[@class="produktdetail"]//div[@class="proInfo"]//tr[2]//td';
+
+			break;
+
 			default: return $scrapedData = ['sitePrice' => 'Something went wrong !!', 'siteStock' => "Something went wrong !!"];
 			break;
 
@@ -146,7 +191,14 @@ class Merchant {
                 $nodeMainPrice = (!empty($getMainPrice) and $getMainPrice->length == 1)? $getMainPrice->item(0)->nodeValue : 0 ;
     
                 $getPrice = ($node1stPrice <= $nodeMainPrice)? $node1stPrice : $nodeMainPrice;
-                $getStock = ($getStockQuery->length == 1)? 'In stock' : "Out of stock";
+
+				switch($getMerchant){
+					case 'mmoga': $getStock = (trim($getStockQuery->item(0)->nodeValue) == 'available')? 'In stock' : "Out of stock";
+					break;	
+
+					default: $getStock = ($getStockQuery->length == 1)? 'In stock' : "Out of stock";
+					break;
+				}
 
 
 				$scrapedData = array(

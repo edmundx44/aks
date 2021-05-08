@@ -88,33 +88,33 @@ var onOpen = '';
 
 				AjaxCall(url+'reports', dataRequest).done(function(data) {
 					console.log(data)
-					var getStock = (data.site[0].dispo == 1)? 'In Stock':'Out of Stock';
-					var appendSite = '<p class="ms-data-price"><span><b>PRICE : </b></span><span>'+data.site[0].price+'</span></p>';
-						appendSite += '<p class="ms-data-stock"><span><b>STOCK : </b></span><span>'+getStock+'</span></p>';
-						appendSite += '<p class="ms-data-url"><span><b>URL : </b></span><span><a href='+data.site[0].buy_url+' target="_blank">'+data.site[0].buy_url+'</a></span></p>';
-						appendSite += '<p class="ms-data-stock"><span><b>RATING : </b></span><span>'+data.site[0].rating+'</span></p>';
-						$(".span-what-site-price").html(data.site[0].price)
-						$(".span-what-site-stock").html(data.site[0].dispo)
+					// var getStock = (data.site[0].dispo == 1)? 'In Stock':'Out of Stock';
+					// var appendSite = '<p class="ms-data-price"><span><b>PRICE : </b></span><span>'+data.site[0].price+'</span></p>';
+					// 	appendSite += '<p class="ms-data-stock"><span><b>STOCK : </b></span><span>'+getStock+'</span></p>';
+					// 	appendSite += '<p class="ms-data-url"><span><b>URL : </b></span><span><a href='+data.site[0].buy_url+' target="_blank">'+data.site[0].buy_url+'</a></span></p>';
+					// 	appendSite += '<p class="ms-data-stock"><span><b>RATING : </b></span><span>'+data.site[0].rating+'</span></p>';
+					// 	$(".span-what-site-price").html(data.site[0].price)
+					// 	$(".span-what-site-stock").html(data.site[0].dispo)
 
-					if(data.mfeed.length != 0){
-						var appendMfeed = '<p class="ms-data-price"><span><b>PRICE : </b></span><span class="cac-get-feedprice">'+data.mfeed[0].price+'</span></p>';
-							appendMfeed += '<p class="ms-data-stock"><span><b>STOCK : </b></span><span class="cac-get-feedstock">'+data.mfeed[0].stock+'</span></p>';
-							appendMfeed += '<p class="ms-data-url"><span><b>URL : </b></span><span><a href='+data.mfeed[0].url+' target="_blank">'+data.mfeed[0].url+'</a></span></p>';
+					// if(data.mfeed.length != 0){
+					// 	var appendMfeed = '<p class="ms-data-price"><span><b>PRICE : </b></span><span class="cac-get-feedprice">'+data.mfeed[0].price+'</span></p>';
+					// 		appendMfeed += '<p class="ms-data-stock"><span><b>STOCK : </b></span><span class="cac-get-feedstock">'+data.mfeed[0].stock+'</span></p>';
+					// 		appendMfeed += '<p class="ms-data-url"><span><b>URL : </b></span><span><a href='+data.mfeed[0].url+' target="_blank">'+data.mfeed[0].url+'</a></span></p>';
 
-						$(".span-what-mfeed-price").html(data.mfeed[0].price)
-						$(".span-what-mfeed-stock").html(data.mfeed[0].stock)
-					}else{
-						var appendMfeed = '<b><p class="nfof-feedback">NOT FOUND ON FEED</p></b>';
-					}
+					// 	$(".span-what-mfeed-price").html(data.mfeed[0].price)
+					// 	$(".span-what-mfeed-stock").html(data.mfeed[0].stock)
+					// }else{
+					// 	var appendMfeed = '<b><p class="nfof-feedback">NOT FOUND ON FEED</p></b>';
+					// }
 
-					var getSiteStock = (data.msite.siteStock != '')? data.msite.siteStock : 'In stock';
+					// var getSiteStock = (data.msite.siteStock != '')? data.msite.siteStock : 'In stock';
 					
-					var appendSiteData = '<p class="ms-data-price" style="margin-top: 8px;"><span><b>PRICE : </b></span><span class="merchant-site-price">'+data.msite.sitePrice+'</span></p>';
-						appendSiteData += '<p class="ms-data-stock"><span><b>STOCK : </b></span><span class="merchant-site-stock">'+ getSiteStock +'</span></p>';
+					// var appendSiteData = '<p class="ms-data-price" style="margin-top: 8px;"><span><b>PRICE : </b></span><span class="merchant-site-price">'+data.msite.sitePrice+'</span></p>';
+					// 	appendSiteData += '<p class="ms-data-stock"><span><b>STOCK : </b></span><span class="merchant-site-stock">'+ getSiteStock +'</span></p>';
 					
-					$(".site-data").append(appendSite);
-					$(".mfeed-data").append(appendMfeed);
-					$(".msite-data").append(appendSiteData);
+					// $(".site-data").append(appendSite);
+					// $(".mfeed-data").append(appendMfeed);
+					// $(".msite-data").append(appendSiteData);
 
 				}).always(function(){
 					$('.basic-loader-padding, .basic-loader').hide();
@@ -546,7 +546,7 @@ $(document).on('click', '.open-info', function(){
 						if($("#"+data[i].merchantSqlID).length == 0) {
 							var append = 	'<tr class="cr-tbody-tr '+getRating+'" id="'+data[i].merchantSqlID+'">';
 								append +=	'<td class="cr-tbody-td-1 cr-tbody-td '+getreport+'" data-tblid="'+data[i].id+'" data-reported="'+data[i].toMerchant+'"  title="Click If already reported to merchant"><i class="fa fa-truck" aria-hidden="true"></i></td>';
-								append +=	'<td class="cr-tbody-td-2 cr-tbody-td"><a href="'+ data[i].merchantLink +'" target="_blank">'+ data[i].merchantLink +'</a></td>';
+								append +=	'<td class="cr-tbody-td-2 cr-tbody-td"><a href="'+ data[i].merchantLink +'" target="_blank">'+ html_decode(data[i].merchantLink) +'</a></td>';
 								append +=	'<td class="cr-tbody-td-3 cr-tbody-td">'+ data[i].merchantSite +'</td>';
 								append +=	'<td class="cr-tbody-td-4 cr-tbody-td">'+ data[i].problem +'</td>';
 								append +=	'<td class="cr-tbody-td-5 cr-tbody-td">';

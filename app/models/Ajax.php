@@ -81,11 +81,12 @@ class Ajax {
 								$metaStores = json_decode($getDataMeta, true);
 
 								asort($metaStores);
+								vd(Utilities::getMetacriticsNumberOfLinks($db));
 								foreach ($metaStores as $key) {
 									$id = $key['id'];
 									$name = $key['name'];
-									$number_of_links = DashboardController::getMetacriticsNumberOfLinks($db,$id); //# of links
-									$number_of_disabled_links = DashboardController::getMetacriticsDisabledLinks($db,$id); //# of disabled links
+									$number_of_links = Utilities::getMetacriticsNumberOfLinks($db,$id); //# of links
+									$number_of_disabled_links = Utilities::getMetacriticsDisabledLinks($db,$id); //# of disabled links
 
 									if($number_of_links->count > 0){
 										$number_of_links->count = $number_of_links->count * .95;
@@ -544,7 +545,8 @@ class Ajax {
 					'msite' => Merchant::merchantSiteXpath($getInput->get('url'))
 				);
 				return $resulNi;
-				//return Merchant::merchantSiteXpath($getInput->get('url'));
+				//return $getSiteData;
+				//return Merchant::merchantData($getInput->get('site'), $getInput->get('url'));
 				
 			break;
 			case 'cr-rtm':
