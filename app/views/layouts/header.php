@@ -49,10 +49,10 @@
 	<nav class="navbar navbar-expand-md navbar-light navbar-style">
 		<a href="#" class="navbar-brand">
 			<?php foreach ($menu as $key => $val): 
-				$title = ($val == $currentPage)? $key:''; ?>
+				$title = ($val == parse_url($currentPage, PHP_URL_PATH))? $key:''; ?>
 				<?php if(is_array($val)): ?>
 					<?php foreach($val as $k => $v): 
-						$titles = ($v == $currentPage)? $k:''; ?>
+						$titles = ($v == parse_url($currentPage, PHP_URL_PATH))? $k:''; ?>
 						<span><?= $titles ?></span>
 					<?php endforeach; ?>
 				<?php else:?>
