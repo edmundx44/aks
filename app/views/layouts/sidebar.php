@@ -85,8 +85,8 @@ input:checked + .switch-slider:before {
 					
 				<?php foreach ($menu as $key => $val): ?>
 					<?php if($key != 'Logout'): 
-						$active = ($val == $currentPage)? 'active-class':''; 
-						$activeVal = ($val == $currentPage)? 'active-class-val':'';
+						$active = ($val == parse_url($currentPage, PHP_URL_PATH))? 'active-class':''; 
+						$activeVal = ($val == parse_url($currentPage, PHP_URL_PATH))? 'active-class-val':'';
 					?>
 						
 						<?php if(is_array($val)): ?>
@@ -101,9 +101,9 @@ input:checked + .switch-slider:before {
 									
 									<ul class="sub-ul-nav <?= $key ?>-sub-ul">
 										<?php foreach($val as $k => $v): 
-											echo ($v == $currentPage)? "<script type='text/javascript'>$('.$key-sub-ul').addClass('show-div');</script>" : '' ;
-											$active = ($v == $currentPage)? 'active-class':''; 
-											$activeVal = ($v == $currentPage)? 'active-class-val':''; 
+											echo ($v == parse_url($currentPage, PHP_URL_PATH))? "<script type='text/javascript'>$('.$key-sub-ul').addClass('show-div');</script>" : '' ;
+											$active = ($v == parse_url($currentPage, PHP_URL_PATH))? 'active-class':''; 
+											$activeVal = ($v == parse_url($currentPage, PHP_URL_PATH))? 'active-class-val':''; 
 										?>
 											<a href="<?= $v ?>" class="sub-li-a-nav">
 												<li class="sub-li-nav ">
