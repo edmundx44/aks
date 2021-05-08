@@ -37,6 +37,7 @@ const inputsSite = {
 }
 
 $(document).ready(function(){
+	removeEmptyTitle();
 	displayIcon();
 	displayMode(localStorage.getItem("body-mode"));
 
@@ -161,6 +162,16 @@ $(document).ready(function(){
 	});
 	
 }); // end docuemtn ready
+
+
+function removeEmptyTitle(){
+	var items = $('body').find('.header-title');
+	$.each(items, function (i, v) {
+		if ($(items[i]).html().trim() === "") {
+			$(items[i]).remove();
+		}
+	});
+}
 
 // dashboard function here -----------------------------------
 function displayIcon(){

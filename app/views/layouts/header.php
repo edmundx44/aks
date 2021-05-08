@@ -53,7 +53,7 @@
 				<?php if(is_array($val)): ?>
 					<?php foreach($val as $k => $v): 
 						$titles = ($v == parse_url($currentPage, PHP_URL_PATH))? $k:''; ?>
-						<span><?= $titles ?></span>
+						<span class="header-title"><?= $titles ?></span>
 					<?php endforeach; ?>
 				<?php else:?>
 					<span class="header-title header-title-normal"><?= $title ?></span>
