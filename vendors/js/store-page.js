@@ -123,6 +123,7 @@ $(function (){
 	});
 
 	$(document).on('click', '.dall-function', function(){
+
 		var getAllSum = parseInt(total) - parseInt(currentDisplay);
 		displayStoreGames(currentID, currentDisplay, getAllSum, toSearch, $('.dropdown-menu-btn').text());
 	});

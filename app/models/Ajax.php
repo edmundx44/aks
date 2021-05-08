@@ -166,6 +166,8 @@ class Ajax {
 					$getBind = $getInput->get('merchantID');
 				}
 
+				// display all but not direct all, display by 500
+
 				$countAllByMerchant = $db->find('`'.$site.'`.`pt_products`',['conditions' => [$conditions],'bind' => [$getBind]]);
 				$displayByMerchant =  $db->find('`'.$site.'`.`pt_products`',[
 					'conditions' => [$conditions],
