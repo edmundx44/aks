@@ -629,3 +629,183 @@
         </div>
     </div>
 </div>
+
+
+
+<!-- add shift modal -->
+<div class="modal fade" id="pc-add-shift-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="border-color: #fff">
+            <div class="modal-header">
+                <h5 class="modal-title modal-assign-title-txt" id="exampleModalLabel">Add Shift</h5>
+                    <button type="button" class="close pull-right" data-dismiss="modal" style="opacity: 1;outline:none;left: 13px;top: -15px;border-radius: 20px; position: relative;background-color: #fff; width: 20px;height: 20px;padding: 0;"><span style="position: relative;top: -3px;">&times;</span></button>
+            </div>
+            <div class="modal-body pc-asb-modal">
+                <div class="form-group">
+                    <label style="width: 100%;background-color: #4e73df;padding: 8px;padding-left: 15px;color: #fff;">Week Day's Schedule</label>
+                    <select class="form-control select-checker" id="sel1">
+                        <option selected disabled>Assign Worker</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="row" style="padding: 0 10px 0 10px;">
+                        <div class="col-md-3" style="padding-left: 17px;line-height: 2.5;">Start</div>
+                        <div class="col-md-3">
+                            <select class="form-control s-start-time-h">
+                                <option selected disabled>Hour</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control s-start-time-min">
+                                <option selected disabled>Min</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3" style="padding-right: 3px;">
+                            <select class="form-control s-start-ampm" >
+                                <option val="AM">AM</option>
+                                <option val="PM">PM</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row" style="padding: 0 10px 0 10px;">
+                        <div class="col-md-3" style="padding-left: 17px;line-height: 2.5;">End</div>
+                        <div class="col-md-3">
+                            <select class="form-control s-end-time-h">
+                                <option selected disabled>Hour</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control s-end-time-min">
+                                <option selected disabled>Min</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3" style="padding-right: 3px;">
+                            <select class="form-control s-end-ampm" >
+                                <option val="AM">AM</option>
+                                <option val="PM">PM</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <label style="width: 100%;background-color: #4e73df;padding: 8px;padding-left: 15px;color: #fff;">Sunday's Schedule</label>
+                <div class="form-group">
+                    <div class="row" style="padding: 0 10px 0 10px;">
+                        <div class="col-md-3" style="padding-left: 17px;line-height: 2.5;">Start</div>
+                        <div class="col-md-3">
+                            <select class="form-control s-start-time-h-sunday">
+                                <option selected disabled>Hour</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control s-start-time-min-sunday">
+                                <option selected disabled>Min</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3" style="padding-right: 3px;">
+                            <select class="form-control s-start-ampm-sunday" >
+                                <option val="AM">AM</option>
+                                <option val="PM">PM</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row" style="padding: 0 10px 0 10px;">
+                        <div class="col-md-3" style="padding-left: 17px;line-height: 2.5;">End</div>
+                        <div class="col-md-3">
+                            <select class="form-control s-end-time-h-sunday">
+                                <option selected disabled>Hour</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control s-end-time-min-sunday">
+                                <option selected disabled>Min</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3" style="padding-right: 3px;">
+                            <select class="form-control s-end-ampm-sunday" >
+                                <option val="AM">AM</option>
+                                <option val="PM">PM</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" name="" class="edit-id-text">
+            </div>
+            <div class="modal-footer">
+                <button id="" class="btn-set-shift btn btn-success" type="button" >Set Shift</button>
+                <!-- data-dismiss="modal" -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- add daily listing modal-->
+<div class="modal fade" id="price_check_tool_modal_add_game" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title modal-daily-title-txt" id="exampleModalLabel">Add Game To Check</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">X</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label style="width: 100%;background-color: #4e73df;padding: 8px;padding-left: 15px;color: #fff;">Game Info</label>
+                    <div class="row">
+                        <div class="col-md-6"><label>Game ID</label></div>
+                        <div class="col-md-6"><span class="err-msg"></span></div>
+                    </div>
+                    <input type="text" id="price_check_tool_game_id" class="form-control" style="margin-bottom: 10px;">
+                    <label>Game Name</label>
+                    <input type="text" id="price_check_tool_game_name" class="form-control">
+                </div>
+                
+
+                <label for="release-date" style="width: 100%;background-color: #4e73df;padding: 8px;padding-left: 15px;color: #fff;">Release Date</label>
+                <div class="form-group">
+                    <input id="release-date" type="text" class="form-control" placeholder="Date">
+                </div>
+                <input type="hidden" name="" class="edit-id-text-daily">
+                <input type="hidden" name="" class="div-get-avail">
+                <input type="hidden" name="" class="div-clone-val">
+            </div>
+            <div class="modal-footer">
+                <button id="" class="price_check_tool_add btn btn-success" type="button" >Submit</button>
+                <!-- data-dismiss="modal" -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- add wrong affiliate link modal ----------------------- -->
+<div class="modal fade" id="add-wrong-aff-link-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title modal-wrong-title-txt" id="exampleModalLabel">Add Wrong Affiliate Links</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">X</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Input Number:</label>
+                    <input type="number" class="form-control txt-input-wrong-link">
+                </div>
+                <input type="hidden" name="" class="edit-id-text-wrong">
+                <input type="hidden" name="" class="daily-aff">
+            </div>   
+            <div class="modal-footer">
+                <button id="" class="btn-add-wrong-link btn btn-primary" type="button" >Submit</button>
+                <!-- data-dismiss="modal" -->
+            </div>
+        </div>
+    </div>
+</div>

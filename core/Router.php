@@ -60,9 +60,12 @@
 
       if(Session::exists(CURRENT_USER_SESSION_NAME)) {
         $current_user_acls[] = "LoggedIn";
-        foreach(Users::currentUser()->acls() as $a) {
-          $current_user_acls[] = $a;
+        if(Users::currentUser()->acl != NULL) {
+          $current_user_acls[] = Users::currentUser()->acl;
         }
+        // foreach(Users::currentUser()->acl as $a) {
+        //   $current_user_acls[] = $a;
+        // }
       }
 
       foreach($current_user_acls as $level) {

@@ -54,7 +54,7 @@ $(document).ready(function(){
 
 	$('.modal-dialog').draggable({
 		handle: ".modal-content",
-		cancel: 'span, input'
+		cancel: 'span, input, .pc-asb-modal*'
 	});
 
 	// var pathname = window.location.pathname;     
@@ -498,12 +498,20 @@ function removedKeyNormal($type,$key){
 	}
 	return true;
 }
+
 function confirmationModal($appendtoheader, $appendtobody, $appendtofooter){
 	$('#report-modal-confirmation').modal('show');
 	$('.confirmation-tittle').empty().html($appendtoheader);
 	$('.modal-content-body').empty().append($appendtobody)
 	$('.confirmation-modal-footer').empty().append($appendtofooter)
 }
+
+function getUrlParameter(name) {
+	name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+	var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+	var results = regex.exec(location.href);
+	return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, '    '));
+};
  
 
 

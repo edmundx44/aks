@@ -89,7 +89,7 @@ use Core\Session;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="<?=PROOT?>vendors/js/custom.js"></script>
-    <script type="text/javascript">
+   <!--  <script type="text/javascript">
       toastr.options = {
         "closeButton": true,
         "newestOnTop": false,
@@ -125,7 +125,7 @@ use Core\Session;
           
           AjaxCall(url, dataRequest).done(function(data) {
             if(data != false){
-              console.log(data)
+              // console.log(data)
               let task = delay(2000);
 
               var counter = 0
@@ -147,7 +147,7 @@ use Core\Session;
                 })
 
             }else{
-              console.log(data)
+              // console.log(data)
               setTimeout( function(){ 
 
                 logsNotification()
@@ -157,8 +157,6 @@ use Core\Session;
           });
         }
       });
-
-
-    </script>
+    </script> -->
   </body>
 </html>

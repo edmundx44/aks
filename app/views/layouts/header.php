@@ -77,14 +77,14 @@
 					</div>
 				</div> -->
 			</div>
-			<form class="form-inline search-btn-form">
+			<!-- <form class="form-inline search-btn-form">
 				<div class="input-group search-btn-div">
 					<input type="text" class="form-control" placeholder="Search">
 					<div class="input-group-append">
 						<button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
 					</div>
 				</div>
-			</form>
+			</form> -->
 		</div>
 	</nav>
 </div>

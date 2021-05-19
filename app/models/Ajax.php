@@ -690,6 +690,141 @@ class Ajax {
 				];
 				$logUpdate = $db->update('`aks`.`tblLogs`', $getInput->get('id'), $fields);
 			break;
+			case 'pc-cda-div':
+				$result = array();
+
+				$countAllCheckerActivity = $db->find('`aks_bot_teamph`.`tblCheckerList`');
+				$displayCheckerActivity = $db->find('`aks_bot_teamph`.`tblCheckerList`', [
+					'order' => 'id desc',
+					'limit' => 100,
+					'offset'=> 0
+				]);
+
+				array_push($result, array(
+					'total' => count($countAllCheckerActivity),
+					'data' => $displayCheckerActivity
+				));
+
+				return $result;
+			break;
+			case 'displayAllDailyActivity':
+				$result = array();
+				$x = 0;
+				$total = $getInput->get('getTotal');
+				$offset = $getInput->get('getOffset');
+				while($x != $total) {
+					if($x == $offset) {
+						$displayCheckerActivity = $db->find('`aks_bot_teamph`.`tblCheckerList`', [
+							'order' => 'id desc',
+							'limit' => 499,
+							'offset'=> $offset
+						]);
+						array_push($result, array(
+							'data' => $displayCheckerActivity
+						));
+
+						if($total < $offset) break;
+						$offset = $offset + 499;
+					}
+				  $x++;
+				}
+				return $result;
+			break;
+			case 'displayMoreDailyActivity':
+				$offset = $getInput->get('getOffset');
+				return $db->find('`aks_bot_teamph`.`tblCheckerList`', [
+					'order' => 'id desc',
+					'limit' => 100,
+					'offset'=> $offset
+				]);
+			break;
+			case 'pc-cda-search-data':
+				$sql = "SELECT * from `aks_bot_teamph`.`tblCheckerList` search where CONCAT(search.checkerName, ' ', search.checkerActivity) like '%".htmlspecialchars_decode($getInput->get('toSearch'))."%' order by id  desc limit 100";
+				return $db->query($sql)->results();
+			break;
+			case 'display-assign-checker':
+				return $db->find('`aks_bot_teamph`.`tblAssignChecker`', [
+					'conditions' => ['status = ?'],
+					'bind' => [0],
+					'order' => 'id desc'
+				]);
+			break;
+			case 'displayChecker':
+				return $db->find('`test-server`.`admin_user`', [
+					'conditions' => ['role = ?'],
+					'bind' => ['price_team']
+				]);
+			break;
+			case 'add-shift':
+				if($getInput->get('toEditId') != ''){
+					$fields = [
+						'assignChecker' => $getInput->get('assignChecker'),
+						'weekdaySchedule' => $getInput->get('weekdaySchedule'),
+						'sundaySchedule' => $getInput->get('sundaySchedule'),
+					];	
+					$updateShift = $db->update('`aks_bot_teamph`.`tblAssignChecker`', $getInput->get('toEditId'), $fields);
+				}else{
+					$fields = [
+						'assignChecker' => $getInput->get('assignChecker'),
+						'weekdaySchedule' => $getInput->get('weekdaySchedule'),
+						'sundaySchedule' => $getInput->get('sundaySchedule'),
+						'assignBy' => ucfirst(Users::currentUser()->fname)
+					];
+					$addShift = $db->insert('`aks_bot_teamph`.`tblAssignChecker`', $fields);
+				}
+			break;
+			case 'pc-removed-assign-checker':
+				$updateShift = $db->update('`aks_bot_teamph`.`tblAssignChecker`', $getInput->get('idToRemove'), ['status' => 1]);
+			break;
+			case 'display-daily-listing':
+				return $db->find('`aks_bot_teamph`.`tblPriceCheckTool`', [
+					'conditions' => ['status = ?'],
+					'bind' => [0],
+					'order' => 'id desc',
+				]);
+			break;
+			case 'check-gameID-availability':
+				$displayDailyListing = $db->find('`aks_bot_teamph`.`tblPriceCheckTool`', [
+					'conditions' => ['gameId = ?'],
+					'bind' => [$getInput->get('toCheck')]
+				]);
+				return ($displayDailyListing)? '00' : '11';
+			break;
+			case 'add-daily-listing':
+				if($getInput->get('toEditId') != ''){
+					$fields = [
+						'gameId' => $getInput->get('gameId'),
+						'gameName' => $getInput->get('gameName'),
+						'releaseDate' => $getInput->get('releaseDate')
+					];	
+					$updateADL = $db->update('`aks_bot_teamph`.`tblPriceCheckTool`', $getInput->get('toEditId'), $fields);
+				}else{
+					$fields = [
+						'gameId' => $getInput->get('gameId'),
+						'gameName' => $getInput->get('gameName'),
+						'createdBy' => ucfirst(Users::currentUser()->fname),
+						'releaseDate' => $getInput->get('releaseDate')
+					];
+					$addADL = $db->insert('`aks_bot_teamph`.`tblPriceCheckTool`', $fields);
+				}
+			break;
+			case 'pc-removed-daily-listing':
+				$updateShift = $db->update('`aks_bot_teamph`.`tblPriceCheckTool`', $getInput->get('idToRemove'), ['status' => 1]);
+			break;
+			case 'display-wrong-affilliate-link':
+				return $db->find('`aks_bot_teamph`.`tblWrongAffLink`', [
+					'conditions' => ['status = ?'],
+					'bind' => [0],
+					'order' => 'id desc'
+				]);
+			break;
+			case 'get-wrong-affilliate-daily':
+				$sql = "SELECT DATE_FORMAT(`addedDate`, '%Y-%m-%d') FROM `aks_bot_teamph`.`tblWrongAffLink` WHERE DATE_FORMAT(`addedDate`, '%Y-%m-%d') = CURDATE()";
+				return ($db->query($sql)->results())? '11' : '00';
+			break;
+			case 'add-wrong-aff-link':
+			    $run = ($getInput->get('toEditId') != '')? $db->update('`aks_bot_teamph`.`tblWrongAffLink`', $getInput->get('toEditId'), ['wrongAffLink' => $getInput->get('wrongAffLink')]) : $db->insert('`aks_bot_teamph`.`tblWrongAffLink`', ['wrongAffLink' => $getInput->get('wrongAffLink')]);
+			break;
 		}
 	}
 
