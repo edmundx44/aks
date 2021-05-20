@@ -4,6 +4,10 @@
 	use App\Models\Users;
 	$menu = Router::getMenu('menu_acl');
 	$currentPage = H::currentPage(); //for active only
+	//testing the preg_match
+	//$test = preg_match('/^(\/[^\/]+)(\/[^\/]+)(\/[^\/]+)\/?|.+/',$currentPage, $con);
+	//echo "<pre>", print_r($con,1), "</pre>";
+	//echo $currentPage = preg_replace('/^(\/[^\/]+)(\/[^\/]+)(\/[^\/]+)\/?|.+/','${1}${2}${3}',$currentPage);
 ?>
 <style>
 	.switch-btn {
@@ -84,9 +88,10 @@ input:checked + .switch-slider:before {
 				
 					
 				<?php foreach ($menu as $key => $val): ?>
-					<?php if($key != 'Logout'): 
-						$active = ($val == parse_url($currentPage, PHP_URL_PATH))? 'active-class':''; 
-						$activeVal = ($val == parse_url($currentPage, PHP_URL_PATH))? 'active-class-val':'';
+					<?php if($key != 'Logout'):
+						$currentPageUse = (is_array($val)) ? trim(preg_replace('/^(\/[^\/]+)(\/[^\/]+)(\/[^\/]+)\/?|.+/','${1}${2}${3}',$currentPage)) : $currentPage;
+						$active = ($val == parse_url($currentPageUse, PHP_URL_PATH))? 'active-class':''; 
+						$activeVal = ($val == parse_url($currentPageUse, PHP_URL_PATH))? 'active-class-val':'';
 					?>
 						
 						<?php if(is_array($val)): ?>
@@ -101,9 +106,9 @@ input:checked + .switch-slider:before {
 									
 									<ul class="sub-ul-nav <?= $key ?>-sub-ul">
 										<?php foreach($val as $k => $v): 
-											echo ($v == parse_url($currentPage, PHP_URL_PATH))? "<script type='text/javascript'>$('.$key-sub-ul').addClass('show-div');</script>" : '' ;
-											$active = ($v == parse_url($currentPage, PHP_URL_PATH))? 'active-class':''; 
-											$activeVal = ($v == parse_url($currentPage, PHP_URL_PATH))? 'active-class-val':''; 
+											echo ($v == parse_url($currentPageUse, PHP_URL_PATH))? "<script type='text/javascript'>$('.$key-sub-ul').addClass('show-div');</script>" : '' ;
+											$active = ($v == parse_url($currentPageUse, PHP_URL_PATH))? 'active-class':''; 
+											$activeVal = ($v == parse_url($currentPageUse, PHP_URL_PATH))? 'active-class-val':''; 
 										?>
 											<a href="<?= $v ?>" class="sub-li-a-nav">
 												<li class="sub-li-nav ">

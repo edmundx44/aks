@@ -1,0 +1,17 @@
+[20-May-2021 12:48:21 Asia/Manila] PHP Fatal error:  Uncaught Error: Call to private method App\Models\Utilities::merchantEditionPriceTool() from context 'App\Models\Ajax' in C:\xampp\htdocs\aks\app\models\Ajax.php:1054
+Stack trace:
+#0 C:\xampp\htdocs\aks\app\controllers\UtilitiesController.php(70): App\Models\Ajax::ajaxData('merchant_editio...')
+#1 C:\xampp\htdocs\aks\app\controllers\UtilitiesController.php(30): App\Controllers\UtilitiesController->ajaxFunction()
+#2 [internal function]: App\Controllers\UtilitiesController->affiliateCheckAction(Array)
+#3 C:\xampp\htdocs\aks\core\Router.php(36): call_user_func_array(Array, Array)
+#4 C:\xampp\htdocs\aks\index.php(34): Core\Router::route(Array)
+#5 {main}
+  thrown in C:\xampp\htdocs\aks\app\models\Ajax.php on line 1054
+[20-May-2021 15:14:44 Asia/Manila] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in C:\xampp\htdocs\aks\app\models\Ajax.php on line 181
+[20-May-2021 15:14:44 Asia/Manila] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in C:\xampp\htdocs\aks\app\models\Ajax.php on line 182
+[20-May-2021 09:47:47 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$key' (T_VARIABLE), expecting ')' in C:\xampp\htdocs\aks\app\models\Ajax.php on line 1074
+[20-May-2021 09:47:48 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$key' (T_VARIABLE), expecting ')' in C:\xampp\htdocs\aks\app\models\Ajax.php on line 1074
+[20-May-2021 09:47:48 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$key' (T_VARIABLE), expecting ')' in C:\xampp\htdocs\aks\app\models\Ajax.php on line 1074
+[20-May-2021 09:47:49 Europe/Berlin] PHP Parse error:  syntax error, unexpected '$key' (T_VARIABLE), expecting ')' in C:\xampp\htdocs\aks\app\models\Ajax.php on line 1074
+[20-May-2021 11:01:58 Europe/Berlin] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW), expecting ')' in C:\xampp\htdocs\aks\app\models\Ajax.php on line 1074
+[20-May-2021 11:02:11 Europe/Berlin] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW), expecting ')' in C:\xampp\htdocs\aks\app\models\Ajax.php on line 1065

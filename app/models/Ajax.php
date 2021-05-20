@@ -9,6 +9,7 @@ use App\Models\Merchant;
 use App\Models\Utilities;
 use App\Controllers\DashboardController;
 use App\Controllers\StoreController;
+use App\Controllers\ToolsController;
 use App\Controllers\UtilitiesController;
 use App\Controllers\ReportsController;
 
@@ -856,7 +857,7 @@ class Ajax {
 
                     return $returnResult;
 			break;
-			
+
 			case 'affMoreInfo':
                 $getSite = $getInput->get('website');
                 $getId = $getInput->get('merchant_id');
@@ -887,7 +888,65 @@ class Ajax {
                     );
                     return $returnArray['success'];
             break;
+			
+			case 'ajaxAffiliateLinkIdRequest':
+                $getIdRequest = $getInput->get('ajaxRequestId');
 
+                $sql = "SELECT * FROM `test-server`.`affiliate_links` WHERE `merchant_id` = $getIdRequest LIMIT 1";
+                $result = $db->query($sql)->results();
+                return $result; 
+            break;
+
+			case 'ajaxAffiliateEditRequest':
+                
+                $getIdRequestId = $getInput->get('ajaxRequestId');
+                $getIdRequestName = $getInput->get('ajaxRequestName');
+                $getIdRequestAks = htmlspecialchars_decode($getInput->get('ajaxRequestAks'));
+                $getIdRequestCdd = htmlspecialchars_decode($getInput->get('ajaxRequestCdd'));
+                $getIdRequestBrexitgbp = htmlspecialchars_decode($getInput->get('ajaxRequestBrexitgbp'));
+                $getIdRequestsite = $getInput->get('ajaxRequestsite');
+
+                $sql = "UPDATE `test-server`.`affiliate_links`
+                        SET `aks_affiliate_link` = '$getIdRequestAks',
+                            `cdd_affiliate_link` = '$getIdRequestCdd',
+                            `brexit_affiliate_link` = '$getIdRequestBrexitgbp',
+                            `name` = '$getIdRequestName'
+                        WHERE `merchant_id` = '$getIdRequestId'";
+
+                $result = $db->query($sql) ? true : fail;
+                if($result){
+                    $returnResponse['success'] = array(
+                        'data' => 'Successfully edited for '.ucfirst($getIdRequestName).' '.$getIdRequestId.' affialiate link.',
+                        'site' => $getIdRequestsite
+                    );
+                } else{
+                    $returnResponse['success'] = array(
+                        'data' => 'There something wrong with the query',
+                        'site' => $getIdRequestsite
+                    );
+                }
+				return $returnResponse;
+            break;
+			
+			case 'addNewAffRequest':
+                    
+                $getIdRequestIdAdd = $getInput->get('ajaxRequestIdAdd');
+                $getIdRequestNameAdd = $getInput->get('ajaxRequestNameAdd');
+                $getIdRequestAksAdd = htmlspecialchars_decode($getInput->get('ajaxRequestAksAdd'));
+                $getIdRequestCddAdd = htmlspecialchars_decode($getInput->get('ajaxRequestCddAdd'));
+                $getIdRequestBrexitgbpAdd = htmlspecialchars_decode($getInput->get('ajaxRequestBrexitgbpAdd'));
+
+                $sql ="INSERT INTO `test-server`.`affiliate_links` ( `merchant_id`, `name`, `aks_affiliate_link`, `cdd_affiliate_link`,`brexit_affiliate_link`)
+                       VALUES ( '$getIdRequestIdAdd', '$getIdRequestNameAdd', '$getIdRequestAksAdd', '$getIdRequestCddAdd', '$getIdRequestBrexitgbpAdd')";
+
+                $result = $db->query($sql) ? true : fail;
+
+                if($result)
+                    return 'SUCCESS';
+                else
+                    return 'SOMETHING WRONG WITH THE QUERY';
+            break;
+			
 			case 'getFailedStores':
                 $sql = "SELECT `id`,`merchant_id`,`name`,`website`,`successRunTime` FROM `test-server`.`bot_admin` 
                         WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 4 HOUR)
@@ -980,6 +1039,47 @@ class Ajax {
 					'status' => 1,
 				];
 				$logUpdate = $db->update('`aks`.`tblLogs`', $getInput->get('id'), $fields);
+			break;
+
+			case 'merchant_edition_price_tool':
+				$postSite = ($getInput->get('website') != null ) ? $getInput->get('website') : null ;
+				$postMerchant = ($getInput->get('merchant') != null) ? $getInput->get('merchant'): 0;
+				$postEdition = ($getInput->get('edition') != null) ? $getInput->get('edition') : 0;
+				if($postSite == null) return false;
+
+				$utilities = new Utilities;
+				$retrieveMerchant = $utilities->dataMerchant();
+				$retrieveEdition = $utilities->dataEdition();
+				$retrieveRegions = $utilities->dataRegion();
+				$retrieveResults = $utilities->merchantEditionPriceTool($postSite, $postMerchant, $postEdition);
+
+				$arrayThis =array();
+				foreach ($retrieveResults as $key){
+					$merchantData = (!array_key_exists($key->merchant, $retrieveMerchant)) ? 'No Data' : $retrieveMerchant[$key->merchant];
+					$editionData = (!array_key_exists($key->edition, $retrieveEdition)) ? 'No Data' : $retrieveEdition[$key->edition];
+					$regionData = (!array_key_exists($key->region, $retrieveRegions)) ? 'No Data' : $retrieveRegions[$key->region];
+
+					array_push($arrayThis, array(
+							'id' => $key->id,
+							'merchant' => ucfirst($merchantData),
+							'edition' => ucfirst($editionData),
+							'region' => ucfirst($regionData),
+							'game_id' => $key->normalised_name,
+							'buy_url' => $key->buy_url,
+							'price' => $key->price,
+							'dispo' => $key->dispo,
+							'rating' => $key->rating,
+							'search_name' => $key->search_name,
+							'created_by' => ucfirst($key->created_by),
+							'created_time' => date('M d Y h:i A',strtotime($key->created_time)),
+						)
+					);
+				}
+				$returnArrayData['success'] = array(
+					'data' => $arrayThis,
+					'returnWebsite'=> $postSite
+				);
+				return $returnArrayData;
 			break;
 		}
 	}

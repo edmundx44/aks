@@ -27,9 +27,10 @@
       }
 
       //params
-      $queryParams = $url;
+      $queryParams[] = $url;
+      //echo "<pre>", print_r($queryParams,1), "</pre>"; //for debugging arguments of the controller methods
       $controller = 'App\Controllers\\' . $controller;
-      $dispatch = new $controller($controller_name, $action);
+      $dispatch = new $controller($controller_name, $action); //instantiate new class with the name of $controller default is HomeController;
 
       if(method_exists($controller, $action)) {
         call_user_func_array([$dispatch, $action], $queryParams);

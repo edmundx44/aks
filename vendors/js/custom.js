@@ -397,6 +397,10 @@ function html_decode(string) {
   });
 }
 
+function regExpEscape(literal_string) {
+    return literal_string.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
+}
+
 function debounce(fun, mil){
     var timer; 
     return function(){
@@ -540,6 +544,23 @@ function returnSiteClass($site){
 		break;
 	}
 	return $class;
+}
+function eRegex($string){
+	switch ($string){
+		case '+': 
+		case '-':
+		case '*': 
+		case '/': 
+		case '?': 
+		case '^': 
+		case '|': 
+			$string = "\/" + $string;
+		break;
+
+		default:
+		break;
+	}
+	return $string;
 }
 
 function displayStoreGamesByNormalizedName($normalised_name,$site) {

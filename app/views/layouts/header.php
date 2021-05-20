@@ -4,6 +4,7 @@
   use App\Models\Users;
   $menu = Router::getMenu('menu_acl');
   $currentPage = H::currentPage(); //for active only
+  $currentPageUse = (is_array($val)) ? trim(preg_replace('/^(\/[^\/]+)(\/[^\/]+)(\/[^\/]+)\/?|.+/','${1}${2}${3}',$currentPage)) : $currentPage;
 ?>
 <style type="text/css">
 	.header-content {
@@ -51,8 +52,9 @@
 			<?php foreach ($menu as $key => $val): 
 				$title = ($val == parse_url($currentPage, PHP_URL_PATH))? $key:''; ?>
 				<?php if(is_array($val)): ?>
+				<?php $currentPageUse = (is_array($val)) ? trim(preg_replace('/^(\/[^\/]+)(\/[^\/]+)(\/[^\/]+)\/?|.+/','${1}${2}${3}',$currentPage)) : $currentPage; ?>
 					<?php foreach($val as $k => $v): 
-						$titles = ($v == parse_url($currentPage, PHP_URL_PATH))? $k:''; ?>
+						$titles = ($v == parse_url($currentPageUse, PHP_URL_PATH))? $k:''; ?>
 						<span><?= $titles ?></span>
 					<?php endforeach; ?>
 				<?php else:?>

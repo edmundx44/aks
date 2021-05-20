@@ -2,36 +2,45 @@
 namespace App\Controllers;
 use Core\Controller;
 use Core\H;
-use App\Models\Users;
-use App\Models\Ajax;
 use Core\DB;
+use Core\Input;
+use App\Models\Ajax;
+use App\Models\Users;
+//use App\Models\Utilities;
 
 class ToolsController extends Controller {
 
 	public function __construct($controller, $action) {
 		parent::__construct($controller, $action);
+		$this->load_model('Utilities'); //load utilities class in model then use $this->UtilitiesModel
 	}
 
-	public function merchantEditionAction() {
+	public function merchantEditionAction($queryParameters = false) {
 		self::ajaxFunction();
+		$utilities = $this->UtilitiesModel;
+
+		//vd($queryParameters);
+		$this->view->dataEdition =  $utilities->dataEdition();
+		$this->view->dataMerchant = $utilities->dataMerchant();
+			
 		$this->view->pageTitle = 'Merchant edition price check tool';
 		$this->view->render('admin/tools/merchant-edition');
 	}
 
-	public function priceCheckAction() {
+	public function priceCheckAction($queryParameters = false) {
 
 		self::ajaxFunction();
 		$this->view->pageTitle = 'Price Check Tool';
 		$this->view->render('admin/tools/price-check');
 	}
 
-	public function rhynAction() {
+	public function rhynAction($queryParameters = false) {
 		self::ajaxFunction();
 		$this->view->pageTitle = 'Rhyn Tool';
 		$this->view->render('admin/tools/rhyn');
 	}
 
-	public function romainAction() {
+	public function romainAction($queryParameters = false) {
 		self::ajaxFunction();
 		$this->view->pageTitle = 'Romain Tool';
 		$this->view->render('admin/tools/romain');
@@ -43,7 +52,6 @@ class ToolsController extends Controller {
 			$this->jsonResponse($ajaxResult);
 		}
 	}
-
 
 }
 
