@@ -55,7 +55,7 @@
 				<?php $currentPageUse = (is_array($val)) ? trim(preg_replace('/^(\/[^\/]+)(\/[^\/]+)(\/[^\/]+)\/?|.+/','${1}${2}${3}',$currentPage)) : $currentPage; ?>
 					<?php foreach($val as $k => $v): 
 						$titles = ($v == parse_url($currentPageUse, PHP_URL_PATH))? $k:''; ?>
-						<span><?= $titles ?></span>
+						<span class="header-title"><?= $titles ?></span>
 					<?php endforeach; ?>
 				<?php else:?>
 					<span class="header-title header-title-normal"><?= $title ?></span>
@@ -79,14 +79,14 @@
 					</div>
 				</div> -->
 			</div>
-			<form class="form-inline search-btn-form">
+			<!-- <form class="form-inline search-btn-form">
 				<div class="input-group search-btn-div">
 					<input type="text" class="form-control" placeholder="Search">
 					<div class="input-group-append">
 						<button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
 					</div>
 				</div>
-			</form>
+			</form> -->
 		</div>
 	</nav>
 </div>

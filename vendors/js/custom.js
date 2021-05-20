@@ -37,6 +37,7 @@ const inputsSite = {
 }
 
 $(document).ready(function(){
+	removeEmptyTitle();
 	displayIcon();
 	displayMode(localStorage.getItem("body-mode"));
 
@@ -53,7 +54,8 @@ $(document).ready(function(){
 
 	$('.modal-dialog').draggable({
 		handle: ".modal-content",
-		cancel: 'span, input , .nfof-feedback'
+		cancel: 'span, input , .nfof-feedback',
+		cancel: 'span, input, .pc-asb-modal*'
 	});
 
 	// var pathname = window.location.pathname;     
@@ -161,6 +163,16 @@ $(document).ready(function(){
 	});
 	
 }); // end docuemtn ready
+
+
+function removeEmptyTitle(){
+	var items = $('body').find('.header-title');
+	$.each(items, function (i, v) {
+		if ($(items[i]).html().trim() === "") {
+			$(items[i]).remove();
+		}
+	});
+}
 
 // dashboard function here -----------------------------------
 function displayIcon(){
@@ -515,6 +527,7 @@ function removedKeyNormal($type,$key){
 	}
 	return true;
 }
+
 function confirmationModal($appendtoheader, $appendtobody, $appendtofooter){
 	$('#report-modal-confirmation').modal('show');
 	$('.confirmation-tittle').empty().html($appendtoheader);
@@ -522,6 +535,13 @@ function confirmationModal($appendtoheader, $appendtobody, $appendtofooter){
 	$('.confirmation-modal-footer').empty().append($appendtofooter)
 }
 
+function getUrlParameter(name) {
+	name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+	var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+	var results = regex.exec(location.href);
+	return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, '    '));
+};
+ 
 function returnSiteClass($site){
 	switch($site){
 		case 'AKS':

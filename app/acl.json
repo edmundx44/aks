@@ -14,5 +14,16 @@
     "Store": ["*"],
     "Utilities": ["*"],
     "Tools": ["*"]
+  },
+  "Developer" : {
+    "denied" : {
+      "User" : ["login", "register"]
+    },
+    "User" : ["logout"],
+    "Dashboard" : ["*"],
+    "Reports" : ["*"],
+    "Store": ["*"],
+    "Utilities": ["*"],
+    "Tools": ["*"]
   }
 }
