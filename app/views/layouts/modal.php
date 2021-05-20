@@ -2,7 +2,7 @@
 
 <div class="modal" id="displayStoreGamesByNormalizedName">
     <div class="modal-dialog displayStoreGamesByNormalizedNameDialog">
-        <div class="modal-content displayStoreGamesByNormalizedNameContent">
+        <div class="modal-content displayStoreGamesByNormalizedNameContent" style="top: 70px;">
       
             <!-- Modal Header -->
             <div class="modal-header">
@@ -46,7 +46,7 @@
 <!-- Large modal -->
 <div class="modal fade bd-example-modal-lg add-edit-store-game-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="height:  calc(100% - 70px);">
-        <div class="modal-content" style="height:  100%;">
+        <div class="modal-content" style="height:  100%;top: 70px;">
             <div class="modal-header">
                 <h4 class="modal-title">Modal Header</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -307,7 +307,7 @@
   <div class="modal-dialog checksum-dialog">
 
     <!-- Modal content-->
-        <div class="modal-content modal-con-override" style="border-radius: .5rem">
+        <div class="modal-content modal-con-override" style="top: 70px; border-radius: .5rem">
             <div class="modal-header" style="background: linear-gradient(60deg, #004ea3, #0062cc);color: #fff;letter-spacing: 1px;">
                 <h5 class="modal-title dateChange">CHECKSUM 
                     <?php 
@@ -360,7 +360,7 @@
 <!-- report modal -->
 <div class="modal fade" id="reportModal" role="dialog">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" style="top: 70px;">
             <div class="modal-header">
                 <h4 class="modal-title report-modal-header"></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -380,7 +380,7 @@
 <!-- Create reports reports modal -->
 <div class="modal fade" id="createReportModal" role="dialog">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" style="top: 70px;">
             <div class="modal-header">
                 <h4 class="modal-title">Create reports</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -459,7 +459,7 @@
 <!-- Create check and compare reports modal -->
 <div class="modal fade" id="crcac" role="dialog">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" style="top: 70px;">
             <div class="modal-header">
                 <p class="modal-title" style="font-weight: 500;">
                     <span>CHECK AND COMPARE</span>
@@ -542,7 +542,7 @@
 <!-- report recheck log modal -->
 <div class="modal fade" id="report-recheck-modal" role="dialog">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" style="top: 70px;">
             <div class="modal-header">
                 <h3>RECHECK LOG</h3>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -573,7 +573,7 @@
 <!-- report recheck log modal -->
 <div class="modal fade" id="report-modal-confirmation" role="dialog">
     <div class="modal-dialog modal-md">
-        <div class="modal-content" style="border-radius: 0;background-clip: initial;">
+        <div class="modal-content" style="background-clip: initial;top: 70px;">
             <div class="modal-body">
                 <div class="modal-content-header row">
                     <div class="col-12">
@@ -599,7 +599,7 @@
 <!-- report recheck log modal -->
 <div class="modal fade" id="open-additional-info" role="dialog">
     <div class="modal-dialog modal-md">
-        <div class="modal-content" style="border-radius: 0;background-clip: initial;">
+        <div class="modal-content" style="top: 70px;background-clip: initial;">
             <div class="modal-body">
                 <div class="modal-content-header row">
                     <div class="col-12">
@@ -635,7 +635,7 @@
 <!-- add shift modal -->
 <div class="modal fade" id="pc-add-shift-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" style="border-color: #fff">
+        <div class="modal-content" style="border-color: #fff;top: 70px;">
             <div class="modal-header">
                 <h5 class="modal-title modal-assign-title-txt" id="exampleModalLabel">Add Shift</h5>
                     <button type="button" class="close pull-right" data-dismiss="modal" style="opacity: 1;outline:none;left: 13px;top: -15px;border-radius: 20px; position: relative;background-color: #fff; width: 20px;height: 20px;padding: 0;"><span style="position: relative;top: -3px;">&times;</span></button>
@@ -748,7 +748,7 @@
 <!-- add daily listing modal-->
 <div class="modal fade" id="price_check_tool_modal_add_game" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="top: 70px;">
             <div class="modal-header">
                 <h5 class="modal-title modal-daily-title-txt" id="exampleModalLabel">Add Game To Check</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -787,7 +787,7 @@
 <!-- add wrong affiliate link modal ----------------------- -->
 <div class="modal fade" id="add-wrong-aff-link-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="top: 70px;">
             <div class="modal-header">
                 <h5 class="modal-title modal-wrong-title-txt" id="exampleModalLabel">Add Wrong Affiliate Links</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -805,6 +805,22 @@
             <div class="modal-footer">
                 <button id="" class="btn-add-wrong-link btn btn-primary" type="button" >Submit</button>
                 <!-- data-dismiss="modal" -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--alert modal -->
+<div class="modal fade" id="alert-modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-danger" style="background-clip: initial;">
+            <div class="modal-body">
+                <div class="modal-content-header">
+                    <div class="alert-modal-msg text-center text-white">
+                        
+                    </div>
+                </div>
             </div>
         </div>
     </div>

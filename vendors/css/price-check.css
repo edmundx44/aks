@@ -1,0 +1,78 @@
+.pc-li-btn {
+	cursor: pointer;
+	display: inline-block;
+	padding: 5px 15px 5px 15px;
+	border-radius: 5px;
+}
+.active-pc-menu {
+	background-color: rgba(255, 255, 255, .2);
+}
+.pc-cda-div-display-tr:nth-child(even) {
+ 	background-color: #cccccc;
+}
+.pc-cda-table-h-sticky {
+	position: sticky;
+	background-color: #0062cc;
+	top: 88px; /* Don't forget this, required for the stickiness */
+}
+.pc-content-div {
+	display: none;
+}
+.pc-th-class {
+	padding: 10px;
+	font-weight: normal !important
+}
+.pc-th-class-wc {
+	text-align: center;
+}
+.pc-card-bulitin {
+	position: relative;
+	top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom:15px;
+	color: #fff;
+	letter-spacing: 2px;
+	font-weight: 400;
+}
+.pc-cb-ul-menu {
+	list-style-type: none;
+	padding:  0; 
+	position: absolute; 
+	top: 15px;
+	left: 100px;
+	color: #fff;
+}
+.pc-content {
+	padding-bottom: 10px;
+}
+#pc-cda-search {
+	background-color: transparent; 
+	color: #6b6d70; 
+	padding-left: 10px;
+}
+.pc-cda-search-span {
+	color: #6b6d70 !important; 
+	font-size: 15px;
+}
+.pc-cda-search-icon {
+	position: absolute; 
+	right: 10px;
+	top: 25px;
+}
+.pc-header-tr {
+	color: #fff;background: linear-gradient(60deg, #004ea3, #0062cc);
+}
+.pc-ac-div,
+.pc-adlg-div,
+.pc-pr-div {
+	display: none;
+}
+.data-display-function {
+	cursor: pointer; 
+	border-radius:5px;
+	background-color: #0062cc; 
+	color: #fff;
+	padding: 10px;
+	position: relative;
+}

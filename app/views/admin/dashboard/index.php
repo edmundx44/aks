@@ -103,7 +103,7 @@
 				break;
 
 				default:
-					alert('Invalid Information');
+					alertMsg('Invalid Information');
 				break;
 			}
 
@@ -149,7 +149,7 @@
 					$('.'+$(this).data('what')).toggle();
 				break;
 
-				default: alert('Invalid');
+				default: alertMsg('Invalid');
 				break;
 			}
 		});

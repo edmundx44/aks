@@ -228,7 +228,6 @@ function scrollThis(){
 					$('.store-page-search.form-control').removeClass('minimized-sb-sticky');
 				}
 			}else {
-
 				$('.header-content-stickey').css({'background': 'transparent'});
 				$('.header-content').removeClass('header-content-stickey minimized-sb-sticky-header');
 				$('.breadcrumbs-ul').removeClass('breadcrumbs-ul-fixed breadcrumbs-ul-stickey minimized-sb-sticky '+$('.dropdown-menu-btn').text()+'-sticky-BGC AKS-sticky-BGC CDD-sticky-BGC BREX-sticky-BGC');
@@ -245,7 +244,6 @@ function scrollThis(){
 				}else{
 					$('.header-content-stickey').css({'background': 'rgba(255, 255, 255, 1)'});
 				}
-
 
 				$('.header-content').addClass('header-content-stickey');
 				$('.breadcrumbs-ul').addClass('breadcrumbs-ul-fixed '+$('.dropdown-menu-btn').text()+'-sticky-BGC breadcrumbs-ul-stickey');
@@ -499,6 +497,13 @@ function removedKeyNormal($type,$key){
 	return true;
 }
 
+function getUrlParameter(name) {
+	name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+	var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+	var results = regex.exec(location.href);
+	return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, '    '));
+};
+
 function confirmationModal($appendtoheader, $appendtobody, $appendtofooter){
 	$('#report-modal-confirmation').modal('show');
 	$('.confirmation-tittle').empty().html($appendtoheader);
@@ -506,12 +511,13 @@ function confirmationModal($appendtoheader, $appendtobody, $appendtofooter){
 	$('.confirmation-modal-footer').empty().append($appendtofooter)
 }
 
-function getUrlParameter(name) {
-	name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-	var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-	var results = regex.exec(location.href);
-	return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, '    '));
-};
+function alertMsg($msg){
+	$('#alert-modal').modal('show');
+	$('.alert-modal-msg').empty().append($msg);
+	setTimeout( function(){ 
+		$('#alert-modal').modal('hide');
+	}, 2000 );
+}
  
 
 
