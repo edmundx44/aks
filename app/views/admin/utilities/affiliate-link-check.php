@@ -118,7 +118,7 @@
 							<div class="div-topheader" style="padding-top: 20px; padding-left: 10px; color: white;">
 								<div class="div-topheader-1 TU-btns">
 									<h5 style="display: inline-block; margin-right: 10px;">Affiliate Links</h5>
-									<i class="fa fa-hand-o-right" aria-hidden="true"></i>
+									<i class="fas fa-hand-point-right"></i>
 									<p style="font-size:12px;font-weight: 500;display: inline-block; padding:0;margin:0">
 										<input id="btn-bu" class="btn <?= ($url_check == 'buy_url') ? 'act-tu-btn':'';?>" type="button" name="buy_url" value="BUY URL">
 									</p>
@@ -135,7 +135,7 @@
  								<div class="dropdown-div" style="width: 150px;">
 									<!-- in custom.js  OptionSite(inputs,className,classParent,bgColor) -->
 								</div>
-								<div class="pull-right">
+								<div class="float-right">
 									<input style="color:#fff;" type="button" name="" class="m-d col-xs-3 btn btn-delete" id="btn-getchksumreports" value="Show Errors">
 								</div>
 							</div>

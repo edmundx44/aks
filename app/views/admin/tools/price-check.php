@@ -29,7 +29,7 @@
 									<br/>
 									<input type="text" value='' class="inputText" id="pc-cda-search" onkeyup="this.setAttribute('value', this.value);"/>
 									<span class="floating-label pc-cda-search-span ">Search checker or activity</span>
-									<i class="fa fa-search pc-cda-search-icon"></i>
+									<i class="fas fa-search pc-cda-search-icon"></i>
 								</div>
 							</div>
 
@@ -52,10 +52,10 @@
 										<td colspan="6" style="" class="text-center pt-4">
 											<p>
 												<span class="data-display-function pc-lmore-fucntion mr-1"> 
-													<i class="fa fa-spinner" aria-hidden="true"></i> Load More 
+													<i class="fas fa-spinner"></i> Load More 
 												</span> 
 												<span class="data-display-function pc-dall-function ml-1"> 
-													<i class="fa fa-globe" aria-hidden="true"></i> Display All
+													<i class="fas fa-globe"></i> Display All
 												</span>
 											</p>
 										</td>
@@ -64,8 +64,8 @@
 							</table>
 						</div>
 						<div class="pc-content-div pc-ac-div">
-							<div class="form-group pull-right">
-								<button class="btn btn-primary" data-toggle="modal" data-target="#pc-add-shift-modal" style="width: 200px;"><i class="fa fa-plus-square" aria-hidden="true"></i> &nbsp; Add shift</button>
+							<div class="form-group float-right">
+								<button class="btn btn-primary" data-toggle="modal" data-target="#pc-add-shift-modal" style="width: 200px;"><i class="fas fa-plus-square"></i> &nbsp; Add shift</button>
 							</div>
 
 							<table class="col-12">
@@ -83,8 +83,8 @@
 							</table>
 						</div>
 						<div class="pc-content-div pc-adlg-div">
-							<div class="form-group pull-right">
-								<button class="btn btn-primary" data-toggle="modal" data-target="#price_check_tool_modal_add_game" style="width: 200px;"><i class="fa fa-plus-square" aria-hidden="true"></i> &nbsp; Add Games</button>
+							<div class="form-group float-right">
+								<button class="btn btn-primary" data-toggle="modal" data-target="#price_check_tool_modal_add_game" style="width: 200px;"><i class="fas fa-plus-square"></i> &nbsp; Add Games</button>
 							</div>
 
 							<table class="col-12">
@@ -104,12 +104,12 @@
 							</table>
 						</div>
 						<div class="pc-content-div pc-pr-div">
-							<div class="form-group pull-left">
+							<div class="form-group float-left">
 								<div class="p-2 bg-danger text-white rounded text-center" style="width: 250px;">Today's Problem  &nbsp; : &nbsp; <b><span class="result-today"></span></b> </div>
 							</div>
 
-							<div class="form-group pull-right">
-								<button class="btn btn-primary" data-toggle="modal" data-target="#add-wrong-aff-link-modal" style="width: 200px;"><i class="fa fa-plus-square" aria-hidden="true"></i> &nbsp; Add Wrong Affiliate</button>
+							<div class="form-group float-right">
+								<button class="btn btn-primary" data-toggle="modal" data-target="#add-wrong-aff-link-modal" style="width: 200px;"><i class="fas fa-plus-square"></i> &nbsp; Add Wrong Affiliate</button>
 							</div>
 
 							<table class="col-12">

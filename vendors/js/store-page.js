@@ -38,12 +38,12 @@ $(function (){
 						append +=	'<div class="modal-child-tbody-sub modal-child-tbody-6">';
 						append += 	'<div class="show-menu" id="'+data[i].id+'">';
 						append += 	'<ul class="modal-setting-ul">';
-						append += 	'<li class="modal-setting-ul-li"><i class="fa fa-pencil" aria-hidden="true"></i><span class="msulspan add-edit-from-display" data-toeditid="'+data[i].id+'">Edit</span></li>';
-						append += 	'<li class="modal-setting-ul-li"><i class="fa fa-times" aria-hidden="true"></i><span class="msulspan">Delete</span></li>';
-						append += 	'<li class="modal-setting-ul-li"><i class="fa fa-dot-circle-o" aria-hidden="true"></i><span class="msulspan">Others</span></li>';
+						append += 	'<li class="modal-setting-ul-li"><i class="fas fa-pencil-alt"></i><span class="msulspan add-edit-from-display" data-toeditid="'+data[i].id+'">Edit</span></li>';
+						append += 	'<li class="modal-setting-ul-li"><i class="fas fa-trash-alt"></i><span class="msulspan">Delete</span></li>';
+						append += 	'<li class="modal-setting-ul-li"><i class="fas fa-dot-circle"></i><span class="msulspan">Others</span></li>';
 						append += 	'</ul>';
 						append +=	'</div>';
-						append += 	'<button class="btn action-btn '+data[i].site+'-btn" id="'+data[i].id+'"> <i class="fa fa-cogs btn-icon-acb" aria-hidden="true"></i></button>';
+						append += 	'<button class="btn action-btn '+data[i].site+'-btn" id="'+data[i].id+'"> <i class="fas fa-cogs btn-icon-acb"></i></button>';
 						append +=   '</div>';
 						append +=	'<div><p class="nname-modal-tfoot"><a href="'+data[i].buy_url+'" target="_blank">'+html_decode(data[i].buy_url)+'</a></p></div>';
 						append +=	'</div>';
@@ -291,8 +291,8 @@ function noImage(image) {
 
 function breadCrumbs($name){
 	var append =  '<li class="site-bcrumbs"><span class="site-bcrumbs-span">'+$('.dropdown-menu-btn').text()+'</span></li>';	
-		append += '<li class="store-bcrumbs">&nbsp;<i class="fa fa-arrow-right breadcrumbs-arrow" aria-hidden="true"></i> Store</li>';	
-		append += '<li class="games-bcrumbs"><i class="fa fa-arrow-right breadcrumbs-arrow" aria-hidden="true"></i> '+ $name +'</li>';
+		append += '<li class="store-bcrumbs">&nbsp;<i class="fas fa-arrow-right breadcrumbs-arrow"></i> Store</li>';	
+		append += '<li class="games-bcrumbs"><i class="fas fa-arrow-right breadcrumbs-arrow"></i> '+ $name +'</li>';
 		append += '<li class="">'
 		append += '<button type="button" class="btn dropdown-toggle sticky-dropdown" data-toggle="dropdown"></button>'
 		append += '<div class="dropdown-menu col-12 dropdown-menu-div sticky-dropdown-menu-div">'

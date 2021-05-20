@@ -782,8 +782,8 @@
 
 			var appendData =  "<div class='report-snapshot-con-wrap'>";
 				appendData += 	"<div class='report-snapshot-data-title-div'>";
-				appendData += 		"<div class='snap-margin pull-left report-snapshot-data-title'> "+$merchantName+" ("+$merchantID+")</div>";
-				appendData += 		"<div class='snap-margin div-"+$resCalcData+" pull-right'>"+$difference+"</div>";
+				appendData += 		"<div class='snap-margin float-left report-snapshot-data-title'> "+$merchantName+" ("+$merchantID+")</div>";
+				appendData += 		"<div class='snap-margin div-"+$resCalcData+" float-right'>"+$difference+"</div>";
 				appendData += 		"<table class='table snapshot-div'>";
 				appendData +=			"<thead>";
 				appendData += 				"<tr>";
@@ -1097,7 +1097,7 @@
 			<div class="card card-style card-normalmode">
 				<div class="card-header no-padding row-2-card-header" style=""> 
 					<div class="text-center card-div-overflow-style row-2-card-div-overflow-style row-2-card-div-overflow-style-1">
-						<i class="fa fa-ban row-2-icon" aria-hidden="true"></i>
+						<i class="fas fa-ban row-2-icon" ></i>
 					</div>
 					<p class="card-title-p card-title-p-normal disable-count"></p>
 					<p class="card-val-p card-val-p-normal">Disabled</p>
@@ -1105,16 +1105,16 @@
 				</div>
 				<div class="card-body no-padding card-body-style">
 					<div class="card-body-div"> 
-						<div class="pull-right card-body-div-sub">
-							<i class="fa fa-eye view-more-icon" aria-hidden="true" data-to="menu-disabled"> </i> 
+						<div class="float-right card-body-div-sub">
+							<i class="fas fa-eye view-more-icon"  data-to="menu-disabled"> </i> 
 							<span class="card-body-div-sub-span" data-to="menu-disabled">view more</span>
 						</div>
-						
-						<i class="fa fa-sliders float-left card-body-div-i" data-what="menu-disabled" aria-hidden="true"></i>
+				
+						<i class="fas fa-sliders-h float-left card-body-div-i" data-what="menu-disabled" ></i>
 						<div class="card-body-menu-div menu-disabled">
 							<ul class="card-body-menu-div-ul">
-								<li class="card-body-menu-div-li" data-to="menu-disabled"  data-what="Store"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Store</span></li>
-								<li class="card-body-menu-div-li" data-to="menu-disabled"  data-what="Metacritics"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Metacritics</span></li>
+								<li class="card-body-menu-div-li" data-to="menu-disabled"  data-what="Store"><i class="fas fa-chevron-circle-right" ></i><span class="cbm-span">Store</span></li>
+								<li class="card-body-menu-div-li" data-to="menu-disabled"  data-what="Metacritics"><i class="fas fa-chevron-circle-right" ></i><span class="cbm-span">Metacritics</span></li>
 							</ul>
 						</div>
 					</div>
@@ -1125,7 +1125,7 @@
 			<div class="card card-style card-normalmode">
 				<div class="card-header no-padding row-2-card-header"> 
 					<div class="text-center card-div-overflow-style row-2-card-div-overflow-style row-2-card-div-overflow-style-2">
-						<i class="fa fa-snapchat row-2-icon" aria-hidden="true"></i>
+						<i class="fab fa-snapchat row-2-icon" ></i>
 					</div>
 					<p class="card-title-p card-title-p-normal snapshot-count"></p>
 					<p class="card-val-p card-val-p-normal"> Snapshot</p>
@@ -1134,17 +1134,17 @@
 				</div>
 				<div class="card-body no-padding card-body-style">
 					<div class="card-body-div"> 
-						<div class="pull-right card-body-div-sub">
-							<i class="fa fa-eye view-more-icon" aria-hidden="true" data-to="menu-snapshot"> </i> 
+						<div class="float-right card-body-div-sub">
+							<i class="fas fa-eye view-more-icon"  data-to="menu-snapshot"> </i> 
 							<span class="card-body-div-sub-span" data-to="menu-snapshot">view more</span>
 						</div>
 						
-						<i class="fa fa-sliders float-left card-body-div-i" data-what="menu-snapshot" aria-hidden="true"></i>
+						<i class="fas fa-sliders-h float-left card-body-div-i" data-what="menu-snapshot" ></i>
 						<div class="card-body-menu-div menu-snapshot">
 							<ul class="card-body-menu-div-ul">
-								<li class="card-body-menu-div-li" data-to="menu-snapshot" data-what="AKS"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">AKS</span></li>
-								<li class="card-body-menu-div-li" data-to="menu-snapshot" data-what="CDD"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">CDD</span></li>
-								<li class="card-body-menu-div-li" data-to="menu-snapshot" data-what="BREXIT"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">BREXIT</span></li>
+								<li class="card-body-menu-div-li" data-to="menu-snapshot" data-what="AKS"><i class="fas fa-chevron-circle-right" ></i><span class="cbm-span">AKS</span></li>
+								<li class="card-body-menu-div-li" data-to="menu-snapshot" data-what="CDD"><i class="fas fa-chevron-circle-right" ></i><span class="cbm-span">CDD</span></li>
+								<li class="card-body-menu-div-li" data-to="menu-snapshot" data-what="BREXIT"><i class="fas fa-chevron-circle-right" ></i><span class="cbm-span">BREXIT</span></li>
 							</ul>
 						</div>
 					</div>
@@ -1155,7 +1155,7 @@
 			<div class="card card-style card-normalmode">
 				<div class="card-header no-padding row-2-card-header"> 
 					<div class="text-center card-div-overflow-style row-2-card-div-overflow-style row-2-card-div-overflow-style-3">
-						<i class="fa fa-database row-2-icon" aria-hidden="true"></i>
+						<i class="fas fa-database row-2-icon"></i>
 					</div>
 					
 					<p class="card-title-p card-title-p-normal dbfeed-count"></p>
@@ -1164,17 +1164,17 @@
 				</div>
 				<div class="card-body no-padding card-body-style">
 					<div class="card-body-div"> 
-						<div class="pull-right card-body-div-sub">
-							<i class="fa fa-eye view-more-icon" aria-hidden="true" data-to="menu-dbfeed"> </i> 
+						<div class="float-right card-body-div-sub">
+							<i class="fas fa-eye view-more-icon"  data-to="menu-dbfeed"> </i> 
 							<span class="card-body-div-sub-span" data-to="menu-dbfeed">view more</span>
 						</div>
 						
-						<i class="fa fa-sliders float-left card-body-div-i" data-what="menu-dbfeed" aria-hidden="true" ></i>
+						<i class="fas fa-sliders-h float-left card-body-div-i" data-what="menu-dbfeed"  ></i>
 						<div class="card-body-menu-div menu-dbfeed">
 							<ul class="card-body-menu-div-ul">
-								<li class="card-body-menu-div-li" data-to="menu-dbfeed" data-what="AKS"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">AKS</span></li>
-								<li class="card-body-menu-div-li" data-to="menu-dbfeed" data-what="CDD"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">CDD</span></li>
-								<li class="card-body-menu-div-li" data-to="menu-dbfeed" data-what="BREXIT"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">BREXIT</span></li>
+								<li class="card-body-menu-div-li" data-to="menu-dbfeed" data-what="AKS"><i class="fas fa-chevron-circle-right" ></i><span class="cbm-span">AKS</span></li>
+								<li class="card-body-menu-div-li" data-to="menu-dbfeed" data-what="CDD"><i class="fas fa-chevron-circle-right" ></i><span class="cbm-span">CDD</span></li>
+								<li class="card-body-menu-div-li" data-to="menu-dbfeed" data-what="BREXIT"><i class="fas fa-chevron-circle-right" ></i><span class="cbm-span">BREXIT</span></li>
 							</ul>
 						</div>
 					</div>
@@ -1185,24 +1185,24 @@
 			<div class="card card-style card-normalmode">
 				<div class="card-header no-padding row-2-card-header"> 
 					<div class="text-center card-div-overflow-style row-2-card-div-overflow-style row-2-card-div-overflow-style-4">
-						<i class="fa fa-random row-2-icon" aria-hidden="true"></i>
+						<i class="fas fa-random row-2-icon" ></i>
 					</div>
 					<p class="card-title-p card-title-p-normal">0</p>
 					<p class="card-val-p card-val-p-normal">Others</p>
 				</div>
 				<div class="card-body no-padding card-body-style">
 					<div class="card-body-div"> 
-						<div class="pull-right card-body-div-sub">
-							<i class="fa fa-eye view-more-icon" aria-hidden="true"> </i> 
+						<div class="float-right card-body-div-sub">
+							<i class="fas fa-eye view-more-icon" > </i> 
 							<span class="card-body-div-sub-span">view more</span>
 						</div>
 						
-						<i class="fa fa-sliders float-left card-body-div-i" data-what="menu-others" aria-hidden="true"></i>
+						<i class="fas fa-sliders-h float-left card-body-div-i" data-what="menu-others" ></i>
 						<div class="card-body-menu-div menu-others">
 							<ul class="card-body-menu-div-ul">
-								<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Others</span></li>
-								<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Others</span></li>
-								<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Others</span></li>
+								<li class="card-body-menu-div-li"><i class="fas fa-chevron-circle-right" ></i><span class="cbm-span">Others</span></li>
+								<li class="card-body-menu-div-li"><i class="fas fa-chevron-circle-right" ></i><span class="cbm-span">Others</span></li>
+								<li class="card-body-menu-div-li"><i class="fas fa-chevron-circle-right" ></i><span class="cbm-span">Others</span></li>
 							</ul>
 						</div>
 					</div>
@@ -1265,15 +1265,15 @@
 					<div class="card-div-overflow-style row-4-card-div-overflow-style row-4-card-div-overflow-style-2 check-width" style="color: white;"> 
 						<div style="padding-top: 20px; padding-left: 10px;">
 							<ul class="ul-tab-option m-fb-opt" style="display: none;">
-								<i class="fa fa-sliders float-left card-body-div-fb" data-what="menu-feedbots"></i>
+								<i class="fas fa-sliders-h float-left card-body-div-fb" data-what="menu-feedbots"></i>
 								<li class="fb-opt-1">FEED BOTS</li>
 							</ul>
 							<div class="card-body-menu-div-fbots menu-feedbots" style="color: #6b6d70 !important;">
 								<ul class="card-body-menu-div-ul">
-									<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Checksum</span></li>
-									<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Success</span></li>
-									<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Fail</span></li>
-									<li class="card-body-menu-div-li"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Server Charge</span></li>
+									<li class="card-body-menu-div-li"><i class="fas fa-chevron-circle-right" ></i><span class="cbm-span">Checksum</span></li>
+									<li class="card-body-menu-div-li"><i class="fas fa-chevron-circle-right" ></i><span class="cbm-span">Success</span></li>
+									<li class="card-body-menu-div-li"><i class="fas fa-chevron-circle-right" ></i><span class="cbm-span">Fail</span></li>
+									<li class="card-body-menu-div-li"><i class="fas fa-chevron-circle-right" ></i><span class="cbm-span">Server Charge</span></li>
 								</ul>
 							</div>
 							<ul class="ul-tab-option pc-fb-opt" style="display: none; margin-top: 2px;">
@@ -1293,7 +1293,7 @@
 							<div class="dropdown-div" style="width: 150px;">
 								<div class="select custom-bkgd">
 					                <span class="selected-data change-site">Website</span>
-					                <span class="pull-right"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+					                <span class="float-right"><i class="fas fa-caret-down" ></i></span>
 					            </div>
 								<ul class="dropdown-menu cos-dropdown-menu">
 				                    <li class='opt-site-chk' data-website="aks">AKS</li>
@@ -1301,7 +1301,7 @@
 				                    <li class='opt-site-chk' data-website="brexitgbp">BREXITGBP</li>
 			                    </ul>
 							</div>
-							<div class="pull-right">
+							<div class="float-right">
 								<input style="color:#fff;" type="button" name="" class="m-d col-xs-3 btn custom-bkgd" id="btn-getchksumreports" value="TABLE" data-toggle="modal" data-target="#checksum-modal">
 							</div>
 						</div>

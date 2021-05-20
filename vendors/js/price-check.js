@@ -329,7 +329,7 @@ function displayAssignChecker(){
 				append +=   "<td style='padding: 5px 10px 0 10px;'>"+data[i].assignChecker+"</td>";
 				append +=   "<td style='padding: 5px 10px 0 10px;'>"+data[i].weekdaySchedule+"</td>";
 				append +=   "<td style='padding: 5px 10px 0 10px;'>"+data[i].sundaySchedule+"</td>";
-				append +=   "<td style='padding: 5px 10px 0 10px; text-align: center;'><button type='button' class='btn btn-primary btn-edit-data' id='"+data[i].id+"' data-action='on-assign-checker' data-assignChecker='"+data[i].assignChecker+"' data-weekdaySchedule='"+data[i].weekdaySchedule+"' data-sundaySchedule='"+data[i].sundaySchedule+"'><i class='fa fa-pencil' aria-hidden='true'></i> Edit</button> <button type='button' class='btn btn-warning btn-remove-data' id='"+data[i].id+"' data-action='on-assign-checker'><i class='fa fa-trash-o' aria-hidden='true'></i> Remove</button></td>";
+				append +=   "<td style='padding: 5px 10px 0 10px; text-align: center;'><button type='button' class='btn btn-primary btn-edit-data' id='"+data[i].id+"' data-action='on-assign-checker' data-assignChecker='"+data[i].assignChecker+"' data-weekdaySchedule='"+data[i].weekdaySchedule+"' data-sundaySchedule='"+data[i].sundaySchedule+"'><i class='fa fa-pencil'></i> Edit</button> <button type='button' class='btn btn-warning btn-remove-data' id='"+data[i].id+"' data-action='on-assign-checker'><i class='fas fa-trash'></i> Remove</button></td>";
 				append += "</tr>";
 			$(".pc-ac-div-display").append(append);
 		}
