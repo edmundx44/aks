@@ -1,5 +1,5 @@
-/temp/
-/vendor/
-/plugins/
-.vscode/
-.git/
+/temp
+/vendor
+/plugins
+.vscode/*
+.git/*
