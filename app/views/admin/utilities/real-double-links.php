@@ -171,7 +171,7 @@
  								<div class="dropdown-div" style="width: 150px;">
 									 <!-- <div class="select custom-bkgd">
 						                <span class="selected-data change-site">Website</span>
-						                <span class="pull-right"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+						                <span class="float-right"><i class="fas fa-caret-down"></i></span>
 						            </div> -->
 									<!-- <ul class="dropdown-menu cos-dropdown-menu slc-options">
 										<li class="opt-site-rdb" data-website="aks">AKS</li>
@@ -179,7 +179,7 @@
 										<li class="opt-site-rdb" data-website="brexitgbp">BREXITGBP</li>
 				                    </ul> -->
 								</div>
-								<div class="pull-right">
+								<div class="float-right">
 									<input style="color:#fff;" type="button" name="" class="m-d col-xs-3 btn custom-bkgd-1" id="btn-getchksumreports" value="Delete Selected">
 								</div>
 							</div>

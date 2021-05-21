@@ -45,7 +45,7 @@ class Session {
     foreach($alerts as $alert){
       if(self::exists($alert)){
         $html .= '<div class="alert '. $alert .' alert-dismissible" role="alert">';
-        $html .= '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+        $html .= '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&times;</span></button>';
         $html .= self::get($alert);
         $html .= '</div>';
         self::delete($alert);

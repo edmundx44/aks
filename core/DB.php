@@ -61,7 +61,7 @@ class DB {
     $order = '';
     $limit = '';
     $offset = '';
-    
+    $sqlField = ' * ';
 
     // conditions
     if(isset($params['conditions'])) {
@@ -85,8 +85,6 @@ class DB {
       }else{
         $sqlField = ' ' . $params['column'] . ' ';
       }
-    }else{
-      $sqlField = ' * ';
     }
 
     // bind

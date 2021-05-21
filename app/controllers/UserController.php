@@ -35,6 +35,15 @@ class UserController extends Controller {
           $user->login($remember);
           Router::redirect('');
         }  else {
+
+          // $db = DB::getInstance();
+          // $checkFromAKS =  $db->find('test-server`.`admin_user`',[
+          //   'conditions' => ['username = ?', 'password = ?'],
+          //   'bind' => [$_POST['username'], password_verify($this->request->get('password'), $user->password)]
+          // ]);
+          // vd($checkFromAKS);
+          //  $this->view->displayNormalErrors = $msg;
+
           $loginModel->addErrorMessage('username','There is an error with your username or password');
         }
       }

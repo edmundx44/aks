@@ -59,5 +59,12 @@ create table tblReportsComplete (
 	date timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-
+create table tblLogs(
+	id int primary key auto_increment,
+	productID int(150) default null,
+	action varchar(255) default null,
+	employeeID varchar(255) default null,
+	status int(1) default 0,
+	date timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 

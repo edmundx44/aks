@@ -6,8 +6,10 @@ use Core\Input;
 use Core\Session;
 use App\Models\Users;
 use App\Models\Merchant;
+use App\Models\Utilities;
 use App\Controllers\DashboardController;
 use App\Controllers\StoreController;
+use App\Controllers\ToolsController;
 use App\Controllers\UtilitiesController;
 use App\Controllers\ReportsController;
 
@@ -35,70 +37,16 @@ class Ajax {
 
 		switch ($post) {
 			case 'displayReport':
+				$utilities = new Utilities;
+
 				switch ($getInput->get('to')) {
 					case 'menu-disabled':
 						switch ($getInput->get('what')) {
 							case 'Store':
-								$sql = "SELECT `vols_id`,`vols_nom`,`analytic_name` FROM `allkeyshops`.`sale_page` ";
-								$arrayStores = $db->query($sql);
-								$allStores = array();
-								foreach($arrayStores->results() as $key => $value){
-									if(!array_key_exists($value->vols_id, $allStores)){
-										$id = $value->vols_id;
-										if(isset($id))  $allStores[$id]=$value->analytic_name;
-									}
-								}
-
-								$returnDisabledStore = array();
-								$invisible_stores = json_decode(@file_get_contents('https://www.allkeyshop.com/blog/wp-content/plugins/aks-merchants/api/merchants/inactive'),true); 
-								//$invisible_stores = '';
-								if (FALSE !== ($invisible_stores)) {
-									if(!empty($invisible_stores)){
-										foreach ($invisible_stores as $stores_invisible) {
-											if(array_key_exists($stores_invisible, $allStores)){
-												$returnDisabledStore[] = array(
-													'id' => $stores_invisible,
-													'store' => $allStores[$stores_invisible]
-												);
-											}else{
-												$returnDisabledStore[] = array(
-													'id' => $stores_invisible,
-													'store' => $stores_invisible
-												);
-											}
-										}
-
-										return array('to' => 'Store', 'count' => count($returnDisabledStore), 'data' => $returnDisabledStore);;
-									}
-								} else {
-									return FALSE;
-								}
-
+								return $utilities->displayDisabledStore();
 							break;
 							case 'Metacritics':
-								$returnResponse = array();
-								$getDataMeta = file_get_contents( ROOT . DS . 'app' . DS .'metacritics_stores.json');
-								$metaStores = json_decode($getDataMeta, true);
-
-								asort($metaStores);
-								foreach ($metaStores as $key) {
-									$id = $key['id'];
-									$name = $key['name'];
-									$number_of_links = DashboardController::getMetacriticsNumberOfLinks($db,$id); //# of links
-									$number_of_disabled_links = DashboardController::getMetacriticsDisabledLinks($db,$id); //# of disabled links
-
-									if($number_of_links->count > 0){
-										$number_of_links->count = $number_of_links->count * .95;
-										if( $number_of_disabled_links->count1 >= $number_of_links->count){
-											array_push($returnResponse, array(
-												'id' => $id,
-												'name' => $name
-											));
-										}
-									}
-								}
-								return array('to' => 'Metacritics', 'count' => count($returnResponse),'data' => $returnResponse);
-								// return $returnResponse;
+								return $utilities->displayDisabledMetacritics();
 							break;
 						}
 					break;
@@ -115,8 +63,6 @@ class Ajax {
 							break;
 						}
 
-					
-						
 						$sql = "SELECT * FROM `test-server`.`bot_admin_snapshot` WHERE `website` = '".$getInput->get('what')."' $addQuery";
 						$res = $db->query($sql)->results();
 						return array('to' => $getInput->get('what'), 'count' => count($res), 'data' => $res);
@@ -146,11 +92,10 @@ class Ajax {
 				}
 			break;
 			case 'displayStore':
-				$sql = "SELECT * FROM `allkeyshops`.sale_page order by vols_nom asc";
-				$result = $db->query($sql)->results();
-
-				return $result;
+				$utilities = new Utilities;
+				return $utilities->displayAllkeyshopStore();
 			break;
+
 			case 'displayStoreGames':
 				$site = self::getSite($getInput->get('site'));
 				$resultArray = array();
@@ -164,6 +109,8 @@ class Ajax {
 					$conditions = 'merchant = ?';
 					$getBind = $getInput->get('merchantID');
 				}
+
+				// display all but not direct all, display by 500
 
 				$countAllByMerchant = $db->find('`'.$site.'`.`pt_products`',['conditions' => [$conditions],'bind' => [$getBind]]);
 				$displayByMerchant =  $db->find('`'.$site.'`.`pt_products`',[
@@ -259,75 +206,16 @@ class Ajax {
             	return 'nakoha';
             break;
             case 'displayPriceToZeroCountsCounts':
-
-                $today = date('Y-m-d');
-                $sqlAks = "SELECT AVG(percentage) as zeroPercentage FROM `test-server`.`romain_tool_zero_prices_data` WHERE DATE(`date`) = '$today'";
-                $sqlCdd = "SELECT AVG(percentage) as zeroPercentage FROM `compareprices`.`romain_tool_zero_prices_data` WHERE DATE(`date`) = '$today'";
-
-                $resultAks = $db->query($sqlAks)->results();
-                $resultCdd = $db->query($sqlCdd)->results();
-
-                foreach ($resultAks as $key) {
-                    $avgAks = $key->zeroPercentage;
-                }
-                foreach ($resultCdd as $key) {
-                    $avgCdd = $key->zeroPercentage;
-                }
-                $runCounts = array();
-                    array_push($runCounts, array(
-                        'aks' => round((float)$avgAks,2),
-                        'cdd' => round((float)$avgCdd,2),
-                        //'brexitgbp' =>  $avgZeroBrexit
-                ));
-                return $runCounts;
+				$utilities = new Utilities;
+                return $utilities->displayPriceToZeroCountsCounts();
             break;
             case 'displayRealDoubleCounts':
-                $sql = "SELECT COUNT(*) as occurs FROM `test-server`.`pt_products` 
-                    WHERE merchant NOT IN('1','67','157','33','333') AND normalised_name != 50 
-                    GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1";
-             
-                $sql1 = "SELECT COUNT(*) as occurs FROM `compareprices`.`pt_products` 
-                    WHERE merchant NOT IN('1','67','157','33','333') AND normalised_name != 50 
-                    GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1";
-            
-                // $sql2 = "SELECT COUNT(*) as occurs FROM `brexitgbp`.`pt_products` 
-                //      WHERE merchant NOT IN('1','67','157','33','333') AND normalised_name != 50 
-                //     GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1";
-
-                $runCounts = array();
-                    array_push($runCounts, array(
-                        'aks' => $db->query($sql)->count(),
-                        'cdd' => $db->query($sql1)->count(),
-                        //'brexitgbp' =>  $db->query($sql2)->count()
-                ));
-            	return $runCounts;
+                $utilities = new Utilities;
+                return $utilities->displayRealDoubleCounts();
             break;
             case 'displayRunAndSuccessAction':
-
-                $fail = "SELECT * FROM `test-server`.`bot_admin`
-                        WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 4 HOUR)
-                        AND (status = 1 OR status = 2) AND bot_type = 'feed'
-                        ORDER by successRunTime desc";
-
-                $success= "SELECT * FROM `test-server`.`bot_admin`
-                        WHERE successRunTime > DATE_ADD(NOW(), INTERVAL 4 HOUR)
-                        AND (status = 1 OR status = 2) AND bot_type = 'feed'
-                        ORDER by successRunTime desc";
-
-                $serverCharge= "SELECT * FROM `test-server`.`bot_admin`
-                        WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 4 HOUR)
-                        AND (status = 1 OR status = 2)
-                        AND bot_type = 'feed'
-                        AND failed_on_server_charge = 1
-                        ORDER by successRunTime desc";
-
-                    $runSuc = array();
-                        array_push($runSuc, array(
-                          'fail' => $db->query($fail)->count(),
-                          'success' => $db->query($success)->count(),
-                          'serverCharge' => $db->query($serverCharge)->count()
-                    ));
-                return $runSuc;
+                $utilities = new Utilities;
+                return $utilities->displayRunAndSuccessAction();
             break;
 			case 'displayChecksumUsingToggleSiteOnly':
 				
@@ -390,33 +278,8 @@ class Ajax {
             break;
             case 'AjaxRealDblLinks':
                 $getWebsite = $getInput->get('data');
-                switch ($getWebsite) {
-                	case 'aks':
-                		 $sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs, `id`,`price`, `dispo` 
-                            FROM `test-server`.`pt_products` WHERE merchant NOT IN ('1','67','157','33','333') AND normalised_name != 50
-                            GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
-                    	$returnResults = $db->query($sql)->results();
-                    	$returnSite = 'aks';
-                	break;
-                	case 'cdd':
-                		$sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs, `id`,`price`, `dispo` 
-                            FROM `compareprices`.`pt_products` WHERE merchant NOT IN ('1','67','157','33','333') AND normalised_name != 50
-                            GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
-                    	$returnResults = $db->query($sql)->results();
-                    	$returnSite = 'cdd';
-                	break;
-                	case 'brexitgbp':
-                		$sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs , `id`,`price`, `dispo` 
-                            FROM `brexitgbp`.`pt_products` WHERE merchant NOT IN ('1','67','157','33','333') AND normalised_name != 50
-                            GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
-                    	$returnResults = $db->query($sql)->results();
-                    	$returnSite = 'brexitgbp';
-                	break;
-                	default:
-                		return "INVALID INFORMATION";
-                	break;
-                }
-                return $returnResults;
+				$utilities = new Utilities;
+				return $utilities->AjaxRealDblLinks($getWebsite);
             break;
             case 'displayCheckSumAction':
 				//$dateNow = $getInput->get('dateNow'); //from ajax
@@ -539,7 +402,8 @@ class Ajax {
 					'msite' => Merchant::merchantSiteXpath($getInput->get('url'))
 				);
 				return $resulNi;
-				//return Merchant::merchantSiteXpath($getInput->get('url'));
+				//return $getSiteData;
+				//return Merchant::merchantData($getInput->get('site'), $getInput->get('url'));
 				
 			break;
 			case 'cr-rtm':
@@ -601,6 +465,13 @@ class Ajax {
 				$insertToComplete = $db->insert('`aks`.`tblReportsComplete`', $fieldsComplete);
 				$updateOnSite = $db->update('`'.self::getSite($getInput->get('getSite')).'`.`pt_products`', $getInput->get('getID'), $fields);
 				$updateOnProblem = $db->delete('`aks`.`tblReports`', $getInput->get('idToUpdateReport'));
+
+				$logFields = [
+					'productID' => $getInput->get('getID'),
+					'action' => 'Fixed problem',
+					'employeeID' => Users::currentUser()->id
+				];
+				$insertToLogs = $db->insert('`aks`.`tblLogs`', $logFields);
 			break;
 			case 'cr-recheck':
 				switch ($getInput->get('toWhat')) {
@@ -636,15 +507,25 @@ class Ajax {
 					'problem' => $getInput->get('getcproblem'),
 					'status' => 1,
 					'rating' => $getInput->get('getcrating'),
+					'checker' => ucfirst(Users::currentUser()->fname)
 				];
 				$updateOnComplete = $db->delete('`aks`.`tblReportsComplete`', $getInput->get('getcid'));
 				$insertOnReport = $db->insert('`aks`.`tblReports`', $fields);
+
+				$logFields = [
+					'productID' => $getInput->get('getccmysqlid'),
+					'action' => 'Reopen reports',
+					'employeeID' => Users::currentUser()->id
+				];
+				$insertToLogs = $db->insert('`aks`.`tblLogs`', $logFields);
+
 			break;
 
 			case 'ajaxAffiliateLinkCheck':
-			    $getInput = $getInput->get(); //get all data sent
-                $getWebsiteRequest = $getInput['site'];
-                $url_check = 'buy_url';
+			    //$getInput = $getInput->get(); //get all data sent
+                //$getWebsiteRequest = $getInput['site'];
+                $getWebsiteRequest = $getInput->get('site');
+                $url_check = $getInput->get('urlCheck');
 
                 $noAffiliateLink = array(); //store here data with no affiliate link
                 $withAffiliaLink = array(); //store here data with affiliate link
@@ -675,15 +556,15 @@ class Ajax {
                     if($getWebsiteRequest == 'cdd'){
                         $database= 'compareprices';
                         $aff_search = 'cdd_affiliate_link';
-                        $ress = UtilitiesController::loop_result($aff_search,$stores,$getUrl,$getWhat,$url_check);
+                        $ress = Utilities::loop_result($aff_search,$stores,$getUrl,$getWhat,$url_check);
                     }else if($getWebsiteRequest == 'brexitgbp'){
                         $database= 'brexitgbp';
                         $aff_search = 'brexit_affiliate_link';
-                        $ress = UtilitiesController::loop_result($aff_search,$stores,$getUrl,$getWhat,$url_check);
+                        $ress = Utilities::loop_result($aff_search,$stores,$getUrl,$getWhat,$url_check);
                     }else if($getWebsiteRequest == 'aks'){
                         $database= 'test-server';
                         $aff_search= 'aks_affiliate_link';
-                        $ress = UtilitiesController::loop_result($aff_search,$stores,$getUrl,$getWhat,$url_check);
+                        $ress = Utilities::loop_result($aff_search,$stores,$getUrl,$getWhat,$url_check);
                     }else{
                         return "INVALID INFORMATION";
                     }
@@ -698,12 +579,13 @@ class Ajax {
                                     '?cc=gb','?','?currency=GBP','?currency=gbp','?currency=gbp&region=gb','?currency=GBP&region=gb','?cc=eu','?',
                                     '?currency=EUR','?currency=eur','?currency=eur&region=eu','?currency=EUR&region=eu','?pid=','?variant='
                     ];
-
+					//vd($results); //check all the result that have affiliate url then foreach to check even more errors affiliate links
                     foreach ($results as $key => $value) {
-                        preg_match('/^(?<url>.+?)(\?.*|\?.*&.*)$/', $value->buy_url_raw,$container);
+                        preg_match('/^(?<url>.+?)(\?.*|\?.*&.*)$/', $value->buy_url_raw,$container); //preg match the buy_url_raw that contains paramerter
                         if(isset($container[2])){
 
                             //check value of preg match url
+							//if merchant is in exception store the nuse this patterns to get the value of the parameters in link
                             if(in_array($value->merchant, $exception_store) && isset($container['url']) && isset($container[0])){
                                 switch ($value->merchant) {
                                     case 504: case 503: case 513: case 514:
@@ -719,9 +601,10 @@ class Ajax {
                                 $match_exp_string = preg_replace($pattern, '$1',$full_url);//replace the match with match string
                                 $container[2] = $match_exp_string;
                             }
-
+							//if not in array enters here
                             if(!array_key_exists($value->merchant,$result_array)){
                                 $merchant = $value->merchant;
+								//if $container[2] which is the value here is the parameter of the link is in the $exception then dont include in the result
                                 if(!in_array($container[2], $exception) && isset($merchant) && $merchant != '3rds 8'){
                                     $result_array[$merchant] = array(
                                         'buy_url' => $value->buy_url,
@@ -735,6 +618,8 @@ class Ajax {
                         }
                     }
                     //vd($result_array[47]);
+                    //vd($result_array); //contains all the errors that have affiliate in buy_url_raw
+					//foreach the result from the afiliate links table to get the value of affiliate in every merchant that use to display in page
                     foreach ($stores as $key => $value) {
                         $final = array();
                         $affiliate_link = $value->aks_affiliate_link;
@@ -752,6 +637,7 @@ class Ajax {
                         $count = 0;
                         $classType= 'alert-v2 alert-success-v2';
                         $totalError = $totalError + $count;
+						//if the $merchant_id is in the $result_array then put an error class
                         if(array_key_exists($merchant_id, $result_array)){
                             $final[] = $result_array[$merchant_id];
                             $count = 1;
@@ -780,17 +666,17 @@ class Ajax {
                             if($value->aks_affiliate_link != NULL){
                                 $affiliate_link = $value->aks_affiliate_link; 
                             }
-                            $resultAff = $db->query(UtilitiesController::get_good_sqlv2($merchant_id,$affiliate_link,'test-server'))->results();
+                            $resultAff = $db->query(Utilities::get_good_sqlv2($merchant_id,$affiliate_link,'test-server'))->results();
                         }elseif($getWebsiteRequest == 'cdd'){
                             if($value->cdd_affiliate_link != NULL){
                                 $affiliate_link = $value->cdd_affiliate_link; 
                             }
-                            $resultAff = $db->query(UtilitiesController::get_good_sqlv2($merchant_id,$affiliate_link,'compareprices'))->results();
+                            $resultAff = $db->query(Utilities::get_good_sqlv2($merchant_id,$affiliate_link,'compareprices'))->results();
                         }elseif($getWebsiteRequest == 'brexitgbp'){
                             if($value->brexit_affiliate_link != NULL){
                                 $affiliate_link = $value->brexit_affiliate_link; 
                             }
-                            $resultAff = $db->query(UtilitiesController::get_good_sqlv2($merchant_id,$affiliate_link,'brexitgbp'))->results();
+                            $resultAff = $db->query(Utilities::get_good_sqlv2($merchant_id,$affiliate_link,'brexitgbp'))->results();
                         }else{
                             return "INVALID INFORMATION";
                         }
@@ -826,13 +712,98 @@ class Ajax {
                     return $returnResult;
 			break;
 
+			case 'affMoreInfo':
+                $getSite = $getInput->get('website');
+                $getId = $getInput->get('merchant_id');
+                $getafflink = htmlspecialchars_decode($getInput->get('afflink'));
+                $name = $getInput->get('mer_name');
+                $showUrl = ($getInput->get('toUrl') == 'buy_url')? 'buy_url':'buy_url_raw';
+                $getWhat = ($getInput->get('toUrl') == 'buy_url')? 'not' : '';
+
+                switch ($getSite) {
+                    case 'aks':
+                        $databaseTo = 'test-server';
+                    break;
+                    case 'cdd':
+                        $databaseTo = 'compareprices';
+                    break;
+                    case 'brexitgbp':
+                        $databaseTo = 'brexitgbp';
+                    break;
+                }
+                if($getId == '122'){ $getafflink = 'html?'; }
+                    $sql = 'SELECT '.$showUrl.', id,normalised_name, merchant FROM `'.$databaseTo.'`.`pt_products` where '.$showUrl.' != "" and normalised_name != "50" and merchant = '.$getId.' and '.$showUrl.' '.$getWhat.' like "%'.$getafflink.'%" LIMIT 0,100';
+                    $results = $db->query($sql)->results();
+                    $returnArray['success'] = array(
+                        'merchant' => $getId,
+                        'name' => ucfirst($name),
+                        'data' => $results,
+                        'type' =>  $showUrl
+                    );
+                    return $returnArray['success'];
+            break;
+			
+			case 'ajaxAffiliateLinkIdRequest':
+                $getIdRequest = $getInput->get('ajaxRequestId');
+
+                $sql = "SELECT * FROM `test-server`.`affiliate_links` WHERE `merchant_id` = $getIdRequest LIMIT 1";
+                $result = $db->query($sql)->results();
+                return $result; 
+            break;
+
+			case 'ajaxAffiliateEditRequest':
+                
+                $getIdRequestId = $getInput->get('ajaxRequestId');
+                $getIdRequestName = $getInput->get('ajaxRequestName');
+                $getIdRequestAks = htmlspecialchars_decode($getInput->get('ajaxRequestAks'));
+                $getIdRequestCdd = htmlspecialchars_decode($getInput->get('ajaxRequestCdd'));
+                $getIdRequestBrexitgbp = htmlspecialchars_decode($getInput->get('ajaxRequestBrexitgbp'));
+                $getIdRequestsite = $getInput->get('ajaxRequestsite');
+
+                $sql = "UPDATE `test-server`.`affiliate_links`
+                        SET `aks_affiliate_link` = '$getIdRequestAks',
+                            `cdd_affiliate_link` = '$getIdRequestCdd',
+                            `brexit_affiliate_link` = '$getIdRequestBrexitgbp',
+                            `name` = '$getIdRequestName'
+                        WHERE `merchant_id` = '$getIdRequestId'";
+
+                $result = $db->query($sql) ? true : fail;
+                if($result){
+                    $returnResponse['success'] = array(
+                        'data' => 'Successfully edited for '.ucfirst($getIdRequestName).' '.$getIdRequestId.' affialiate link.',
+                        'site' => $getIdRequestsite
+                    );
+                } else{
+                    $returnResponse['success'] = array(
+                        'data' => 'There something wrong with the query',
+                        'site' => $getIdRequestsite
+                    );
+                }
+				return $returnResponse;
+            break;
+			
+			case 'addNewAffRequest':
+                    
+                $getIdRequestIdAdd = $getInput->get('ajaxRequestIdAdd');
+                $getIdRequestNameAdd = $getInput->get('ajaxRequestNameAdd');
+                $getIdRequestAksAdd = htmlspecialchars_decode($getInput->get('ajaxRequestAksAdd'));
+                $getIdRequestCddAdd = htmlspecialchars_decode($getInput->get('ajaxRequestCddAdd'));
+                $getIdRequestBrexitgbpAdd = htmlspecialchars_decode($getInput->get('ajaxRequestBrexitgbpAdd'));
+
+                $sql ="INSERT INTO `test-server`.`affiliate_links` ( `merchant_id`, `name`, `aks_affiliate_link`, `cdd_affiliate_link`,`brexit_affiliate_link`)
+                       VALUES ( '$getIdRequestIdAdd', '$getIdRequestNameAdd', '$getIdRequestAksAdd', '$getIdRequestCddAdd', '$getIdRequestBrexitgbpAdd')";
+
+                $result = $db->query($sql) ? true : fail;
+
+                if($result)
+                    return 'SUCCESS';
+                else
+                    return 'SOMETHING WRONG WITH THE QUERY';
+            break;
+			
 			case 'getFailedStores':
-                $sql = "SELECT `id`,`merchant_id`,`name`,`website`,`successRunTime` FROM `test-server`.`bot_admin` 
-                        WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 4 HOUR)
-                        AND (status = 1 OR status = 2)
-                        AND bot_type = 'feed'
-                        ORDER by successRunTime DESC ";
-                $failedStores = $db->query($sql)->results();
+				$utilities = new Utilities;
+                $failedStores = $utilities->feedBotFailed()->results();
                 $returnFStores = array();
                 foreach ($failedStores as $key) {
                     $returnFStores[] = array(
@@ -847,12 +818,8 @@ class Ajax {
             break;
 
             case 'getSuccessStores':
-                $sql = "SELECT `id`,`merchant_id`,`name`,`website`,`successRunTime` FROM `test-server`.`bot_admin`
-                        WHERE successRunTime > DATE_ADD(NOW(), INTERVAL 4 HOUR)
-                        AND (status = 1 OR status = 2)
-                        AND bot_type = 'feed'
-                        ORDER by successRunTime DESC";
-                $successStores = $db->query($sql)->results();
+                $utilities = new Utilities;
+                $successStores = $utilities->feedBotSuccess()->results();
                 $returnSStores = array();
                 foreach ($successStores as $key) {
                     $returnSStores[] = array(
@@ -867,14 +834,8 @@ class Ajax {
             break;
 
             case 'getServerChargeStore':
-                $sql = "SELECT `id`,`merchant_id`,`name`,`website`,`successRunTime` FROM `test-server`.`bot_admin`
-                        WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 4 HOUR)
-                        AND (status = 1 OR status = 2) 
-                        AND failed_on_server_charge = 1
-                        AND bot_type = 'feed'
-                        ORDER by successRunTime DESC";
-
-                $serverChargeStore = $db->query($sql)->results();
+                $utilities = new Utilities;
+                $serverChargeStore = $utilities->feedBotSuccessCharge()->results();
                 $returnSCStores = array();
                 foreach ($serverChargeStore as $key) {
                     $returnSCStores[] = array(
@@ -889,7 +850,231 @@ class Ajax {
             break;
 
 			//END
+			case 'cr-remove-report':
+				$updateOnProblem = $db->delete('`aks`.`tblReports`', $getInput->get('idToRemove'));
+			break;
+			case 'display-notification':
+				// $getlogs =  $db->find('`aks`.`tblLogs`', [
+				// 	'conditions' => ['status = ?'], 
+				// 	'bind' => [0]
+				// ]);
+				// return $getlogs;
+				$sql = "SELECT `s`.`id`,`s`.`productID`,`s`.`action`, `u`.`fname`, `t`.`merchant`, `p`.`vols_nom` 
+							FROM `aks`.`tbllogs` `s`
+    							INNER JOIN `aks`.`users` `u` ON `s`.`employeeID` = `u`.`id`
+    							INNER JOIN `test-server`.`pt_products` `t` ON `s`.`productID`  = `t`.`id`
+								inner join `allkeyshops`.`sale_page` `p` ON `t`.`merchant` = `p`.`vols_id`  
+								where `s`.`status` = 0";
+				return $db->query($sql)->results();
+
+			break;
+			case 'update-notifiction':
+				$fields = [
+					'status' => 1,
+				];
+				$logUpdate = $db->update('`aks`.`tblLogs`', $getInput->get('id'), $fields);
+			break;
+
+			case 'merchant_edition_price_tool':
+				$postSite = ($getInput->get('website') != null ) ? $getInput->get('website') : null ;
+				$postMerchant = ($getInput->get('merchant') != null) ? $getInput->get('merchant'): 0;
+				$postEdition = ($getInput->get('edition') != null) ? $getInput->get('edition') : 0;
+				if($postSite == null) return false;
+
+				$utilities = new Utilities;
+				$retrieveMerchant = $utilities->dataMerchant();
+				$retrieveEdition = $utilities->dataEdition();
+				$retrieveRegions = $utilities->dataRegion();
+				$retrieveResults = $utilities->merchantEditionPriceTool($postSite, $postMerchant, $postEdition);
+
+				$arrayThis =array();
+				if(!empty($retrieveResults)){
+					foreach ($retrieveResults as $key){
+						$merchantData = (!array_key_exists($key->merchant, $retrieveMerchant)) ? 'No Data' : $retrieveMerchant[$key->merchant];
+						$editionData = (!array_key_exists($key->edition, $retrieveEdition)) ? 'No Data' : $retrieveEdition[$key->edition];
+						$regionData = (!array_key_exists($key->region, $retrieveRegions)) ? 'No Data' : $retrieveRegions[$key->region];
+
+						array_push($arrayThis, array(
+								'id' => $key->id,
+								'merchant' => ucfirst($merchantData),
+								'edition' => ucfirst($editionData),
+								'region' => ucfirst($regionData),
+								'game_id' => $key->normalised_name,
+								'buy_url' => $key->buy_url,
+								'price' => $key->price,
+								'dispo' => $key->dispo,
+								'rating' => $key->rating,
+								'search_name' => $key->search_name,
+								'created_by' => ucfirst($key->created_by),
+								'created_time' => date('M d Y h:i A',strtotime($key->created_time.'+8 hours')),
+							)
+						);
+					}
+				}
+				$returnArrayData['success'] = array(
+					'data' => $arrayThis,
+					'returnWebsite'=> $postSite
+				);
+				return $returnArrayData;
+			break;
+
+			case 'pc-cda-div':
+				$result = array();
+
+				$countAllCheckerActivity = $db->find('`aks_bot_teamph`.`tblCheckerList`');
+				$displayCheckerActivity = $db->find('`aks_bot_teamph`.`tblCheckerList`', [
+					'order' => 'id desc',
+					'limit' => 100,
+					'offset'=> 0
+				]);
+
+				array_push($result, array(
+					'total' => count($countAllCheckerActivity),
+					'data' => $displayCheckerActivity
+				));
+
+				return $result;
+			break;
+
+			case 'displayAllDailyActivity':
+				$result = array();
+				$x = 0;
+				$total = $getInput->get('getTotal');
+				$offset = $getInput->get('getOffset');
+				while($x != $total) {
+					if($x == $offset) {
+						$displayCheckerActivity = $db->find('`aks_bot_teamph`.`tblCheckerList`', [
+							'order' => 'id desc',
+							'limit' => 499,
+							'offset'=> $offset
+						]);
+						array_push($result, array(
+							'data' => $displayCheckerActivity
+						));
+
+						if($total < $offset) break;
+						$offset = $offset + 499;
+					}
+				  $x++;
+				}
+				return $result;
+			break;
+
+			case 'displayMoreDailyActivity':
+				$offset = $getInput->get('getOffset');
+				return $db->find('`aks_bot_teamph`.`tblCheckerList`', [
+					'order' => 'id desc',
+					'limit' => 100,
+					'offset'=> $offset
+				]);
+			break;
+
+			case 'pc-cda-search-data':
+				$sql = "SELECT * from `aks_bot_teamph`.`tblCheckerList` search where CONCAT(search.checkerName, ' ', search.checkerActivity) like '%".htmlspecialchars_decode($getInput->get('toSearch'))."%' order by id  desc limit 100";
+				return $db->query($sql)->results();
+			break;
+
+			case 'display-assign-checker':
+				return $db->find('`aks_bot_teamph`.`tblAssignChecker`', [
+					'conditions' => ['status = ?'],
+					'bind' => [0],
+					'order' => 'id desc'
+				]);
+			break;
+
+			case 'displayChecker':
+				return $db->find('`test-server`.`admin_user`', [
+					'column' => ['`id`', '`username`', '`role`'],
+					'conditions' => ['role = ?'],
+					'bind' => ['price_team']
+				]);
+			break;
+
+			case 'add-shift':
+				if($getInput->get('toEditId') != ''){
+					$fields = [
+						'assignChecker' => $getInput->get('assignChecker'),
+						'weekdaySchedule' => $getInput->get('weekdaySchedule'),
+						'sundaySchedule' => $getInput->get('sundaySchedule'),
+					];	
+					$updateShift = $db->update('`aks_bot_teamph`.`tblAssignChecker`', $getInput->get('toEditId'), $fields);
+				}else{
+					$fields = [
+						'assignChecker' => $getInput->get('assignChecker'),
+						'weekdaySchedule' => $getInput->get('weekdaySchedule'),
+						'sundaySchedule' => $getInput->get('sundaySchedule'),
+						'assignBy' => ucfirst(Users::currentUser()->fname)
+					];
+					$addShift = $db->insert('`aks_bot_teamph`.`tblAssignChecker`', $fields);
+				}
+			break;
+
+			case 'pc-removed-assign-checker':
+				$updateShift = $db->update('`aks_bot_teamph`.`tblAssignChecker`', $getInput->get('idToRemove'), ['status' => 1]);
+			break;
+
+			case 'display-daily-listing':
+				return $db->find('`aks_bot_teamph`.`tblPriceCheckTool`', [
+					'conditions' => ['status = ?'],
+					'bind' => [0],
+					'order' => 'id desc',
+				]);
+			break;
+
+			case 'check-gameID-availability':
+				$displayDailyListing = $db->find('`aks_bot_teamph`.`tblPriceCheckTool`', [
+					'conditions' => ['gameId = ?'],
+					'bind' => [$getInput->get('toCheck')]
+				]);
+				return ($displayDailyListing)? '00' : '11';
+			break;
+
+			case 'add-daily-listing':
+				if($getInput->get('toEditId') != ''){
+					$fields = [
+						'gameId' => $getInput->get('gameId'),
+						'gameName' => $getInput->get('gameName'),
+						'releaseDate' => $getInput->get('releaseDate')
+					];	
+					$updateADL = $db->update('`aks_bot_teamph`.`tblPriceCheckTool`', $getInput->get('toEditId'), $fields);
+				}else{
+					$fields = [
+						'gameId' => $getInput->get('gameId'),
+						'gameName' => $getInput->get('gameName'),
+						'createdBy' => ucfirst(Users::currentUser()->fname),
+						'releaseDate' => $getInput->get('releaseDate')
+					];
+					$addADL = $db->insert('`aks_bot_teamph`.`tblPriceCheckTool`', $fields);
+				}
+			break;
+
+			case 'pc-removed-daily-listing':
+				$updateShift = $db->update('`aks_bot_teamph`.`tblPriceCheckTool`', $getInput->get('idToRemove'), ['status' => 1]);
+			break;
+
+			case 'display-wrong-affilliate-link':
+				return $db->find('`aks_bot_teamph`.`tblWrongAffLink`', [
+					'conditions' => ['status = ?'],
+					'bind' => [0],
+					'order' => 'id desc'
+				]);
+			break;
+
+			case 'get-wrong-affilliate-daily':
+				// $sql = $db->find('`aks_bot_teamph`.`tblWrongAffLink`' , [
+				// 	'column' => [ 'DATE_FORMAT(`addedDate`, "%Y-%m-%d")' ],
+				// 	'condition' => [ 'DATE_FORMAT(`addedDate`, "%Y-%m-%d") = CURDATE()' ],
+				// ]);
+				$sql = "SELECT DATE_FORMAT(`addedDate`, '%Y-%m-%d') FROM `aks_bot_teamph`.`tblWrongAffLink` WHERE DATE_FORMAT(`addedDate`, '%Y-%m-%d') = CURDATE()";
+				return ($db->query($sql)->results())? '11' : '00';
+			break;
+
+			case 'add-wrong-aff-link':
+			    $run = ($getInput->get('toEditId') != '')? $db->update('`aks_bot_teamph`.`tblWrongAffLink`', $getInput->get('toEditId'), ['wrongAffLink' => $getInput->get('wrongAffLink')]) : $db->insert('`aks_bot_teamph`.`tblWrongAffLink`', ['wrongAffLink' => $getInput->get('wrongAffLink')]);
+			break;
+
 		}
+	//END OF FUNCTION AJAXDATA
 	}
 
 	public static function getSite($site){

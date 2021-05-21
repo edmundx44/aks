@@ -4,6 +4,10 @@
 	use App\Models\Users;
 	$menu = Router::getMenu('menu_acl');
 	$currentPage = H::currentPage(); //for active only
+	//testing the preg_match
+	//$test = preg_match('/^(\/[^\/]+)(\/[^\/]+)(\/[^\/]+)\/?|.+/',$currentPage, $con);
+	//echo "<pre>", print_r($con,1), "</pre>";
+	//echo $currentPage = preg_replace('/^(\/[^\/]+)(\/[^\/]+)(\/[^\/]+)\/?|.+/','${1}${2}${3}',$currentPage);
 ?>
 <style>
 	.switch-btn {
@@ -67,10 +71,12 @@ input:checked + .switch-slider:before {
   border-radius: 50%;
 }
 </style>
+
+
 <div class="sidebar-content-wrapper sidebar-content-wrapper-normal">
 	<div class="sidebar-content">
 		<div class="sidebar-minimize text-center">
-			<i class="sidebar-minimize-icon fa fa-angle-double-left" aria-hidden="true"></i>
+			<i class="sidebar-minimize-icon fal fa-angle-double-left"></i>
 		</div>
 		<div class="sidebar-logo">
 			<img src="<?=PROOT?>vendors/image/logo-word.png" class="sidebar-logo-img-1 main-word"/>
@@ -84,32 +90,37 @@ input:checked + .switch-slider:before {
 				
 					
 				<?php foreach ($menu as $key => $val): ?>
-					<?php if($key != 'Logout'): 
-						$active = ($val == $currentPage)? 'active-class':''; 
-						$activeVal = ($val == $currentPage)? 'active-class-val':'';
+					<?php if($key != 'Logout'):
+						$currentPageUse = (is_array($val)) ? trim(preg_replace('/^(\/[^\/]+)(\/[^\/]+)(\/[^\/]+)\/?|.+/','${1}${2}${3}',$currentPage)) : $currentPage;
+						$active = ($val == parse_url($currentPageUse, PHP_URL_PATH))? 'active-class':''; 
+						$activeVal = ($val == parse_url($currentPageUse, PHP_URL_PATH))? 'active-class-val':'';
 					?>
 						
 						<?php if(is_array($val)): ?>
 							<a href="#" class="li-a-nav">
-								<li class="li-nav dropdown-li" id="<?= $key ?>-sub-ul">
+								<li class="li-nav dropdown-li" id="<?= $key ?>-sub-ul" title="<?= $key ?>">
 									<div class="li-nav-div li-nav-and-sub-normal">
 										<span class="li-nav-div-span">
-											<i class="fa a1 sidebar-menu-icon" aria-hidden="true" id="nav-icon"></i>
-											<span class="sidebar-menu-value sidebar-menu-value-normal"><?= $key ?></span></span> 
-										<i class="fa fa-angle-down li-nav-dd pull-right" aria-hidden="true"></i>
+											<i class="fas a1 sidebar-menu-icon" id="nav-icon"></i>
+											<span class="sidebar-menu-value sidebar-menu-value-normal"><?= $key ?></span>
+										</span> 
+										<div>
+											<i class="fal fa-angle-down li-nav-dd" style="position: relative;left: 205px;top: -8px;"></i>
+											<i class="fal fa-angle-down li-nav-dd-mini" style="display: none;font-size: 14px;position: relative;top: -34px; left: 25px;background-color: #0062cc;border-radius: 12px; width: 12px;height: 12px;color: #fff;"></i>
+										</div>
 									</div>
 									
 									<ul class="sub-ul-nav <?= $key ?>-sub-ul">
 										<?php foreach($val as $k => $v): 
-											echo ($v == $currentPage)? "<script type='text/javascript'>$('.$key-sub-ul').addClass('show-div');</script>" : '' ;
-											$active = ($v == $currentPage)? 'active-class':''; 
-											$activeVal = ($v == $currentPage)? 'active-class-val':''; 
+											echo ($v == parse_url($currentPageUse, PHP_URL_PATH))? "<script type='text/javascript'>$('.$key-sub-ul').addClass('show-div');</script>" : '' ;
+											$active = ($v == parse_url($currentPageUse, PHP_URL_PATH))? 'active-class':''; 
+											$activeVal = ($v == parse_url($currentPageUse, PHP_URL_PATH))? 'active-class-val':''; 
 										?>
 											<a href="<?= $v ?>" class="sub-li-a-nav">
-												<li class="sub-li-nav ">
+												<li class="sub-li-nav" title="<?= ucfirst($k) ?>">
 													<div class="sub-li-nav-div <?= $active ?> li-nav-and-sub-normal">
 														<span class="sub-li-nav-div-span">
-															<i class="fa fa-hand-o-right <?= $activeVal ?> sub-li-nav-div-span-icon" aria-hidden="true"></i> 
+															<i class="fas fa-hand-point-right <?= $activeVal ?> sub-li-nav-div-span-icon"></i> 
 															<span class="sidebar-menu-value sidebar-menu-value-normal <?= $activeVal ?>" style="font-size: 12px;left:60px;"><?= ucfirst($k) ?></span>
 														</span>
 													</div>
@@ -121,10 +132,10 @@ input:checked + .switch-slider:before {
 							</a>	
 						<?php else:?>
 							<a href="<?= $val ?>" class="li-a-nav">
-								<li class="li-nav">
+								<li class="li-nav" title="<?= $key ?>">
 									<div class="li-nav-div <?= $active ?> li-nav-and-sub-normal">
 										<span class="li-nav-div-span">
-											<i class="fa a2 sidebar-menu-icon <?= $activeVal ?>" aria-hidden="true" id="nav-icon"></i> 
+											<i class="fas a2 sidebar-menu-icon <?= $activeVal ?>" id="nav-icon"></i> 
 											<span class="sidebar-menu-value sidebar-menu-value-normal <?= $activeVal ?>"><?= $key ?></span>
 										</span>
 									</div>
@@ -141,27 +152,26 @@ input:checked + .switch-slider:before {
 	<div class="sidebar-footer sidebar-footer-normal">
 		<div class="sidebar-footer-online-dot"></div>
 		<div class="sidebar-footer-img"></div>
-		<p class="sidebar-footer-welcome">#WELCOME</p>
+		<p class="sidebar-footer-welcome">#<?= (Users::currentUser()->acl == '')? 'WELCOME' : ucfirst(Users::currentUser()->acl) ?></p>
 		<p class="sidebar-footer-name"><?= ucfirst(Users::currentUser()->fname) ?></p>
 		<?php foreach ($menu as $key => $val): ?>
 			<?php if($key == 'Logout'): ?>
-				<a href="<?= $val ?>"><i class="fa fa-sign-out sidebar-footer-logout-icon" aria-hidden="true" alt="Logout" title="Logout"></i></a>
-				
+				<a href="<?= $val ?>"><i class="fas fa-sign-out-alt sidebar-footer-logout-icon" alt="Logout" title="Logout"></i></a>
 			<?php endif; ?>
 		<?php endforeach; ?>
 	</div>
 	<div class="div-img-logout-settings" style="" id="div-img-logout-settings-id">
-		<div class="dils-div-1" style="width: 20%;height: 100%;position: absolute;"> asd </div>
+		<div class="dils-div-1" style="width: 20%;height: 100%;position: absolute;"></div>
 		<div class="dils-div-2" style="width: 80%;height: 100%;position: absolute;left: 20%;">
-			<ul style="list-style-type: none;margin:0;padding:0;color: #000;">
+			<ul style="list-style-type: none;margin:0;padding: 25px 0 0 0;color: #000;">
 				<li style="padding:5px;font-size: 13px;">Option</li>
 				<li style="padding:5px;font-size: 13px;">Option</li>
 				<li style="padding:5px;font-size: 13px;">Option</li>
 				<li style="padding:5px;font-size: 13px;">Option</li>
 				<li style="padding:5px;font-size: 13px;">Option</li>
 				<li style="padding:5px;font-size: 13px;">
-					<span class="pull-left">Dark Mode</span>
-					<span class="pull-right">					
+					<span class="float-left">Dark Mode</span>
+					<span class="float-right">					
 						<label class="switch-btn">
 							<input type="checkbox" class="switch-checkbox">
 							<span class="switch-slider round"></span>

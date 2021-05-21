@@ -18,6 +18,8 @@
 		initChecksumChart(lineChart); //initialize checksum chart
 		checkWidthFB(); //it will take effect it its reload
 
+		var display1 = 
+
 		$.when(
 			xhr_AjaxCall(url+'dashboard','POST','displayRunAndSuccessAction').done(function(data){ displayRunAndSuccess(data) }),
 			xhr_AjaxCall(url+'dashboard','POST','displayPriceToZeroCountsCounts').done(function(data) { displayPriceToZero(data) }),
@@ -41,7 +43,7 @@
 		});		
 
 		//FOR FEED SUCCESS, Fail, SERVER CHARGE
-		$(document).on('click', '.feedbots-opt', function(){
+		$(document).on('click', '.feedbots-opt,.m-feedboot-opt-li', function(){
 			switch($(this).attr("data-feedbots")){
 				case 'getSuccessStores':
 					_ajaxFeedBots(url+'dashboard',"POST",'getSuccessStores').done(function(data){
@@ -138,6 +140,36 @@
 
 		});
 
+		//FOR TABBING CONTENT in feed bot if mobile
+		$(document).on('click', '.m-feedboot-opt-li', function(){
+			$('.content-hide').hide();
+			$('.m-feedboot-opt-li').removeClass('active-tab-1');
+			$(this).addClass('active-tab-1');
+
+			switch($(this).attr('data-m-tab')){
+				case 'm-chksum':
+					$('.dbox-content').css({'height':'70%'})
+					$('.dbox-hide').show(); //hide the webiste btn
+					$('.checksum-chart').show();
+				break;
+				case 'm-sStore':
+					$('.dbox-content').css({'height':'80%'})
+					$('.dbox-hide').hide();
+					$('.feed-success').show();
+				break;
+				case 'm-fStore':
+					$('.dbox-content').css({'height':'80%'})
+					$('.dbox-hide').hide();
+					$('.feed-failed').show();
+				break;
+				case 'm-scStorem':
+					$('.dbox-content').css({'height':'80%'})
+					$('.dbox-hide').hide();
+					$('.feed-servercharge').show();
+				break;
+			}
+		});
+
 		//FOR TABBING CONTENT
 		$(document).on('click','.clk-options', function(){
 			//alert($(this).attr('id'));
@@ -148,7 +180,7 @@
 
 			if($(this).attr('id') != 'checksum-chart'){
 				$('.dbox-content').css({'height':'80%'})
-				$('.dbox-hide').hide();
+				$('.dbox-hide').hide(); //hide the webiste btn
 			}else{
 				$('.dbox-content').css({'height':'70%'})
 				$('.dbox-hide').show();
@@ -191,20 +223,21 @@
 
 		// view more click
 		$(document).on('click', '.card-body-div-sub-span, .view-more-icon', function(){
-			
 			switch($(this).data('to')){
 				case 'menu-disabled':
 					displayMoreReport('menu-disabled', $('.menu-disabled-what').text())
 					$('#reportModal').modal('show');
-				
+					addHeaderClass('.rheader-modal', $('.menu-disabled-what').text().toLowerCase())
 				break;
 				case 'menu-snapshot':
 					displayMoreReport('menu-snapshot', $('.menu-snapshot-what').text())
 					$('#reportModal').modal('show');
+					addHeaderClass('.rheader-modal', $('.menu-snapshot-what').text().toLowerCase())
 				break;
 				case 'menu-dbfeed':
 					displayMoreReport('menu-dbfeed', $('.menu-dbfeed-what').text())
 					$('#reportModal').modal('show');
+					addHeaderClass('.rheader-modal', $('.menu-dbfeed-what').text().toLowerCase())
 				break;
 			}
 		});
@@ -249,7 +282,7 @@
 		for (var i in data){
 			priceTozero.push(data[i].aks,data[i].cdd,data[i].brexitgbp);
 		}
-		if(data[0].aks == 0 || data[0].cdd == 0){
+		if(data[0].aks == 0 || data[0].cdd == 0 || data[0].brexitgbp == 0){
 			var $chartTitle = 'NO DATA FOR NOW';
 		}else{
 			var $chartTitle = 'Price To Zero Percentage';
@@ -288,8 +321,7 @@
 
 	function displayReportChart($data,$domId,$chartTitle,chartVarirable){
 		var ctx = document.getElementById(''+$domId+'').getContext('2d');	//select a canvas
-
-		var label_0 = ['AKS', 'CDD'];
+		var label_0 = ($domId == 'priceToZeroPercent-1') ? ['AKS', 'CDD', 'BREXIT'] : ['AKS', 'CDD'];
 		var label_1 = ['Success','Fail', 'Server Charge'];
 		var dataset = [{ 
 				label: "Websites",
@@ -437,7 +469,7 @@
 		if(data.length != 0){
 			btnSuccessFailServerChargeFiltered(param1, param2);
 			for(var i in data){
-				var $bgColor = (data[i].website == 'aks') ?  'color-green-dif' : (data[i].website == 'cdd') ? 'color-yellow-dif' : (data[i].website == 'brexitgbp') ? 'color-lblue-dif' : "";
+				var $bgColor = (data[i].website == 'aks') ?  'aks_color' : (data[i].website == 'cdd') ? 'cdd_color' : (data[i].website == 'brexitgbp') ? 'brexitgbp_color' : "";
 				if(data[i].website == 'brexitgbp'){
 					data[i].website = 'gbp';
 				}
@@ -446,25 +478,26 @@
 			$('.'+titleTo).text(data.length+'\t');
 			$('.'+showBtn).show();		
 		}else{
-			var empty = '<h4 class="text-center" style="margin-top:150px;">"'+textFailed+'"</h4>';
+			var empty = '<h4 class="text-center col-sm-12" style="margin-top:150px;">"'+textFailed+'"</h4>';
 			$('.'+appendTo).append(empty);
 			$('.'+showBtn).hide();
 		}
 	}
 	function successFailedstores($merchantName,$merchantId,$merchantSite,$classType,$successRunTime,$toWhereAppend){
 		var $divSite = ($merchantSite == 'aks') ?  'div-sfc-aks' : ($merchantSite == 'cdd') ? 'div-sfc-cdd' : ($merchantSite == 'gbp') ? 'div-sfc-brexitgbp' : "";
-		var append =	'<div class="'+$divSite+' div-data-col col-xs-6">';
-			append +=    	'<div class="pull-left sf-name">'+$merchantName.toUpperCase()+' ('+$merchantId+')</div>';
-			append +=        	'<div class="sf-site pull-right color '+$classType+'">'+$merchantSite.toUpperCase()+'</div>';
+		var $siteName = ($merchantSite == 'gbp') ? 'brexitgbp' : $merchantSite;
+		var append =	'<div class="'+$divSite+' div-data-col col-sm-6 sfc-divs-result">';
+			append +=    	'<div class="float-left sf-name '+$siteName+'_color">'+$merchantName.toUpperCase()+' ('+$merchantId+')</div>';
+			append +=        	'<div class="lt-spacing-1-5 mtop-8 sf-site float-right color '+$classType+'">'+$merchantSite.toUpperCase()+'</div>';
 			append +=        	'<br>';
 			append +=    	'<div class="sf-date">'+$successRunTime+'</div>';
 			append +=	'</div>';
 			$('.'+$toWhereAppend).append(append);
 	}
 	function btnSuccessFailServerChargeFiltered($class,$toWhereAppend){
-		var appendData = '<input type="button" data-hide-'+$class+'="aks" class="btn btn-success col-xs-4 input-btn-'+$class+' i-aks" value="AKS" style="border-radius: 0">';
-			appendData +='<input type="button" data-hide-'+$class+'="cdd" class="btn btn-warning col-xs-4 input-btn-'+$class+' i-cdd" value="CDD" style="border-radius: 0">';
-			appendData +='<input type="button" data-hide-'+$class+'="gbp" class="btn btn-primary col-xs-4 input-btn-'+$class+' i-brexit" value="GBP" style="border-radius: 0">';
+		var appendData = '<input type="button" data-hide-'+$class+'="aks" class="sfbtn-style btn div-aks-bgcolor-2 sfbuttons-pad col-sm-4 input-btn-'+$class+' i-aks" value="AKS">';
+			appendData +='<input type="button" data-hide-'+$class+'="cdd" class="sfbtn-style btn div-cdd-bgcolor-3 sfbuttons-pad col-sm-4 input-btn-'+$class+' i-cdd" value="CDD">';
+			appendData +='<input type="button" data-hide-'+$class+'="gbp" class="sfbtn-style btn div-brexitgbp-bgcolor-2 sfbuttons-pad col-sm-4 input-btn-'+$class+' i-brexit" value="GBP">';
 			$("."+$toWhereAppend).append(appendData);
 	}
 	function sfcReportsBtnFiltered($this,$class,$countTitle){
@@ -504,17 +537,6 @@
 	}
 	/** ENF OF FEED BOTS functions */
 
-	function displayReport($to, $what){
-		var dataRequest =  {
-				action: 'displayReport',
-				to: $to,
-				what: $what
-			}
-
-			AjaxCall(url+'dashboard', dataRequest).done(function(data) {
-				console.log(data)
-			});
-	}
 
 	//para sa checksum beforeUpdate
 	function arr_implode(array){
@@ -646,7 +668,7 @@
 						display: true,
 						labels: {
 							fontColor: '#004ea3', //title color
-							fontStyle: "bold",
+							fontStyle: 500,
 							fontSize: 13,
 							usePointStyle:true,
 						},
@@ -729,25 +751,29 @@
 				to: $to,
 				what: $what
 			}
-
+		addPointerEvents($what)
+		console.log($what)
 		AjaxCall(url+'dashboard', dataRequest).done(function(data) {
-			//console.log(data)
 			switch(data.to){
 				case 'Store':
 					$('.disable-count').html(data.count);
 					$('.disabled-what').html('Store');
+					removedPointerEvents("Store")
 				break;
 				case 'Metacritics':
 					$('.disable-count').html(data.count);
 					$('.disabled-what').html('Metacritics');
+					removedPointerEvents("Metacritics")
 				break;
 				case 'AKS':
 					$('.snapshot-count').html(data.count);
 					$('.snapshot-what').html('AKS');
+					removedPointerEvents("AKS")
 				break;
 				case 'CDD':
 					$('.snapshot-count').html(data.count);
-					$('.snapshot-what').html('CDD');	
+					$('.snapshot-what').html('CDD');
+					removedPointerEvents("CDD")	
 				break;
 				case 'BREXIT':
 					// $('.snapshot-count').html(data.count);
@@ -756,14 +782,17 @@
 				case 'AKSDB':
 					$('.dbfeed-count').html(data.count);
 					$('.dbfeed-what').html('AKS');	
+					removedPointerEvents("AKSDB")
 				break;
 				case 'CDDDB':
 					$('.dbfeed-count').html(data.count);
-					$('.dbfeed-what').html('CDD');	
+					$('.dbfeed-what').html('CDD');
+					removedPointerEvents("CDDDB")
 				break;
 				case 'BREXITDB':
 					$('.dbfeed-count').html(data.count);
-					$('.dbfeed-what').html('BREXIT');		
+					$('.dbfeed-what').html('BREXIT');
+					removedPointerEvents("BREXITDB")		
 				break;
 			}
 		});
@@ -777,23 +806,24 @@
 				to: $to,
 				what: $what
 			}
+		$('.display-more-report').empty();
+		$('.report-modal-header').html('LOADING');
 
 		AjaxCall(url+'dashboard', dataRequest).done(function(data) {
 			switch(data.to){
 				case 'Store':
-					$('.display-more-report').empty();
 					$('.report-modal-header').html('Disabled Store');
 					for (var i in data.data){
-
 						disabledDiv(data.data[i].store, data.data[i].id);
 					}
 				break;
 				case 'Metacritics':
-					$('.display-more-report').empty();
 					$('.report-modal-header').html('Disabled Metacritics');
+					for (var i in data.data){
+						disabledDiv(data.data[i].name, data.data[i].id);
+					}
 				break;
 				case 'AKS':
-					$('.display-more-report').empty();
 					$('.report-modal-header').html('AKS Snapshot');
 
 					for (var i in data.data){
@@ -808,12 +838,12 @@
 							data.data[i].updatedCount,
 							data.data[i].databaseCount,
 							((data.data[i].timeToScan).toUpperCase()).replace('/H/g', 'H '),
-							((data.data[i].timeSinceScan).toUpperCase()).replace('/H/g', 'H ')
+							((data.data[i].timeSinceScan).toUpperCase()).replace('/H/g', 'H '),
+							'aks'
 						);
 					}
 				break;
 				case 'CDD':
-					$('.display-more-report').empty();
 					$('.report-modal-header').html('CDD Snapshot');
 
 					for (var i in data.data){
@@ -828,15 +858,15 @@
 							data.data[i].updatedCount,
 							data.data[i].databaseCount,
 							((data.data[i].timeToScan).toUpperCase()).replace('/H/g', 'H '),
-							((data.data[i].timeSinceScan).toUpperCase()).replace('/H/g', 'H ')
+							((data.data[i].timeSinceScan).toUpperCase()).replace('/H/g', 'H '),
+							'cdd'
 						);
 					}
 				break;
 				case 'BREXIT':
-					$('.display-more-report').empty();
+					
 				break;
 				case 'AKSDB':
-					$('.display-more-report').empty();
 					$('.report-modal-header').html('AKS DB/FEED COUNT');
 
 					for(var i in data.data){
@@ -844,7 +874,6 @@
 					}
 				break;
 				case 'CDDDB':
-					$('.display-more-report').empty();
 					$('.report-modal-header').html('CDD DB/FEED COUNT');
 
 					for(var i in data.data){
@@ -852,7 +881,6 @@
 					}
 				break;
 				case 'BREXITDB':
-					$('.display-more-report').empty();
 					$('.report-modal-header').html('BREXIT DB/FEED COUNT');
 
 					for(var i in data.data){
@@ -901,20 +929,25 @@
 	}
 
 	function disabledDiv($merchantName, $merchantID){
-		var appendData = "<div class=''>";
+		var n = $merchantName.toLowerCase();
+        var $storeName = n.substr(0,1).toUpperCase()+n.substr(1);
+
+		var appendData = "<div class='col-sm-6 disabled-divs' >";
+			appendData += "<div class='disabled-divs-1'>";
 			appendData += "<p>";
-			appendData += "<span>"+$merchantName+"</span>";
+			appendData += "<span style='letter-spacing:1.5px;font-weight:500;'>"+$storeName+"</span>";
 			appendData += "<span> ("+$merchantID+") </span>";
 			appendData += "</p>";
 			appendData += "</div>";
+			appendData += "</div>";
 			$('.display-more-report').append(appendData);
 	}
-		function snapshotDiv($merchantName,$merchantID,$resCalcData,$difference,$updatedCount,$databaseCount,$timeToScan,$timeSinceScan){
-
-			var appendData =  "<div class='report-snapshot-con-wrap'>";
+		function snapshotDiv($merchantName,$merchantID,$resCalcData,$difference,$updatedCount,$databaseCount,$timeToScan,$timeSinceScan,$site){
+			var appendData = "<div class='col-sm-12'>";
+			    appendData +=  "<div class='report-snapshot-con-wrap no-padding'>";
 				appendData += 	"<div class='report-snapshot-data-title-div'>";
-				appendData += 		"<div class='snap-margin pull-left report-snapshot-data-title'> "+$merchantName+" ("+$merchantID+")</div>";
-				appendData += 		"<div class='snap-margin div-"+$resCalcData+" pull-right'>"+$difference+"</div>";
+				appendData += 		"<div class='snap-margin float-left report-snapshot-data-title'> "+$merchantName+" ("+$merchantID+")</div>";
+				appendData += 		"<div class='count-dif text-white snap-margin div-"+$resCalcData+" float-right'>"+$difference+"</div>";
 				appendData += 		"<table class='table snapshot-div'>";
 				appendData +=			"<thead>";
 				appendData += 				"<tr>";
@@ -935,19 +968,107 @@
 				appendData += 		"</table>";
 				appendData += 	"</div>";
 				appendData += "</div>";
+				appendData += "</div>";
+
 				$('.display-more-report').append(appendData);	
 		}
 		function dbFeedCount($website, $name, $id, $dbCount, $feedCount, $differences){
-			var appendData =  "<div class='div-"+$website+"-site' style='color:#fff;'>";
-				appendData += "<div class='report-dbfc-data-title-div'>";
-				appendData += "<div class='report-dbfc-data-title'>"+($name).toUpperCase()+" ("+$id+")</div>";
-				appendData += "</div>";
-				appendData += "<div class='report-dbfc-data'>";
-				appendData += "<div>Website : "+($website).toUpperCase()+"";
-				appendData += "<div>Database Count : "+$dbCount+"";
-				appendData += "<div>Feed Count : "+$feedCount+"";
-				appendData += "<div>% DB/FC : "+Math.round($differences)+"% </div>"
+		
+			var appendData =  "<div class='col-sm-4 div-"+$website+"-site dbfc-results'>";
+				appendData += "<div class='"+$website+"_color white_bg_color'>";
+				appendData += 	"<div class='report-dbfc-data-title-div'>";
+				appendData += 		"<div class='report-dbfc-data-title'>"+($name).toUpperCase()+" ("+$id+")</div>";
+				appendData += 	"</div>";
+				appendData += 		"<div class='report-dbfc-data'>";
+				appendData +=			"<div>";
+				appendData +=				"<span class='dbfc-text'>Website</span>";
+				appendData +=				"<span class='dbfc-res div-"+$website.toLowerCase()+"-bgcolor-2'>"+$website.toUpperCase()+"</span>";
+				appendData +=			"</div>";
+				appendData +=			"<div>";
+				appendData +=				"<span class='dbfc-text'>Database Count</span>";
+				appendData +=				"<span class='dbfc-res div-"+$website.toLowerCase()+"-bgcolor-2'>"+$dbCount+"</span>";
+				appendData +=			"</div>";
+				appendData +=			"<div>";
+				appendData +=				"<span class='dbfc-text'>Feed Count</span>";
+				appendData +=				"<span class='dbfc-res div-"+$website.toLowerCase()+"-bgcolor-2'>"+$feedCount+"</span>";
+				appendData +=			"</div>";
+				appendData +=			"<div>";
+				appendData +=				"<span class='dbfc-text'>% DB/FC</span>";
+				appendData +=				"<span class='dbfc-res div-"+$website.toLowerCase()+"-bgcolor-2'>"+Math.round($differences)+"% </span>";
+				appendData +=			"</div>";
+				appendData += 		"</div>";
 				appendData += "</div>";
 				appendData += "</div>";
 				$(".display-more-report").append(appendData);
+		}
+
+		function addHeaderClass($classTarget,$site){
+			$($classTarget).removeClass('aks_bg_color');
+			$($classTarget).removeClass('cdd_bg_color');
+			$($classTarget).removeClass('brexitgbp_bg_color');
+			$($classTarget).removeClass('default_bg_color');
+			$($classTarget).removeClass('danger_bg_color');
+
+			switch($site){
+				case 'aks':
+					$($classTarget).addClass('aks_bg_color');
+				break;
+					
+				case 'cdd':
+					$($classTarget).addClass('cdd_bg_color');
+				break;
+
+				case 'brexitgbp':
+				case 'brexit':
+					$($classTarget).addClass('brexitgbp_bg_color');
+				break;
+				case 'store':
+				case 'metacritics':
+					$($classTarget).addClass('danger_bg_color');
+				break;
+				default:
+					$($classTarget).addClass('default_bg_color');
+				break;
+			}
+			
+
+		}
+
+		function addPointerEvents($to ,$classTarget = ""){
+			$('.card-body-div-sub').removeClass('div-disabled');
+			$('.view-more-icon').removeClass('pointer-events-none');
+			$('.card-body-div-sub-span').removeClass('pointer-events-none');
+
+			switch($to){
+				case 'Store':
+				case 'Metacritics':
+				case 'AKS':
+				case 'CDD':
+				case 'BREXIT':
+				case 'AKSDB':
+				case 'CDDDB':
+				case 'BREXITDB':
+					$('.card-body-div-sub').addClass('div-disabled');
+					$('.view-more-icon').addClass('pointer-events-none');
+					$('.card-body-div-sub-span').addClass('pointer-events-none');
+				break;
+			}
+
+		}
+
+		function removedPointerEvents($to ,$classTarget = ""){
+			switch($to){
+				case 'Store':
+				case 'Metacritics':
+				case 'AKS':
+				case 'CDD':
+				case 'BREXIT':
+				case 'AKSDB':
+				case 'CDDDB':
+				case 'BREXITDB':
+					$('.card-body-div-sub').removeClass('div-disabled');
+					$('.view-more-icon').removeClass('pointer-events-none');
+					$('.card-body-div-sub-span').removeClass('pointer-events-none');
+				break;
+			}
 		}

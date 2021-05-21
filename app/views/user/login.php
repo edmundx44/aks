@@ -30,18 +30,18 @@
                     <p class="text-center p-title-2">AKS LOGIN PANEL</p>
 
                     <div class="text-center">
-                        <i class="fa fa-sort-desc icon-1" aria-hidden="true"></i>
+                        <i class="fal fa-angle-double-down icon-1"></i>
                     </div>
 
                     <div class="div-form">
                         <form class="form" action="<?=PROOT?>user/login" method="post">
                             <div class="input-group">
-                                <span class="input-group-addon class-add-on-icon text-center"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
+                                <span class="input-group-addon class-add-on-icon text-center"><i class="fas fa-user-circle"></i></span>
                                 <input type="text" id="username" name="username" class="form-control class-input" placeholder="Email">
                             </div>
                             <br>
                             <div class="input-group">
-                                <span class="input-group-addon class-add-on-icon text-center"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+                                <span class="input-group-addon class-add-on-icon text-center"><i class="fas fa-unlock-alt"></i></span>
                                 <input type="password" id="password" name="password" class="form-control class-input" placeholder="Password">
                             </div>
                             <br>
@@ -49,23 +49,23 @@
                                 <input type="submit" name="" value="Sign In" class="btn btn-primary btn-login">
                             </div>
                             <div class="p-action">
-                                <label class="pull-left label-1"><input type="checkbox" id="remember_me" name="remember_me" value="on"> Remember Me</label>
-                                <label class="pull-right label-2" data-toggle="modal" data-target="#forgot-pass-modal">Forgot Password</label>
+                                <label class="float-left label-1"><input type="checkbox" id="remember_me" name="remember_me" value="on"> Remember Me</label>
+                                <label class="float-right label-2" data-toggle="modal" data-target="#forgot-pass-modal">Forgot Password</label>
                             </div>
                         </form>
                     </div>
 
-                    <div class="row div-or" >
+                   <!--  <div class="row div-or" >
                         <div class="col-xs-5"><hr></div>
                         <div class="col-xs-2 text-center or-txt">OR</div>
                         <div class="col-xs-5"><hr></div>
                     </div>
 
                     <div class="text-center div-icon">
-                        <i class="fa fa-facebook-official i-1" aria-hidden="true"></i> &nbsp; 
-                        <i class="fa fa-google-plus-square i-2" aria-hidden="true"></i> &nbsp; 
-                        <i class="fa fa-instagram i-3" aria-hidden="true"></i>
-                    </div>
+                        <i class="fa fa-facebook-official i-1"></i> &nbsp; 
+                        <i class="fa fa-google-plus-square i-2></i> &nbsp; 
+                        <i class="fa fa-instagram i-3"></i>
+                    </div> -->
                 </div>
             </div>
         </div>
