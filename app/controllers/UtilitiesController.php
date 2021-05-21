@@ -41,7 +41,7 @@ class UtilitiesController extends Controller {
 				}
 			}
 		}
-		if(isset($queryParameters[0]) || !$granted){
+		if(!$granted){
 			$this->view->render('restricted/badUrl');
 			return false;
 		}

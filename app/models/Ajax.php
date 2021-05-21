@@ -37,70 +37,16 @@ class Ajax {
 
 		switch ($post) {
 			case 'displayReport':
+				$utilities = new Utilities;
+
 				switch ($getInput->get('to')) {
 					case 'menu-disabled':
 						switch ($getInput->get('what')) {
 							case 'Store':
-								$sql = "SELECT `vols_id`,`vols_nom`,`analytic_name` FROM `allkeyshops`.`sale_page` ";
-								$arrayStores = $db->query($sql);
-								$allStores = array();
-								foreach($arrayStores->results() as $key => $value){
-									if(!array_key_exists($value->vols_id, $allStores)){
-										$id = $value->vols_id;
-										if(isset($id))  $allStores[$id]=$value->analytic_name;
-									}
-								}
-
-								$returnDisabledStore = array();
-								$invisible_stores = json_decode(@file_get_contents('https://www.allkeyshop.com/blog/wp-content/plugins/aks-merchants/api/merchants/inactive'),true); 
-								//$invisible_stores = '';
-								if (FALSE !== ($invisible_stores)) {
-									if(!empty($invisible_stores)){
-										foreach ($invisible_stores as $stores_invisible) {
-											if(array_key_exists($stores_invisible, $allStores)){
-												$returnDisabledStore[] = array(
-													'id' => $stores_invisible,
-													'store' => $allStores[$stores_invisible]
-												);
-											}else{
-												$returnDisabledStore[] = array(
-													'id' => $stores_invisible,
-													'store' => $stores_invisible
-												);
-											}
-										}
-
-										return array('to' => 'Store', 'count' => count($returnDisabledStore), 'data' => $returnDisabledStore);;
-									}
-								} else {
-									return FALSE;
-								}
-
+								return $utilities->displayDisabledStore();
 							break;
 							case 'Metacritics':
-								$returnResponse = array();
-								$getDataMeta = file_get_contents( ROOT . DS . 'app' . DS .'metacritics_stores.json');
-								$metaStores = json_decode($getDataMeta, true);
-
-								asort($metaStores);
-								foreach ($metaStores as $key) {
-									$id = $key['id'];
-									$name = $key['name'];
-									$number_of_links = Utilities::getMetacriticsNumberOfLinks($db,$id); //# of links
-									$number_of_disabled_links = Utilities::getMetacriticsDisabledLinks($db,$id); //# of disabled links
-
-									if($number_of_links->count > 0){
-										$number_of_links->count = $number_of_links->count * .95;
-										if( $number_of_disabled_links->count1 >= $number_of_links->count){
-											array_push($returnResponse, array(
-												'id' => $id,
-												'name' => $name
-											));
-										}
-									}
-								}
-								return array('to' => 'Metacritics', 'count' => count($returnResponse),'data' => $returnResponse);
-								// return $returnResponse;
+								return $utilities->displayDisabledMetacritics();
 							break;
 						}
 					break;
@@ -117,8 +63,6 @@ class Ajax {
 							break;
 						}
 
-					
-						
 						$sql = "SELECT * FROM `test-server`.`bot_admin_snapshot` WHERE `website` = '".$getInput->get('what')."' $addQuery";
 						$res = $db->query($sql)->results();
 						return array('to' => $getInput->get('what'), 'count' => count($res), 'data' => $res);
@@ -148,11 +92,10 @@ class Ajax {
 				}
 			break;
 			case 'displayStore':
-				$sql = "SELECT * FROM `allkeyshops`.sale_page order by vols_nom asc";
-				$result = $db->query($sql)->results();
-
-				return $result;
+				$utilities = new Utilities;
+				return $utilities->displayAllkeyshopStore();
 			break;
+
 			case 'displayStoreGames':
 				$site = self::getSite($getInput->get('site'));
 				$resultArray = array();
@@ -263,80 +206,16 @@ class Ajax {
             	return 'nakoha';
             break;
             case 'displayPriceToZeroCountsCounts':
-
-                $today = date('Y-m-d');
-                $sqlAks = "SELECT AVG(percentage) as zeroPercentage FROM `test-server`.`romain_tool_zero_prices_data` WHERE DATE(`date`) = '$today'";
-                $sqlCdd = "SELECT AVG(percentage) as zeroPercentage FROM `compareprices`.`romain_tool_zero_prices_data` WHERE DATE(`date`) = '$today'";
-				$sqlBrexit = "SELECT AVG(percentage) as zeroPercentage FROM `brexitgbp`.`romain_tool_zero_prices_data` WHERE DATE(`date`) = '$today'";
-
-                $resultAks = $db->query($sqlAks)->results();
-                $resultCdd = $db->query($sqlCdd)->results();
-				$resultBrexitgbp = $db->query($sqlBrexit)->results();
-
-                foreach ($resultAks as $key) {
-                    $avgAks = $key->zeroPercentage;
-                }
-                foreach ($resultCdd as $key) {
-                    $avgCdd = $key->zeroPercentage;
-                }
-				foreach ($resultBrexitgbp as $key) {
-                    $avgBrexitgbp = $key->zeroPercentage;
-                }
-                $runCounts = array();
-                    array_push($runCounts, array(
-                        'aks' => round((float)$avgAks,2),
-                        'cdd' => round((float)$avgCdd,2),
-                        'brexitgbp' => round((float)$avgBrexitgbp,2)
-                ));
-                return $runCounts;
+				$utilities = new Utilities;
+                return $utilities->displayPriceToZeroCountsCounts();
             break;
             case 'displayRealDoubleCounts':
-                $sql = "SELECT COUNT(*) as occurs FROM `test-server`.`pt_products` 
-                    WHERE merchant NOT IN('1','67','157','33','333') AND normalised_name != 50 
-                    GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1";
-             
-                $sql1 = "SELECT COUNT(*) as occurs FROM `compareprices`.`pt_products` 
-                    WHERE merchant NOT IN('1','67','157','33','333') AND normalised_name != 50 
-                    GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1";
-            
-                // $sql2 = "SELECT COUNT(*) as occurs FROM `brexitgbp`.`pt_products` 
-                //      WHERE merchant NOT IN('1','67','157','33','333') AND normalised_name != 50 
-                //     GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1";
-
-                $runCounts = array();
-                    array_push($runCounts, array(
-                        'aks' => $db->query($sql)->count(),
-                        'cdd' => $db->query($sql1)->count(),
-                        //'brexitgbp' =>  $db->query($sql2)->count()
-                ));
-            	return $runCounts;
+                $utilities = new Utilities;
+                return $utilities->displayRealDoubleCounts();
             break;
             case 'displayRunAndSuccessAction':
-
-                $fail = "SELECT * FROM `test-server`.`bot_admin`
-                        WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 4 HOUR)
-                        AND (status = 1 OR status = 2) AND bot_type = 'feed'
-                        ORDER by successRunTime desc";
-
-                $success= "SELECT * FROM `test-server`.`bot_admin`
-                        WHERE successRunTime > DATE_ADD(NOW(), INTERVAL 4 HOUR)
-                        AND (status = 1 OR status = 2) AND bot_type = 'feed'
-                        ORDER by successRunTime desc";
-
-                $serverCharge= "SELECT * FROM `test-server`.`bot_admin`
-                        WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 4 HOUR)
-                        AND (status = 1 OR status = 2)
-                        AND bot_type = 'feed'
-                        AND failed_on_server_charge = 1
-                        ORDER by successRunTime desc";
-
-                    $runSuc = array();
-                        array_push($runSuc, array(
-                          'fail' => $db->query($fail)->count(),
-                          'success' => $db->query($success)->count(),
-                          'serverCharge' => $db->query($serverCharge)->count()
-                    ));
-                return $runSuc;
+                $utilities = new Utilities;
+                return $utilities->displayRunAndSuccessAction();
             break;
 			case 'displayChecksumUsingToggleSiteOnly':
 				
@@ -399,33 +278,8 @@ class Ajax {
             break;
             case 'AjaxRealDblLinks':
                 $getWebsite = $getInput->get('data');
-                switch ($getWebsite) {
-                	case 'aks':
-                		 $sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs, `id`,`price`, `dispo` 
-                            FROM `test-server`.`pt_products` WHERE merchant NOT IN ('1','67','157','33','333') AND normalised_name != 50
-                            GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
-                    	$returnResults = $db->query($sql)->results();
-                    	$returnSite = 'aks';
-                	break;
-                	case 'cdd':
-                		$sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs, `id`,`price`, `dispo` 
-                            FROM `compareprices`.`pt_products` WHERE merchant NOT IN ('1','67','157','33','333') AND normalised_name != 50
-                            GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
-                    	$returnResults = $db->query($sql)->results();
-                    	$returnSite = 'cdd';
-                	break;
-                	case 'brexitgbp':
-                		$sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs , `id`,`price`, `dispo` 
-                            FROM `brexitgbp`.`pt_products` WHERE merchant NOT IN ('1','67','157','33','333') AND normalised_name != 50
-                            GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
-                    	$returnResults = $db->query($sql)->results();
-                    	$returnSite = 'brexitgbp';
-                	break;
-                	default:
-                		return "INVALID INFORMATION";
-                	break;
-                }
-                return $returnResults;
+				$utilities = new Utilities;
+				return $utilities->AjaxRealDblLinks($getWebsite);
             break;
             case 'displayCheckSumAction':
 				//$dateNow = $getInput->get('dateNow'); //from ajax
@@ -948,12 +802,8 @@ class Ajax {
             break;
 			
 			case 'getFailedStores':
-                $sql = "SELECT `id`,`merchant_id`,`name`,`website`,`successRunTime` FROM `test-server`.`bot_admin` 
-                        WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 4 HOUR)
-                        AND (status = 1 OR status = 2)
-                        AND bot_type = 'feed'
-                        ORDER by successRunTime DESC ";
-                $failedStores = $db->query($sql)->results();
+				$utilities = new Utilities;
+                $failedStores = $utilities->feedBotFailed()->results();
                 $returnFStores = array();
                 foreach ($failedStores as $key) {
                     $returnFStores[] = array(
@@ -968,12 +818,8 @@ class Ajax {
             break;
 
             case 'getSuccessStores':
-                $sql = "SELECT `id`,`merchant_id`,`name`,`website`,`successRunTime` FROM `test-server`.`bot_admin`
-                        WHERE successRunTime > DATE_ADD(NOW(), INTERVAL 4 HOUR)
-                        AND (status = 1 OR status = 2)
-                        AND bot_type = 'feed'
-                        ORDER by successRunTime DESC";
-                $successStores = $db->query($sql)->results();
+                $utilities = new Utilities;
+                $successStores = $utilities->feedBotSuccess()->results();
                 $returnSStores = array();
                 foreach ($successStores as $key) {
                     $returnSStores[] = array(
@@ -988,14 +834,8 @@ class Ajax {
             break;
 
             case 'getServerChargeStore':
-                $sql = "SELECT `id`,`merchant_id`,`name`,`website`,`successRunTime` FROM `test-server`.`bot_admin`
-                        WHERE successRunTime < DATE_ADD(NOW(), INTERVAL 4 HOUR)
-                        AND (status = 1 OR status = 2) 
-                        AND failed_on_server_charge = 1
-                        AND bot_type = 'feed'
-                        ORDER by successRunTime DESC";
-
-                $serverChargeStore = $db->query($sql)->results();
+                $utilities = new Utilities;
+                $serverChargeStore = $utilities->feedBotSuccessCharge()->results();
                 $returnSCStores = array();
                 foreach ($serverChargeStore as $key) {
                     $returnSCStores[] = array(
@@ -1014,17 +854,11 @@ class Ajax {
 				$updateOnProblem = $db->delete('`aks`.`tblReports`', $getInput->get('idToRemove'));
 			break;
 			case 'display-notification':
-
-// 				
-
 				// $getlogs =  $db->find('`aks`.`tblLogs`', [
 				// 	'conditions' => ['status = ?'], 
 				// 	'bind' => [0]
 				// ]);
-
-				
 				// return $getlogs;
-
 				$sql = "SELECT `s`.`id`,`s`.`productID`,`s`.`action`, `u`.`fname`, `t`.`merchant`, `p`.`vols_nom` 
 							FROM `aks`.`tbllogs` `s`
     							INNER JOIN `aks`.`users` `u` ON `s`.`employeeID` = `u`.`id`
@@ -1054,26 +888,28 @@ class Ajax {
 				$retrieveResults = $utilities->merchantEditionPriceTool($postSite, $postMerchant, $postEdition);
 
 				$arrayThis =array();
-				foreach ($retrieveResults as $key){
-					$merchantData = (!array_key_exists($key->merchant, $retrieveMerchant)) ? 'No Data' : $retrieveMerchant[$key->merchant];
-					$editionData = (!array_key_exists($key->edition, $retrieveEdition)) ? 'No Data' : $retrieveEdition[$key->edition];
-					$regionData = (!array_key_exists($key->region, $retrieveRegions)) ? 'No Data' : $retrieveRegions[$key->region];
+				if(!empty($retrieveResults)){
+					foreach ($retrieveResults as $key){
+						$merchantData = (!array_key_exists($key->merchant, $retrieveMerchant)) ? 'No Data' : $retrieveMerchant[$key->merchant];
+						$editionData = (!array_key_exists($key->edition, $retrieveEdition)) ? 'No Data' : $retrieveEdition[$key->edition];
+						$regionData = (!array_key_exists($key->region, $retrieveRegions)) ? 'No Data' : $retrieveRegions[$key->region];
 
-					array_push($arrayThis, array(
-							'id' => $key->id,
-							'merchant' => ucfirst($merchantData),
-							'edition' => ucfirst($editionData),
-							'region' => ucfirst($regionData),
-							'game_id' => $key->normalised_name,
-							'buy_url' => $key->buy_url,
-							'price' => $key->price,
-							'dispo' => $key->dispo,
-							'rating' => $key->rating,
-							'search_name' => $key->search_name,
-							'created_by' => ucfirst($key->created_by),
-							'created_time' => date('M d Y h:i A',strtotime($key->created_time)),
-						)
-					);
+						array_push($arrayThis, array(
+								'id' => $key->id,
+								'merchant' => ucfirst($merchantData),
+								'edition' => ucfirst($editionData),
+								'region' => ucfirst($regionData),
+								'game_id' => $key->normalised_name,
+								'buy_url' => $key->buy_url,
+								'price' => $key->price,
+								'dispo' => $key->dispo,
+								'rating' => $key->rating,
+								'search_name' => $key->search_name,
+								'created_by' => ucfirst($key->created_by),
+								'created_time' => date('M d Y h:i A',strtotime($key->created_time.'+8 hours')),
+							)
+						);
+					}
 				}
 				$returnArrayData['success'] = array(
 					'data' => $arrayThis,
@@ -1148,6 +984,7 @@ class Ajax {
 
 			case 'displayChecker':
 				return $db->find('`test-server`.`admin_user`', [
+					'column' => ['`id`', '`username`', '`role`'],
 					'conditions' => ['role = ?'],
 					'bind' => ['price_team']
 				]);
@@ -1224,7 +1061,11 @@ class Ajax {
 			break;
 
 			case 'get-wrong-affilliate-daily':
-				$sql = "SELECT DATE_FORMAT(`addedDate`, '%Y-%m-%d') FROM `aks_bot_teamph`.`tblWrongAffLink` WHERE DATE_FORMAT(`addedDate`, '%Y-%m-%d') = CURDATE()";
+				$sql = $db->find('`aks_bot_teamph`.`tblWrongAffLink`' , [
+					'column' => [ DATE_FORMAT(`addedDate`, "%Y-%m-%d") ],
+					'condition' => [ 'DATE_FORMAT(`addedDate`, "%Y-%m-%d") = ?' ],
+					'bind' => [ CURDATE() ]
+				]);
 				return ($db->query($sql)->results())? '11' : '00';
 			break;
 

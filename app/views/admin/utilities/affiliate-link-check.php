@@ -30,16 +30,11 @@
 				site = returnSite(object.site);
 				if(site != 'invalid'){
 					$dataReq.site = site;
-					AjaxCall($url, $dataReq).done(function(data){
-						affiliateLinkCheck(data)
-					});
+					AjaxCall($url, $dataReq).done(function(data){ affiliateLinkCheck(data) });
 				}else{ if(removedKeyNormal('sessionStorage','OptionSite')) console.log("Item has been removed") } //remove key if invalid site
 			}else{
 				console.log('NO VALUE DEFAULT IS AKS');
-				$dataReq.site = inputsSite[0].site;
-				AjaxCall($url, $dataReq).done(function(data){
-					affiliateLinkCheck(data)
-				});
+				AjaxCall($url, $dataReq).done(function(data){affiliateLinkCheck(data) });
 			}
 		}
 
@@ -212,6 +207,7 @@
 
 			window.location.href = "?url_check="+$press_to_chk;
 		});
+
 		//See more button in buy_url_raw
 		$(document).on("click" ,"#bur-sm-btn" ,function(event){
 			$(".appendData").empty();
@@ -455,8 +451,8 @@
 
 								</div>
 								<div class="pull-right div-errors-alc" style="display:none;">
-									<input style="color:#fff;" type="button" name="" data-old-val="Reset" class="m-d col-xs-3 btn btn-delete" id="filterd-btn" value="Show Errors">
-									<span class="total-error-aff"></span>
+									<input style="color:#fff; background:transparent" type="button" name="" data-old-val="Reset" class="m-d col-xs-3 btn btn-delete" id="filterd-btn" value="Show Errors">
+									<span class="total-error-aff text-white"></span>
 								</div>
 							</div>
 							<div class="TU-btns">
@@ -489,4 +485,11 @@
 			</div>
 		</div>
 	</div>
+	<style>
+		.div-errors-alc{
+			padding: 4px 8px 4px 8px;
+			background-color: #b94749;
+			border-radius:5px;
+		}
+	</style>
 <?php $this->end()?> 

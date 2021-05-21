@@ -1,8 +1,9 @@
+<?php $this->setSiteTitle($this->pageTitle); ?>
 <?php $this->start('head'); ?>
 <link rel="stylesheet" href="<?=PROOT?>vendors/css/utilities-page.css" media="screen" title="no title" charset="utf-8">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.12.0/underscore-min.js"></script>
 <script type="text/javascript">
-    var $url = url+'utilities/affiliateCheck';
+    var $url = url+'tools/merchantEdition';
     var $dataReq = {
 		action: 'merchant_edition_price_tool',
         website: 'aks',
@@ -12,7 +13,33 @@
 
     $(function (){
 
-        AjaxCall($url, $dataReq).done( ajaxSuccess );
+        if(sessionStorageCheck()){
+			$('.change-site').text('LOADING...');
+			var object = JSON.parse(getStorage('sessionStorage','OptionSite'));
+			if(object != null){
+				site = returnSite(object.site);
+				if(site != 'invalid'){
+                    $dataReq.website = site;
+                    AjaxCall($url, $dataReq).done( ajaxSuccess );
+				}else{ if(removedKeyNormal('sessionStorage','OptionSite')) console.log("Item has been removed") } //remove key if invalid site
+			}else{
+				AjaxCall($url, $dataReq).done( ajaxSuccess );
+			}
+		}
+        $(document).on('click', '.website-menu', function(){ $(this).find('.dropdown-website').slideToggle(200); });
+        $(document).on('click', '.website-items', function(){
+            $('#merchant-edition').empty();
+            $('.input-search-merchant').val('');
+            $('.input-search-edition').val('');
+            var indexInput = $(this).parent().prevObject.index(); //get the index of li
+			if($(this).parent()[0].children.length == 3 ){
+				site = (indexInput == 0 ) ? inputsSite[0].site : (indexInput == 1 ) ? inputsSite[1].site : (indexInput == 2 ) ? inputsSite[2].site : '';
+				var $data = { 'site': site, 'path': $url }
+				if(sessionStorageCheck()){ setStorage('sessionStorage','OptionSite',JSON.stringify($data)) } //store
+					$dataReq.website = site;
+					AjaxCall($url, $dataReq).done( ajaxSuccess );
+			}else{ window.location.reload(); }
+        });
 
        	//FOR DROP DOWN SELECT ANIMATION // na na ni sa index.php sa dashboards
 		$('.option-click, .option-click-1').click( function() {
@@ -55,6 +82,7 @@
         
         $(document).on('click', '#fire', function() {
             $('#merchant-edition').empty();
+            console.log($dataReq);
             AjaxCall($url, $dataReq).done( ajaxSuccess );
         });
 
@@ -70,71 +98,15 @@
                     app +=  '<div class="div-inline"><span class="me-text">Edition</span><span class="me-res">'+result[i].edition+'</span></div>';
                     app +=  '<div class="div-inline"><span class="me-text">Region</span><span class="me-res">'+result[i].region+'</span></div>';
                     app +=  '<div><span class="me-res">'+result[i].search_name+'</span></div>';
-                    app +=  '<div><span class="me-res">'+result[i].buy_url+'</span></div>';
+                    app +=  '<div><span class="me-res"><a class="url-redirect aks_color" href='+result[i].buy_url+' target="_blank">'+result[i].buy_url+'</a></span></div>';
                     app += '</div>';
                  $('#merchant-edition').append(app);
             }
+            $('#website-btn').val(data.success.returnWebsite.toUpperCase())
         }
 </script>
-<style>
-    .dropdown-div{
-        width:250px;
-    }
-    .div-1{
-        margin-left:10px;
-        width:400px;
-    }
-    .input-search{
-        outline:none;
-        border:none;
-    }
-    .dropdown-div .select{
-        padding:3px;
-        border-radius: 5px;
-    }
-    .icon-select{
-        position: absolute;
-        right: 15px;
-        top: 12px;
-        color: black;
-    }
-    .searchable-ul{
-        max-height: 400px;
-    }
-    li.no-hover:hover{
-        background-color: #fff !important;
-    }
-    .no-hover{
-        pointer-events: none !important;
-    }
-    .website-menu{
-        position: relative;
-    }
-    .website-btn{
-        background-color: Transparent;
-        border:none;
-        border-radius:5px;
-        cursor:pointer;
-        outline:none;
-        line-height: 30px;
-        text-align:  center;
-        color:  #fff;
-        letter-spacing: 2px;
-        width:100%;
-        font-weight: 700;
-    }
-    .website-card-style {
-        border-radius: 8px;
-        border: 0;
-        box-shadow: 2px 4px 5px 0 rgba(0, 0, 0, 0.3);
-    }
-    .card-style{
-        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.40) !important;
-    }
-</style>
 <?php $this->end(); ?>
 
-<?php $this->setSiteTitle($this->pageTitle); ?>
 <?php $this->start('body')?>
 <div class="container-fluid">
     <div class="row">
@@ -142,17 +114,23 @@
             <div class="card card-style">
                 <div class="card-body rdl-card-main-wrap no-padding">
                     <!-- HEADER STARTS row-4-card-div-overflow-style-->
-						<div class="card-div-overflow-style aks_bg_color" style="padding-top:20px;">
+						<div class="card-div-overflow-style aks_bg_color" style="position:relative; padding-top:20px;">
 							<div class="row" style="color:#fff;margin: 0;">
 								<div class="div-topheader-1 col-lg-9">
 									<h5 style="display: inline-block; margin-right: 10px;">Merchant Edition Check</h5>
-									<p style="font-size:12px;font-weight: 500;">Lorem ipsum test</p>
+									<p style="font-size:12px;font-weight: 500;">Check using Merchant and Edition</p>
 								</div>
                                 <div class="website-menu col-lg-3">
-                                    <div class="dropdown-website website-card-style">
-                                        <button class="col-12 website-btn" type="button" aria-expanded="true">AKS</button>
+                                    <div class="website-btn-div website-card-style">
+                                        <input id="website-btn" class="website-btn" type="button" value="AKS">
                                     </div>
+                                    <ul class="dropdown-website">
+                                        <li class="website-items" data-gsite="aks">AKS</li>
+                                        <li class="website-items" data-gsite="cdd">CDD</li>
+                                        <li class="website-items" data-gsite="brexitgbp">BREXITGBP</li>
+                                    </ul>
                                 </div>
+                                
 							</div>
 						</div >
                     <!-- CONTENT STARTS -->
@@ -192,7 +170,7 @@
                                         <?php   endforeach; ?>
 									</ul>
 								</div>
-                                <input type="button" id="fire" class="button-go" data-search="go" value="GO">
+                                <input type="button" id="fire" class="button-go btn div-aks-bgcolor-2 text-white" data-search="go" value="Check">
 							</div>
                         </div>
                         <div class="col-xs-12 div-body-table mt-4 mb-2" class="merchant-edition">
@@ -207,14 +185,18 @@
 </div>
 
 <style>
+    .button-go{
+        padding: 8px;
+        letter-spacing: 1.5px;
+        vertical-align: initial;
+    }
     .result-merchant{
-        /* border:1px solid black; */
         padding: 4px 10px 4px 10px;
     }
     .me-text{
         background-color: #286026;
         color: #fff;
-        width: 5%;
+        width: 70px;
         display: inline-block;
         margin-right: 5px;
     }
@@ -228,6 +210,45 @@
     .me-text,
     .me-res{
         font-size: 12px;
+    }
+    .me-res{
+        font-weight:500;
+    }
+    .dropdown-div{
+        width:250px;
+    }
+    .div-1{
+        margin-left:10px;
+        width:400px;
+    }
+    .input-search{
+        outline:none;
+        border:none;
+    }
+    .dropdown-div{
+        border-radius: 5px !important;
+    }
+    .dropdown-div .select{
+        padding:3px;
+        border-radius: 4px;
+    }
+    .icon-select{
+        position: absolute;
+        right: 15px;
+        top: 12px;
+        color: black;
+    }
+    .searchable-ul{
+        max-height: 400px;
+    }
+    li.no-hover:hover{
+        background-color: #fff !important;
+    }
+    .no-hover{
+        pointer-events: none !important;
+    }
+    .card-style{
+        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.40) !important;
     }
 </style>
 <?php $this->end()?>

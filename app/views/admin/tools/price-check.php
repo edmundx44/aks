@@ -345,7 +345,7 @@
 				append +=	'<td class="" style="padding: 10px;">'+ $gameid +'</td>';
 				append +=	'<td class="" style="padding: 10px;">'+ $gamename +'</td>';
 				append +=	'<td class="" style="padding: 10px;">'+ $checkeractivity +'</td>';
-				append +=	'<td class="" style="padding: 10px; word-break: break-all;">'+ $url +'</td>';
+				append +=	'<td class="" style="padding: 10px; word-break: break-all;">'+ html_decode($url) +'</td>';
 				append +=	'<td class="" style="padding: 10px; ">'+ moment($date).format('MMMM Do YYYY, h:mm:ss a'); +'</td>';
 				append +=	'</tr>';
 			$(".pc-cda-div-display").append(append);
