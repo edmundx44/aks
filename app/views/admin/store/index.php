@@ -21,7 +21,7 @@
 							<div class="col-sm-12 no-padding">
 								<ul class="breadcrumbs-ul">
 									<li class="site-bcrumbs"><span class="site-bcrumbs-span">AKS</span></li>
-									<li class="store-bcrumbs"><i class="fa fa-arrow-right breadcrumbs-arrow" aria-hidden="true"></i> Store</li>
+									<li class="store-bcrumbs"><i class="fas fa-arrow-right breadcrumbs-arrow"></i> Store</li>
 									<li class="show-dropdown-li">
 										<button type="button" class="btn dropdown-toggle sticky-dropdown"></button>
 										<div class="dropdown-menu col-12 dropdown-menu-div sticky-dropdown-menu-div">
@@ -39,7 +39,7 @@
 									<input type="text" class="form-control store-page-search" placeholder="Dig more in Store page!">
 									<div class="input-group-append">
 										<button class="btn bg-transparent store-search-btn" type="button" >
-											<i class="fa fa-search"></i>
+											<i class="fas fa-search-plus"></i>
 										</button>
 									</div>
 								</div>
@@ -80,10 +80,10 @@
 											<td colspan="3" style="padding-top: 20px;">
 												<p style="text-align: center;">
 													<span class="data-display-function lmore-fucntion"> 
-														<i class="fa fa-spinner" aria-hidden="true"></i> Load More 
+														<i class="fas fa-spinner"></i> Load More 
 													</span> 
 													<span class="data-display-function dall-function"> 
-														<i class="fa fa-globe" aria-hidden="true"></i> Display All
+														<i class="fas fa-globe"></i> Display All
 													</span>
 												</p>
 											</td>

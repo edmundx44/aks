@@ -450,7 +450,7 @@
  								<div class="dropdown-div" style="width: 150px;">
 
 								</div>
-								<div class="pull-right div-errors-alc" style="display:none;">
+								<div class="float-right div-errors-alc" style="display:none;">
 									<input style="color:#fff; background:transparent" type="button" name="" data-old-val="Reset" class="m-d col-xs-3 btn btn-delete" id="filterd-btn" value="Show Errors">
 									<span class="total-error-aff text-white"></span>
 								</div>

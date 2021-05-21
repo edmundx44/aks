@@ -487,8 +487,8 @@
 		var $divSite = ($merchantSite == 'aks') ?  'div-sfc-aks' : ($merchantSite == 'cdd') ? 'div-sfc-cdd' : ($merchantSite == 'gbp') ? 'div-sfc-brexitgbp' : "";
 		var $siteName = ($merchantSite == 'gbp') ? 'brexitgbp' : $merchantSite;
 		var append =	'<div class="'+$divSite+' div-data-col col-sm-6 sfc-divs-result">';
-			append +=    	'<div class="pull-left sf-name '+$siteName+'_color">'+$merchantName.toUpperCase()+' ('+$merchantId+')</div>';
-			append +=        	'<div class="lt-spacing-1-5 mtop-8 sf-site pull-right color '+$classType+'">'+$merchantSite.toUpperCase()+'</div>';
+			append +=    	'<div class="float-left sf-name '+$siteName+'_color">'+$merchantName.toUpperCase()+' ('+$merchantId+')</div>';
+			append +=        	'<div class="lt-spacing-1-5 mtop-8 sf-site float-right color '+$classType+'">'+$merchantSite.toUpperCase()+'</div>';
 			append +=        	'<br>';
 			append +=    	'<div class="sf-date">'+$successRunTime+'</div>';
 			append +=	'</div>';
@@ -946,8 +946,8 @@
 			var appendData = "<div class='col-sm-12'>";
 			    appendData +=  "<div class='report-snapshot-con-wrap no-padding'>";
 				appendData += 	"<div class='report-snapshot-data-title-div'>";
-				appendData += 		"<div class='snap-margin pull-left report-snapshot-data-title'> "+$merchantName+" ("+$merchantID+")</div>";
-				appendData += 		"<div class='count-dif text-white snap-margin div-"+$resCalcData+" pull-right'>"+$difference+"</div>";
+				appendData += 		"<div class='snap-margin float-left report-snapshot-data-title'> "+$merchantName+" ("+$merchantID+")</div>";
+				appendData += 		"<div class='count-dif text-white snap-margin div-"+$resCalcData+" float-right'>"+$difference+"</div>";
 				appendData += 		"<table class='table snapshot-div'>";
 				appendData +=			"<thead>";
 				appendData += 				"<tr>";

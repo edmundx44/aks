@@ -267,7 +267,6 @@ body {
 .float-settings-icon,
 #nav-icon,
 .li-nav-div-span,
-.li-nav-dd,
 .sub-li-nav-div-span,
 .header-content-footer,
 .card-div-overflow-style,
@@ -351,7 +350,6 @@ body {
 .sub-li-nav-div-span {
 	top: 15px;
 }
-.li-nav-dd,
 .sidebar-footer-welcome,
 .row-2-card-div-overflow-style-1 i,
 .row-2-card-div-overflow-style-2 i {
@@ -594,9 +592,6 @@ body {
 }
 .li-nav-div-span {
 	margin-left: 20px;
-}
-.li-nav-dd {
-	right: 10px;
 }
 .sub-li-nav {
 	margin-bottom: 10px;

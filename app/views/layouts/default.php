@@ -12,7 +12,8 @@ use Core\Session;
     <title><?=$this->siteTitle(); ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="<?=PROOT?>vendors/css/custom.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="<?=PROOT?>vendors/css/media.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -54,31 +55,31 @@ use Core\Session;
         </div>
 
         <div class="float-anywhere" id="float-anywhere">
-          <i class="fa fa-cog settings-icon" aria-hidden="true" style=""></i>
+          <i class="fas fa-cog settings-icon" style=""></i>
 
           <div class="float-settings-menu">
-            <i class="fa fa-history float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Activity logs"></i>
+            <i class="fas fa-history float-settings-icon" data-toggle="tooltip" title="Activity logs"></i>
           </div>
           <div class="float-settings-menu" id="btn-create-report">
-            <i class="fa fa-user-circle float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Add tooltip title"></i>
+            <i class="fas fa-user-circle float-settings-icon" data-toggle="tooltip" title="Add tooltip title"></i>
           </div>
           <div class="float-settings-menu" id="btn-add-edit">
-            <i class="fa fa-plus-circle float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Add OR Edit Games" ></i>
+            <i class="fas fa-plus-circle float-settings-icon" data-toggle="tooltip" title="Add OR Edit Games" ></i>
           </div>
           <div class="float-settings-menu">
-            <i class="fa fa-envelope float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Add tooltip title"></i>
+            <i class="fas fa-envelope-open-text float-settings-icon" data-toggle="tooltip" title="Add tooltip title"></i>
           </div>
           <div class="float-settings-menu">
-            <i class="fa fa-home float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Add tooltip title"></i>
+            <i class="fas fa-home float-settings-icon" data-toggle="tooltip" title="Add tooltip title"></i>
           </div>
           <div class="float-settings-menu">
-            <i class="fa fa-bell float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Add tooltip title"></i>
+            <i class="fas fa-bell float-settings-icon" data-toggle="tooltip" title="Add tooltip title"></i>
           </div>
           <div class="float-settings-menu">
-            <i class="fa fa-eercast float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Add tooltip title"></i>
+            <i class="fas fa-podcast float-settings-icon" data-toggle="tooltip" title="Add tooltip title"></i>
           </div>
           <div class="float-settings-menu">
-            <i class="fa fa-bullseye float-settings-icon" aria-hidden="true" data-toggle="tooltip" title="Add tooltip title"></i>
+            <i class="fas fa-bullseye float-settings-icon" data-toggle="tooltip" title="Add tooltip title"></i>
           </div>
           <div class="float-settings-menu" style="top:6px;background-color: #eee;width: 35px;height: 35px;"></div> <!-- *background -->
         </div>

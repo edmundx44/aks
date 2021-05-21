@@ -101,14 +101,14 @@ $(function (){
 		var $this = $(this);
 		//FOR Mozilla because type number not working
 		if(dataReturn == true){
-			alert("Check your input price...")	
+			alertMsg("Check your input price...")	
 		}else{
 			if($this.attr("type") == "number" && dataReturn.dataTo != '')
 				AjaxCall(url+'store', dataReturn).done(function(data) {
-					if(data) alert("SUCCESS")
+					if(data) alertMsg("SUCCESS")
 				});
 			else
-				alert("Check your input price...")	
+				alertMsg("Check your input price...")	
 		}
 	});
 	// STOCK CHANGE UPDATE
@@ -116,10 +116,10 @@ $(function (){
 		var dataReturn = storeUpdateProduct($(this).attr('data-prodId'), 'stock', $(this).val(), $('.dropdown-menu-btn').text());
 		var $this = $(this);
 		if($this.attr('type') == 'button'){
-			AjaxCall(url+'store', dataReturn).done(function(data) { console.log(data); alert("SUCCESS" )});
+			AjaxCall(url+'store', dataReturn).done(function(data) { console.log(data); alertMsg("SUCCESS" )});
 			$stock = ($(this).val() == 'Out Of Stock')? $(this).val('In stock'): $(this).val('Out Of Stock');
 		}else
-			alert("Theres something wrong please try again");
+			alertMsg("Theres something wrong please try again");
 	});
 
 	$(document).on('click', '.dall-function', function(){
@@ -257,8 +257,8 @@ function noImage(image) {
 
 function breadCrumbs($name){
 	var append =  '<li class="site-bcrumbs"><span class="site-bcrumbs-span">'+$('.dropdown-menu-btn').text()+'</span></li>';	
-		append += '<li class="store-bcrumbs">&nbsp;<i class="fa fa-arrow-right breadcrumbs-arrow" aria-hidden="true"></i> Store</li>';	
-		append += '<li class="games-bcrumbs"><i class="fa fa-arrow-right breadcrumbs-arrow" aria-hidden="true"></i> '+ $name +'</li>';
+		append += '<li class="store-bcrumbs">&nbsp;<i class="fas fa-arrow-right breadcrumbs-arrow"></i> Store</li>';	
+		append += '<li class="games-bcrumbs"><i class="fas fa-arrow-right breadcrumbs-arrow"></i> '+ $name +'</li>';
 		append += '<li class="">'
 		append += '<button type="button" class="btn dropdown-toggle sticky-dropdown" data-toggle="dropdown"></button>'
 		append += '<div class="dropdown-menu col-12 dropdown-menu-div sticky-dropdown-menu-div">'

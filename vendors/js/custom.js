@@ -177,19 +177,18 @@ function removeEmptyTitle(){
 // dashboard function here -----------------------------------
 function displayIcon(){
 	var iconList = [
-		"fa-pie-chart",
-		"fa-bar-chart",
-		"fa-google-wallet",
-		"fa-briefcase",
-		"fa-line-chart",
-		"fa-ravelry",
-		"fa-modx"
+		"fa-chart-pie",
+		"fa-link",
+		"fa-podcast",
+		"fa-store-alt",
+		"fa-tools",
 	];
 
 	$('i#nav-icon').each(function(i){
 		$(this).addClass(iconList[i])
 	});
 }
+
 
 // ajax call function ---------------------------------------
 function AjaxCall($url, $data) {
@@ -248,7 +247,6 @@ function scrollThis(){
 					$('.store-page-search.form-control').removeClass('minimized-sb-sticky');
 				}
 			}else {
-
 				$('.header-content-stickey').css({'background': 'transparent'});
 				$('.header-content').removeClass('header-content-stickey minimized-sb-sticky-header');
 				$('.breadcrumbs-ul').removeClass('breadcrumbs-ul-fixed breadcrumbs-ul-stickey minimized-sb-sticky '+$('.dropdown-menu-btn').text()+'-sticky-BGC AKS-sticky-BGC CDD-sticky-BGC BREX-sticky-BGC');
@@ -265,7 +263,6 @@ function scrollThis(){
 				}else{
 					$('.header-content-stickey').css({'background': 'rgba(255, 255, 255, 1)'});
 				}
-
 
 				$('.header-content').addClass('header-content-stickey');
 				$('.breadcrumbs-ul').addClass('breadcrumbs-ul-fixed '+$('.dropdown-menu-btn').text()+'-sticky-BGC breadcrumbs-ul-stickey');
@@ -292,13 +289,14 @@ function sidebarDiv() {
 	if (toggleVal == 0) { 
 		$(cssvar).hide(); 
 		$('.sidebar-logo-img-1').hide();
+		$('.li-nav-dd-mini').delay(200).fadeIn();
 		$('.sidebar-logo-img-2').fadeIn();
 		$('.sidebar-minimize-icon').removeClass('fa-angle-double-left').addClass('fa-angle-double-right');
 		$('.sidebar-minimize').css({'background': 'linear-gradient(60deg, #004ea3, #0062cc)', 'color':'#fff'});
 		toggleVal = 1;
 	} else { 
 		$(cssvar).fadeIn(600); 
-		$('.sidebar-logo-img-2').hide();
+		$('.sidebar-logo-img-2, .li-nav-dd-mini').hide();
 		$('.sidebar-logo-img-1').fadeIn(1000);
 		$('.sidebar-minimize-icon').removeClass('fa-angle-double-right').addClass('fa-angle-double-left');
 		$('.sidebar-minimize').css({'background':'#fff', 'color':'#6b6d70'});
@@ -426,7 +424,7 @@ function debounce(fun, mil){
 function OptionSite(inputs,className,classParent,bgColor){
 	var	opt = 		'<div class="select '+bgColor+'">';
 		opt += 			'<span class="selected-data change-site">Website</span>';
-		opt += 			'<span class="pull-right"><i class="fa fa-caret-down" aria-hidden="true"></i></span>';
+		opt += 			'<span class="float-right"><i class="fas fa-caret-down" aria-hidden="true"></i></span>';
 		opt += 		'</div>';
 		opt += 		'<ul class="dropdown-menu cos-dropdown-menu '+classParent+'">'
 		opt += 			'<li class='+className+' data-website='+inputs[0].site+'>AKS</li>';
@@ -528,6 +526,13 @@ function removedKeyNormal($type,$key){
 	return true;
 }
 
+function getUrlParameter(name) {
+	name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+	var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+	var results = regex.exec(location.href);
+	return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, '    '));
+};
+
 function confirmationModal($appendtoheader, $appendtobody, $appendtofooter){
 	$('#report-modal-confirmation').modal('show');
 	$('.confirmation-tittle').empty().html($appendtoheader);
@@ -535,12 +540,13 @@ function confirmationModal($appendtoheader, $appendtobody, $appendtofooter){
 	$('.confirmation-modal-footer').empty().append($appendtofooter)
 }
 
-function getUrlParameter(name) {
-	name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-	var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-	var results = regex.exec(location.href);
-	return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, '    '));
-};
+function alertMsg($msg){
+	$('#alert-modal').modal('show');
+	$('.alert-modal-msg').empty().append($msg);
+	setTimeout( function(){ 
+		$('#alert-modal').modal('hide');
+	}, 2000 );
+}
  
 function returnSiteClass($site){
 	switch($site){

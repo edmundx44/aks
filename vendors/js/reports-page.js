@@ -456,7 +456,7 @@ $(document).on('click', '.open-info', function(){
 						crProblemList($( "#datepickerReport" ).val());
 					});
 				}else{
-					alert('Invalid entry, Please check it carefully.');
+					alertMsg('Invalid entry, Please check it carefully.');
 				}
 			});
 
@@ -472,7 +472,7 @@ $(document).on('click', '.open-info', function(){
 					AjaxCall(url+'reports', dataRequest).done(function(data) {
 						if((data[0].data).length == 0) {
 							$('#'+data[0].site).attr('checked', false); // Unchecks it
-							alert('NO DATA FOUND IN ' + data[0].site);
+							alertMsg('NO DATA FOUND IN ' + data[0].site);
 						}else{
 							var appendTo = '<section class="sec-'+data[0].site+'">'
 								appendTo +=	'<p style="position: relative;">Data found on '+data[0].site+'</p>'
@@ -545,18 +545,18 @@ $(document).on('click', '.open-info', function(){
 
 						if($("#"+data[i].merchantSqlID).length == 0) {
 							var append = 	'<tr class="cr-tbody-tr '+getRating+'" id="'+data[i].merchantSqlID+'">';
-								append +=	'<td class="cr-tbody-td-1 cr-tbody-td '+getreport+'" data-tblid="'+data[i].id+'" data-reported="'+data[i].toMerchant+'"  title="Click If already reported to merchant"><i class="fa fa-truck" aria-hidden="true"></i></td>';
+								append +=	'<td class="cr-tbody-td-1 cr-tbody-td '+getreport+'" data-tblid="'+data[i].id+'" data-reported="'+data[i].toMerchant+'"  title="Click If already reported to merchant"><i class="fas fa-truck"></i></td>';
 								append +=	'<td class="cr-tbody-td-2 cr-tbody-td"><a href="'+ data[i].merchantLink +'" target="_blank">'+ html_decode(data[i].merchantLink) +'</a></td>';
 								append +=	'<td class="cr-tbody-td-3 cr-tbody-td">'+ data[i].merchantSite +'</td>';
 								append +=	'<td class="cr-tbody-td-4 cr-tbody-td">'+ data[i].problem +'</td>';
 								append +=	'<td class="cr-tbody-td-5 cr-tbody-td">';
 								append +=	'<ul class="cr-ul-action">';
-								append += 	'<li class="cr-action-li cr-btn-cac" data-checker="'+data[i].checker+'" data-normalizedname="'+data[i].merchantNMID+'" data-merchantid="'+data[i].merchantID+'" data-tblid="'+data[i].id+'" data-reported="'+data[i].toMerchant+'" data-rating="'+data[i].rating+'" data-probs="'+data[i].problem+'" data-id="'+data[i].merchantSqlID+'" data-site="'+data[i].merchantSite+'" data-url="'+data[i].merchantLink+'" data-toggle="tooltip" title="Check and compare"><i class="cr-action-btn fa fa-exchange" aria-hidden="true"></i></li>';
-								append += 	'<li class="cr-action-li checked-log-main" data-toggle="tooltip" title="Check log" data-tblid="'+data[i].id+'"><i class="cr-action-btn fa fa-check-circle" aria-hidden="true"></i></li>';
-								append += 	'<li class="cr-action-li" data-toggle="tooltip" title="remove report" id="remove-report" data-tblid="'+data[i].id+'"><i class="cr-action-btn fa fa-trash" aria-hidden="true"></i></li>';
-								// append += 	'<li class="cr-action-li" data-toggle="tooltip" title="Small price Difference, set status fixed"><i class="cr-action-btn fa fa-gavel" aria-hidden="true"></i></li>';
-								// append += 	'<li class="cr-action-li" data-toggle="tooltip" title="Price to Zero"><i class="cr-action-btn fa fa-ban" aria-hidden="true"></i></li>';
-								// append += 	'<li class="cr-action-li" data-toggle="tooltip" title="Rating 101"><i class="cr-action-btn fa fa-level-down" aria-hidden="true"></i></li>';
+								append += 	'<li class="cr-action-li cr-btn-cac" data-checker="'+data[i].checker+'" data-normalizedname="'+data[i].merchantNMID+'" data-merchantid="'+data[i].merchantID+'" data-tblid="'+data[i].id+'" data-reported="'+data[i].toMerchant+'" data-rating="'+data[i].rating+'" data-probs="'+data[i].problem+'" data-id="'+data[i].merchantSqlID+'" data-site="'+data[i].merchantSite+'" data-url="'+data[i].merchantLink+'" data-toggle="tooltip" title="Check and compare"><i class="cr-action-btn fas fa-exchange-alt"></i></li>';
+								append += 	'<li class="cr-action-li checked-log-main" data-toggle="tooltip" title="Check log" data-tblid="'+data[i].id+'"><i class="cr-action-btn fas fa-check-circle"></i></li>';
+								append += 	'<li class="cr-action-li" data-toggle="tooltip" title="remove report" id="remove-report" data-tblid="'+data[i].id+'"><i class="cr-action-btn fas fa-trash"></i></li>';
+								// append += 	'<li class="cr-action-li" data-toggle="tooltip" title="Small price Difference, set status fixed"><i class="cr-action-btn fa fa-gavel" ></i></li>';
+								// append += 	'<li class="cr-action-li" data-toggle="tooltip" title="Price to Zero"><i class="cr-action-btn fa fa-ban"></i></li>';
+								// append += 	'<li class="cr-action-li" data-toggle="tooltip" title="Rating 101"><i class="cr-action-btn fa fa-level-down"></i></li>';
 								// append +=	'</ul>';
 								append += 	'</td>';
 								append +=	'<td class="cr-tbody-td-6 cr-tbody-td">'+ data[i].date +'</td>';
@@ -587,9 +587,9 @@ $(document).on('click', '.open-info', function(){
 						// appendData += '<td class="" style="padding: 10px 15px 10px 0;">'+data[i].checker+'</td>'
 						appendData += '<td class="" style="padding: 10px 15px 10px 0;">'+data[i].date+'</td>'
 						appendData += '<td class="" style="padding: 10px;text-align:center;">'
-						appendData += '<i class="fa fa-info-circle open-info"  data-merchantSite="'+data[i].merchantSite+'" data-merchantSqlID="'+data[i].merchantSqlID+'" data-gmerchantID="'+data[i].merchantID+'" data-gmerchantNMID="'+data[i].merchantNMID+'" data-gmerchantLink="'+data[i].merchantLink+'" data-gproblem="'+data[i].problem+'" data-gsiteProbs="'+data[i].siteProbs+'" data-gfeedProbs="'+data[i].feedProbs+'" data-gmsiteProbs="'+data[i].msiteProbs+'" data-greportFeedback="'+data[i].reportFeedback+'" data-gchecker="'+data[i].checker+'" data-gdate="'+data[i].date+'"aria-hidden="true" title="Open additional info." style="font-size:20px;position:relative; top:4px;cursor: pointer;"></i>'
-						appendData += '<button data-cid="'+data[i].id+'" data-crating="'+data[i].rating+'" data-cproblem="'+data[i].problem+'" data-cmlink="'+data[i].merchantLink+'" data-cmnm="'+data[i].merchantNMID+'" data-cmid="'+data[i].merchantID+'" data-cmysqlid="'+data[i].merchantSqlID+'" data-csite="'+data[i].merchantSite+'" class="btn btn-primary cr-reopen" style="position: relative;left: 10px;" title="Reopen report">Reopen &nbsp; <i class="fa fa-pencil-square-o" aria-hidden="true" style="position:relative;top:2px;"></i></button>'
-						appendData += '<a href='+data[i].merchantLink+' target="_blank"><i class="fa fa-external-link" aria-hidden="true" title="Open Link" style="font-size:20px;position:relative; top:4px; left: 20px;"></i></a>'
+						appendData += '<i class="fas fa-info-circle open-info"  data-merchantSite="'+data[i].merchantSite+'" data-merchantSqlID="'+data[i].merchantSqlID+'" data-gmerchantID="'+data[i].merchantID+'" data-gmerchantNMID="'+data[i].merchantNMID+'" data-gmerchantLink="'+data[i].merchantLink+'" data-gproblem="'+data[i].problem+'" data-gsiteProbs="'+data[i].siteProbs+'" data-gfeedProbs="'+data[i].feedProbs+'" data-gmsiteProbs="'+data[i].msiteProbs+'" data-greportFeedback="'+data[i].reportFeedback+'" data-gchecker="'+data[i].checker+'" data-gdate="'+data[i].date+'" title="Open additional info." style="font-size:20px;position:relative; top:4px;cursor: pointer;"></i>'
+						appendData += '<button data-cid="'+data[i].id+'" data-crating="'+data[i].rating+'" data-cproblem="'+data[i].problem+'" data-cmlink="'+data[i].merchantLink+'" data-cmnm="'+data[i].merchantNMID+'" data-cmid="'+data[i].merchantID+'" data-cmysqlid="'+data[i].merchantSqlID+'" data-csite="'+data[i].merchantSite+'" class="btn btn-primary cr-reopen" style="position: relative;left: 10px;" title="Reopen report">Reopen &nbsp; <i class="fas fa-pen-square" style="position:relative;top:2px;"></i></button>'
+						appendData += '<a href='+data[i].merchantLink+' target="_blank"><i class="fas fa-external-link-alt" title="Open Link" style="font-size:20px;position:relative; top:4px; left: 20px;"></i></a>'
 						appendData += '</td>'
 						appendData += '</tr>'
 					$(".display-completed-data").append(appendData);
@@ -685,7 +685,7 @@ function textboxCheckUrl($url){
 					if(getSite != data[i].merchantSite){
 						if($("#span"+data[i].merchantSqlID).length == 0) {
 							var appendData = "<span id='span"+data[i].merchantSqlID+"' >";
-								appendData += "<i class='fa fa-circle' aria-hidden='true' style='font-size: 12px;'></i> Already reported on <b>'"+data[i].merchantSite+"'</b> <br>";
+								appendData += "<i class='fas fa-circle' style='font-size: 12px;'></i> Already reported on <b>'"+data[i].merchantSite+"'</b> <br>";
 								appendData += "</span>";
 								getSite = data[i].merchantSite;
 

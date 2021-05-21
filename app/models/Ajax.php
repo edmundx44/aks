@@ -1061,11 +1061,11 @@ class Ajax {
 			break;
 
 			case 'get-wrong-affilliate-daily':
-				$sql = $db->find('`aks_bot_teamph`.`tblWrongAffLink`' , [
-					'column' => [ DATE_FORMAT(`addedDate`, "%Y-%m-%d") ],
-					'condition' => [ 'DATE_FORMAT(`addedDate`, "%Y-%m-%d") = ?' ],
-					'bind' => [ CURDATE() ]
-				]);
+				// $sql = $db->find('`aks_bot_teamph`.`tblWrongAffLink`' , [
+				// 	'column' => [ 'DATE_FORMAT(`addedDate`, "%Y-%m-%d")' ],
+				// 	'condition' => [ 'DATE_FORMAT(`addedDate`, "%Y-%m-%d") = CURDATE()' ],
+				// ]);
+				$sql = "SELECT DATE_FORMAT(`addedDate`, '%Y-%m-%d') FROM `aks_bot_teamph`.`tblWrongAffLink` WHERE DATE_FORMAT(`addedDate`, '%Y-%m-%d') = CURDATE()";
 				return ($db->query($sql)->results())? '11' : '00';
 			break;
 

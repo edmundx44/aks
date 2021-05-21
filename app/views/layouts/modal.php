@@ -2,7 +2,7 @@
 
 <div class="modal" id="displayStoreGamesByNormalizedName">
     <div class="modal-dialog displayStoreGamesByNormalizedNameDialog">
-        <div class="modal-content displayStoreGamesByNormalizedNameContent">
+        <div class="modal-content displayStoreGamesByNormalizedNameContent" style="top: 70px;">
       
             <!-- Modal Header -->
             <div class="modal-header">
@@ -44,9 +44,9 @@
 </div>
 
 <!-- Large modal -->
-<div class="modal fade bd-example-modal-lg add-edit-store-game-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg add-edit-store-game-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg" style="height:  calc(100% - 70px);">
-        <div class="modal-content" style="height:  100%;">
+        <div class="modal-content" style="height:  100%;top: 70px;">
             <div class="modal-header">
                 <h4 class="modal-title">Modal Header</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -307,7 +307,7 @@
   <div class="modal-dialog checksum-dialog">
 
     <!-- Modal content-->
-        <div class="modal-content modal-con-override" style="border-radius: .5rem">
+        <div class="modal-content modal-con-override" style="top: 70px; border-radius: .5rem">
             <div class="modal-header" style="background: linear-gradient(60deg, #004ea3, #0062cc);color: #fff;letter-spacing: 1px;">
                 <h5 class="modal-title dateChange">CHECKSUM 
                     <?php 
@@ -321,7 +321,7 @@
                     <div class="dropdown-div" style="width: 150px;">
                         <div class="select custom-bkgd">
                             <span class="selected-data change-site">Website</span>
-                            <span class="pull-right"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                            <span class="float-right"><i class="fas fa-caret-down"></i></span>
                         </div>
                         <ul class="dropdown-menu cos-dropdown-menu">
                             <li class='opt-site-chk' data-website="aks">AKS</li>
@@ -329,7 +329,7 @@
                             <li class='opt-site-chk' data-website="brexitgbp">BREXITGBP</li>
                         </ul>
                     </div>
-                    <div class="pull-right custom-bkgd chkTable-total" style="padding: 8px;width: 120px;color: #fff;text-align: center;">TOTAL</div>
+                    <div class="float-right custom-bkgd chkTable-total" style="padding: 8px;width: 120px;color: #fff;text-align: center;">TOTAL</div>
                 </div>
             </div>
                 <div class="modal-checksum-data col-sm-12">
@@ -380,7 +380,7 @@
 <!-- Create reports reports modal -->
 <div class="modal fade" id="createReportModal" role="dialog">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" style="top: 70px;">
             <div class="modal-header">
                 <h4 class="modal-title">Create reports</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -459,7 +459,7 @@
 <!-- Create check and compare reports modal -->
 <div class="modal fade" id="crcac" role="dialog">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" style="top: 70px;">
             <div class="modal-header">
                 <p class="modal-title" style="font-weight: 500;">
                     <span>CHECK AND COMPARE</span>
@@ -480,7 +480,7 @@
                     
                 </p>
                 <button type="button" class="close" data-dismiss="modal" style="opacity: 1;outline: 0;position: absolute; right: 0; top: 0;background-color: #fff;padding: 10px;border-radius: 50px;width: 20px;height: 20px;"> <span style="position: relative;top: -13px;left: -5.5px;">&times;</span></button>
-                <span class="pull-right">By: <span class="checker-span"></span></span>
+                <span class="float-right">By: <span class="checker-span"></span></span>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -509,30 +509,30 @@
                 <button type="button" class="btn btn-primary">PRICE TO ZERO</button>
                 <button type="button" class="btn btn-primary">CHANGE RATINGS</button>
                 <button type="button" class="btn btn-primary">FIXED</button> -->
-                <div class="pull-left">
+                <div class="float-left">
                     <button type="button" class="btn btn-success" id="btn-fixed">Fixed</button>
                     <a class="btn btn-primary cr-msite-btn" target="_blank">Open merchant site</a>
-                    <button class="btn btn-primary" id="cr-cac-recheck-btn"><i class="fa fa-recycle cr-cac-recheck-btn-icon" aria-hidden="true"></i></button>  
+                    <button class="btn btn-primary" id="cr-cac-recheck-btn"><i class="fas fa-recycle cr-cac-recheck-btn-icon"></i></button>  
                     <div class="div-recheck">
                        <ul class="div-recheck-ul">
-                           <li class="div-recheck-ul-li" id='r-swp'><i class="fa fa-caret-right" aria-hidden="true"></i> <span class="span-probs"></span></li>
-                           <li class="div-recheck-ul-li"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Not the lowest price</span></li>
-                           <li class="div-recheck-ul-li"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Others</span></li>
-                           <li class="div-recheck-ul-li" id="r-ols"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Open Logs</span></li>
+                           <li class="div-recheck-ul-li" id='r-swp'><i class="fas fa-caret-right"></i> <span class="span-probs"></span></li>
+                           <li class="div-recheck-ul-li"><i class="fas fa-caret-right"></i> <span>Not the lowest price</span></li>
+                           <li class="div-recheck-ul-li"><i class="fas fa-caret-right"></i> <span>Others</span></li>
+                           <li class="div-recheck-ul-li" id="r-ols"><i class="fas fa-caret-right"></i> <span>Open Logs</span></li>
                        </ul>
                     </div>  
                 </div>
-                <div class="pull-right">
+                <div class="float-right">
                     <div class="cr-modal-cac-list">
                         <ul class="cr-modal-cac-list-ul">
-                            <li class="cr-cac-list-btn" id="cr-rtm"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Report to merchant</span></li>
-                            <!-- <li class="cr-cac-list-btn" id="cr-spdf"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Small price difference, fixed</span></li>
-                            <li class="cr-cac-list-btn" id="cr-pbf"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Proxy problem, fixed</span></li> -->
-                            <li class="cr-cac-list-btn" id="cr-cr"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Set ratings "<b><span class="cac-list-btn-rating"></span></b>"</span></li>
-                            <li class="cr-cac-list-btn" id="cr-ptz"><i class="fa fa-caret-right" aria-hidden="true"></i> <span>Price to zero</span></li>
+                            <li class="cr-cac-list-btn" id="cr-rtm"><i class="fas fa-caret-right"></i> <span>Report to merchant</span></li>
+                            <!-- <li class="cr-cac-list-btn" id="cr-spdf"><i class="fas fa-caret-right"></i> <span>Small price difference, fixed</span></li>
+                            <li class="cr-cac-list-btn" id="cr-pbf"><i class="fas fa-caret-right"></i> <span>Proxy problem, fixed</span></li> -->
+                            <li class="cr-cac-list-btn" id="cr-cr"><i class="fas fa-caret-right"></i> <span>Set ratings "<b><span class="cac-list-btn-rating"></span></b>"</span></li>
+                            <li class="cr-cac-list-btn" id="cr-ptz"><i class="fas fa-caret-right"></i> <span>Price to zero</span></li>
                         </ul>
                     </div>
-                    <i class="fa fa-cog cr-modal-show-list" aria-hidden="true" style="font-size: 30px;color: #0062cc;margin-top: 8px; cursor: pointer;"></i>
+                    <i class="fas fa-users-cog cr-modal-show-list" style="font-size: 30px;color: #0062cc;margin-top: 8px; cursor: pointer;"></i>
                 </div>
             </div>
         </div>
@@ -542,7 +542,7 @@
 <!-- report recheck log modal -->
 <div class="modal fade" id="report-recheck-modal" role="dialog">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" style="top: 70px;">
             <div class="modal-header">
                 <h3>RECHECK LOG</h3>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -573,12 +573,12 @@
 <!-- report recheck log modal -->
 <div class="modal fade" id="report-modal-confirmation" role="dialog">
     <div class="modal-dialog modal-md">
-        <div class="modal-content" style="border-radius: 0;background-clip: initial;">
+        <div class="modal-content" style="background-clip: initial;top: 70px;">
             <div class="modal-body">
                 <div class="modal-content-header row">
                     <div class="col-12">
-                        <h6 class="pull-left confirmation-tittle"></h6>
-                        <button type="button" class="close pull-right" data-dismiss="modal" style="opacity: 1;outline:none;left: 30px;top: -32px;border-radius: 20px; position: relative;background-color: #fff; width: 20px;height: 20px;padding: 0;"><span style="position: relative;top: -3px;">&times;</span></button>
+                        <h6 class="float-left confirmation-tittle"></h6>
+                        <button type="button" class="close float-right" data-dismiss="modal" style="opacity: 1;outline:none;left: 30px;top: -32px;border-radius: 20px; position: relative;background-color: #fff; width: 20px;height: 20px;padding: 0;"><span style="position: relative;top: -3px;">&times;</span></button>
                     </div>
                 </div>
                 <div class="row">
@@ -607,11 +607,11 @@
 
             <div class="modal-body col-sm-12">
                 <div class="col-sm-12" data-merId-modal="" data-name-modal="">
-                    <div class="pull-left">
+                    <div class="float-right">
                         <div c>Merchant Id</div>
                         <input type="text" id="aff-link-merchant-idv2" name="" readonly>
                     </div>
-                    <div class="pull-right">
+                    <div class="float-right">
                         <div>Merchant Name</div>
                         <input type="text" id="aff-link-namev2" name="" readonly>
                     </div>
@@ -651,11 +651,11 @@
 
             <div class="modal-body col-sm-12">
                 <div class="col-sm-12" data-merId-modal="" data-name-modal="">
-                    <div class="pull-left">
+                    <div class="float-right">
                         <div c>Merchant Id</div>
                         <input type="text" id="aff-link-merchant-idv2-add" name="" readonly>
                     </div>
-                    <div class="pull-right">
+                    <div class="float-right">
                         <div>Merchant Name</div>
                         <input type="text" id="aff-link-namev2-add" name="" readonly>
                     </div>
@@ -687,12 +687,12 @@
 <!-- report recheck log modal -->
 <div class="modal fade" id="open-additional-info" role="dialog">
     <div class="modal-dialog modal-md">
-        <div class="modal-content" style="border-radius: 0;background-clip: initial;">
+        <div class="modal-content" style="top: 70px;background-clip: initial;">
             <div class="modal-body">
                 <div class="modal-content-header row">
                     <div class="col-12">
-                        <h6 class="pull-left confirmation-tittle">Full information</h6>
-                        <button type="button" class="close pull-right" data-dismiss="modal" style="opacity: 1;outline:none;left: 30px;top: -32px;border-radius: 20px; position: relative;background-color: #fff; width: 20px;height: 20px;padding: 0;"><span style="position: relative;top: -3px;">&times;</span></button>
+                        <h6 class="float-left confirmation-tittle">Full information</h6>
+                        <button type="button" class="close float-right" data-dismiss="modal" style="opacity: 1;outline:none;left: 30px;top: -32px;border-radius: 20px; position: relative;background-color: #fff; width: 20px;height: 20px;padding: 0;"><span style="position: relative;top: -3px;">&times;</span></button>
                     </div>
                 </div>
                 <div class="row" style="padding: 15px;font-size: 13px;">
@@ -750,12 +750,12 @@
 
 
 <!-- add shift modal -->
-<div class="modal fade" id="pc-add-shift-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="pc-add-shift-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" style="border-color: #fff">
+        <div class="modal-content" style="border-color: #fff;top: 70px;">
             <div class="modal-header">
                 <h5 class="modal-title modal-assign-title-txt" id="exampleModalLabel">Add Shift</h5>
-                    <button type="button" class="close pull-right" data-dismiss="modal" style="opacity: 1;outline:none;left: 13px;top: -15px;border-radius: 20px; position: relative;background-color: #fff; width: 20px;height: 20px;padding: 0;"><span style="position: relative;top: -3px;">&times;</span></button>
+                    <button type="button" class="close float-right" data-dismiss="modal" style="opacity: 1;outline:none;left: 13px;top: -15px;border-radius: 20px; position: relative;background-color: #fff; width: 20px;height: 20px;padding: 0;"><span style="position: relative;top: -3px;">&times;</span></button>
             </div>
             <div class="modal-body pc-asb-modal">
                 <div class="form-group">
@@ -863,13 +863,13 @@
 </div>
 
 <!-- add daily listing modal-->
-<div class="modal fade" id="price_check_tool_modal_add_game" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="price_check_tool_modal_add_game" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="top: 70px;">
             <div class="modal-header">
                 <h5 class="modal-title modal-daily-title-txt" id="exampleModalLabel">Add Game To Check</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">X</span>
+                        <span>X</span>
                     </button>
             </div>
             <div class="modal-body">
@@ -902,13 +902,13 @@
 </div>
 
 <!-- add wrong affiliate link modal ----------------------- -->
-<div class="modal fade" id="add-wrong-aff-link-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="add-wrong-aff-link-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="top: 70px;">
             <div class="modal-header">
                 <h5 class="modal-title modal-wrong-title-txt" id="exampleModalLabel">Add Wrong Affiliate Links</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">X</span>
+                        <span>X</span>
                     </button>
             </div>
             <div class="modal-body">
@@ -922,6 +922,22 @@
             <div class="modal-footer">
                 <button id="" class="btn-add-wrong-link btn btn-primary" type="button" >Submit</button>
                 <!-- data-dismiss="modal" -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--alert modal -->
+<div class="modal fade" id="alert-modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-danger" style="background-clip: initial;">
+            <div class="modal-body">
+                <div class="modal-content-header">
+                    <div class="alert-modal-msg text-center text-white">
+                        
+                    </div>
+                </div>
             </div>
         </div>
     </div>

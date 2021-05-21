@@ -28,9 +28,9 @@
 						</div>
 						<div>
 							<div class="pltb-report normal-mode">
-								<input type="text" id="datepickerReport" placeholder="Date here" class="pull-right datepicker-class">
-								<i class="fa fa-calendar-check-o pull-right datepicker-class-icon" aria-hidden="true"></i>
-								<span class="pull-right span-all-report">Display All <i class="fa fa-globe pull-right" aria-hidden="true"></i></span>
+								<input type="text" id="datepickerReport" placeholder="Date here" class="float-right datepicker-class">
+								<i class="far fa-calendar-alt float-right datepicker-class-icon"></i>
+								<span class="float-right span-all-report">Display All <i class="fas fa-globe float-right"></i></span>
 								<br>
 								<br>
 								<div class="display-div">
@@ -54,8 +54,8 @@
 							</div>
 							
 							<div class="pltb-completed normal-mode">
-								<!-- <input type="text" id="datepickerComplete" placeholder="Date here" class="pull-right datepicker-class">
-								<i class="fa fa-calendar-check-o pull-right datepicker-class-icon" aria-hidden="true"></i> -->
+								<!-- <input type="text" id="datepickerComplete" placeholder="Date here" class="float-right datepicker-class">
+								<i class="far fa-calendar-alt float-right datepicker-class-icon"></i> -->
 								<br>
 								<br>
 								<div class="display-div">
