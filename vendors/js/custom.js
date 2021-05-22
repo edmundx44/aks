@@ -46,17 +46,6 @@ $(document).ready(function(){
 	displayIcon();
 	displayMode(localStorage.getItem("body-mode"));
 
-	// setInterval(function(){ 
-		// setTimeout( function(){ 
-			// logsNotification()
-		// }, 3000 );
-	// }, 1000);
-	
-	// setInterval(function(){ 
-		// logsNotification();
-	// }, 1000);
-	//console.log(removeSiteInLocalStorage(uri));
-
 	$('.modal-dialog').draggable({
 		handle: ".modal-content",
 		cancel: 'span, input, .nfof-feedback, .pc-asb-modal*, .modal-content-body*'
@@ -69,16 +58,21 @@ $(document).ready(function(){
 
 	$(document).keydown(function(event){
 		
-
-		if((event.which === 65 && event.altKey)) {
+		if(event.which === 27) {
+			$('.modal').modal('hide');
+		}
+		if((event.which === 65 && event.altKey && event.shiftKey)) {
 			$('.modal').modal('hide');
 			$('.add-edit-store-game-modal').modal('show');
 		}
-		if((event.which === 82 && event.altKey)) {
+		if((event.which === 82 && event.altKey && event.shiftKey)) {
 			$('.modal').modal('hide');
 			crProblemArr = [];
 			$('#createReportModal').modal('show');
-		}   
+		} 
+		if((event.which === 68 && event.altKey && event.shiftKey)) {
+			$('.switch-checkbox').trigger('click');
+		} 
 	}); 
 
 	$(window).scroll(function(){

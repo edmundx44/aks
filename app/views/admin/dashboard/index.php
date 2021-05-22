@@ -351,7 +351,7 @@
 							</div>
 
 						</div>
-						<div id="feed-failed-append" class="feed-failed content-hide" style="height: 100%; overflow-y: auto; display: none;">
+						<div id="feed-failed-append" class="feed-failed content-hide scrollbar-custom" style="height: 100%; overflow-y: auto; display: none;">
 							<div><h5 class="text-center mt-2 text-primary" style="font-weight:500; letter-spacing:1.5px;"><span class="f-title"></span>FAILED STORES (4 HOURS)</h5></div>
 
 							<div class="col-sm-12 f-buttons" style="display: none;">
