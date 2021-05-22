@@ -70,6 +70,17 @@ input:checked + .switch-slider:before {
 .switch-slider.round:before {
   border-radius: 50%;
 }
+.div-img-logout-settings-li {
+	margin-bottom: 5px;
+	cursor: pointer;
+	padding:5px;
+	font-size: 13px;
+	height: 30px;
+	border-radius: 5px;
+}
+.div-img-logout-settings-li:hover {
+	background-color: #e1e1e2;
+}
 </style>
 
 
@@ -110,7 +121,7 @@ input:checked + .switch-slider:before {
 										</div>
 									</div>
 									
-									<ul class="sub-ul-nav <?= $key ?>-sub-ul">
+									<ul class="sub-ul-nav <?= $key ?>-sub-ul" >
 										<?php foreach($val as $k => $v): 
 											echo ($v == parse_url($currentPageUse, PHP_URL_PATH))? "<script type='text/javascript'>$('.$key-sub-ul').addClass('show-div');</script>" : '' ;
 											$active = ($v == parse_url($currentPageUse, PHP_URL_PATH))? 'active-class':''; 
@@ -162,22 +173,29 @@ input:checked + .switch-slider:before {
 	</div>
 	<div class="div-img-logout-settings" style="" id="div-img-logout-settings-id">
 		<div class="dils-div-1" style="width: 20%;height: 100%;position: absolute;"></div>
-		<div class="dils-div-2" style="width: 80%;height: 100%;position: absolute;left: 20%;">
+		<div class="dils-div-2" style="width: 80%;height: 100%;position: absolute;left: 20%;padding-right: 10px;">
 			<ul style="list-style-type: none;margin:0;padding: 25px 0 0 0;color: #000;">
-				<li style="padding:5px;font-size: 13px;">Option</li>
-				<li style="padding:5px;font-size: 13px;">Option</li>
-				<li style="padding:5px;font-size: 13px;">Option</li>
-				<li style="padding:5px;font-size: 13px;">Option</li>
-				<li style="padding:5px;font-size: 13px;">Option</li>
-				<li style="padding:5px;font-size: 13px;">
-					<span class="float-left">Dark Mode</span>
-					<span class="float-right">					
+				<!-- <li class="div-img-logout-settings-li">Option</li>
+				<li class="div-img-logout-settings-li">Option</li>
+				<li class="div-img-logout-settings-li">Option</li>
+				<li class="div-img-logout-settings-li">Option</li>
+				<li class="div-img-logout-settings-li">Option</li> -->
+				<li class="div-img-logout-settings-li li-darknormal-switch">
+					<span class="float-left span-switch-name">Dark Mode</span>
+					<span class="float-right" style="position: relative;z-index: 10;">					
 						<label class="switch-btn">
 							<input type="checkbox" class="switch-checkbox">
 							<span class="switch-slider round"></span>
 						</label>
 					</span>
 				</li>
+				<?php foreach ($menu as $key => $val): ?>
+					<?php if($key == 'Logout'): ?>
+						<li class="div-img-logout-settings-li logout-function-on-li" data-urlni="<?= $val ?>">
+							<span class="float-left">Logout</span>
+						</li>
+					<?php endif; ?>
+				<?php endforeach; ?>
 			</ul>
 		</div>
 	</div>

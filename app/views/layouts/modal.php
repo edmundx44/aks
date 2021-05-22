@@ -868,9 +868,7 @@
         <div class="modal-content" style="top: 70px;">
             <div class="modal-header">
                 <h5 class="modal-title modal-daily-title-txt" id="exampleModalLabel">Add Game To Check</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span>X</span>
-                    </button>
+                <button type="button" class="close float-right" data-dismiss="modal" style="opacity: 1;outline:none;left: 13px;top: -15px;border-radius: 20px; position: relative;background-color: #fff; width: 20px;height: 20px;padding: 0;"><span style="position: relative;top: -3px;">&times;</span></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -907,9 +905,7 @@
         <div class="modal-content" style="top: 70px;">
             <div class="modal-header">
                 <h5 class="modal-title modal-wrong-title-txt" id="exampleModalLabel">Add Wrong Affiliate Links</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span>X</span>
-                    </button>
+                <button type="button" class="close float-right" data-dismiss="modal" style="opacity: 1;outline:none;left: 13px;top: -15px;border-radius: 20px; position: relative;background-color: #fff; width: 20px;height: 20px;padding: 0;"><span style="position: relative;top: -3px;">&times;</span></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -938,6 +934,50 @@
                         
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- add change logs -->
+<div class="modal fade" id="show-add-log-modal" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" style="background-clip: initial;top: 70px;">
+            <div class="modal-body">
+                <div class="modal-content-header row">
+                    <div class="col-12">
+                        <h6 class="float-left confirmation-tittle">Create Changelog</h6>
+                        <button type="button" class="close float-right" data-dismiss="modal" style="opacity: 1;outline:none;left: 30px;top: -32px;border-radius: 20px; position: relative;background-color: #fff; width: 20px;height: 20px;padding: 0;"><span style="position: relative;top: -3px;">&times;</span></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 modal-content-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="user-input-wrp">
+                                    <br/>
+                                    <input type="text" value='' class="inputText changelog-id-txt" onkeyup="this.setAttribute('value', this.value);"/>
+                                    <span class="floating-label">ID</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="user-input-wrp">
+                                    <br/>
+                                    <input type="text" value='' class="inputText changelog-date-txt" onkeyup="this.setAttribute('value', this.value);" style="border-color: blue;" disabled/>
+                                    <span class="floating-label">Date</span>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <textarea style="width: 100%;resize: none;height: 300px;" class="changelog-msg-txtarea"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer confirmation-modal-footer">
+                <button class="btn btn-success" id="createChangelog">Submit</button>
             </div>
         </div>
     </div>

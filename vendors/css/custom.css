@@ -205,10 +205,27 @@ body {
 .sub-li-nav {
 	height: 50px;
 }
-.row-1-card-body,
 .row-3-card-div-overflow-style {
+	/*background-image: url("../image/chartbackground.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;*/
 	height: 200px;
 }
+.row-3-card-div-overflow-style::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-image: url("../image/hexabackground.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	opacity: .2;
+}
+
 .sidebar-content-wrapper,
 .hcf-back {
 	height: 100%;
@@ -539,7 +556,7 @@ body {
 .sidebar {
     z-index: 2;
     background-image: url("../image/sidebar-1.jpg");
-    background-position: center;
+	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
 }

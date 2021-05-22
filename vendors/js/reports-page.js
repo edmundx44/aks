@@ -2,21 +2,9 @@ var onOpen = '';
 
 
 		$(function (){
-			// var base_url = window.location.origin+"/watcher/records.txt";
-			// $.get(window.location.origin+"/watcher/records.txt", function(data) {
-			// 	console.log(data)
-			// }, 'text');
-
-			// alert(base_url)
-			// console.log(base_url);
+			var dateNow = d.getFullYear() + '-' + month + '-' + day;
 			
-
-			var d = new Date();
-			var month = d.getMonth()+1;
-			var day = d.getDate();
-			var output = d.getFullYear() + '-' + month + '-' + day;
-			
-			$("#datepickerReport").datepicker({ dateFormat: 'yy-mm-dd' }).val(output);
+			$("#datepickerReport").datepicker({ dateFormat: 'yy-mm-dd' }).val(dateNow);
 			$("#datepickerComplete").datepicker({ dateFormat: 'yy-mm-dd' });
 			crProblemList($( "#datepickerReport" ).val());
 
