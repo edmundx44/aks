@@ -378,9 +378,6 @@ function displayMode($mode){
 			localStorage.setItem("body-mode", 'darkmode');
 			$(".switch-checkbox").prop( "checked", true );
 
-
-
-			
 		break;
 		case 'normal':
 			$(".main-word").attr("src",url+"vendors/image/logo-word.png");

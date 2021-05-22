@@ -81,7 +81,7 @@
 			</div>
 
 		</div>
-		<!-- <div class="col-lg-6 col-md-12 mtop-35px">
+		<!-- <div class="col-lg-6 col-md-12 mtop-50px">
 			<div class="card card-style">
 				<div class="card-body no-padding row-1-card-body"> 
 					<div class="card-div-overflow-style row-1-card-div-overflow-style row-1-card-div-overflow-style-2"> </div>
@@ -91,7 +91,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-xxl-6 col-xl-3 col-md-12 mtop-35px">
+		<div class="col-xxl-6 col-xl-3 col-md-12 mtop-50px">
 			<div class="card card-style card-normalmode">
 				<div class="card-header no-padding row-2-card-header" style=""> 
 					<div class="text-center card-div-overflow-style row-2-card-div-overflow-style row-2-card-div-overflow-style-1">
@@ -119,7 +119,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xxl-6 col-xl-3 col-md-12 mtop-35px">
+		<div class="col-xxl-6 col-xl-3 col-md-12 mtop-50px">
 			<div class="card card-style card-normalmode">
 				<div class="card-header no-padding row-2-card-header"> 
 					<div class="text-center card-div-overflow-style row-2-card-div-overflow-style row-2-card-div-overflow-style-2">
@@ -149,7 +149,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xxl-6 col-xl-3 col-md-12 mtop-35px">
+		<div class="col-xxl-6 col-xl-3 col-md-12 mtop-50px">
 			<div class="card card-style card-normalmode">
 				<div class="card-header no-padding row-2-card-header"> 
 					<div class="text-center card-div-overflow-style row-2-card-div-overflow-style row-2-card-div-overflow-style-3">
@@ -179,7 +179,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xxl-6 col-xl-3 col-md-12 mtop-35px">
+		<div class="col-xxl-6 col-xl-3 col-md-12 mtop-50px">
 			<div class="card card-style card-normalmode">
 				<div class="card-header no-padding row-2-card-header"> 
 					<div class="text-center card-div-overflow-style row-2-card-div-overflow-style row-2-card-div-overflow-style-4">
@@ -210,7 +210,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-md-4 mtop-35px">
+		<div class="col-md-4 mtop-50px">
 			<div class="card card-style card-normalmode">
 				<div class="card-header no-padding row-3-card-header"> 
 					<div class="card-div-overflow-style row-3-card-div-overflow-style row-3-card-div-overflow-style-1" style="padding: 10px;height: 210px;"> 
@@ -233,7 +233,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4 mtop-35px">
+		<div class="col-md-4 mtop-50px">
 			<div class="card card-style card-normalmode">
 				<div class="card-header no-padding row-3-card-header"> 
 					<div class="card-div-overflow-style row-3-card-div-overflow-style row-3-card-div-overflow-style-2" style="padding: 10px;height: 210px;">
@@ -254,7 +254,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4 mtop-35px">
+		<div class="col-md-4 mtop-50px">
 			<div class="card card-style card-normalmode">
 				<div class="card-header no-padding row-3-card-header"> 
 					<div class="card-div-overflow-style row-3-card-div-overflow-style row-3-card-div-overflow-style-3" style="padding: 10px;height: 210px;">
@@ -275,7 +275,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-lg-6 col-md-12 mtop-35px">
+		<div class="col-lg-6 col-md-12 mtop-50px">
 			<div class="card card-style card-normalmode">
 				<div class="card-body no-padding row-4-card-body"> 
 					<div class="card-div-overflow-style row-4-card-div-overflow-style row-4-card-div-overflow-style-1" style="padding: 0 20px 0 20px;"> 
@@ -290,7 +290,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-6 col-md-12 mtop-35px">
+		<div class="col-lg-6 col-md-12 mtop-50px">
 			<div class="card card-style card-normalmode">
 				<div class="card-body no-padding row-4-card-body"> 
 
