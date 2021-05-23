@@ -1112,7 +1112,7 @@
 		}
 
 function callChangelogs(){
-	$('.change-log-div').empty();
+	$('.ccd-con-wrapper').empty();
 
 	var dataRequest =  { 
 		action: 'displayAddChangeLogAction',
@@ -1122,33 +1122,25 @@ function callChangelogs(){
 			var matches = data[i].inputMessage.match(/\n/g);
 
 			if(matches){
-				var txt = data[i].inputMessage.split("\n")
-				var appendDate =  "<div class='addChanglog-header'>";
-					appendDate += "<div class='addlog-header-name'>" + data[i].inputAuthor.charAt(0).toUpperCase() + data[i].inputAuthor.slice(1) + "</div>";
-					appendDate += "<div class='addlog-header-date'>" + data[i].inputDate + "</div>";
-					appendDate += "</div>";
-				$(".change-log-div").append(appendDate);
+				var txt = data[i].inputMessage.split("\n");
 
-				$.each(txt, function(t){
-					if(txt[t] != ''){
-						var append = "<li style='margin-top:5px;'>" + txt[t] + "." + "</li>";
-						$(".change-log-div").append(append);
-					}
-				});
-
-				var appendHr =  "<div class='addChanglog-line-bottom'></div>";
-				$(".change-log-div").append(appendHr);
+				var appendDate = '<div class="changelog-content-div">';
+					appendDate += '<p class="ccd-header"><i class="fas fa-user-tie ccd-icon"></i> <span class="ccd-name">'+ data[i].inputAuthor.charAt(0).toUpperCase() + data[i].inputAuthor.slice(1) +'</span></p>';
+					appendDate += '<p class="ccd-date" style="padding-bottom: 20px;">'+ data[i].inputDate +'</p>';
+					$.each(txt, function(t){
+						if(txt[t] != ''){
+							appendDate += '<p style="margin: 0 0 0 20px;" class="cdd-txt"><i class="fas fa-circle" style="font-size: 5px;top: -2px;position: relative;"></i> '+ txt[t] +'</p>'; 
+						}
+					});	
+					$(".ccd-con-wrapper").append(appendDate);
 			}else{
-				var append =  "<div class='addChanglog-header'>";
-					append += "<div class='addlog-header-name'>" + data[i].inputAuthor.charAt(0).toUpperCase() + data[i].inputAuthor.slice(1) + "</div>";
-					append += "<div class='addlog-header-date'>" + data[i].inputDate + "</div>";
-					append += "</div>";
-					append += "<li style='margin-top:5px;'>" + data[i].inputMessage + "." + "</li>";
-					append += "<div class='addChanglog-line-bottom'></div>";
-				$(".change-log-div").append(append);
+				var appendDate = '<div class="changelog-content-div">';
+					appendDate += '<p class="ccd-header"><i class="fas fa-user-tie ccd-icon"></i> <span class="ccd-name">'+ data[i].inputAuthor.charAt(0).toUpperCase() + data[i].inputAuthor.slice(1) +'</span></p>';
+					appendDate += '<p class="ccd-date" style="padding-bottom: 20px;">'+ data[i].inputDate +'</p>';
+					appendDate += '<p style="margin: 0 0 0 20px;" class="cdd-txt"><i class="fas fa-circle" style="font-size: 5px;top: -2px;position: relative;"></i> '+ data[i].inputMessage  +'</p>'; 
+					
+					$(".ccd-con-wrapper").append(appendDate);
 			}
 		}				
-	}).always(function(){ 
-		$('.change-log-div .addChanglog-line-bottom:nth-last-child(1)').remove();
-	});
+	}).always(function(){});
 }

@@ -35,6 +35,32 @@
 		padding: 9px;
 		position: relative;
 	}
+	.changelog-content-div {
+		padding: 10px 0 10px 0;
+		margin-bottom: 10px;
+		border-radius: 5px;
+		width: 99%;
+		box-shadow: inset 0px 0px 15px 2px rgb(107 109 112 / 24%);
+	}
+	.ccd-header {
+		margin: 0 0 0 20px;
+		color: #ffa726;
+	}
+	.ccd-icon {
+		font-size: 13px;
+	}
+	.ccd-name {
+		font-size: 15px;
+		position: relative;
+		top: 1px;
+		font-weight: 500;
+		letter-spacing: 1px;
+	}
+	.ccd-date {
+		margin: -2px 0 0 20px;
+		font-size: 12px;
+		color: #ffa726;
+	}
 </style>
 <?php $this->end(); ?>
 
@@ -282,14 +308,20 @@
 						<p class="float-left text-white" style="letter-spacing: 1px;font-weight: 500;top: 30px;position: relative;">CHANGELOGS</p>
 						<button class="float-right btn btn-warning text-white btn-show-add-log-modal" style="top: 23px;position: relative;" data-toggle="modal" data-target="#show-add-log-modal"><i class="fas fa-plus-square"></i> &nbsp; Create</button>
 					</div>
-					<div class="scrollbar-custom" style="height: 405px;overflow-x: scroll;overflow-x: hidden;">
-						<ul class="change-log-div">
-                        	
-						</ul>
+					<div class="scrollbar-custom ccd-con-wrapper" style="height: 405px;overflow-x: scroll;overflow-x: hidden;">
+						<!-- <div class="changelog-content-div">
+							<p class="ccd-header"><i class="fas fa-user-tie ccd-icon"></i> <span class="ccd-name">Paulfiox</span></p>
+							<p class="ccd-date">02/20/2323</p>
+						</div> -->
+						
+						<!-- <ul class="change-log-div">
+							
+						</ul> -->
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<div class="col-lg-6 col-md-12 mtop-50px">
 			<div class="card card-style card-normalmode">
 				<div class="card-body no-padding row-4-card-body"> 
