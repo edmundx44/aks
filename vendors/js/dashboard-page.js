@@ -17,6 +17,7 @@
 	$(function(){
 		initChecksumChart(lineChart); //initialize checksum chart
 		checkWidthFB(); //it will take effect it its reload
+		callChangelogs()
 
 		var display1 = 
 
@@ -240,6 +241,43 @@
 					addHeaderClass('.rheader-modal', $('.menu-dbfeed-what').text().toLowerCase())
 				break;
 			}
+		});
+
+		//add changelogs
+		$(document).on('click', '.btn-show-add-log-modal', function(){
+			var dateNow = month + '/' + day + '/' + d.getFullYear() ;
+			$('.changelog-date-txt').val(dateNow).trigger('keyup')
+		});
+		
+		$(document).on('click', '#createChangelog', function(){
+			var dataRequest =  { 
+				action: 'addChangeLogAction',
+				inputID: $('.changelog-id-txt').val(),
+				inputDate: $('.changelog-date-txt').val(),
+				inputMessage: $('.changelog-msg-txtarea').val()
+			}
+			AjaxCall(url, dataRequest).done(function(){}).always(function(){ 
+				callChangelogs();
+				$('#show-add-log-modal').modal('hide')
+				$('.changelog-date-txt, .changelog-id-txt').val('').trigger('keyup');
+				$('.changelog-msg-txtarea').val('')
+
+			});
+
+				// $.ajax({
+				// 	url: '<?=PROOT?>dashboard',
+				// 	type: "POST",
+				// 	data : {
+				// 		action: 'addChangeLogAction',
+				// 		inputID: $('.alog-id').val(),
+				// 		inputDate: $('.alog-date').val(),
+				// 		inputMessage: $('.alog-textarea').val()
+				// 	},
+				// 	success : function(data){
+				// 		alert(data);
+				// 		window.location.reload();
+				// 	}
+				// });
 		});
 
 		//END 
@@ -1072,3 +1110,45 @@
 				break;
 			}
 		}
+
+function callChangelogs(){
+	$('.change-log-div').empty();
+
+	var dataRequest =  { 
+		action: 'displayAddChangeLogAction',
+	}
+	AjaxCall(url, dataRequest).done(function(data){
+		for (var i in data){
+			var matches = data[i].inputMessage.match(/\n/g);
+
+			if(matches){
+				var txt = data[i].inputMessage.split("\n")
+				var appendDate =  "<div class='addChanglog-header'>";
+					appendDate += "<div class='addlog-header-name'>" + data[i].inputAuthor.charAt(0).toUpperCase() + data[i].inputAuthor.slice(1) + "</div>";
+					appendDate += "<div class='addlog-header-date'>" + data[i].inputDate + "</div>";
+					appendDate += "</div>";
+				$(".change-log-div").append(appendDate);
+
+				$.each(txt, function(t){
+					if(txt[t] != ''){
+						var append = "<li style='margin-top:5px;'>" + txt[t] + "." + "</li>";
+						$(".change-log-div").append(append);
+					}
+				});
+
+				var appendHr =  "<div class='addChanglog-line-bottom'></div>";
+				$(".change-log-div").append(appendHr);
+			}else{
+				var append =  "<div class='addChanglog-header'>";
+					append += "<div class='addlog-header-name'>" + data[i].inputAuthor.charAt(0).toUpperCase() + data[i].inputAuthor.slice(1) + "</div>";
+					append += "<div class='addlog-header-date'>" + data[i].inputDate + "</div>";
+					append += "</div>";
+					append += "<li style='margin-top:5px;'>" + data[i].inputMessage + "." + "</li>";
+					append += "<div class='addChanglog-line-bottom'></div>";
+				$(".change-log-div").append(append);
+			}
+		}				
+	}).always(function(){ 
+		$('.change-log-div .addChanglog-line-bottom:nth-last-child(1)').remove();
+	});
+}

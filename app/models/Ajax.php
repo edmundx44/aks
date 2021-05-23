@@ -1118,11 +1118,26 @@ class Ajax {
 				$sql = "SELECT DATE_FORMAT(`addedDate`, '%Y-%m-%d') FROM `aks_bot_teamph`.`tblWrongAffLink` WHERE DATE_FORMAT(`addedDate`, '%Y-%m-%d') = CURDATE()";
 				return ($db->query($sql)->results())? '11' : '00';
 			break;
-
 			case 'add-wrong-aff-link':
 			    $run = ($getInput->get('toEditId') != '')? $db->update('`aks_bot_teamph`.`tblWrongAffLink`', $getInput->get('toEditId'), ['wrongAffLink' => $getInput->get('wrongAffLink')]) : $db->insert('`aks_bot_teamph`.`tblWrongAffLink`', ['wrongAffLink' => $getInput->get('wrongAffLink')]);
 			break;
+			case 'displayAddChangeLogAction':
+                $sql = "select * from `aks_bot_teamph`.`tblAddChangeLog` order by id desc";
+                return $db->query($sql)->results();
+            break;
+            case 'addChangeLogAction':
 
+                $inputID = $getInput->get('inputID');
+                $inputDate = $getInput->get('inputDate');
+                $inputAuthor =  ucfirst(Users::currentUser()->fname);
+                $inputMessage = $getInput->get('inputMessage');
+
+                $sql = "Insert INTO  `aks_bot_teamph`.`tblAddChangeLog` 
+                ( `inputID`, `inputDate`, `inputAuthor`, `inputMessage`) 
+                VALUES 
+                ( '$inputID', '$inputDate', '$inputAuthor', '$inputMessage')";
+                return $db->query($sql) ?  'success' :  'fail';
+            break;
 		}
 	//END OF FUNCTION AJAXDATA
 	}
