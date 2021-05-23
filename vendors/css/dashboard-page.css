@@ -545,3 +545,9 @@
   margin-top: 15px;
   /*margin-left: -30px;*/
 }
+.s-buttons,
+.f-buttons,
+.sc-buttons{
+	padding-left:10px;
+	padding-right:10px;
+}

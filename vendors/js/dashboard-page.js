@@ -15,7 +15,6 @@
 	
 
 	$(function(){
-		initChecksumChart(lineChart); //initialize checksum chart
 		checkWidthFB(); //it will take effect it its reload
 		callChangelogs()
 
@@ -25,6 +24,8 @@
 			xhr_AjaxCall(url+'dashboard','POST','displayRunAndSuccessAction').done(function(data){ displayRunAndSuccess(data) }),
 			xhr_AjaxCall(url+'dashboard','POST','displayPriceToZeroCountsCounts').done(function(data) { displayPriceToZero(data) }),
 			xhr_getChecksumDisplay(url+'dashboard',timeStampData,$checksumSite).done(function(data) { checksumDone(data); }),
+			initChecksumChart(lineChart), //initialize checksum chart
+			_ajaxFeedBots(url+'dashboard',"POST",'getFailedStores').done(function(data){ _doneFeedBots(data,'getFailedStores'); $('.dbox-content').css({'height':'80%'}) }),
 			displayReport('menu-snapshot', 'AKS'), 
 			displayReport('menu-dbfeed', 'AKS'),
 			displayReport('menu-disabled', 'Store'),
@@ -66,6 +67,7 @@
 				break;
 			}
 		});
+		//append the button filtered
 		$(document).on('click', '.input-btn-freports', function(){
 			var $this = $(this);
 			sfcReportsBtnFiltered($this,'freports','f-title');
@@ -147,6 +149,9 @@
 			$('.m-feedboot-opt-li').removeClass('active-tab-1');
 			$(this).addClass('active-tab-1');
 
+			$('.clk-options').removeClass('active-tab'); //add active class also if in mobile view
+			$('#'+$(this).attr('id').replace('-m','')).addClass('active-tab')
+
 			switch($(this).attr('data-m-tab')){
 				case 'm-chksum':
 					$('.dbox-content').css({'height':'70%'})
@@ -178,6 +183,9 @@
 			$('.'+$(this).attr('id')).show();	
 			$('.clk-options').removeClass('active-tab');
 			$('#'+$(this).attr('id')).addClass('active-tab');
+
+			$('.m-feedboot-opt-li').removeClass('active-tab-1'); //add active class also if in mobile view
+			$('#'+$(this).attr('id')+'-m').addClass('active-tab-1');
 
 			if($(this).attr('id') != 'checksum-chart'){
 				$('.dbox-content').css({'height':'80%'})
@@ -790,7 +798,6 @@
 				what: $what
 			}
 		addPointerEvents($what)
-		console.log($what)
 		AjaxCall(url+'dashboard', dataRequest).done(function(data) {
 			switch(data.to){
 				case 'Store':
@@ -932,7 +939,7 @@
 	}
 
 
-	function checkWidthFB(){
+	function checkWidthFB(){		
 		if ($('.check-width').width() < 488) {
 			$('.pc-fb-opt').hide();
 			$('.m-fb-opt').show();

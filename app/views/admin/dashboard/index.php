@@ -300,24 +300,25 @@
 								<i class="fas fa-sliders-h float-left card-body-div-fb" data-what="menu-feedbots"></i>
 								<li class="fb-opt-1">FEED BOTS</li>
 							</ul>
+							<!-- Mobile view this will be the display-->
 							<div class="card-body-menu-div-fbots menu-feedbots" style="color: #6b6d70 !important;">
 								<ul class="card-body-menu-div-ul">
-									<li class="m-feedboot-opt-li active-tab-1" data-m-tab="m-chksum"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Checksum</span></li>
-									<li class="m-feedboot-opt-li" data-m-tab="m-sStore" data-feedbots="getSuccessStores"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Success</span></li>
-									<li class="m-feedboot-opt-li" data-m-tab="m-fStore" data-feedbots="getFailedStores"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Fail</span></li>
-									<li class="m-feedboot-opt-li" data-m-tab="m-scStorem" data-feedbots="getServerChargeStore"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Server Charge</span></li>
+									<li id="checksum-chart-m" class="m-feedboot-opt-li" data-m-tab="m-chksum"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Checksum</span></li>
+									<li id="feed-success-m" class="m-feedboot-opt-li" data-m-tab="m-sStore" data-feedbots="getSuccessStores"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Success</span></li>
+									<li id="feed-failed-m" class="m-feedboot-opt-li active-tab-1" data-m-tab="m-fStore" data-feedbots="getFailedStores"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Fail</span></li>
+									<li id="feed-servercharge-m" class="m-feedboot-opt-li" data-m-tab="m-scStorem" data-feedbots="getServerChargeStore"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Server Charge</span></li>
 								</ul>
 							</div>
 							<ul class="ul-tab-option pc-fb-opt" style="display: none; margin-top: 2px;">
 								<li>FEED BOTS: </li>
-								<li class="feedbots-opt clk-options li-tab-option active-tab" id="checksum-chart"><span>Checksum</span></li>
+								<li class="feedbots-opt clk-options li-tab-option" id="checksum-chart"><span>Checksum</span></li>
 								<li data-feedbots="getSuccessStores" class="feedbots-opt clk-options li-tab-option" id="feed-success"><span>Success</span></li>
-								<li data-feedbots="getFailedStores" class="feedbots-opt clk-options li-tab-option" id="feed-failed"><span>Fail</span></li>
+								<li data-feedbots="getFailedStores" class="feedbots-opt clk-options li-tab-option active-tab" id="feed-failed"><span>Fail</span></li>
 								<li data-feedbots="getServerChargeStore" class="feedbots-opt clk-options li-tab-option" id="feed-servercharge"><span>Server Charge</span></li>
 							</ul>
 						</div>
 					</div>
-						<div class="dropdown-box dbox-hide" style="padding-bottom: 5px;">
+						<div class="dropdown-box dbox-hide" style="padding-bottom: 5px; display:none;"><!-- display none first-->
 							<div class="dropdown-div" style="width: 150px;">
 								<div class="select custom-bkgd">
 					                <span class="selected-data change-site">Website</span>
@@ -334,7 +335,7 @@
 							</div>
 						</div>
 					<div class="card-style dbox-content" style="height: 70%; padding: 5px;">
-						<div class="checksum-chart content-hide" style="height: 100%;">
+						<div class="checksum-chart content-hide" style="height: 100%; display:none;">
 							<canvas id="checksum-4" class="checksum-canvas"></canvas>
 						</div>
 						<div id="feed-success-append" class="feed-success content-hide" style="height: 100%; overflow-y: auto; display: none;">
@@ -351,7 +352,7 @@
 							</div>
 
 						</div>
-						<div id="feed-failed-append" class="feed-failed content-hide scrollbar-custom" style="height: 100%; overflow-y: auto; display: none;">
+						<div id="feed-failed-append" class="feed-failed content-hide scrollbar-custom" style="height: 100%; overflow-y: auto;"> <!-- display:none;-->
 							<div><h5 class="text-center mt-2 text-primary" style="font-weight:500; letter-spacing:1.5px;"><span class="f-title"></span>FAILED STORES (4 HOURS)</h5></div>
 
 							<div class="col-sm-12 f-buttons" style="display: none;">
