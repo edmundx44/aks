@@ -19,7 +19,7 @@
 		var $url = url+'utilities/realDouble';
 		$globalSite=null;
 		$(function(){
-			$('.dropdown-div').html(OptionSite(inputsSite,'opt-site-rdb','slc-options','custom-bkgd')); //OptionSite na a sa custom.js
+			//$('.dropdown-div').html(OptionSite(inputsSite,'opt-site-rdb','slc-options','custom-bkgd')); //OptionSite na a sa custom.js
 			// if (!removeExistingItem('sessionStorage','OptionSite',uri)){
 			// 	console.log('Item has been removed');
 			// }
@@ -41,15 +41,6 @@
 					});
 				}
 			}
-			// na na ni sa index.php sa dashboards
-			//FOR DROP DOWN SELECT ANIMATION
-			$('.dropdown-div').click(function () {
-				$(this).find('.dropdown-menu').slideToggle(200);
-			});
-
-			$('.dropdown-div').focusout(function () {
-				$(this).find('.dropdown-menu').slideUp(200);
-			});
 
 			// $('#table-real-double-link').on( 'keyup', function () {
 			//     var regExSearch = '^\\s' + myValue +'\\s*$';
@@ -57,12 +48,12 @@
 			// 	console.log(regExSearch)
 			// } );
 
-			$(document).on('click', '.opt-site-rdb', function() {
+			$(document).on('click', '.website-items', function() {
 				//every click it reset the value if modify in console
 				$('.dropdown-div').html(OptionSite(inputsSite,'opt-site-rdb','slc-options','custom-bkgd')); //OptionSite na a sa custom.js
-				$('.change-site').text('LOADING...');
+				$('#website-btn').val('LOADING');
 			    var indexInput = $(this).parent().prevObject.index(); //get the index of li
-			    if($(this).parent()[0].childNodes.length == 3 ){
+			    if($(this).parent()[0].children.length == 3 ){
 			    	site = (indexInput == 0 ) ? inputsSite[0].site : (indexInput == 1 ) ? inputsSite[1].site : (indexInput == 2 ) ? inputsSite[2].site : '';
 					var $data = { 'site': site, 'path': $url }
 					if(sessionStorageCheck()){ setStorage('sessionStorage','OptionSite',JSON.stringify($data)) }
@@ -113,7 +104,7 @@
 				        ]
 				    }) //.columns.adjust().responsive.recalc(); //commented caused i commented the reorder
 				}
-			$('.change-site').text(site.toUpperCase());
+			$('#website-btn').val(site.toUpperCase())
 			$('.dataTables_filter input[type="search"]').
   				attr('placeholder','Search ...').
   				css({'width':'350px','display':'inline-block'});
@@ -158,36 +149,37 @@
 				<div class="card card-style">
 					<div class="card-body rdl-card-main-wrap no-padding">
 						<!-- HEADER STARTS -->
-						<div class="card-div-overflow-style row-4-card-div-overflow-style row-4-card-div-overflow-style-2">
-						
-							<div class="" style="padding-top: 20px; padding-left: 10px; color: white;">
-								<h5>Real double link detection</h5>
-								<p style="font-size:12px;font-weight: 500;">Links with the same merchant, game id, buy url, edition and region</p>
+						<div class="card-div-overflow-style row-4-card-div-overflow-style-2" style="position:relative; padding-top:20px;">
+							<div class="row" style="color:#fff;margin: 0;">
+                                <div class="header-div col-lg-9">
+									<h5 class="header-title-page">Real double link detection</h5>
+									<p class="header-text-paragraph">Links with the same merchant, game id, buy url, edition and region</p>
+								</div>
+                                <div class="col-lg-3" style="padding-bottom:20px;">
+                                    <div class="dropdown-website">
+                                        <div class="selected-website">
+                                            <span class="selected-data"><input id="website-btn" class="website-btn" type="button" value="AKS"></span>
+                                            <span class="position-icon-1"><i class="fas fa-caret-down" ></i></span>
+                                        </div>
+                                        <ul class="website-menu" style="display:none;">
+                                            <li class='website-items' data-website="aks">AKS</li>
+                                            <li class='website-items' data-website="cdd">CDD</li>
+                                            <li class='website-items' data-website="brexitgbp">BREXITGBP</li>
+                                        </ul>
+                                    </div>
+                                </div>
 							</div>
-						</div>
+                        </div>
 						<!-- CONTENT STARTS -->
 						<div>
-							<div class="dropdown-box dbox-hide" style="padding-bottom: 5px;">
- 								<div class="dropdown-div" style="width: 150px;">
-									 <!-- <div class="select custom-bkgd">
-						                <span class="selected-data change-site">Website</span>
-						                <span class="float-right"><i class="fas fa-caret-down"></i></span>
-						            </div> -->
-									<!-- <ul class="dropdown-menu cos-dropdown-menu slc-options">
-										<li class="opt-site-rdb" data-website="aks">AKS</li>
-										<li class="opt-site-rdb" data-website="cdd">CDD</li>
-										<li class="opt-site-rdb" data-website="brexitgbp">BREXITGBP</li>
-				                    </ul> -->
-								</div>
-								<div class="float-right">
-									<input style="color:#fff;" type="button" name="" class="m-d col-xs-3 btn custom-bkgd-1" id="btn-getchksumreports" value="Delete Selected">
-								</div>
+							<div class="float-right mb-4">
+								<input style="color:#fff;" type="button" name="" class="btn-delete btn custom-bkgd-1" id="btn-getchksumreports" value="Delete Selected">
 							</div>
-								<div class="col-xs-12 div-body-table" id="div-DBL-body">
-									<table id="table-real-double-link" class="display" width="100%" style="font-size: 12px;">
-									
-									</table>
-								</div>
+							<div class="col-lg-12 div-body-table" id="real-double">
+								<table id="table-real-double-link" class="display" width="100%" style="font-size: 12px;">
+								
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>

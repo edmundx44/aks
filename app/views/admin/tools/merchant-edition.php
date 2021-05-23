@@ -2,6 +2,10 @@
 <?php $this->start('head'); ?>
 <link rel="stylesheet" href="<?=PROOT?>vendors/css/utilities-page.css" media="screen" title="no title" charset="utf-8">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.12.0/underscore-min.js"></script>
+<link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" >
+<link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
 <script type="text/javascript">
     var $url = url+'tools/merchantEdition';
     var $dataReq = {
@@ -26,11 +30,11 @@
 				AjaxCall($url, $dataReq).done( ajaxSuccess );
 			}
 		}
-        $(document).on('click', '.website-menu', function(){ $(this).find('.dropdown-website').slideToggle(200); });
+
         $(document).on('click', '.website-items', function(){
             $('#merchant-edition').empty();
-            $('.input-search-merchant').val('');
-            $('.input-search-edition').val('');
+            $('.input-search-merchant, .input-search-edition').val('');
+            $dataReq.merchant = '0',$dataReq.edition = '0';
             var indexInput = $(this).parent().prevObject.index(); //get the index of li
 			if($(this).parent()[0].children.length == 3 ){
 				site = (indexInput == 0 ) ? inputsSite[0].site : (indexInput == 1 ) ? inputsSite[1].site : (indexInput == 2 ) ? inputsSite[2].site : '';
@@ -112,50 +116,50 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 mtop-35px">
             <div class="card card-style">
-                <div class="card-body rdl-card-main-wrap no-padding">
+                <div class="card-body no-padding">
                     <!-- HEADER STARTS row-4-card-div-overflow-style-->
 						<div class="card-div-overflow-style aks_bg_color" style="position:relative; padding-top:20px;">
 							<div class="row" style="color:#fff;margin: 0;">
-								<div class="div-topheader-1 col-lg-9">
-									<h5 style="display: inline-block; margin-right: 10px;">Merchant Edition Check</h5>
-									<p style="font-size:12px;font-weight: 500;">Check using Merchant and Edition</p>
+                                <div class="header-div col-lg-9">
+									<h5 class="header-title-page">Merchant Edition Check</h5>
+									<p class="header-text-paragraph">Check using Merchant and Edition</p>
 								</div>
-                                <div class="website-menu col-lg-3">
-                                    <div class="website-btn-div website-card-style">
-                                        <input id="website-btn" class="website-btn" type="button" value="AKS">
+                                <div class="col-lg-3" style="padding-bottom:20px;">
+                                    <div class="dropdown-website">
+                                        <div class="selected-website">
+                                            <span class="selected-data"><input id="website-btn" class="website-btn" type="button" value="AKS"></span>
+                                            <span class="position-icon-1"><i class="fas fa-caret-down" ></i></span>
+                                        </div>
+                                        <ul class="website-menu" style="display:none;">
+                                            <li class='website-items' data-website="aks">AKS</li>
+                                            <li class='website-items' data-website="cdd">CDD</li>
+                                            <li class='website-items' data-website="brexitgbp">BREXITGBP</li>
+                                        </ul>
                                     </div>
-                                    <ul class="dropdown-website">
-                                        <li class="website-items" data-gsite="aks">AKS</li>
-                                        <li class="website-items" data-gsite="cdd">CDD</li>
-                                        <li class="website-items" data-gsite="brexitgbp">BREXITGBP</li>
-                                    </ul>
                                 </div>
-                                
 							</div>
-						</div >
+                        </div>
                     <!-- CONTENT STARTS -->
 						<div>
                             <div class="dropdown-box dbox-hide" style="padding-bottom: 5px;">
- 								<div class="dropdown-div option-click div-0" data-toggle="Merchant">
-									<!-- in custom.js  OptionSite(inputs,className,classParent,bgColor) -->
-									<div class="select div-aks-bgcolor-2" data-content="Merchant">
-										<!-- <span class="selected-data change-site">Merchant</span> -->
-                                        <span><input type="text" class="input-search-merchant form-control" data-search="search" placeholder="Merchant"></span>
+ 								<div class="dropdown-merchant-me option-click div-0 col col-md-3 no-padding" data-toggle="Merchant">
+									<div class="selected-merchant-me div-aks-bgcolor-2" data-content="Merchant" style="padding:1px">
+                                        <span class="selected-merchant"><input type="text" class="input-search-merchant form-control" data-search="search" placeholder="Merchant"></span>
 										<span class="icon-select"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
 									</div>
-									<ul class="dropdown-menu option-menu-click cos-dropdown-menu searchable-ul">
+									<ul class="merchant-menu-me option-menu-click searchable-ul">
                                         <li class='li-store' data-merId="0" data-name="Default">Default</li>
                                         <?php foreach ($this->dataMerchant as $key => $value): ?>     
                                             <li class='li-store' data-merId="<?= trim($key) ?>" data-name="<?= $value ?>"><?="$value $key" ?></li>
                                         <?php endforeach; ?>
 									</ul>
 								</div>
-								<div class="dropdown-div option-click-1 div-1" data-toggle="Edition">
-									<div class="select div-aks-bgcolor-2" data-content="Edition">
-                                        <span><input type="text" class="input-search-edition form-control" data-search="search" placeholder="Edition"></span>
-										<span class="icon-select"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+								<div class="dropdown-edition-me option-click-1 col col-md-3 no-padding" data-toggle="Edition">
+									<div class="selected-edition-me div-aks-bgcolor-2" data-content="Edition" style="padding:1px">
+                                        <span class="selected-edition"><input type="text" class="input-search-edition form-control" data-search="search" placeholder="Edition"></span>
+										<span class="icon-select"><i class="fas fa-caret-down" aria-hidden="true"></i></span>
 									</div>
-									<ul class="dropdown-menu option-menu-click-1 cos-dropdown-menu searchable-ul">
+									<ul class="edition-menu-me option-menu-click-1 searchable-ul">
                                         <li class='li-edition' data-ediId='0' data-name="Default">Default</li>
                                         <li class='li-edition' data-ediId='1' data-name="Standard">1-Standard</li>
 										<li class='li-edition' data-ediId='16' data-name="16-DLC">16-DLC</li>
@@ -194,8 +198,11 @@
         padding: 4px 10px 4px 10px;
     }
     .me-text{
-        background-color: #286026;
-        color: #fff;
+        /* background-color: #286026;*/  /*green*/
+        background-color:#f3f3f3;
+        color: #6b6d70;
+        border-radius:5px;
+        font-weight:500;
         width: 70px;
         display: inline-block;
         margin-right: 5px;
@@ -214,23 +221,9 @@
     .me-res{
         font-weight:500;
     }
-    .dropdown-div{
-        width:250px;
-    }
-    .div-1{
-        margin-left:10px;
-        width:400px;
-    }
     .input-search{
         outline:none;
         border:none;
-    }
-    .dropdown-div{
-        border-radius: 5px !important;
-    }
-    .dropdown-div .select{
-        padding:3px;
-        border-radius: 4px;
     }
     .icon-select{
         position: absolute;
@@ -249,6 +242,9 @@
     }
     .card-style{
         box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.40) !important;
+    }
+    .icon-select{
+        top:8px;
     }
 </style>
 <?php $this->end()?>

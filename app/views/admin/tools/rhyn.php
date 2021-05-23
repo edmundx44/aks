@@ -25,15 +25,18 @@
 									<h5 style="display: inline-block; margin-right: 10px;">Rhyn Tool</h5>
 									<p style="font-size:12px;font-weight: 500;">Check using by users</p>
 								</div>
-                                <div class="website-menu col-lg-3">
-                                    <div class="website-btn-div website-card-style">
-                                        <input id="website-btn" class="website-btn" type="button" value="AKS">
+                                <div class="col-lg-3" style="padding-bottom:20px;">
+                                    <div class="dropdown-website">
+                                        <div class="selected-website">
+                                            <span class="selected-data"><input id="website-btn" class="website-btn" type="button" value="AKS"></span>
+                                            <span class="position-icon-1"><i class="fas fa-caret-down" ></i></span>
+                                        </div>
+                                        <ul class="website-menu" style="display:none;">
+                                            <li class='website-items' data-website="aks">AKS</li>
+                                            <li class='website-items' data-website="cdd">CDD</li>
+                                            <li class='website-items' data-website="brexitgbp">BREXITGBP</li>
+                                        </ul>
                                     </div>
-                                    <ul class="dropdown-website">
-                                        <li class="website-items" data-gsite="aks">AKS</li>
-                                        <li class="website-items" data-gsite="cdd">CDD</li>
-                                        <li class="website-items" data-gsite="brexitgbp">BREXITGBP</li>
-                                    </ul>
                                 </div>
                                 
 							</div>

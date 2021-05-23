@@ -63,6 +63,8 @@ $(document).ready(function(){
 	// var url      = window.location.href; 
 	// localStorage.clear();
 
+	$(document).on('click', '.dropdown-website', function(){ $(this).find('.website-menu').slideToggle(200); });
+	
 	$(document).keydown(function(event){
 		
 

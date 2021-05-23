@@ -807,3 +807,12 @@ body {
     background-color: #d9534f;
     border-color: #d43f3a;
 }
+.clear{
+	clear: both;
+}
+.clear-l{
+	clear: left;
+}
+.clear-r{
+	clear: right;
+}

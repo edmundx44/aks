@@ -4,15 +4,17 @@
     "Real Double" : "utilities/realDouble",
     "Affiliate Check" : "utilities/affiliateCheck",
     "Suspicious Double" : "utilities/suspiciousDouble",
-    "Metacritics Double" : "utilities/metacriticsDouble"
+    "Metacritics Double" : "utilities/metacriticsDouble",
+    "Metacritics Rating" : "utilities/metacriticsErrorRating"
   },
   "Reports" : "reports",
   "Store" : "store",
   "Tools" : {
-    "Merchant Edition" : "tools/merchantEdition",
     "Price Check" : "tools/priceCheck",
-    "Rhyn" : "tools/rhyn",
-    "Romain" : "tools/romain"
+    "Romain" : "tools/romain",
+    "Disabled Store": "tools/disabledStore",
+    "Merchant Edition" : "tools/merchantEdition",
+    "Rhyn" : "tools/rhyn"
   },
   "Logout" : "user/logout"
 }

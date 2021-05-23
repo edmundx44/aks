@@ -65,6 +65,13 @@ class UtilitiesController extends Controller {
 		$this->view->render('admin/utilities/metacritics-double-links');
 	}
 
+	public function metacriticsErrorRatingAction($queryParameters = false){
+		self::ajaxFunction();
+		$this->view->pageTitle = 'Metacritics Error Ratings';
+		$this->view->render('admin/utilities/metacritics-error-rating');
+
+	}
+
 	public function ajaxFunction(){
 		if($this->request->isPost('action')){
 			$ajaxResult = Ajax::ajaxData($this->request->get('action'));

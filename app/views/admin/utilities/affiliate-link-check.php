@@ -21,7 +21,7 @@
 
 	$(function(){
 		//rendered on first load
-		$('.dropdown-div').html(OptionSite(inputsSite,'opt-site-alc','slc-options','custom-bkgd')); //OptionSite na a sa custom.js
+		//$('.dropdown-div').html(OptionSite(inputsSite,'opt-site-alc','slc-options','custom-bkgd')); //OptionSite na a sa custom.js
 
 		if(sessionStorageCheck()){
 			$('.change-site').text('LOADING...');
@@ -38,19 +38,10 @@
 			}
 		}
 
-		//FOR DROP DOWN SELECT ANIMATION // na na ni sa index.php sa dashboards
-		$('.dropdown-div').click(function () {
-			$(this).find('.dropdown-menu').slideToggle(200);
-		});
-		$('.dropdown-div').focusout(function () {
-			$(this).find('.dropdown-menu').slideUp(200);
-		});
-
-		$(document).on('click', '.opt-site-alc', function(){
-			$('.dropdown-div').html(OptionSite(inputsSite,'opt-site-alc','slc-options','custom-bkgd')); //OptionSite na a sa custom.js
-			$('.change-site').text('LOADING...');
+		$(document).on('click', '.website-items', function(){
+			$('.website-btn').val('Loading');
 			var indexInput = $(this).parent().prevObject.index(); //get the index of li
-			if($(this).parent()[0].childNodes.length == 3 ){
+			if($(this).parent()[0].children.length == 3 ){
 				site = (indexInput == 0 ) ? inputsSite[0].site : (indexInput == 1 ) ? inputsSite[1].site : (indexInput == 2 ) ? inputsSite[2].site : '';
 				var $data = { 'site': site, 'path': $url }
 				if(sessionStorageCheck()){ setStorage('sessionStorage','OptionSite',JSON.stringify($data)) } //store
@@ -80,7 +71,7 @@
 		});
 		//search 
 		$(document).on('keyup','.input-site',function(e) {
-			var typo = $(this).val();  //or var value = $(this).val().toLowerCase(); // in if $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+			var typo = regExpEscape($(this).val());  //or var value = $(this).val().toLowerCase(); // in if $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 			//for earch the div that having names class
 			$('.search .store .names').each(function(){ 
 	         	var $this = $(this);//console.log($this.text());
@@ -292,7 +283,7 @@
 		    		app2 += "</div>";
 		    	$('.result-with-affiliate').append(app2);	
 		    }
-			$('.change-site').text(RSite.toUpperCase());
+			$('.website-btn').val(RSite.toUpperCase());
 			$('.total-error-aff').html('<b class="">&nbsp;TOTAL '+data.success.totalError+'</b>');
 			globalSite = RSite;
 		}else{
@@ -331,36 +322,7 @@
 	/* .div-topheader{ display:flex; }
 	.div-topheader-1{ width:100%; }
 	.div-topheader-2{ width:10%; } */
-	.TU-btns{
-		text-align:center;
-	}
-	.TU-btns input[type=button]{ 
-		font-size: 14px !important;
-		padding: 2px 10px 2px 10px;
-		background-color: #fff;
-		color: #3f51b5; 
-		margin-right: 8px;
-		letter-spacing: 2px;
-		font-weight: bold;
-		border-color: #0062cc;
-		border-radius: 15px;
-		line-height: 1.8;
-	}
-	.bur-sm-btn input[type=button],
-	.store input[type=button]{ 
-		padding: 2px 6px 2px 6px;
-		background-color: #5bc0de;
-		color: #fff; 
-		margin-right: 8px;
-		letter-spacing: 1.5px;
-		font-weight: bold;
-		border-color: #50b7c8;
-		font-size: 12px;
-	}
-	.TU-btns input[type=button]:hover{
-		background-color:#0062cc;
-		color: #fff !important; 
-	}
+	
 	.act-tu-btn{
 		color: #fff !important;
 		background-color: #0062cc !important; 
@@ -373,22 +335,6 @@
 	}
 	.div-pages{ text-align:center; }
 	/* Affiliate design area here -----------------------------------------------------------------------------------*/
-	.alert-v2{
-		padding: 15px;
-		margin-bottom: 20px;
-		border: 1px solid transparent;
-		border-radius: 4px;
-	}
-	.alert-success-v2 {
-		color: #3c763d;
-		background-color: #dff0d8;
-		border-color: #d6e9c6;
-	}
-	.alert-warning-v2 {
-		color: #8a6d3b;
-		background-color: #fcf8e3;
-		border-color: #faebcc;
-	}
 	.err-link-display-aflc{
 		padding: 5px 15px 0 15px;
 	}
@@ -434,47 +380,58 @@
 		<div class="row">
 			<div class="col-lg-12 col-md-12 mtop-35px">
 				<div class="card card-style">
-					<div class="card-body rdl-card-main-wrap no-padding">
+					<div class="card-body no-padding">
 						<!-- HEADER STARTS -->
-						<div class="card-div-overflow-style row-4-card-div-overflow-style row-4-card-div-overflow-style-2" style ="padding-bottom:20px;">
-							<div class="div-topheader" style="padding-top: 20px; padding-left: 10px; color: white;">
-								<div class="div-topheader-1">
-									<h5 style="display: inline-block; margin-right: 10px;">Affiliate Links</h5>
-									<p style="font-size:12px;font-weight: 500;">Checks the affiliate of the <b class="p-text"><?= $this->text; ?></b> on every merchant</p>
+						<div class="card-div-overflow-style row-4-card-div-overflow-style-2" style="position:relative; padding-top:20px;">
+							<div class="row" style="color:#fff;margin: 0;">
+								<div class="header-div col-lg-9">
+									<h5 class="header-title-page">Affiliate Links</h5>
+									<p class="header-text-paragraph">Checks the affiliate of the <b class="p-text"><?= $this->text; ?></b> on every merchant</p>
 								</div>
+                                <div class="div-dropdown-website col-lg-3" style="padding-bottom:20px;">
+                                    <div class="dropdown-website">
+                                        <div class="selected-website">
+                                            <span class="selected-data"><input id="website-btn" class="website-btn" type="button" value="AKS"></span>
+                                            <span class="position-icon-1"><i class="fas fa-caret-down"></i></span>
+                                        </div>
+                                        <ul class="website-menu" style="display:none;">
+                                            <li class='website-items' data-website="aks">AKS</li>
+                                            <li class='website-items' data-website="cdd">CDD</li>
+                                            <li class='website-items' data-website="brexitgbp">BREXITGBP</li>
+                                        </ul>
+                                    </div>
+                                </div>
 							</div>
-						</div >
+                        </div>
 						<!-- CONTENT STARTS -->
-						<div>
-							<div class="dropdown-box dbox-hide" style="padding-bottom: 5px;">
- 								<div class="dropdown-div" style="width: 150px;">
-
-								</div>
-								<div class="float-right div-errors-alc" style="display:none;">
-									<input style="color:#fff; background:transparent" type="button" name="" data-old-val="Reset" class="m-d col-xs-3 btn btn-delete" id="filterd-btn" value="Show Errors">
-									<span class="total-error-aff text-white"></span>
-								</div>
-							</div>
-							<div class="TU-btns">
-									<!-- <i class="fa fa-hand-o-right" aria-hidden="true"></i> -->
+						<div class="row">
+							<div class="col-lg-10 mb-4">
+								<div class="TU-btns">
 									<input id="btn-bu" class="btn <?= ($this->getPost == 'buy_url') ? 'act-tu-btn':'';?>" type="button" name="buy_url" value="BUY URL">
 									<input id="btn-bu" class="btn <?= ($this->getPost == 'buy_url_raw') ? 'act-tu-btn':'';?>" type="button" name="buy_url_raw" value="BUY URL RAW">
 								</div>
-							<div class="mt-4 div-search-alc" style="display:none; margin-bottom: 10px;">
-								<div class="form-group has-feedback has-search">
-									<span class="glyphicon glyphicon-search form-control-feedback"></span>
-									<input type="text" class="form-control input-site " placeholder="Search Store" value="">
-								</div>
-
 							</div>
-							<div class="col-xs-12 div-body-table mt-4" id="div-no-affiliate-link-body">
-								<div class="div-pages div-error col-sm-12">
-								
+							<div class="col-lg-2 mb-4">
+								<div class="div-errors-alc" style="display:block;">
+									<input type="button" name="" data-old-val="Reset" class="btn btn-delete alc-error-style" id="filterd-btn" value="Show Errors">
+									<span class="total-error-aff text-white"></span>
 								</div>
-								<div class="col-sm-12 no-padding result-no-affiliate search">
+							</div>
+							<div class="col-lg-12">
+								<div class="div-search-alc col-12 no-padding mb-2" style="display:none; margin-bottom: 10px;">
+									<div class="form-group has-feedback has-search">
+										<span class="glyphicon glyphicon-search form-control-feedback"></span>
+										<input type="text" class="form-control input-site " placeholder="Search Store" value="">
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-lg-12 div-body-table mb-2" id="div-no-affiliate-link-body">
+
+								<div class="col-lg-12 no-padding result-no-affiliate search">
 									
 								</div>
-								<div class="col-sm-12 no-padding result-with-affiliate search">
+								<div class="col-lg-12 no-padding result-with-affiliate search">
 									
 								</div>
 							</div>
@@ -487,9 +444,14 @@
 	</div>
 	<style>
 		.div-errors-alc{
-			padding: 4px 8px 4px 8px;
 			background-color: #b94749;
 			border-radius:5px;
+		}
+		.alc-error-style{
+			color:#fff; 
+			background:transparent;
+			padding:0 8px 0 8px;
+			margin-left:4px;
 		}
 	</style>
 <?php $this->end()?> 
