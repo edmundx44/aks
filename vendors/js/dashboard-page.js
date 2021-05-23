@@ -15,7 +15,6 @@
 	
 
 	$(function(){
-		initChecksumChart(lineChart); //initialize checksum chart
 		checkWidthFB(); //it will take effect it its reload
 		callChangelogs()
 
@@ -25,6 +24,8 @@
 			xhr_AjaxCall(url+'dashboard','POST','displayRunAndSuccessAction').done(function(data){ displayRunAndSuccess(data) }),
 			xhr_AjaxCall(url+'dashboard','POST','displayPriceToZeroCountsCounts').done(function(data) { displayPriceToZero(data) }),
 			xhr_getChecksumDisplay(url+'dashboard',timeStampData,$checksumSite).done(function(data) { checksumDone(data); }),
+			initChecksumChart(lineChart), //initialize checksum chart
+			_ajaxFeedBots(url+'dashboard',"POST",'getFailedStores').done(function(data){ _doneFeedBots(data,'getFailedStores'); $('.dbox-content').css({'height':'80%'}) }),
 			displayReport('menu-snapshot', 'AKS'), 
 			displayReport('menu-dbfeed', 'AKS'),
 			displayReport('menu-disabled', 'Store'),
@@ -66,6 +67,7 @@
 				break;
 			}
 		});
+		//append the button filtered
 		$(document).on('click', '.input-btn-freports', function(){
 			var $this = $(this);
 			sfcReportsBtnFiltered($this,'freports','f-title');
@@ -147,6 +149,9 @@
 			$('.m-feedboot-opt-li').removeClass('active-tab-1');
 			$(this).addClass('active-tab-1');
 
+			$('.clk-options').removeClass('active-tab'); //add active class also if in mobile view
+			$('#'+$(this).attr('id').replace('-m','')).addClass('active-tab')
+
 			switch($(this).attr('data-m-tab')){
 				case 'm-chksum':
 					$('.dbox-content').css({'height':'70%'})
@@ -178,6 +183,9 @@
 			$('.'+$(this).attr('id')).show();	
 			$('.clk-options').removeClass('active-tab');
 			$('#'+$(this).attr('id')).addClass('active-tab');
+
+			$('.m-feedboot-opt-li').removeClass('active-tab-1'); //add active class also if in mobile view
+			$('#'+$(this).attr('id')+'-m').addClass('active-tab-1');
 
 			if($(this).attr('id') != 'checksum-chart'){
 				$('.dbox-content').css({'height':'80%'})
@@ -790,7 +798,6 @@
 				what: $what
 			}
 		addPointerEvents($what)
-		console.log($what)
 		AjaxCall(url+'dashboard', dataRequest).done(function(data) {
 			switch(data.to){
 				case 'Store':
@@ -932,7 +939,7 @@
 	}
 
 
-	function checkWidthFB(){
+	function checkWidthFB(){		
 		if ($('.check-width').width() < 488) {
 			$('.pc-fb-opt').hide();
 			$('.m-fb-opt').show();
@@ -1112,7 +1119,7 @@
 		}
 
 function callChangelogs(){
-	$('.change-log-div').empty();
+	$('.ccd-con-wrapper').empty();
 
 	var dataRequest =  { 
 		action: 'displayAddChangeLogAction',
@@ -1122,33 +1129,25 @@ function callChangelogs(){
 			var matches = data[i].inputMessage.match(/\n/g);
 
 			if(matches){
-				var txt = data[i].inputMessage.split("\n")
-				var appendDate =  "<div class='addChanglog-header'>";
-					appendDate += "<div class='addlog-header-name'>" + data[i].inputAuthor.charAt(0).toUpperCase() + data[i].inputAuthor.slice(1) + "</div>";
-					appendDate += "<div class='addlog-header-date'>" + data[i].inputDate + "</div>";
-					appendDate += "</div>";
-				$(".change-log-div").append(appendDate);
+				var txt = data[i].inputMessage.split("\n");
 
-				$.each(txt, function(t){
-					if(txt[t] != ''){
-						var append = "<li style='margin-top:5px;'>" + txt[t] + "." + "</li>";
-						$(".change-log-div").append(append);
-					}
-				});
-
-				var appendHr =  "<div class='addChanglog-line-bottom'></div>";
-				$(".change-log-div").append(appendHr);
+				var appendDate = '<div class="changelog-content-div">';
+					appendDate += '<p class="ccd-header"><i class="fas fa-user-tie ccd-icon"></i> <span class="ccd-name">'+ data[i].inputAuthor.charAt(0).toUpperCase() + data[i].inputAuthor.slice(1) +'</span></p>';
+					appendDate += '<p class="ccd-date" style="padding-bottom: 20px;">'+ data[i].inputDate +'</p>';
+					$.each(txt, function(t){
+						if(txt[t] != ''){
+							appendDate += '<p style="margin: 0 0 0 20px;" class="cdd-txt"><i class="fas fa-circle" style="font-size: 5px;top: -2px;position: relative;"></i> '+ txt[t] +'</p>'; 
+						}
+					});	
+					$(".ccd-con-wrapper").append(appendDate);
 			}else{
-				var append =  "<div class='addChanglog-header'>";
-					append += "<div class='addlog-header-name'>" + data[i].inputAuthor.charAt(0).toUpperCase() + data[i].inputAuthor.slice(1) + "</div>";
-					append += "<div class='addlog-header-date'>" + data[i].inputDate + "</div>";
-					append += "</div>";
-					append += "<li style='margin-top:5px;'>" + data[i].inputMessage + "." + "</li>";
-					append += "<div class='addChanglog-line-bottom'></div>";
-				$(".change-log-div").append(append);
+				var appendDate = '<div class="changelog-content-div">';
+					appendDate += '<p class="ccd-header"><i class="fas fa-user-tie ccd-icon"></i> <span class="ccd-name">'+ data[i].inputAuthor.charAt(0).toUpperCase() + data[i].inputAuthor.slice(1) +'</span></p>';
+					appendDate += '<p class="ccd-date" style="padding-bottom: 20px;">'+ data[i].inputDate +'</p>';
+					appendDate += '<p style="margin: 0 0 0 20px;" class="cdd-txt"><i class="fas fa-circle" style="font-size: 5px;top: -2px;position: relative;"></i> '+ data[i].inputMessage  +'</p>'; 
+					
+					$(".ccd-con-wrapper").append(appendDate);
 			}
 		}				
-	}).always(function(){ 
-		$('.change-log-div .addChanglog-line-bottom:nth-last-child(1)').remove();
-	});
+	}).always(function(){});
 }

@@ -35,6 +35,32 @@
 		padding: 9px;
 		position: relative;
 	}
+	.changelog-content-div {
+		padding: 10px 0 10px 0;
+		margin-bottom: 10px;
+		border-radius: 5px;
+		width: 99%;
+		box-shadow: inset 0px 0px 15px 2px rgb(107 109 112 / 24%);
+	}
+	.ccd-header {
+		margin: 0 0 0 20px;
+		color: #ffa726;
+	}
+	.ccd-icon {
+		font-size: 13px;
+	}
+	.ccd-name {
+		font-size: 15px;
+		position: relative;
+		top: 1px;
+		font-weight: 500;
+		letter-spacing: 1px;
+	}
+	.ccd-date {
+		margin: -2px 0 0 20px;
+		font-size: 12px;
+		color: #ffa726;
+	}
 </style>
 <?php $this->end(); ?>
 
@@ -282,14 +308,20 @@
 						<p class="float-left text-white" style="letter-spacing: 1px;font-weight: 500;top: 30px;position: relative;">CHANGELOGS</p>
 						<button class="float-right btn btn-warning text-white btn-show-add-log-modal" style="top: 23px;position: relative;" data-toggle="modal" data-target="#show-add-log-modal"><i class="fas fa-plus-square"></i> &nbsp; Create</button>
 					</div>
-					<div class="scrollbar-custom" style="height: 405px;overflow-x: scroll;overflow-x: hidden;">
-						<ul class="change-log-div">
-                        	
-						</ul>
+					<div class="scrollbar-custom ccd-con-wrapper" style="height: 405px;overflow-x: scroll;overflow-x: hidden;">
+						<!-- <div class="changelog-content-div">
+							<p class="ccd-header"><i class="fas fa-user-tie ccd-icon"></i> <span class="ccd-name">Paulfiox</span></p>
+							<p class="ccd-date">02/20/2323</p>
+						</div> -->
+						
+						<!-- <ul class="change-log-div">
+							
+						</ul> -->
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<div class="col-lg-6 col-md-12 mtop-50px">
 			<div class="card card-style card-normalmode">
 				<div class="card-body no-padding row-4-card-body"> 
@@ -300,24 +332,25 @@
 								<i class="fas fa-sliders-h float-left card-body-div-fb" data-what="menu-feedbots"></i>
 								<li class="fb-opt-1">FEED BOTS</li>
 							</ul>
+							<!-- Mobile view this will be the display-->
 							<div class="card-body-menu-div-fbots menu-feedbots" style="color: #6b6d70 !important;">
 								<ul class="card-body-menu-div-ul">
-									<li class="m-feedboot-opt-li active-tab-1" data-m-tab="m-chksum"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Checksum</span></li>
-									<li class="m-feedboot-opt-li" data-m-tab="m-sStore" data-feedbots="getSuccessStores"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Success</span></li>
-									<li class="m-feedboot-opt-li" data-m-tab="m-fStore" data-feedbots="getFailedStores"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Fail</span></li>
-									<li class="m-feedboot-opt-li" data-m-tab="m-scStorem" data-feedbots="getServerChargeStore"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Server Charge</span></li>
+									<li id="checksum-chart-m" class="m-feedboot-opt-li" data-m-tab="m-chksum"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Checksum</span></li>
+									<li id="feed-success-m" class="m-feedboot-opt-li" data-m-tab="m-sStore" data-feedbots="getSuccessStores"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Success</span></li>
+									<li id="feed-failed-m" class="m-feedboot-opt-li active-tab-1" data-m-tab="m-fStore" data-feedbots="getFailedStores"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Fail</span></li>
+									<li id="feed-servercharge-m" class="m-feedboot-opt-li" data-m-tab="m-scStorem" data-feedbots="getServerChargeStore"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Server Charge</span></li>
 								</ul>
 							</div>
 							<ul class="ul-tab-option pc-fb-opt" style="display: none; margin-top: 2px;">
 								<li>FEED BOTS: </li>
-								<li class="feedbots-opt clk-options li-tab-option active-tab" id="checksum-chart"><span>Checksum</span></li>
+								<li class="feedbots-opt clk-options li-tab-option" id="checksum-chart"><span>Checksum</span></li>
 								<li data-feedbots="getSuccessStores" class="feedbots-opt clk-options li-tab-option" id="feed-success"><span>Success</span></li>
-								<li data-feedbots="getFailedStores" class="feedbots-opt clk-options li-tab-option" id="feed-failed"><span>Fail</span></li>
+								<li data-feedbots="getFailedStores" class="feedbots-opt clk-options li-tab-option active-tab" id="feed-failed"><span>Fail</span></li>
 								<li data-feedbots="getServerChargeStore" class="feedbots-opt clk-options li-tab-option" id="feed-servercharge"><span>Server Charge</span></li>
 							</ul>
 						</div>
 					</div>
-						<div class="dropdown-box dbox-hide" style="padding-bottom: 5px;">
+						<div class="dropdown-box dbox-hide" style="padding-bottom: 5px; display:none;"><!-- display none first-->
 							<div class="dropdown-div" style="width: 150px;">
 								<div class="select custom-bkgd">
 					                <span class="selected-data change-site">Website</span>
@@ -334,7 +367,7 @@
 							</div>
 						</div>
 					<div class="card-style dbox-content" style="height: 70%; padding: 5px;">
-						<div class="checksum-chart content-hide" style="height: 100%;">
+						<div class="checksum-chart content-hide" style="height: 100%; display:none;">
 							<canvas id="checksum-4" class="checksum-canvas"></canvas>
 						</div>
 						<div id="feed-success-append" class="feed-success content-hide" style="height: 100%; overflow-y: auto; display: none;">
@@ -351,7 +384,7 @@
 							</div>
 
 						</div>
-						<div id="feed-failed-append" class="feed-failed content-hide scrollbar-custom" style="height: 100%; overflow-y: auto; display: none;">
+						<div id="feed-failed-append" class="feed-failed content-hide scrollbar-custom" style="height: 100%; overflow-y: auto;"> <!-- display:none;-->
 							<div><h5 class="text-center mt-2 text-primary" style="font-weight:500; letter-spacing:1.5px;"><span class="f-title"></span>FAILED STORES (4 HOURS)</h5></div>
 
 							<div class="col-sm-12 f-buttons" style="display: none;">
