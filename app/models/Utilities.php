@@ -282,6 +282,28 @@ class Utilities{
         return $returnResults;
 	}
 
+	public function metacriticsErrorRating(){
+		$sql = "SELECT `userid`,`url`,`game_id`,`normalised_name`,`rating_type`,`critics_score`,`users_rating_score`,`id`
+                FROM `metacritic`.`statistics` 
+             	WHERE (critics_score > 10 OR users_rating_score > 10) 
+                ORDER BY id DESC";
+        return $this->_db->query($sql);
+	}
+
+	public function AjaxMetacriticsDblLinks($getCritisStore){
+		if($getCritisStore == 'Default'){
+            $sql = "SELECT `game_id`,`normalised_name`,`rating_type`,`game_type`,`country`, COUNT(*) AS occurs ,`id`, `date_added`, `userid`,`url`
+                FROM `metacritic`.`statistics` GROUP BY `game_id`,`normalised_name`,`rating_type`,`game_type`,`country` 
+                HAVING occurs > 1 ORDER BY id DESC";
+            }else{
+                $sql = "SELECT `game_id`,`normalised_name`,`rating_type`,`game_type`,`country`, COUNT(*) AS occurs ,`id`, `date_added`, `userid`,`url`
+                    FROM `metacritic`.`statistics` WHERE game_id = '$getCritisStore'
+                    GROUP BY `game_id`,`normalised_name`,`rating_type`,`game_type`,`country` 
+                    HAVING occurs > 1 ORDER BY id DESC";   
+            }
+    	return $returnResults = $this->_db->query($sql);
+	}
+
     public static function getMetacriticsNumberOfLinks($db,$id){
         $sql = "SELECT count(*) as count FROM `metacritic`.`statistics` WHERE `game_id` = $id";
         return $db->query($sql)->first();

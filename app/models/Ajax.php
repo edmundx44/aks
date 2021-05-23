@@ -918,6 +918,56 @@ class Ajax {
 				return $returnArrayData;
 			break;
 
+			case 'metacriticsErrorRating':
+				$utilities = new Utilities;
+				return $utilities->metacriticsErrorRating()->results();
+			break;
+			
+			case 'AjaxMetacriticsDblLinks':
+				$utilities = new Utilities;
+				$getCritisStore = $getInput->get('criticStore');
+				$arrayMetacritics=[
+                '27' => 'Steam Metacritic', '25' => 'Amazon Metacritics', 
+                '21' => 'Meristation', '8' => 'Metacritics','4' => 'Jeuxvideo',
+                '1'  => 'Gamekult',   '17' => 'Everyeye',   '9' => 'Gamespot',
+                '15' => 'PC Games',   '24' => '24', '26' => '26'];
+				$newDataResult = array();
+				if($getCritisStore == 'Default'){
+					$arrayFinal = $utilities->AjaxMetacriticsDblLinks($getCritisStore)->results();
+				}else{
+					if(array_key_exists($getCritisStore, $arrayMetacritics)){
+						$arrayFinal = $utilities->AjaxMetacriticsDblLinks($getCritisStore)->results();
+					}else{
+						return "Invalid Information";
+					}
+				}
+				if(!empty($arrayFinal)){
+					foreach ($arrayFinal as $result) {
+						if(!empty($result)){
+							$created_time = date('M d Y', strtotime($result->date_added));
+							$url = htmlspecialchars($result->url);
+							if(!array_key_exists($result->game_id, $arrayMetacritics))
+								$merchantData = "Cannot Find Merchant ". $result->game_id;
+							else
+								$merchantData = $arrayMetacritics[$result->game_id];  
+						}
+						$newDataResult[] = array(
+							'id' => $result->id,
+							'game_id' => $result->game_id,
+							'game_idname' => $merchantData,
+							'url' => $url,
+							'country' => $result->country,
+							'userid' => $result->userid,
+							'normalised_name' => $result->normalised_name,
+							'game_type' => $result->game_type,
+							'date_added' => $created_time
+						);
+					}
+				}
+			return $newDataResult;
+
+			break;
+
 			case 'pc-cda-div':
 				$result = array();
 
@@ -1068,11 +1118,26 @@ class Ajax {
 				$sql = "SELECT DATE_FORMAT(`addedDate`, '%Y-%m-%d') FROM `aks_bot_teamph`.`tblWrongAffLink` WHERE DATE_FORMAT(`addedDate`, '%Y-%m-%d') = CURDATE()";
 				return ($db->query($sql)->results())? '11' : '00';
 			break;
-
 			case 'add-wrong-aff-link':
 			    $run = ($getInput->get('toEditId') != '')? $db->update('`aks_bot_teamph`.`tblWrongAffLink`', $getInput->get('toEditId'), ['wrongAffLink' => $getInput->get('wrongAffLink')]) : $db->insert('`aks_bot_teamph`.`tblWrongAffLink`', ['wrongAffLink' => $getInput->get('wrongAffLink')]);
 			break;
+			case 'displayAddChangeLogAction':
+                $sql = "select * from `aks_bot_teamph`.`tblAddChangeLog` order by id desc";
+                return $db->query($sql)->results();
+            break;
+            case 'addChangeLogAction':
 
+                $inputID = $getInput->get('inputID');
+                $inputDate = $getInput->get('inputDate');
+                $inputAuthor =  ucfirst(Users::currentUser()->fname);
+                $inputMessage = $getInput->get('inputMessage');
+
+                $sql = "Insert INTO  `aks_bot_teamph`.`tblAddChangeLog` 
+                ( `inputID`, `inputDate`, `inputAuthor`, `inputMessage`) 
+                VALUES 
+                ( '$inputID', '$inputDate', '$inputAuthor', '$inputMessage')";
+                return $db->query($sql) ?  'success' :  'fail';
+            break;
 		}
 	//END OF FUNCTION AJAXDATA
 	}

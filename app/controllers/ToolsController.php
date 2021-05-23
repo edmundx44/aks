@@ -46,6 +46,12 @@ class ToolsController extends Controller {
 		$this->view->render('admin/tools/romain');
 	}
 
+	public function disabledStoreAction($queryParameters = false){
+		self::ajaxFunction();
+		$this->view->pageTitle = 'Disable Store Tool';
+		$this->view->render('admin/tools/disabled-store');
+	}
+
 	public function ajaxFunction(){
 		if($this->request->isPost('action')){
 			$ajaxResult = Ajax::ajaxData($this->request->get('action'));
