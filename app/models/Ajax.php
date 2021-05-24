@@ -1138,6 +1138,38 @@ class Ajax {
                 ( '$inputID', '$inputDate', '$inputAuthor', '$inputMessage')";
                 return $db->query($sql) ?  'success' :  'fail';
             break;
+
+			case 'fd-display-merchant':
+				$utilities = new Utilities;
+				return $utilities->dataBotAdminMerchant($getInput->get('website'));
+			break;
+
+			case 'fd-get-data':
+				$site = $getInput->get('website');
+				$id =   $getInput->get('id');
+				$utilities = new Utilities;
+				if( in_array( $id ,array_column($utilities->dataBotAdminMerchant($site),'merchant_id')) ){
+					return $utilities->getFeedBotData($site, $id);
+				}else{
+					return "No merchant found";
+				}
+			break;
+			
+			case 'feed-search':
+				$url = trim($getInput->get('link'));
+        		$site = trim($getInput->get('website'));
+        		$id = trim($getInput->get('id'));
+
+				$utilities = new Utilities;
+				$function = $utilities->feedSearchUrl($site,$id);
+				if(!empty($function)){
+					eval($function);
+                	$parseUrl = edit_url($url);
+				}else
+					$parseUrl = '';
+				return $parseUrl;
+			break;
+
 		}
 	//END OF FUNCTION AJAXDATA
 	}

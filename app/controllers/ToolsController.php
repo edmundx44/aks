@@ -52,6 +52,13 @@ class ToolsController extends Controller {
 		$this->view->render('admin/tools/disabled-store');
 	}
 
+	public function feedDataAction($queryParameters = false){
+		self::ajaxFunction();
+
+		$this->view->pageTitle = 'Feed Data';
+		$this->view->render('admin/tools/feed-data');
+	}
+
 	public function ajaxFunction(){
 		if($this->request->isPost('action')){
 			$ajaxResult = Ajax::ajaxData($this->request->get('action'));

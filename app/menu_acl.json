@@ -11,6 +11,7 @@
   "Store" : "store",
   "Tools" : {
     "Price Check" : "tools/priceCheck",
+    "Feed Data" : "tools/feedData",
     "Romain" : "tools/romain",
     "Disabled Store": "tools/disabledStore",
     "Merchant Edition" : "tools/merchantEdition",

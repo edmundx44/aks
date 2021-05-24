@@ -18,6 +18,7 @@
 }
 .dropdown-merchant-me,
 .dropdown-edition-me,
+.dropdown-merchant,
 .dropdown-website {
   width: 100%;
   display: inline-block;
@@ -32,6 +33,7 @@
 }
 .dropdown-merchant-me .selected-merchant-me,
 .dropdown-edition-me .selected-edition-me,
+.dropdown-merchant .selected-merchant,
 .dropdown-website .selected-website {
   cursor: pointer;
   display: block;
@@ -42,6 +44,7 @@
 }
 .dropdown-merchant-me .selected-merchant-me > i,
 .dropdown-edition-me .selected-edition-me > i,
+.dropdown-merchant .selected-merchant > i,
 .dropdown-website .selected-website > i {
   font-size: 13px;
   color: #fff;
@@ -52,16 +55,19 @@
 }
 .dropdown-merchant-me:hover,
 .dropdown-edition-me:hover,
+.dropdown-merchant:hover,
 .dropdown-website:hover {
   box-shadow: 0 0 4px rgb(204, 204, 204);
 }
 .dropdown-merchant-me:active,
 .dropdown-edition-me:active,
+.dropdown-merchant:active,
 .dropdown-website:active {
   background-color: #f8f8f8;
 }
 .dropdown-merchant-me .merchant-menu-me,
 .dropdown-edition-me .edition-menu-me,
+.dropdown-merchant .merchant-menu,
 .dropdown-website .website-menu {
   position: absolute;
   background-color: #fff;
@@ -72,11 +78,12 @@
   border-radius: 5px;
   overflow: hidden;
   display: none;
-  overflow-y: auto;
+  overflow: auto;
   z-index: 9;
 }
 .dropdown-merchant-me .merchant-menu-me li,
 .dropdown-edition-me .edition-menu-me li,
+.dropdown-merchant .merchant-menu li,
 .dropdown-website .website-menu li {
   transition: all 0.2s ease-in-out;
   cursor: pointer;
@@ -89,17 +96,20 @@
 }
 .dropdown-merchant-me .merchant-menu-me,
 .dropdown-edition-me .edition-menu-me,
+.dropdown-merchant .merchant-menu,
 .dropdown-website .website-menu {
   padding: 0;
   list-style: none;
 }
 .dropdown-merchant-me .merchant-menu-me li:hover,
 .dropdown-edition-me .edition-menu-me li:hover,
+.dropdown-merchant .merchant-menu li:hover,
 .dropdown-website .website-menu li:hover {
   background-color: #f2f2f2;
 }
 .dropdown-merchant-me .merchant-menu-me li:active,
 .dropdown-edition-me .edition-menu-me li:active,
+.dropdown-merchant .merchant-menu li:active,
 .dropdown-website .website-menu li:active {
   background-color: #e2e2e2;
 }
