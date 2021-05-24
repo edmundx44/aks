@@ -49,6 +49,7 @@
         $(document).on('click', '.website-items', function(){
 			$('ul.merchant-menu').empty();
 			let $site = $(this).data('website');
+            $('.website-btn').val('Loading...')
 			$dataOpt.website = $site;
 			globalSite = $site;
 			$target = 'fd-select-merchant';
@@ -188,6 +189,7 @@
 			let appendData = addMerchantOption(data[i].merchant_id, $nameText, data[i].merchant_id);
 			$('ul.merchant-menu').append(appendData);
 		}
+        $('.website-btn').val($dataOpt.website.toUpperCase())
         $('.input-search-merchant').attr('placeholder',$dataOpt.website.toUpperCase()+' Merchants' )
     }
 	function addMerchantOption($merchant, $name, $id){
