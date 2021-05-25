@@ -58,7 +58,7 @@ use Core\Session;
           <i class="fas fa-cog settings-icon" style=""></i>
 
           <div class="float-settings-menu">
-            <i class="fas fa-history float-settings-icon" data-toggle="tooltip" title="Activity logs"></i>
+            <a href="/aks/dashboard/activities" style="color: #fff;text-decoration: none;"><i class="fas fa-history float-settings-icon" data-toggle="tooltip" title="Activity logs"></i></a>
           </div>
           <div class="float-settings-menu" id="btn-create-report">
             <i class="fas fa-user-circle float-settings-icon" data-toggle="tooltip" title="Add tooltip title"></i>

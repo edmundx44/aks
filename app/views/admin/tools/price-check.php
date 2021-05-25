@@ -36,13 +36,13 @@
 
 							<table class="col-12">
 								<thead>
-									<tr class="pc-header-tr">
+									<tr class="pc-header-tr" style="border: solid 1px red;">
 										<th class="pc-cda-table-h-sticky pc-th-class">Checker</th>
-										<th class="pc-cda-table-h-sticky pc-th-class" style="width: 100px;">Game ID</th>
+										<th class="pc-cda-table-h-sticky pc-th-class">GameID</th>
 										<th class="pc-cda-table-h-sticky pc-th-class">Game Name</th>
-										<th class="pc-cda-table-h-sticky pc-th-class">Activity</th>
-										<th class="pc-cda-table-h-sticky pc-th-class">Url</th>
-										<th class="pc-cda-table-h-sticky pc-th-class">Date</th>
+										<th class="pc-cda-table-h-sticky pc-th-class hide-on-smmd">Activity</th>
+										<th class="pc-cda-table-h-sticky pc-th-class hide-on-smmd">Url</th>
+										<th class="pc-cda-table-h-sticky pc-th-class hide-on-smmd">Date</th>
 									</tr> 
 								</thead>
 								<tbody class="pc-cda-div-display">

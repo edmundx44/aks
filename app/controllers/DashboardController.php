@@ -22,5 +22,24 @@ class DashboardController extends Controller {
         }
         $this->view->render('admin/dashboard/index');
     }
+    public function activitiesAction() {
+
+        self::ajaxFunction();
+        $this->view->pageTitle = 'Activities';
+        $this->view->render('admin/dashboard/activities');
+    }
+    public function notificationAction() {
+
+        self::ajaxFunction();
+        $this->view->pageTitle = 'Notification';
+        $this->view->render('admin/dashboard/notification');
+    }
+
+    public function ajaxFunction(){
+        if($this->request->isPost('action')){
+            $ajaxResult = Ajax::ajaxData($this->request->get('action'));
+            $this->jsonResponse($ajaxResult);
+        }
+    }
 
 }

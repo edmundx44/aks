@@ -75,6 +75,11 @@ $(document).ready(function(){
 		if((event.which === 68 && event.altKey && event.shiftKey)) {
 			$('.switch-checkbox').trigger('click');
 		} 
+		
+		if((event.which === 81 && event.altKey && event.shiftKey)) {
+			window.location.href = "/aks/dashboard/activities";
+		} 
+		
 	}); 
 
 	$(window).scroll(function(){
@@ -189,7 +194,7 @@ function removeEmptyTitle(){
 function displayIcon(){
 	var iconList = [
 		"fa-chart-pie",
-		"fa-clipboard",
+		// "fa-clipboard",
 		"fa-link",
 		"fa-podcast",
 		"fa-store-alt",

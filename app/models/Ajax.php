@@ -1111,33 +1111,30 @@ class Ajax {
 			break;
 
 			case 'get-wrong-affilliate-daily':
-				// $sql = $db->find('`aks_bot_teamph`.`tblWrongAffLink`' , [
-				// 	'column' => [ 'DATE_FORMAT(`addedDate`, "%Y-%m-%d")' ],
-				// 	'condition' => [ 'DATE_FORMAT(`addedDate`, "%Y-%m-%d") = CURDATE()' ],
-				// ]);
 				$sql = "SELECT DATE_FORMAT(`addedDate`, '%Y-%m-%d') FROM `aks_bot_teamph`.`tblWrongAffLink` WHERE DATE_FORMAT(`addedDate`, '%Y-%m-%d') = CURDATE()";
 				return ($db->query($sql)->results())? '11' : '00';
 			break;
+
 			case 'add-wrong-aff-link':
-			    $run = ($getInput->get('toEditId') != '')? $db->update('`aks_bot_teamph`.`tblWrongAffLink`', $getInput->get('toEditId'), ['wrongAffLink' => $getInput->get('wrongAffLink')]) : $db->insert('`aks_bot_teamph`.`tblWrongAffLink`', ['wrongAffLink' => $getInput->get('wrongAffLink')]);
+				$run = ($getInput->get('toEditId') != '')? $db->update('`aks_bot_teamph`.`tblWrongAffLink`', $getInput->get('toEditId'), ['wrongAffLink' => $getInput->get('wrongAffLink')]) : $db->insert('`aks_bot_teamph`.`tblWrongAffLink`', ['wrongAffLink' => $getInput->get('wrongAffLink')]);
 			break;
+
 			case 'displayAddChangeLogAction':
-                $sql = "select * from `aks_bot_teamph`.`tblAddChangeLog` order by id desc";
-                return $db->query($sql)->results();
-            break;
-            case 'addChangeLogAction':
+				return $db->find('`aks_bot_teamph`.`tblAddChangeLog`', [
+					'order' => 'id desc'
+				]);
+			break;
 
-                $inputID = $getInput->get('inputID');
-                $inputDate = $getInput->get('inputDate');
-                $inputAuthor =  ucfirst(Users::currentUser()->fname);
-                $inputMessage = $getInput->get('inputMessage');
+			case 'addChangeLogAction':
+				$fields = [
+					'inputID' => $getInput->get('inputID'),
+					'inputDate' => $getInput->get('inputDate'),
+					'inputAuthor' => ucfirst(Users::currentUser()->fname),
+					'inputMessage' =>  $getInput->get('inputMessage')
+				];
+				$insertChangelog = $db->insert('`aks_bot_teamph`.`tblAddChangeLog`', $fields);
+			break;
 
-                $sql = "Insert INTO  `aks_bot_teamph`.`tblAddChangeLog` 
-                ( `inputID`, `inputDate`, `inputAuthor`, `inputMessage`) 
-                VALUES 
-                ( '$inputID', '$inputDate', '$inputAuthor', '$inputMessage')";
-                return $db->query($sql) ?  'success' :  'fail';
-            break;
 
 			case 'fd-display-merchant':
 				$utilities = new Utilities;
@@ -1157,14 +1154,14 @@ class Ajax {
 			
 			case 'feed-search':
 				$url = trim($getInput->get('link'));
-        		$site = trim($getInput->get('website'));
-        		$id = trim($getInput->get('id'));
+				$site = trim($getInput->get('website'));
+				$id = trim($getInput->get('id'));
 
 				$utilities = new Utilities;
 				$function = $utilities->feedSearchUrl($site,$id);
 				if(!empty($function)){
 					eval($function);
-                	$parseUrl = edit_url($url);
+					$parseUrl = edit_url($url);
 				}else
 					$parseUrl = '';
 				return $parseUrl;
@@ -1179,9 +1176,26 @@ class Ajax {
 				$utilities = new Utilities;
 				return $utilities->getAllUsers()->results();
 			break;
+
+
+			case 'display-employee':
+				if($getInput->get('getRole') != ''){
+					$getCondition = 'role like ?';
+					$getBind = '%'.htmlspecialchars_decode($getInput->get('getRole')).'%';
+				}else{
+					$getCondition = '';
+					$getBind = '';
+				}
+
+				return  $db->find('`test-server`.`admin_user`',[
+					'column' => ['`username`'],
+					'conditions' => [$getCondition],
+					'bind' => [$getBind]
+				]);
+			break;
 		}
-	//END OF FUNCTION AJAXDATA
-	}
+	
+	}//END OF FUNCTION AJAXDATA
 
 	public static function getSite($site){
 		switch ($site) {

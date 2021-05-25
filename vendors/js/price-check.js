@@ -310,11 +310,18 @@ function appendtoDailyAct($checkername, $gameid, $gamename, $checkeractivity, $u
 	var	append =	'<tr class="pc-cda-div-display-tr">';
 		append +=	'<td class="" style="padding: 10px;">'+ $checkername +'</td>';
 		append +=	'<td class="" style="padding: 10px;">'+ $gameid +'</td>';
-		append +=	'<td class="" style="padding: 10px;">'+ $gamename +'</td>';
-		append +=	'<td class="" style="padding: 10px;">'+ $checkeractivity +'</td>';
-		append +=	'<td class="" style="padding: 10px; word-break: break-all;">'+ html_decode($url) +'</td>';
-		append +=	'<td class="" style="padding: 10px; ">'+ moment($date).format('MMMM Do YYYY, h:mm:ss a'); +'</td>';
+		append +=	'<td class="" style="padding: 10px;">'+ $gamename +' </td>';
+		append +=	'<td class="hide-on-smmd" style="padding: 10px;">'+ $checkeractivity +'</td>';
+		append +=	'<td class="hide-on-smmd" style="padding: 10px; word-break: break-all;">'+ html_decode($url) +'</td>';
+		append +=	'<td class="hide-on-smmd" style="padding: 10px; ">'+ moment($date).format('MMMM Do YYYY, h:mm:ss a'); +'</td>';
 		append +=	'</tr>';
+		append += "<tr class='show-on-smmd' style='border-bottom: solid 1px red;display:none;'>";
+		append += "<td colspan=3>";
+		append += "<div>";
+		append += "<p>I'm text in a div.</p>";
+		append += "</div>";
+		append += "</td>";
+		append += "</tr>";
 	$(".pc-cda-div-display").append(append);
 }
 

@@ -7,15 +7,29 @@
 		flex: 0 0 50% !important;
 		max-width: 50% !important;
 	}
+	.search-btn-form {
+		width: 50% !important;
+	}
 	
 }
 /* large devices (large desktops, 1200px)*/
 @media (max-width: 1200px) {
-	
+	.search-btn-form {
+		width: 80% !important;
+	}
+	.hide-on-smmd {
+		display: none;
+	}
+	.show-on-smmd{
+		display: block !important;
+	}
 }
 
 /* medium devices (desktops, 992px)*/
 @media (max-width: 992px) {
+	.search-btn-form {
+		width: 100% !important;
+	}
 	/*.child-1 {
 		width: 40% !important;
 	}
