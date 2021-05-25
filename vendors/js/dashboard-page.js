@@ -950,29 +950,6 @@
 		}
 	}
 
-	//para sa checksum beforeUpdate
-	function arr_implode(array){
-		//check if ang array kai array type sya e join if array if not array check if have \n then replace ' ' to join
-		return ((Array.isArray(array))) ? array.join(' ') : (/\n/.test(array)) ? array.replace(/\n/,' ') : array;
-	}
-
-	//para sa doughnut put it plugins
-	function doughnutResize(myChart,type){
-		var initPos = myChart.chart.chart.config.options.legend;
-		var width = myChart.chart.chart.width;
-		var finalPos = "left";
-		initPos.position = (width < 320 ) ? 'bottom' : finalPos;
-		(type == 'mobile') ? myChart.update():null;
-	}
-
-	//para sa yTicks custom bar chart 
-	function strtotime_javascript_time(epoch,$tzString) {
-		var dateY = new Date(epoch*1000).toLocaleString("en-US",{timeZone: $tzString});
-		var matchDate = dateY.match(/,\s(\d.+):\d.+(AM|PM)/)
-		var combine = matchDate[1]+" "+matchDate[2];
-		return (epoch != '') ? combine : 'No Data';
-	}
-
 	function disabledDiv($merchantName, $merchantID){
 		var n = $merchantName.toLowerCase();
         var $storeName = n.substr(0,1).toUpperCase()+n.substr(1);

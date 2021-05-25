@@ -1169,7 +1169,16 @@ class Ajax {
 					$parseUrl = '';
 				return $parseUrl;
 			break;
-
+			
+			case 'recent-activity':
+				$utilities = new Utilities;
+				$result = $utilities->getRecentActivity( $getInput->get('user'), $getInput->get('useraction'), $getInput->get('website') );
+				return $result->results();
+			break;
+			case 'getAllUsers':
+				$utilities = new Utilities;
+				return $utilities->getAllUsers()->results();
+			break;
 		}
 	//END OF FUNCTION AJAXDATA
 	}

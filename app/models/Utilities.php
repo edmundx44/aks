@@ -7,8 +7,8 @@ use Core\Model;
 class Utilities{
 
 	private $_db;
-	public $_checkSite = ['aks','cdd','brexitgbp'];
-
+	public static $_checkSite = [ 'aks' , 'cdd', 'brexitgbp'];
+	
 	public function __construct() {
 		$this->_db = DB::getInstance();
   	}
@@ -377,6 +377,75 @@ class Utilities{
         $function = preg_replace('/\/\/[^www].*?\;/','',$match[1]); 
 		//then use eval([name of the function that get])
 		return $function;
+	}
+
+	public function getRecentActivity($worker = '', $action = 'created', $site = 'aks'){
+		if($site == 'brexitgbp'){
+
+    	 	if($worker != NULL){
+	            $sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+						FROM `test-server`.`price_team_activity` u 
+						LEFT JOIN 
+						`brexitgbp`.`pt_products` tb 
+						ON tb.id = u.product_id 
+						WHERE 
+						u.worker = '$worker' AND u.site = 'BREXITGBP' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
+	        } else {
+	        	$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+						FROM `test-server`.`price_team_activity` u 
+						LEFT JOIN 
+						`brexitgbp`.`pt_products` tb 
+						ON tb.id = u.product_id 
+						WHERE u.site = 'BREXITGBP' ORDER BY `time` DESC LIMIT 100";
+	        }
+        	return $this->_db->query($sql);
+
+    	}else if($site == 'cdd'){
+
+    		if($worker != NULL){
+	            $sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+						FROM `test-server`.`price_team_activity` u 
+						LEFT JOIN 
+						`compareprices`.`pt_products` tb 
+						ON tb.id = u.product_id 
+						WHERE 
+						u.worker = '$worker' AND u.site = 'CDD' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
+	       } else {
+	        	$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+						FROM `test-server`.`price_team_activity` u 
+						LEFT JOIN 
+						`compareprices`.`pt_products` tb 
+						ON tb.id = u.product_id 
+						WHERE u.site = 'CDD' ORDER BY `time` DESC LIMIT 100";
+	       }
+        	return $this->_db->query($sql);
+
+    	}else{
+
+			if($worker != NULL){
+					$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+							FROM `test-server`.`price_team_activity` u
+							LEFT JOIN 
+							`test-server`.`pt_products` tb 
+							ON tb.id = u.product_id 
+							WHERE 
+							u.worker = '$worker' AND u.site = 'AKS' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
+				} else {
+					$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+							FROM `test-server`.`price_team_activity` u 
+							LEFT JOIN 
+							`test-server`.`pt_products` tb 
+							ON tb.id = u.product_id 
+							WHERE u.site = 'AKS' ORDER BY `time` DESC LIMIT 100";
+				}
+        	return $this->_db->query($sql);
+    	}
+
+	}
+
+	public function getAllUsers(){
+		$sql = "SELECT `username` FROM `test-server`.`admin_user` ORDER BY `username`";
+		return $this->_db->query($sql);
 	}
 
     public static function getMetacriticsNumberOfLinks($db,$id){

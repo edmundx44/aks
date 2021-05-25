@@ -1,5 +1,6 @@
 {
   "Dashboard" : "dashboard",
+  "Activities": "activities/act",
   "Links" : {
     "Real Double" : "utilities/realDouble",
     "Affiliate Check" : "utilities/affiliateCheck",

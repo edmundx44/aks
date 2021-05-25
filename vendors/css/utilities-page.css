@@ -16,6 +16,7 @@
   font-size: 12px;
   font-weight: 500;
 }
+.dropdown-container,
 .dropdown-merchant-me,
 .dropdown-edition-me,
 .dropdown-merchant,
@@ -31,6 +32,7 @@
   text-align: left;
   z-index: 999;
 }
+.dropdown-container .selected-item-container,
 .dropdown-merchant-me .selected-merchant-me,
 .dropdown-edition-me .selected-edition-me,
 .dropdown-merchant .selected-merchant,
@@ -42,6 +44,7 @@
   border-radius: 5px;
   box-shadow: 0 0 2px rgb(204, 204, 204);
 }
+.dropdown-container .selected-item-container > i,
 .dropdown-merchant-me .selected-merchant-me > i,
 .dropdown-edition-me .selected-edition-me > i,
 .dropdown-merchant .selected-merchant > i,
@@ -53,18 +56,21 @@
   float: right;
   line-height: 20px;
 }
+.dropdown-container:hover,
 .dropdown-merchant-me:hover,
 .dropdown-edition-me:hover,
 .dropdown-merchant:hover,
 .dropdown-website:hover {
   box-shadow: 0 0 4px rgb(204, 204, 204);
 }
+.dropdown-container:active,
 .dropdown-merchant-me:active,
 .dropdown-edition-me:active,
 .dropdown-merchant:active,
 .dropdown-website:active {
   background-color: #f8f8f8;
 }
+.dropdown-container .dropdown-ul-menu,
 .dropdown-merchant-me .merchant-menu-me,
 .dropdown-edition-me .edition-menu-me,
 .dropdown-merchant .merchant-menu,
@@ -81,6 +87,7 @@
   overflow: auto;
   z-index: 9;
 }
+.dropdown-container .dropdown-ul-menu li,
 .dropdown-merchant-me .merchant-menu-me li,
 .dropdown-edition-me .edition-menu-me li,
 .dropdown-merchant .merchant-menu li,
@@ -94,6 +101,7 @@
   text-align: inherit;
   white-space: nowrap;
 }
+.dropdown-container .dropdown-ul-menu,
 .dropdown-merchant-me .merchant-menu-me,
 .dropdown-edition-me .edition-menu-me,
 .dropdown-merchant .merchant-menu,
@@ -101,12 +109,14 @@
   padding: 0;
   list-style: none;
 }
+.dropdown-container .dropdown-ul-menu li:hover,
 .dropdown-merchant-me .merchant-menu-me li:hover,
 .dropdown-edition-me .edition-menu-me li:hover,
 .dropdown-merchant .merchant-menu li:hover,
 .dropdown-website .website-menu li:hover {
   background-color: #f2f2f2;
 }
+.dropdown-container .dropdown-ul-menu li:active,
 .dropdown-merchant-me .merchant-menu-me li:active,
 .dropdown-edition-me .edition-menu-me li:active,
 .dropdown-merchant .merchant-menu li:active,
@@ -126,6 +136,34 @@
   width: 100%;
   font-weight: 700;
   padding: 10px;
+}
+
+.header-card-bulitin {
+  position: relative;
+  top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 15px;
+  color: #fff;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+.header-ul-menu {
+  list-style-type: none;
+  padding: 0;
+  position: absolute;
+  top: 15px;
+  left: 100px;
+  color: #fff;
+}
+.header-ul-menu li {
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px 15px 5px 15px;
+  border-radius: 5px;
+}
+.active-item-menu {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .alert-v2 {
