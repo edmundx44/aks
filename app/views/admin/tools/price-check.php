@@ -14,7 +14,8 @@
 				<div class="card-body no-padding"> 
 					<div class="card-div-overflow-style row-1-card-div-overflow-style row-1-card-div-overflow-style-1">
 						<p class="card-bulletin pc-card-bulitin">MENU :</p>
-						<ul class="pc-cb-ul-menu">
+						<div class="d-xl-none" style="position: absolute; top: 20px;right: 20px; color: #fff;cursor: pointer;font-size: 18px;"><i class="fal fa-bars"></i></div>
+						<ul class="pc-cb-ul-menu d-xl-block" style="display: none;">
 							<li class="pc-li-btn active-pc-menu" id="pc-cda-div">Daily Activity</li>
 							<li class="pc-li-btn" id="pc-ac-div">Assign Checker</li>
 							<li class="pc-li-btn" id="pc-adlg-div">Add Daily Listing</li>
