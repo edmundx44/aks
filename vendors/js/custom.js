@@ -189,10 +189,11 @@ function removeEmptyTitle(){
 function displayIcon(){
 	var iconList = [
 		"fa-chart-pie",
+		"fa-clipboard",
 		"fa-link",
 		"fa-podcast",
 		"fa-store-alt",
-		"fa-tools",
+		"fa-tools"
 	];
 
 	$('i#nav-icon').each(function(i){

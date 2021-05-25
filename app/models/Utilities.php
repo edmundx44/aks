@@ -7,6 +7,7 @@ use Core\Model;
 class Utilities{
 
 	private $_db;
+	public static $_checkSite = [ 'aks' , 'cdd', 'brexitgbp'];
 	
 	public function __construct() {
 		$this->_db = DB::getInstance();
@@ -79,6 +80,16 @@ class Utilities{
 			$retrieveRegions[24]='Xbox ONE Game Code';
 		}
 		return $retrieveRegions;
+	}
+
+	public function dataBotAdminMerchant($website){
+		$displayMerchant = $this->_db->find('`test-server`.`bot_admin`',[
+            'column' => ['`merchant_id`','`name`','`bot_type`','`website`','`status`',],
+            'conditions' => ['website = ?', 'bot_type = ?', 'status !=?'],
+            'bind' => [$website , 'feed', 0],
+            'order' => 'name'
+        ]);
+        return $displayMerchant;
 	}
 
 	public function merchantEditionPriceTool($site, $getMerchantId, $getEdition){
@@ -302,6 +313,139 @@ class Utilities{
                     HAVING occurs > 1 ORDER BY id DESC";   
             }
     	return $returnResults = $this->_db->query($sql);
+	}
+
+	public function getFeedBotData($website, $merchantId){
+		$array = array();
+		$origin = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
+		if($origin == 'http://localhost'){
+            $fileContent = file_get_contents($origin."/allkeyshop.com/admin/bot_de_v2/bot_admin/merchant/".$website."/feedbot/".$merchantId.".php?source=adminpage");
+        }else{
+            $context = stream_context_create( array( 'http' => array( 'header'  => "Authorization: Basic " . base64_encode("marc:bopols714") ) ) );
+            $fileContent = file_get_contents("https://www.allkeyshop.com/admin/bot_de_v2/bot_admin/merchant/".$website."/feedbot/".$merchantId.".php?source=adminpage", false, $context);
+            //$fileContent = file_get_contents("https://www.allkeyshop.com/admin/bot_de_v2/bot_admin_stage/merchant/aks/feedbot/11111.php?source=adminpage", false, $context);//testing in bot_admin_stage
+    	}
+        if($merchantId == 67){
+        	preg_match_all('/\D+\[(.*)\]\s.*Array\D+(\d+\.?\d?\d?)\D+(\d+)\D+\[sku\]\D+?\D\D\D(.*)/',$fileContent, $con); //para cjs	
+                $links = $con[1];
+                $price = $con[2];
+                $stock = $con[3];
+                $sku = $con[4];
+                foreach ($links as $id => $value) {
+                        $array[] = array(
+                            'url' => $value,
+                            'sku' => $sku[$id],
+                            'price'  => $price[$id],
+                            'stock' => $stock[$id],
+                        );
+                }
+            }else{
+                preg_match_all('/\[(.*)]\s.*Array\D+(\d+\.?\d?\d?)\D+(\d+)/',$fileContent, $con);
+                $links = $con[1];
+                $price = $con[2];
+                $stock = $con[3];
+
+                foreach ($links as $id => $value) {
+                    $array[] = array(
+                        'url' => $value,
+                        'price'  => $price[$id],
+                        'stock' => $stock[$id],
+                    );
+                }
+            }
+        return $array;
+	}
+
+	public function feedSearchUrl($website, $merchantId){
+		//This is from Bot Admin file get the text value function then parse the string using eval to use as function
+		//Get the edit_url function 
+		$origin = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
+		if($origin == 'http://localhost'){
+        	$path = "/xampp/htdocs/allkeyshop.com/admin/bot_de_v2/bot_admin/merchant/".$website."/feedbot/".$merchantId.".php";  
+        }else{
+            $context = stream_context_create(array( 'http' => array('header'  => "Authorization: Basic " . base64_encode("marc:bopols714")) ));
+            $path = "/var/www/sites-eu/allkeyshop.com/admin/bot_de_v2/bot_admin/merchant/".$website."/feedbot/".$merchantId.".php";
+        }
+
+        if ($stream = fopen($path , 'r',false , $context = null ) ) { 
+            $contents = stream_get_contents($stream, -1, 1);
+            fclose($stream);
+        }
+        $contents = str_replace("\n", "", $contents);
+        //$contents = str_replace("'",'"',$contents); //have a problem in ${1}
+        preg_match('/(function\s+edit_url.+?;\s*\})/', $contents, $match); //\s* zero or more spaces sample ; } || ;}
+        $function = preg_replace('/\/\/[^www].*?\;/','',$match[1]); 
+		//then use eval([name of the function that get])
+		return $function;
+	}
+
+	public function getRecentActivity($worker = '', $action = 'created', $site = 'aks'){
+		if($site == 'brexitgbp'){
+
+    	 	if($worker != NULL){
+	            $sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+						FROM `test-server`.`price_team_activity` u 
+						LEFT JOIN 
+						`brexitgbp`.`pt_products` tb 
+						ON tb.id = u.product_id 
+						WHERE 
+						u.worker = '$worker' AND u.site = 'BREXITGBP' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
+	        } else {
+	        	$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+						FROM `test-server`.`price_team_activity` u 
+						LEFT JOIN 
+						`brexitgbp`.`pt_products` tb 
+						ON tb.id = u.product_id 
+						WHERE u.site = 'BREXITGBP' ORDER BY `time` DESC LIMIT 100";
+	        }
+        	return $this->_db->query($sql);
+
+    	}else if($site == 'cdd'){
+
+    		if($worker != NULL){
+	            $sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+						FROM `test-server`.`price_team_activity` u 
+						LEFT JOIN 
+						`compareprices`.`pt_products` tb 
+						ON tb.id = u.product_id 
+						WHERE 
+						u.worker = '$worker' AND u.site = 'CDD' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
+	       } else {
+	        	$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+						FROM `test-server`.`price_team_activity` u 
+						LEFT JOIN 
+						`compareprices`.`pt_products` tb 
+						ON tb.id = u.product_id 
+						WHERE u.site = 'CDD' ORDER BY `time` DESC LIMIT 100";
+	       }
+        	return $this->_db->query($sql);
+
+    	}else{
+
+			if($worker != NULL){
+					$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+							FROM `test-server`.`price_team_activity` u
+							LEFT JOIN 
+							`test-server`.`pt_products` tb 
+							ON tb.id = u.product_id 
+							WHERE 
+							u.worker = '$worker' AND u.site = 'AKS' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
+				} else {
+					$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+							FROM `test-server`.`price_team_activity` u 
+							LEFT JOIN 
+							`test-server`.`pt_products` tb 
+							ON tb.id = u.product_id 
+							WHERE u.site = 'AKS' ORDER BY `time` DESC LIMIT 100";
+				}
+        	return $this->_db->query($sql);
+    	}
+
+	}
+
+	public function getAllUsers(){
+		$sql = "SELECT `username` FROM `test-server`.`admin_user` ORDER BY `username`";
+		return $this->_db->query($sql);
 	}
 
     public static function getMetacriticsNumberOfLinks($db,$id){

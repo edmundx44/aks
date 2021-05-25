@@ -13,7 +13,8 @@
     "Reports" : ["*"],
     "Store": ["*"],
     "Utilities": ["*"],
-    "Tools": ["*"]
+    "Tools": ["*"],
+    "Activities" : ["*"]
   },
   "Developer" : {
     "denied" : {
@@ -24,6 +25,7 @@
     "Reports" : ["*"],
     "Store": ["*"],
     "Utilities": ["*"],
-    "Tools": ["*"]
+    "Tools": ["*"],
+    "Activities" : ["*"]
   }
 }

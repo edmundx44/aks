@@ -4,7 +4,7 @@
 <script type="text/javascript">
     $(function(){
 
-        $(document).on('click', '.website-menu', function(){ $(this).find('.dropdown-website').slideToggle(200); });
+        
 
     //END 
     });
@@ -19,7 +19,7 @@
             <div class="card card-style">
                 <div class="card-body rdl-card-main-wrap no-padding">
                     <!-- HEADER STARTS row-4-card-div-overflow-style-->
-						<div class="card-div-overflow-style aks_bg_color" style="position:relative; padding-top:20px;">
+						<div class="card-div-overflow-style row-4-card-div-overflow-style-2" style="position:relative; padding-top:20px;">
 							<div class="row" style="color:#fff;margin: 0;">
 								<div class="div-topheader-1 col-lg-9">
 									<h5 style="display: inline-block; margin-right: 10px;">Rhyn Tool</h5>

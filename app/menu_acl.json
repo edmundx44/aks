@@ -1,5 +1,6 @@
 {
   "Dashboard" : "dashboard",
+  "Activities": "activities/act",
   "Links" : {
     "Real Double" : "utilities/realDouble",
     "Affiliate Check" : "utilities/affiliateCheck",
@@ -11,6 +12,7 @@
   "Store" : "store",
   "Tools" : {
     "Price Check" : "tools/priceCheck",
+    "Feed Data" : "tools/feedData",
     "Romain" : "tools/romain",
     "Disabled Store": "tools/disabledStore",
     "Merchant Edition" : "tools/merchantEdition",
