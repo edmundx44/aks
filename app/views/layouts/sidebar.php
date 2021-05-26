@@ -95,7 +95,7 @@ input:checked + .switch-slider:before {
 		</div>
 		<hr>
 
-		<div class="sidebar-menu scrollbar-custom scrollbar-custom scrollbar-custom-ds">
+		<div class="sidebar-menu scrollbar-custom">
 			<p class="sidebar-ui-menu font-weight-bold">ADM-3 Menu</p>
 			<ul class="sidebar-ul">
 				

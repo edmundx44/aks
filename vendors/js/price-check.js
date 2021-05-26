@@ -342,24 +342,24 @@ function displayAssignChecker(){
 		action: 'display-assign-checker',
 	}
 	AjaxCall(url, dataRequest).done(function(data) {
-var counter = 1;
+		var counter = 1;
 		
 		for (var i in data){
 			var backColor = (counter % 2 == 0)? 'pc-cda-div-display-tr' : '';
-			var append =  "<tr class='"+backColor+"'>";
-				append +=   "<td style='padding: 10px;'>"+data[i].assignChecker+"</td>";
-				append +=   "<td style='padding: 10px;'>"+data[i].weekdaySchedule+"</td>";
-				append +=   "<td style='padding: 10px;'>"+data[i].sundaySchedule+"</td>";
-				append +=   "<td class='hide-on-smmd' style='padding: 10px; text-align: center;'><button type='button' class='btn btn-primary btn-edit-data' id='"+data[i].id+"' data-action='on-assign-checker' data-assignChecker='"+data[i].assignChecker+"' data-weekdaySchedule='"+data[i].weekdaySchedule+"' data-sundaySchedule='"+data[i].sundaySchedule+"'><i class='fa fa-pencil'></i> Edit</button> <button type='button' class='btn btn-warning btn-remove-data' id='"+data[i].id+"' data-action='on-assign-checker'><i class='fas fa-trash'></i> Remove</button></td>";
-				append += "</tr>";
+			var append =	'<tr class="'+backColor+'">';
+				append +=	'	<td style="padding: 10px;">'+data[i].assignChecker+'</td>';
+				append +=	'	<td style="padding: 10px;">'+data[i].weekdaySchedule+'</td>';
+				append += 	'	<td style="padding: 10px;">'+data[i].sundaySchedule+'</td>';
+				append +=	'	<td class="hide-on-smmd" style="padding: 10px; text-align: center;"><button type="button" class="btn btn-primary btn-edit-data" id="'+data[i].id+'" data-action="on-assign-checker" data-assignChecker="'+data[i].assignChecker+'" data-weekdaySchedule="'+data[i].weekdaySchedule+'" data-sundaySchedule="'+data[i].sundaySchedule+'"><i class="fa fa-pencil"></i> Edit</button> <button type="button" class="btn btn-warning btn-remove-data" id="'+data[i].id+'" data-action="on-assign-checker"><i class="fas fa-trash"></i> Remove</button></td>';
+				append +=	'</tr>';
 				append +=	'<tr class="'+backColor+' sub-tr-head">';
-		        append +=	'	<td colspan="3">';
-		        append +=	'		<div class="text-center" style="padding: 0 10px 10px 10px;word-break: break-all;">';
-		        append +=	'			<button type="button" class="btn btn-primary btn-edit-data" id="'+data[i].id+'" data-action="on-assign-checker" data-assignChecker="'+data[i].assignChecker+'" data-weekdaySchedule="'+data[i].weekdaySchedule+'" data-sundaySchedule="'+data[i].sundaySchedule+'"><i class="fa fa-pencil"></i> Edit</button>';
-		        append +=	'			<button type="button" class="btn btn-warning btn-remove-data" id="'+data[i].id+'" data-action="on-assign-checker"><i class="fas fa-trash"></i> Remove</button>';
-		        append +=	'		</div>';
-		        append +=	'	</td>';
-		        append +=	'</tr>';
+				append +=	'	<td colspan="3">';
+				append +=	'		<div class="text-center" style="padding: 0 10px 10px 10px;word-break: break-all;">';
+				append +=	'			<button type="button" class="btn btn-primary btn-edit-data" id="'+data[i].id+'" data-action="on-assign-checker" data-assignChecker="'+data[i].assignChecker+'" data-weekdaySchedule="'+data[i].weekdaySchedule+'" data-sundaySchedule="'+data[i].sundaySchedule+'"><i class="fa fa-pencil"></i> Edit</button>';
+				append +=	'			<button type="button" class="btn btn-warning btn-remove-data" id="'+data[i].id+'" data-action="on-assign-checker"><i class="fas fa-trash"></i> Remove</button>';
+				append +=	'		</div>';
+				append +=	'	</td>';
+				append +=	'</tr>';
 			$(".pc-ac-div-display").append(append);
 			counter++;
 		}
@@ -372,16 +372,33 @@ function displayDailyListing(){
 		action: 'display-daily-listing',
 	}
 	AjaxCall(url, dataRequest).done(function(data) {
+		var counter = 1;
+
 		for (var i in data){
-			var append =  "<tr>";
-				append +=   "<td style='padding: 5px 10px 0 10px;'>"+data[i].gameId+"</td>";
-				append +=   "<td style='padding: 5px 10px 0 10px;'>"+data[i].gameName+"</td>";
-				append +=   "<td style='padding: 5px 10px 0 10px;'>"+data[i].releaseDate+"</td>";
-				append +=   "<td style='padding: 5px 10px 0 10px;'>"+data[i].createdBy+"</td>";
-				append +=   "<td style='padding: 5px 10px 0 10px;'>"+data[i].createdAt+"</td>";
-				append +=   "<td style='padding: 5px 10px 0 10px; text-align: center;'><button type='button' class='btn btn-primary btn-edit-data' id='"+data[i].id+"' data-dateni='"+data[i].releaseDate+"' data-action='on-daily-listing' data-gameId='"+data[i].gameId+"' data-gameName='"+data[i].gameName+"'>Edit</button> <button type='button' class='btn btn-warning btn-remove-data' id='"+data[i].id+"' data-action='on-daily-listing'>Remove</button></td>";
-				append += "</tr>";
+			var backColor = (counter % 2 == 0)? 'pc-cda-div-display-tr' : '';
+
+			var append =	'<tr class="'+backColor+'">';
+				append +=	"	<td style='padding: 5px 10px 0 10px;'>"+data[i].gameId+"</td>";
+				append +=	"	<td style='padding: 5px 10px 0 10px;'>"+data[i].gameName+"</td>";
+				append +=	"	<td style='padding: 5px 10px 0 10px;'>"+data[i].releaseDate+"</td>";
+				append +=	"	<td class='hide-on-smmd' style='padding: 5px 10px 0 10px;'>"+data[i].createdBy+"</td>";
+				append +=	"	<td class='hide-on-smmd' style='padding: 5px 10px 0 10px;'>"+data[i].createdAt+"</td>";
+				append +=	"	<td class='hide-on-smmd' style='width: 200px;padding: 5px 10px 10px 10px; text-align: center;'><button type='button' class='btn btn-primary btn-edit-data' id='"+data[i].id+"' data-dateni='"+data[i].releaseDate+"' data-action='on-daily-listing' data-gameId='"+data[i].gameId+"' data-gameName='"+data[i].gameName+"'>Edit</button> <button type='button' class='btn btn-warning btn-remove-data' id='"+data[i].id+"' data-action='on-daily-listing'>Remove</button></td>";
+				append +=	"</tr>";
+				append +=	'<tr class="'+backColor+' sub-tr-head">';
+				append +=	'	<td colspan="3">';
+				append +=	'		<div style="padding: 10px;">';
+				append +=	'			<p class="float-left">Created By : <span>'+data[i].createdBy+'</span></p>';
+				append +=	'			<div class="float-right" style="padding-bottom: 10px;">';
+				append +=	'				<button type="button" class="btn btn-primary btn-edit-data" id="'+data[i].id+'" data-dateni="'+data[i].releaseDate+'" data-action="on-daily-listing" data-gameId="'+data[i].gameId+'" data-gameName="'+data[i].gameName+'">Edit</button>';
+				append +=	'				<button type="button" class="btn btn-warning btn-remove-data" id="'+data[i].id+'" data-action="on-daily-listing">Remove</button>';
+				append +=	'			</div>';
+				append +=	'		</div>';
+				append +=	'	</td>';
+				append +=	'</tr>';
+
 			$(".pc-adlg-div-display").append(append);
+			counter++;
 		}
 	}).always(function(){});
 }

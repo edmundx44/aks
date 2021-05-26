@@ -34,6 +34,12 @@ class DashboardController extends Controller {
         $this->view->pageTitle = 'Notification';
         $this->view->render('admin/dashboard/notification');
     }
+    public function employeeTableAction() {
+
+        self::ajaxFunction();
+        $this->view->pageTitle = 'Notification';
+        $this->view->render('admin/dashboard/employee-table');
+    }
 
     public function ajaxFunction(){
         if($this->request->isPost('action')){

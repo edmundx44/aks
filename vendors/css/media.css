@@ -10,6 +10,12 @@
 	.search-btn-form {
 		width: 50% !important;
 	}
+	.hide-on-smmd-lg {
+		display: none;
+	}
+	.hide-act-data {
+		display: table-row !important;
+	}
 	
 }
 /* large devices (large desktops, 1200px)*/
@@ -26,10 +32,19 @@
 	.resize-on-smmd {
 		width:30%;
 	}
+	.hide-on-smmd-lg {
+		display: none;
+	}
+	.hide-act-data {
+		display: table-row !important;
+	}
 }
 
 /* medium devices (desktops, 992px)*/
 @media (max-width: 992px) {
+	.pc-pr-tp {
+		width: 190px !important;
+	}
 	.search-btn-form {
 		width: 100% !important;
 	}

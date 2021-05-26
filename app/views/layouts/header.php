@@ -94,13 +94,20 @@
 				<?php endif; ?>
 			<?php endforeach; ?>
 
-			<?php if($_SERVER['REQUEST_URI'] == '/aks/dashboard/activities'): ?>
-				<span class="header-title header-title-normal">ACTIVITIES</span>
-			<?php endif; ?>
-
-			<?php if($_SERVER['REQUEST_URI'] == '/aks/dashboard/notification'): ?>
-				<span class="header-title header-title-normal">Notification</span>
-			<?php endif; ?>
+			<?php 
+				switch ($_SERVER['REQUEST_URI']) {
+					case '/aks/dashboard/activities':
+						?><span class="header-title header-title-normal">ACTIVITIES</span><?php
+					break;
+					case '/aks/dashboard/notification':
+						?><span class="header-title header-title-normal">Notification</span><?php
+					break;
+					case '/aks/dashboard/employeeTable':
+						?><span class="header-title header-title-normal">Employee's Table</span><?php
+					break;
+				}
+			?>
+			
 			
 		</a>
 		<button type="button" class="navbar-toggler sidebar-menu-btn" data-toggle="collapse">
