@@ -22,6 +22,8 @@ var toggleVal = 0,
 		top: Math.floor( Math.random() * heightMax )
 	});
 
+	
+	var queryString = window.location.search;
 	var uri = window.location.pathname;
 	//ESCAPE SPECIAL CHARACTERS
 	var entityMap = {

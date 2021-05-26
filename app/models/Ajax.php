@@ -1169,29 +1169,13 @@ class Ajax {
 			
 			case 'recent-activity':
 				$utilities = new Utilities;
-				$result = $utilities->getRecentActivity( $getInput->get('user'), $getInput->get('useraction'), $getInput->get('website') );
+				$result = $utilities->getRecentActivity( $getInput->get('employee'), $getInput->get('useraction'), $getInput->get('website') );
 				return $result->results();
 			break;
-			case 'getAllUsers':
-				$utilities = new Utilities;
-				return $utilities->getAllUsers()->results();
-			break;
-
 
 			case 'display-employee':
-				if($getInput->get('getRole') != ''){
-					$getCondition = 'role like ?';
-					$getBind = '%'.htmlspecialchars_decode($getInput->get('getRole')).'%';
-				}else{
-					$getCondition = '';
-					$getBind = '';
-				}
-
-				return  $db->find('`test-server`.`admin_user`',[
-					'column' => ['`username`'],
-					'conditions' => [$getCondition],
-					'bind' => [$getBind]
-				]);
+				$utilities = new Utilities;
+				return $utilities->getAllUsers(trim($getInput->get('getRole')));
 			break;
 		}
 	
