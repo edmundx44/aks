@@ -36,13 +36,13 @@
 
 							<table class="col-12">
 								<thead>
-									<tr class="pc-header-tr" style="border: solid 1px red;">
-										<th class="pc-cda-table-h-sticky pc-th-class">Checker</th>
+									<tr class="pc-header-tr">
+										<th class="pc-cda-table-h-sticky pc-th-class" style="border-radius:  5px 0 0 0;">Checker</th>
 										<th class="pc-cda-table-h-sticky pc-th-class">GameID</th>
 										<th class="pc-cda-table-h-sticky pc-th-class">Game Name</th>
 										<th class="pc-cda-table-h-sticky pc-th-class hide-on-smmd">Activity</th>
 										<th class="pc-cda-table-h-sticky pc-th-class hide-on-smmd">Url</th>
-										<th class="pc-cda-table-h-sticky pc-th-class hide-on-smmd">Date</th>
+										<th class="pc-cda-table-h-sticky pc-th-class hide-on-smmd" style="border-radius: 0 5px 0 0;">Date</th>
 									</tr> 
 								</thead>
 								<tbody class="pc-cda-div-display">
@@ -72,10 +72,10 @@
 							<table class="col-12">
 								<thead>
 									<tr class="pc-header-tr">
-										<th class="pc-cda-table-h-sticky pc-th-class">Assign Checker</th>
+										<th class="pc-cda-table-h-sticky pc-th-class" style="border-radius:  5px 0 0 0;">Assign Checker</th>
 										<th class="pc-cda-table-h-sticky pc-th-class">Week Day's</th>
 										<th class="pc-cda-table-h-sticky pc-th-class">Sunday</th>
-										<th class="pc-cda-table-h-sticky pc-th-class pc-th-class-wc">Action</th>
+										<th class="pc-cda-table-h-sticky pc-th-class pc-th-class-wc hide-on-smmd" style="border-radius: 0 5px 0 0;">Action</th>
 									</tr> 
 								</thead>
 								<tbody class="pc-ac-div-display">
@@ -91,12 +91,12 @@
 							<table class="col-12">
 								<thead>
 									<tr class="pc-header-tr">
-										<th class="pc-cda-table-h-sticky pc-th-class">ID</th>
+										<th class="pc-cda-table-h-sticky pc-th-class" style="border-radius: 5px 0 0 0;">ID</th>
 										<th class="pc-cda-table-h-sticky pc-th-class">Game Name</th>
 										<th class="pc-cda-table-h-sticky pc-th-class">Release Date</th>
 										<th class="pc-cda-table-h-sticky pc-th-class">Created By</th>
 										<th class="pc-cda-table-h-sticky pc-th-class">Date Created</th>
-										<th class="pc-cda-table-h-sticky pc-th-class pc-th-class-wc">Action</th>
+										<th class="pc-cda-table-h-sticky pc-th-class pc-th-class-wc" style="border-radius: 0 5px 0 0;">Action</th>
 									</tr> 
 								</thead>
 								<tbody class="pc-adlg-div-display">
@@ -116,9 +116,9 @@
 							<table class="col-12">
 								<thead>
 									<tr class="pc-header-tr">
-										<th class="pc-cda-table-h-sticky pc-th-class">Number of affiliate links problem</th>
+										<th class="pc-cda-table-h-sticky pc-th-class" style="border-radius: 5px 0 0 0;">Number of affiliate links problem</th>
 										<th class="pc-cda-table-h-sticky pc-th-class">Date added</th>
-										<th class="pc-cda-table-h-sticky pc-th-class pc-th-class-wc">Action</th>
+										<th class="pc-cda-table-h-sticky pc-th-class pc-th-class-wc" style="border-radius: 0 5px 0 0;">Action</th>
 									</tr> 
 								</thead>
 								<tbody class="pc-pr-div-display">

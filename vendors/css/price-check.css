@@ -7,8 +7,11 @@
 .active-pc-menu {
 	background-color: rgba(255, 255, 255, .2);
 }
-.pc-cda-div-display-tr:nth-child(even) {
+.pc-cda-div-display-tr {
  	background-color: #cccccc;
+}
+.sub-tr-head {
+	display: none;
 }
 .pc-cda-table-h-sticky {
 	position: sticky;

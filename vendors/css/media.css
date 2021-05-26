@@ -20,8 +20,11 @@
 	.hide-on-smmd {
 		display: none;
 	}
-	.show-on-smmd{
-		display: block !important;
+	.sub-tr-head{
+		display: table-row !important;
+	}
+	.resize-on-smmd {
+		width:30%;
 	}
 }
 
