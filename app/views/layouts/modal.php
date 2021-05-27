@@ -601,33 +601,33 @@
     <div class="modal-dialog">
         <div class="modal-content modal-con-override">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h5 class="modal-title">Edit Affiliate Link</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
-            <div class="modal-body col-sm-12">
-                <div class="col-sm-12" data-merId-modal="" data-name-modal="">
-                    <div class="float-right">
+            <div class="modal-body col-lg-12">
+                <div class="col-lg-12" data-merId-modal="" data-name-modal="">
+                    <div class="mb-2">
                         <div c>Merchant Id</div>
-                        <input type="text" id="aff-link-merchant-idv2" name="" readonly>
+                        <input class="form-control" type="text" id="aff-link-merchant-idv2" name="" readonly>
                     </div>
-                    <div class="float-right">
+                    <div class="mb-2">
                         <div>Merchant Name</div>
-                        <input type="text" id="aff-link-namev2" name="" readonly>
+                        <input class="form-control" type="text" id="aff-link-namev2" name="" readonly>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div class="">
+                <div class="col-lg-12">
+                    <div class="mb-2">
                         <div>AKS AFFILIATE LINK</div>
-                        <input type="text" id="aff-link-aksv2" name="">
+                        <input class="form-control" type="text" id="aff-link-aksv2" name="">
                     </div>
-                    <div class="">
+                    <div class="mb-2">
                         <div>CDD AFFILIATE LINK</div>
-                        <input type="text" id="aff-link-cddv2" name="">
+                        <input class="form-control" type="text" id="aff-link-cddv2" name="">
                     </div>
                     <div class="">
                         <div>BREXITGBP AFFILIATE LINK</div>
-                        <input type="text" id="aff-link-brexitgbpv2" name="">
+                        <input class="form-control" type="text" id="aff-link-brexitgbpv2" name="">
                     </div>
                 </div>
             </div>
@@ -645,33 +645,33 @@
     <div class="modal-dialog">
         <div class="modal-content modal-con-override">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h5 class="modal-title">Add Affiliate Link</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
-            <div class="modal-body col-sm-12">
-                <div class="col-sm-12" data-merId-modal="" data-name-modal="">
-                    <div class="float-right">
+            <div class="modal-body col-lg-12">
+                <div class="col-lg-12" data-merId-modal="" data-name-modal="">
+                    <div class="mb-2">
                         <div c>Merchant Id</div>
-                        <input type="text" id="aff-link-merchant-idv2-add" name="" readonly>
+                        <input class="form-control" type="text" id="aff-link-merchant-idv2-add" name="" readonly>
                     </div>
-                    <div class="float-right">
+                    <div class="mb-2">
                         <div>Merchant Name</div>
-                        <input type="text" id="aff-link-namev2-add" name="" readonly>
+                        <input class="form-control" type="text" id="aff-link-namev2-add" name="" readonly>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div class="">
+                <div class="col-lg-12">
+                    <div class="mb-2">
                         <div>AKS AFFILIATE LINK</div>
-                        <input type="text" id="aff-link-aksv2-add" name="">
+                        <input class="form-control" type="text" id="aff-link-aksv2-add" name="">
                     </div>
-                    <div class="">
+                    <div class="mb-2">
                         <div>CDD AFFILIATE LINK</div>
-                        <input type="text" id="aff-link-cddv2-add" name="">
+                        <input class="form-control" type="text" id="aff-link-cddv2-add" name="">
                     </div>
-                    <div class="">
+                    <div class="mb-2">
                         <div>BREXITGBP AFFILIATE LINK</div>
-                        <input type="text" id="aff-link-brexitgbpv2-add" name="">
+                        <input class="form-control" type="text" id="aff-link-brexitgbpv2-add" name="">
                     </div>
                 </div>
             </div>

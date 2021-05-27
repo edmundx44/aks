@@ -770,7 +770,7 @@ class Ajax {
                 $result = $db->query($sql) ? true : fail;
                 if($result){
                     $returnResponse['success'] = array(
-                        'data' => 'Successfully edited for '.ucfirst($getIdRequestName).' '.$getIdRequestId.' affialiate link.',
+                        'data' => 'Successfully edited for '.ucfirst($getIdRequestName).' '.$getIdRequestId.' affialiate link',
                         'site' => $getIdRequestsite
                     );
                 } else{
