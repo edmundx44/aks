@@ -753,12 +753,12 @@ body {
 .user-input-wrp .inputText {
 	outline: none;
 	border: none;
-	border-bottom: 2px solid #777;
+	border-bottom: 2px solid #007bff;
  	box-shadow: none !important;
 }
 
 .user-input-wrp .inputText:focus {
-	border-color: blue;
+	border-color: #007bff;
 	border-width: medium medium 2px;
 }
 .user-input-wrp .floating-label {
@@ -770,7 +770,7 @@ body {
 .user-input-wrp input:focus ~ .floating-label,
 .user-input-wrp input:not([value='']) ~ .floating-label {
 	opacity: 1;
-	color: blue !important;
+	color: #007bff !important;
 }
 
 

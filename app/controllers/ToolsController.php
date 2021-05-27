@@ -59,6 +59,13 @@ class ToolsController extends Controller {
 		$this->view->render('admin/tools/feed-data');
 	}
 
+	public function ratingListAction($queryParameters = false){
+		self::ajaxFunction();
+
+		$this->view->pageTitle = 'Rating List';
+		$this->view->render('admin/tools/rating-list');
+	}
+
 	public function ajaxFunction(){
 		if($this->request->isPost('action')){
 			$ajaxResult = Ajax::ajaxData($this->request->get('action'));

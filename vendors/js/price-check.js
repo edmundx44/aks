@@ -245,8 +245,10 @@ $(function() {
 			toSearch: $(this).val()
 		}
 		AjaxCall(url, dataRequest).done(function(data) {
+			var counter = 1;
 			for(var i in data) {
-				appendtoDailyAct(data[i].checkerName, data[i].gameId, data[i].gameName, data[i].checkerActivity, data[i].url, data[i].date);
+				appendtoDailyAct(data[i].checkerName, data[i].gameId, data[i].gameName, data[i].checkerActivity, data[i].url, data[i].date, counter);
+				counter++;
 			}
 		}).always(function(){
 			$('.pc-cda-tfoot').hide();
@@ -260,8 +262,10 @@ $(function() {
 			getOffset: dailyActOffset
 		}
 		AjaxCall(url, dataRequest).done(function(data) {
+			var counter = 1;
 			for(var i in data) {
-				appendtoDailyAct(data[i].checkerName, data[i].gameId, data[i].gameName, data[i].checkerActivity, data[i].url, data[i].date);
+				appendtoDailyAct(data[i].checkerName, data[i].gameId, data[i].gameName, data[i].checkerActivity, data[i].url, data[i].date, counter);
+				counter++;
 			}
 		}).always(function(data){
 			dailyActOffset = dailyActOffset + data.length
@@ -277,10 +281,12 @@ $(function() {
 			getOffset: dailyActOffset
 		}
 		AjaxCall(url, dataRequest).done(function(data) {
+			var counter = 1;
 			for(var i in data) {
 				for(var j in data[i].data){
-					appendtoDailyAct(data[i].data[j].checkerName, data[i].data[j].gameId, data[i].data[j].gameName, data[i].data[j].checkerActivity, data[i].data[j].url.url, data[i].data[j].date);
+					appendtoDailyAct(data[i].data[j].checkerName, data[i].data[j].gameId, data[i].data[j].gameName, data[i].data[j].checkerActivity, data[i].data[j].url.url, data[i].data[j].date, counter);
 				}
+				counter++;
 			}
 		}).always(function(data){
 			$('.pc-cda-tfoot').hide();
@@ -297,8 +303,10 @@ function displayDailyActivity(){
 	}
 
 	AjaxCall(url, dataRequest).done(function(data) {
+		var counter = 1;
 		for(var i in data[0].data){
-			appendtoDailyAct(data[0].data[i].checkerName, data[0].data[i].gameId, data[0].data[i].gameName, data[0].data[i].checkerActivity, data[0].data[i].url, data[0].data[i].date);
+			appendtoDailyAct(data[0].data[i].checkerName, data[0].data[i].gameId, data[0].data[i].gameName, data[0].data[i].checkerActivity, data[0].data[i].url, data[0].data[i].date, counter);
+			counter++;
 		}
 	}).always(function(data){
 		dailyActTotal = data[0].total
@@ -306,15 +314,25 @@ function displayDailyActivity(){
 	});
 }
 
-function appendtoDailyAct($checkername, $gameid, $gamename, $checkeractivity, $url, $date){
-	var	append =	'<tr class="pc-cda-div-display-tr">';
-		append +=	'<td class="" style="padding: 10px;">'+ $checkername +'</td>';
-		append +=	'<td class="" style="padding: 10px;">'+ $gameid +'</td>';
-		append +=	'<td class="" style="padding: 10px;">'+ $gamename +'</td>';
-		append +=	'<td class="" style="padding: 10px;">'+ $checkeractivity +'</td>';
-		append +=	'<td class="" style="padding: 10px; word-break: break-all;">'+ html_decode($url) +'</td>';
-		append +=	'<td class="" style="padding: 10px; ">'+ moment($date).format('MMMM Do YYYY, h:mm:ss a'); +'</td>';
-		append +=	'</tr>';
+function appendtoDailyAct($checkername, $gameid, $gamename, $checkeractivity, $url, $date, $number){
+	var backColor = ($number % 2 == 0)? 'pc-cda-div-display-tr' : '';
+	var	append =	'<tr class="'+backColor+'">';
+        append +=	'	<td class="resize-on-smmd" style="padding: 10px;">'+ $checkername +'</td>';
+        append +=	'	<td class="resize-on-smmd" style="padding: 10px;">'+ $gameid +'</td>';
+        append +=	'	<td style="padding: 10px;">'+ $gamename +'</td>';
+        append +=	'	<td class="hide-on-smmd" style="padding: 10px;">'+ $checkeractivity +'</td>';
+		append +=	'	<td class="hide-on-smmd" style="padding: 10px; word-break: break-all;">'+ html_decode($url) +'</td>';
+		append +=	'	<td class="hide-on-smmd" style="padding: 10px; ">'+ moment($date).format('MMMM Do YYYY, h:mm:ss a'); +'</td>';
+        append +=	'</tr>';
+        append +=	'<tr class="'+backColor+' sub-tr-head">';
+        append +=	'	<td colspan="3">';
+        append +=	'		<div style="padding: 0 10px 10px 10px;word-break: break-all;">';
+        append +=	'			<p>Activity : <span>'+ $checkeractivity +'</span></p>';
+        append +=	'			<p>Date : <span>'+ moment($date).format('MMMM Do YYYY, h:mm:ss a'); +'</span></p>';
+        append +=	'			<p>Url : <span>'+ html_decode($url) +'</span></p>';
+        append +=	'		</div>';
+        append +=	'	</td>';
+        append +=	'</tr>';
 	$(".pc-cda-div-display").append(append);
 }
 
@@ -324,14 +342,26 @@ function displayAssignChecker(){
 		action: 'display-assign-checker',
 	}
 	AjaxCall(url, dataRequest).done(function(data) {
+		var counter = 1;
+		
 		for (var i in data){
-			var append =  "<tr>";
-				append +=   "<td style='padding: 5px 10px 0 10px;'>"+data[i].assignChecker+"</td>";
-				append +=   "<td style='padding: 5px 10px 0 10px;'>"+data[i].weekdaySchedule+"</td>";
-				append +=   "<td style='padding: 5px 10px 0 10px;'>"+data[i].sundaySchedule+"</td>";
-				append +=   "<td style='padding: 5px 10px 0 10px; text-align: center;'><button type='button' class='btn btn-primary btn-edit-data' id='"+data[i].id+"' data-action='on-assign-checker' data-assignChecker='"+data[i].assignChecker+"' data-weekdaySchedule='"+data[i].weekdaySchedule+"' data-sundaySchedule='"+data[i].sundaySchedule+"'><i class='fa fa-pencil'></i> Edit</button> <button type='button' class='btn btn-warning btn-remove-data' id='"+data[i].id+"' data-action='on-assign-checker'><i class='fas fa-trash'></i> Remove</button></td>";
-				append += "</tr>";
+			var backColor = (counter % 2 == 0)? 'pc-cda-div-display-tr' : '';
+			var append =	'<tr class="'+backColor+'">';
+				append +=	'	<td style="padding: 10px;">'+data[i].assignChecker+'</td>';
+				append +=	'	<td style="padding: 10px;">'+data[i].weekdaySchedule+'</td>';
+				append += 	'	<td style="padding: 10px;">'+data[i].sundaySchedule+'</td>';
+				append +=	'	<td class="hide-on-smmd" style="padding: 10px; text-align: center;"><button type="button" class="btn btn-primary btn-edit-data" id="'+data[i].id+'" data-action="on-assign-checker" data-assignChecker="'+data[i].assignChecker+'" data-weekdaySchedule="'+data[i].weekdaySchedule+'" data-sundaySchedule="'+data[i].sundaySchedule+'"><i class="fa fa-pencil"></i> Edit</button> <button type="button" class="btn btn-warning btn-remove-data" id="'+data[i].id+'" data-action="on-assign-checker"><i class="fas fa-trash"></i> Remove</button></td>';
+				append +=	'</tr>';
+				append +=	'<tr class="'+backColor+' sub-tr-head">';
+				append +=	'	<td colspan="3">';
+				append +=	'		<div class="text-center" style="padding: 0 10px 10px 10px;word-break: break-all;">';
+				append +=	'			<button type="button" class="btn btn-primary btn-edit-data" id="'+data[i].id+'" data-action="on-assign-checker" data-assignChecker="'+data[i].assignChecker+'" data-weekdaySchedule="'+data[i].weekdaySchedule+'" data-sundaySchedule="'+data[i].sundaySchedule+'"><i class="fa fa-pencil"></i> Edit</button>';
+				append +=	'			<button type="button" class="btn btn-warning btn-remove-data" id="'+data[i].id+'" data-action="on-assign-checker"><i class="fas fa-trash"></i> Remove</button>';
+				append +=	'		</div>';
+				append +=	'	</td>';
+				append +=	'</tr>';
 			$(".pc-ac-div-display").append(append);
+			counter++;
 		}
 	}).always(function(){});
 }
@@ -342,16 +372,33 @@ function displayDailyListing(){
 		action: 'display-daily-listing',
 	}
 	AjaxCall(url, dataRequest).done(function(data) {
+		var counter = 1;
+
 		for (var i in data){
-			var append =  "<tr>";
-				append +=   "<td style='padding: 5px 10px 0 10px;'>"+data[i].gameId+"</td>";
-				append +=   "<td style='padding: 5px 10px 0 10px;'>"+data[i].gameName+"</td>";
-				append +=   "<td style='padding: 5px 10px 0 10px;'>"+data[i].releaseDate+"</td>";
-				append +=   "<td style='padding: 5px 10px 0 10px;'>"+data[i].createdBy+"</td>";
-				append +=   "<td style='padding: 5px 10px 0 10px;'>"+data[i].createdAt+"</td>";
-				append +=   "<td style='padding: 5px 10px 0 10px; text-align: center;'><button type='button' class='btn btn-primary btn-edit-data' id='"+data[i].id+"' data-dateni='"+data[i].releaseDate+"' data-action='on-daily-listing' data-gameId='"+data[i].gameId+"' data-gameName='"+data[i].gameName+"'>Edit</button> <button type='button' class='btn btn-warning btn-remove-data' id='"+data[i].id+"' data-action='on-daily-listing'>Remove</button></td>";
-				append += "</tr>";
+			var backColor = (counter % 2 == 0)? 'pc-cda-div-display-tr' : '';
+
+			var append =	'<tr class="'+backColor+'">';
+				append +=	"	<td style='padding: 5px 10px 0 10px;'>"+data[i].gameId+"</td>";
+				append +=	"	<td style='padding: 5px 10px 0 10px;'>"+data[i].gameName+"</td>";
+				append +=	"	<td style='padding: 5px 10px 0 10px;'>"+data[i].releaseDate+"</td>";
+				append +=	"	<td class='hide-on-smmd' style='padding: 5px 10px 0 10px;'>"+data[i].createdBy+"</td>";
+				append +=	"	<td class='hide-on-smmd' style='padding: 5px 10px 0 10px;'>"+data[i].createdAt+"</td>";
+				append +=	"	<td class='hide-on-smmd' style='width: 200px;padding: 5px 10px 10px 10px; text-align: center;'><button type='button' class='btn btn-primary btn-edit-data' id='"+data[i].id+"' data-dateni='"+data[i].releaseDate+"' data-action='on-daily-listing' data-gameId='"+data[i].gameId+"' data-gameName='"+data[i].gameName+"'>Edit</button> <button type='button' class='btn btn-warning btn-remove-data' id='"+data[i].id+"' data-action='on-daily-listing'>Remove</button></td>";
+				append +=	"</tr>";
+				append +=	'<tr class="'+backColor+' sub-tr-head">';
+				append +=	'	<td colspan="3">';
+				append +=	'		<div style="padding: 10px;">';
+				append +=	'			<p class="float-left">Created By : <span>'+data[i].createdBy+'</span></p>';
+				append +=	'			<div class="float-right" style="padding-bottom: 10px;">';
+				append +=	'				<button type="button" class="btn btn-primary btn-edit-data" id="'+data[i].id+'" data-dateni="'+data[i].releaseDate+'" data-action="on-daily-listing" data-gameId="'+data[i].gameId+'" data-gameName="'+data[i].gameName+'">Edit</button>';
+				append +=	'				<button type="button" class="btn btn-warning btn-remove-data" id="'+data[i].id+'" data-action="on-daily-listing">Remove</button>';
+				append +=	'			</div>';
+				append +=	'		</div>';
+				append +=	'	</td>';
+				append +=	'</tr>';
+
 			$(".pc-adlg-div-display").append(append);
+			counter++;
 		}
 	}).always(function(){});
 }

@@ -74,8 +74,7 @@
 			var typo = regExpEscape($(this).val());  //or var value = $(this).val().toLowerCase(); // in if $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 			//for earch the div that having names class
 			$('.search .store .names').each(function(){ 
-	         	var $this = $(this);//console.log($this.text());
-	         	//console.log($(this).text().search(new RegExp(typo, "i")) < 0) //"i" to perform case-insensitive //returns true if find or false if not
+	         	var $this = $(this);//console.log($(this).text().search(new RegExp(typo, "i")) < 0) //"i" to perform case-insensitive //returns true if find or false if not
 	         	if($(this).text().search(new RegExp(typo, "i")) < 0){
 	         		$this.closest('div.store').fadeOut(500);
 				 }else 
@@ -100,6 +99,7 @@
 
 		//Confirmation save affiliate
 		$(document).on('click', '#btn-affiliate-edit-save', function(){
+			var btn = document. getElementById("btn-affiliate-edit-save").disabled = true;
 			var $dataReqSave = {
 				action: 'ajaxAffiliateEditRequest',
 	            ajaxRequestId :   $('#aff-link-merchant-idv2').val(),
@@ -109,36 +109,33 @@
 	            ajaxRequestBrexitgbp : $("#aff-link-brexitgbpv2").val(),
 	            ajaxRequestsite : globalSite,
 			}
-			AjaxCall($url, $dataReqSave).done(function(data){
-					console.log(data);
-	            	var resultData = data.success.data;
-	            	var resultsite = data.success.site;
-	            	if(resultData.match(/^Successfully/))
-	                {
-	                	alert(resultData)
-	                	//$('#alert-modal-popup').modal('show');
-	                	//$('.eMessage').text(resultData);
-
-	                	$('#affiliate-link-edit-modal').modal('hide');
-						$dataReq.site = resultsite;
-	                    //AjaxCall($url, $dataReq).done(function(data){ affiliateLinkCheck(data) });
-	                }else{
-						alert(resultData)
-	                	//$('#alert-modal-popup').modal('show');
-	                	//$('.eMessage').text(resultData);
-
-	            		$('#affiliate-link-edit-modal').modal('hide');
-						$dataReq.site = resultsite;
-						//AjaxCall($url, $dataReq).done(function(data){ affiliateLinkCheck(data) });
-	                }
-			});
+			if(!btn){
+				AjaxCall($url, $dataReqSave).done(function(data){
+						console.log(data);
+						var resultData = data.success.data;
+						var resultsite = data.success.site;
+						if(resultData.match(/^Successfully/))
+						{
+							$dataReq.site = resultsite;
+							alertMsg(resultData + ' in ' + resultsite.toUpperCase())
+							$('#affiliate-link-edit-modal').modal('hide');
+							AjaxCall($url, $dataReq).done(function(data){ affiliateLinkCheck(data) });
+						}else{
+							$dataReq.site = resultsite;
+							alertMsg(resultData + ' in ' + resultsite.toUpperCase())
+							$('#affiliate-link-edit-modal').modal('hide');
+							AjaxCall($url, $dataReq).done(function(data){ affiliateLinkCheck(data) });
+						}
+				});
+			}else{
+				alertMsg("DISABLED FOR NOW");
+			}
 		});
 
 		//Display ADD affiliate
 		$(document).on('click', '.btn-add-afflinkv2', function(){
 	        var getId = $(this).attr('data-noAff-merId');
 	        var getName = $(this).attr('data-noAff-merName');
-	             
 	        $("#aff-link-merchant-idv2-add").val(getId);
 	        $("#aff-link-namev2-add").val(getName);
 	        $('#affiliate-link-add-modal').modal('hide'); //hide for now
@@ -146,7 +143,7 @@
 
     	//Confirmation ADD affiliate
 		$(document).on('click', '#btn-affiliate-add-save', function(){
-			var btn = document. getElementById("edit-aff-link-modal").disabled = true;
+			var btn = document. getElementById("btn-affiliate-add-save").disabled = true;
 			var $dataReqAddNewAff = {
 				action: 'addNewAffRequest',
 		        ajaxRequestIdAdd : $("#aff-link-merchant-idv2-add").val(),
@@ -164,30 +161,8 @@
 		            		alert(data);
 		            	}
 				});
-
-		        // $.ajax ({  
-		        //     url: "<?php //PROOT?>utilities/affiliateLinkCheck",  
-		        //     method:"POST",  
-		        //     data:{
-		        //         action: 'addNewAffRequest',
-		        //         ajaxRequestIdAdd : $modalIdAdd,
-		        //         ajaxRequestNameAdd : $affNameAdd,
-		        //         ajaxRequestAksAdd : $affAksv2Add,
-		        //         ajaxRequestCddAdd : $affCddv2Add,
-		        //         ajaxRequestBrexitgbpAdd : $affBrexitgbpv2Add,
-		        //     },   
-		        //     success:function(data){  
-		        //     	if(data == 'SUCCESS'){
-		        //     		alert(data);
-		        //     		window.location.reload();
-		        //     	}else{
-		        //     		alert(data);
-		        //     	}
-		        //     } 
-		        // }); 
-
 	   		}else 
-	   			alert("DISABLED FOR NOW");
+	   			alertMsg("DISABLED FOR NOW");
 	    });	
 
 		//toggle url check
@@ -195,7 +170,6 @@
 			//$url_check = $(this).attr("name");
 			var press_to_chk = $(this).attr("name");
 			var $press_to_chk = (press_to_chk == 'buy_url_raw' ) ? 'buy_url_raw' : 'buy_url';
-
 			window.location.href = "?url_check="+$press_to_chk;
 		});
 
@@ -256,7 +230,7 @@
 	        var RSite = data.success.site;
 			for(var i in NOALink){
 		        var app1 = "<div class='store alert-v2 alert-warning-v2 no-aff-link-v2' data-show='show'>";
-		        	app1 += 	'<input type="button" data-target="#affiliate-link-add-modal" data-toggle="modal" data-noAff-merName='+NOALink[i].name+' data-noAff-merId='+NOALink[i].id+' class="btn btn-add-afflinkv2" value="ADD" disabledd>';
+		        	app1 += 	'<input type="button" data-target="#affiliate-link-add-modal" data-toggle="modal" data-noAff-merName='+NOALink[i].name+' data-noAff-merId='+NOALink[i].id+' class="btn btn-add-afflinkv2" value="ADD" disabled>';
 		        	app1 += 	"<span class='names "+NOALink[i].classText+"'>&nbsp;&nbsp;"+NOALink[i].name.substr(0,1).toUpperCase() + NOALink[i].name.substr(1)+" Dont have affiliate check</span>";
 		        	app1 += "</div>";
 		        $('.result-no-affiliate').append(app1);
@@ -264,7 +238,7 @@
 			for(var j in WALink){
 		    	var app2 = "<div class='store "+WALink[j].classType+"' data-show='show'>";
 		    		app2 += 	"<div><h5><b class='names hidden-xs hidden-sm'>"+WALink[j].name.substr(0,1).toUpperCase()+WALink[j].name.substr(1)+" "+WALink[j].mer_id+" - "+WALink[j].count+" found</b></h5></div>";
-		    		app2 += '<input type="button" data-target="#affiliate-link-edit-modal" data-toggle="modal" data-withAff-merName='+WALink[j].name+' data-withAff-merId='+WALink[j].mer_id+' class="btn" id="edit-aff-link-modal" value="Edit" disabledd>';
+		    		app2 += '<input type="button" data-target="#affiliate-link-edit-modal" data-toggle="modal" data-withAff-merName='+WALink[j].name+' data-withAff-merId='+WALink[j].mer_id+' class="btn" id="edit-aff-link-modal" value="Edit" disabled>';
 		    		app2 += '<b class="">&nbsp;&nbsp;Tracking code is:&nbsp;  '+WALink[j].aff_link+'</b>';
 		    			if(WALink[j].data != null){
 		    				app2 += "<div class='err-link-display-aflc'>";

@@ -8,7 +8,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-lg-12 col-md-12 mtop-35px">
-			<div class="card card-style">
+			<div class="card no-padding card-style">
 				<div class="card-body no-padding store-card-main-wrap"> 
 					<div class="card-div-overflow-style row-1-card-div-overflow-style row-1-card-div-overflow-style-1 store-card-div-page-title">
 						<p class="store-list-title">Store list</p>

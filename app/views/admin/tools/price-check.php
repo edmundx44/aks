@@ -38,11 +38,11 @@
 								<thead>
 									<tr class="pc-header-tr">
 										<th class="pc-cda-table-h-sticky pc-th-class">Checker</th>
-										<th class="pc-cda-table-h-sticky pc-th-class" style="width: 100px;">Game ID</th>
+										<th class="pc-cda-table-h-sticky pc-th-class">GameID</th>
 										<th class="pc-cda-table-h-sticky pc-th-class">Game Name</th>
-										<th class="pc-cda-table-h-sticky pc-th-class">Activity</th>
-										<th class="pc-cda-table-h-sticky pc-th-class">Url</th>
-										<th class="pc-cda-table-h-sticky pc-th-class">Date</th>
+										<th class="pc-cda-table-h-sticky pc-th-class hide-on-smmd">Activity</th>
+										<th class="pc-cda-table-h-sticky pc-th-class hide-on-smmd">Url</th>
+										<th class="pc-cda-table-h-sticky pc-th-class hide-on-smmd">Date</th>
 									</tr> 
 								</thead>
 								<tbody class="pc-cda-div-display">
@@ -75,7 +75,7 @@
 										<th class="pc-cda-table-h-sticky pc-th-class">Assign Checker</th>
 										<th class="pc-cda-table-h-sticky pc-th-class">Week Day's</th>
 										<th class="pc-cda-table-h-sticky pc-th-class">Sunday</th>
-										<th class="pc-cda-table-h-sticky pc-th-class pc-th-class-wc">Action</th>
+										<th class="pc-cda-table-h-sticky pc-th-class pc-th-class-wc hide-on-smmd">Action</th>
 									</tr> 
 								</thead>
 								<tbody class="pc-ac-div-display">
@@ -93,10 +93,10 @@
 									<tr class="pc-header-tr">
 										<th class="pc-cda-table-h-sticky pc-th-class">ID</th>
 										<th class="pc-cda-table-h-sticky pc-th-class">Game Name</th>
-										<th class="pc-cda-table-h-sticky pc-th-class">Release Date</th>
-										<th class="pc-cda-table-h-sticky pc-th-class">Created By</th>
-										<th class="pc-cda-table-h-sticky pc-th-class">Date Created</th>
-										<th class="pc-cda-table-h-sticky pc-th-class pc-th-class-wc">Action</th>
+										<th class="pc-cda-table-h-sticky pc-th-class" style="width: 150px;">Release Date</th>
+										<th class="pc-cda-table-h-sticky pc-th-class hide-on-smmd" style="width: 150px;">Created By</th>
+										<th class="pc-cda-table-h-sticky pc-th-class hide-on-smmd" style="width: 150px;">Date Created</th>
+										<th class="pc-cda-table-h-sticky pc-th-class pc-th-class-wc hide-on-smmd">Action</th>
 									</tr> 
 								</thead>
 								<tbody class="pc-adlg-div-display">
@@ -106,7 +106,7 @@
 						</div>
 						<div class="pc-content-div pc-pr-div">
 							<div class="form-group float-left">
-								<div class="p-2 bg-danger text-white rounded text-center" style="width: 250px;">Today's Problem  &nbsp; : &nbsp; <b><span class="result-today"></span></b> </div>
+								<div class="bg-danger text-white rounded text-center pc-pr-tp" style="width: 250px;padding: 7px;">Today's Problem  &nbsp; : &nbsp; <b><span class="result-today"></span></b> </div>
 							</div>
 
 							<div class="form-group float-right">

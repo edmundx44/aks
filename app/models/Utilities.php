@@ -443,9 +443,20 @@ class Utilities{
 
 	}
 
-	public function getAllUsers(){
-		$sql = "SELECT `username` FROM `test-server`.`admin_user` ORDER BY `username`";
-		return $this->_db->query($sql);
+	public function getAllUsers($role){
+		if($role != ''){
+			$getCondition = 'role like ?';
+			$getBind = '%'.htmlspecialchars_decode($role).'%';
+		}else{
+			$getCondition = '';
+			$getBind = '';
+		}
+		return  $this->_db->find('`test-server`.`admin_user`',[
+			'column' => ['`username`'],
+			'conditions' => [$getCondition],
+			'bind' => [$getBind],
+			'order' => 'username'
+		]);
 	}
 
     public static function getMetacriticsNumberOfLinks($db,$id){
