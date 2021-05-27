@@ -10,7 +10,7 @@ use App\Models\Utilities;
 use App\Controllers\DashboardController;
 use App\Controllers\StoreController;
 use App\Controllers\ToolsController;
-use App\Controllers\UtilitiesController;
+use App\Controllers\LinksController;
 use App\Controllers\ReportsController;
 
 class Ajax {
@@ -276,11 +276,11 @@ class Ajax {
                     );
                 return $returnData;
             break;
-            case 'AjaxRealDblLinks':
-                $getWebsite = $getInput->get('data');
-				$utilities = new Utilities;
-				return $utilities->AjaxRealDblLinks($getWebsite);
-            break;
+    //         case 'AjaxRealDblLinks':
+    //             $getWebsite = $getInput->get('data');
+				// $utilities = new Utilities;
+				// return $utilities->AjaxRealDblLinks($getWebsite);
+    //         break;
             case 'displayCheckSumAction':
 				//$dateNow = $getInput->get('dateNow'); //from ajax
                 $dateTime = date('Y-m-d');
@@ -1203,6 +1203,30 @@ class Ajax {
 						}
 				}
 				return $final_array;
+				break;
+				case 'display-real-double-link':
+					$site = self::getSite($getInput->get('site'));
+					$sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs, `id`,`price`, `dispo` 
+        	        FROM `".$site."`.`pt_products` WHERE merchant NOT IN ('1','67','157','33','333') AND normalised_name != 50
+        	        GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
+
+        			return $db->query($sql)->results();
+				break;
+				case 'delete-real-double-link':
+					$site = self::getSite($getInput->get('site'));
+					$getId = $_POST['getId'];
+
+					switch ($getInput->get('getWhat')) {
+						case 'bySelected':
+							foreach ($getId as $id) {
+								$deleterealDouble = $db->delete('`'.$site.'`.`pt_products`', $id);
+							}
+						break;
+						case 'byOne':
+							$deleterealDouble = $db->delete('`'.$site.'`.`pt_products`', $getId);
+						break;
+						
+					}
 				break;
 		}
 	

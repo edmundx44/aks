@@ -6,7 +6,6 @@ use Core\DB;
 use Core\Input;
 use App\Models\Ajax;
 use App\Models\Users;
-//use App\Models\Utilities;
 
 class ToolsController extends Controller {
 

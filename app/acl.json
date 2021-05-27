@@ -1,29 +1,19 @@
 {
-  "Guest" : {
-    "denied" : {},
-    "User" : ["login", "register"],
-    "Restricted" : ["*"]
-  },
-  "LoggedIn" : {
-    "denied" : {
-      "User" : ["login", "register"]
-    },
-    "User" : ["logout"],
-    "Dashboard" : ["*"],
-    "Reports" : ["*"],
-    "Store": ["*"],
-    "Utilities": ["*"],
-    "Tools": ["*"]
-  },
-  "Developer" : {
-    "denied" : {
-      "User" : ["login", "register"]
-    },
-    "User" : ["logout"],
-    "Dashboard" : ["*"],
-    "Reports" : ["*"],
-    "Store": ["*"],
-    "Utilities": ["*"],
-    "Tools": ["*"]
-  }
+	"Guest" : {
+		"denied" : {},
+		"User" : ["login", "register"],
+		"Restricted" : ["*"]
+	},
+	"LoggedIn" : {
+		"denied" : {
+			"User" : ["login", "register"]
+		},
+		"User" : ["logout"],
+		"Dashboard" : ["*"],
+		"Reports" : ["*"],
+		"Store": ["*"],
+		"Links": ["*"],
+		"Tools": ["*"],
+		"Status" : ["*"]
+	}
 }
