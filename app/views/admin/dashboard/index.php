@@ -61,11 +61,15 @@
 		font-size: 12px;
 		color: #ffa726;
 	}
+
+	
 </style>
 <?php $this->end(); ?>
 
 <?php $this->start('body')?>
 <div class="container-fluid">
+
+	<!-- general bulletin section ------------------------------------------ -->
 	<div class="row">
 		<div class="col-lg-12 col-md-12 mtop-35px">
 			<div class="card card-style card-normalmode">
@@ -116,6 +120,7 @@
 		</div> -->
 	</div>
 
+	<!-- display report section ---------------------------------------------------------- -->
 	<div class="row">
 		<div class="col-xxl-6 col-xl-3 col-md-12 mtop-50px">
 			<div class="card card-style card-normalmode">
@@ -235,88 +240,83 @@
 		</div>
 	</div>
 
+	<!-- chart section ---------------------------------------------------------------------------- -->
 	<div class="row">
 		<div class="col-md-4 mtop-50px">
 			<div class="card card-style card-normalmode">
 				<div class="card-header no-padding row-3-card-header"> 
-					<div class="card-div-overflow-style row-3-card-div-overflow-style row-3-card-div-overflow-style-1" style="padding: 10px;height: 210px;"> 
-						<canvas id="priceToZeroPercent-1" class="priceToZeroPercent-canvas" height="120" style="z-index: 1;position:relative;"></canvas>
+					<div class="card-div-overflow-style row-3-card-div-overflow-style row-3-card-div-overflow-style-1 chart-canvas-div"> 
+						<canvas id="priceToZeroPercent-1" class="priceToZeroPercent-canvas chart-canvas" height="120"></canvas>
 					</div>
-					<div style="padding-left: 10px;">
-						<p style="font-size: 19px;font-weight: 500;">Price to zero</p>
-						<div style="margin: -15px 0 0 0">
-							<span style="color: #ef5350;">
+					<div class="chart-title-div">
+						<p class="chart-title-p">Price to zero</p>
+						<div class="chart-title-sub-div">
+							<span class="chart-title-sub-div-span">
 								<i class="fas fa-long-arrow-alt-up"></i>&nbsp; 
-								<span style="font-size: 15px;position: relative;">23</span>
-								<span style="font-size: 13px;margin-left: -1.5px;">%</span>
+								<span class="chart-title-sub-div-span-1">23</span>
+								<span class="chart-title-sub-div-span-2">%</span>
 							</span>
-							<span style="font-size: 13px;color: #999;"> product set to price to zero</span>
+							<span class="chart-title-sub-div-span-sub"> product set to price to zero</span>
 						</div>
 					</div>
 				</div>
-				<div class="card-body" style="padding: 10px 0 10px 10px;">
-					<span style="font-size: 13px;color: #999;"><i class="far fa-clock" style="position: relative;top: 1px;"></i><span> updated 9 minutes ago</span></span>
+				<div class="card-body chart-card-body">
+					<span class="chart-title-sub-div-span-sub"><i class="far fa-clock"></i><span> updated 9 minutes ago</span></span>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-4 mtop-50px">
 			<div class="card card-style card-normalmode">
 				<div class="card-header no-padding row-3-card-header"> 
-					<div class="card-div-overflow-style row-3-card-div-overflow-style row-3-card-div-overflow-style-2" style="padding: 10px;height: 210px;">
-						<canvas id="realDoubleCounts-1" class="priceToZeroPercent-canvas" height="120" style="z-index: 1;position:relative;"></canvas>
+					<div class="card-div-overflow-style row-3-card-div-overflow-style row-3-card-div-overflow-style-2 chart-canvas-div">
+						<canvas id="realDoubleCounts-1" class="priceToZeroPercent-canvas chart-canvas" height="120"></canvas>
 					</div>
-					<div style="padding-left: 10px;">
-						<p style="font-size: 19px;font-weight: 500;">All site count</p>
-						<div style="margin: -15px 0 0 0">
-							<span style="color: #ef5350;">
-								<span style="font-size: 15px;position: relative;">23</span>
+					<div class="chart-title-div">
+						<p class="chart-title-p">All site count</p>
+						<div class="chart-title-sub-div">
+							<span class="chart-title-sub-div-span">
+								<span class="chart-title-sub-div-span-1">23</span>
 							</span>
-							<span style="font-size: 13px;color: #999;"> new double links count</span>
+							<span class="chart-title-sub-div-span-sub"> new double links count</span>
 						</div>
 					</div>
 				</div>
-				<div class="card-body" style="padding: 10px 0 10px 10px;">
-					<span style="font-size: 13px;color: #999;"><i class="far fa-clock" style="position: relative;top: 1px;"></i><span> updated 4 hours ago</span></span>
+				<div class="card-body chart-card-body">
+					<span class="chart-title-sub-div-span-sub"><i class="far fa-clock"></i><span> updated 4 hours ago</span></span>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-4 mtop-50px">
 			<div class="card card-style card-normalmode">
 				<div class="card-header no-padding row-3-card-header"> 
-					<div class="card-div-overflow-style row-3-card-div-overflow-style row-3-card-div-overflow-style-3" style="padding: 10px;height: 210px;">
-						<canvas id="feedBotRuntime-1" class="priceToZeroPercent-canvas" height="120" style="z-index: 1;position:relative;"></canvas>
+					<div class="card-div-overflow-style row-3-card-div-overflow-style row-3-card-div-overflow-style-3 chart-canvas-div">
+						<canvas id="feedBotRuntime-1" class="priceToZeroPercent-canvas chart-canvas" height="120"></canvas>
 					</div>
-					<div style="padding-left: 10px;">
-						<p style="font-size: 19px;font-weight: 500;">Feedboot runtime</p>
-						<div style="margin: -15px 0 0 0">
-							<span style="font-size: 13px;color: #999;">server issue and reports</span>
+					<div class="chart-title-div">
+						<p class="chart-title-p">Feedboot runtime</p>
+						<div class="chart-title-sub-div">
+							<span class="chart-title-sub-div-span-sub">server issue and reports</span>
 						</div>
 					</div>
 				</div>
-				<div class="card-body" style="padding: 10px 0 10px 10px;">
-					<span style="font-size: 13px;color: #999;"><i class="far fa-clock" style="position: relative;top: 1px;"></i><span> updated 20 days ago</span></span>
+				<div class="card-body chart-card-body">
+					<span class="chart-title-sub-div-span-sub"><i class="far fa-clock"></i><span> updated 20 days ago</span></span>
 				</div>
 			</div>
 		</div>
 	</div>
 
+	<!-- changelog and feedbot section -------------------------------------------- -->
 	<div class="row">
 		<div class="col-lg-6 col-md-12 mtop-50px">
 			<div class="card card-style card-normalmode">
 				<div class="card-body no-padding row-4-card-body"> 
-					<div class="card-div-overflow-style row-4-card-div-overflow-style row-4-card-div-overflow-style-1" style="padding: 0 20px 0 20px;"> 
-						<p class="float-left text-white" style="letter-spacing: 1px;font-weight: 500;top: 30px;position: relative;">CHANGELOGS</p>
-						<button class="float-right btn btn-warning text-white btn-show-add-log-modal" style="top: 23px;position: relative;" data-toggle="modal" data-target="#show-add-log-modal"><i class="fas fa-plus-square"></i> &nbsp; Create</button>
+					<div class="card-div-overflow-style row-4-card-div-overflow-style row-4-card-div-overflow-style-1 changelog-header-div"> 
+						<p class="float-left text-white changelog-header-p">CHANGELOGS</p>
+						<button class="float-right btn btn-warning text-white btn-show-add-log-modal" data-toggle="modal" data-target="#show-add-log-modal"><i class="fas fa-plus-square"></i> &nbsp; Create</button>
 					</div>
-					<div class="scrollbar-custom ccd-con-wrapper" style="height: 405px;overflow-x: scroll;overflow-x: hidden;">
-						<!-- <div class="changelog-content-div">
-							<p class="ccd-header"><i class="fas fa-user-tie ccd-icon"></i> <span class="ccd-name">Paulfiox</span></p>
-							<p class="ccd-date">02/20/2323</p>
-						</div> -->
+					<div class="scrollbar-custom ccd-con-wrapper">
 						
-						<!-- <ul class="change-log-div">
-							
-						</ul> -->
 					</div>
 				</div>
 			</div>
@@ -326,14 +326,14 @@
 			<div class="card card-style card-normalmode">
 				<div class="card-body no-padding row-4-card-body"> 
 
-					<div class="card-div-overflow-style row-4-card-div-overflow-style row-4-card-div-overflow-style-2 check-width" style="color: white;"> 
-						<div style="padding-top: 20px; padding-left: 10px;">
-							<ul class="ul-tab-option m-fb-opt" style="display: none;">
+					<div class="card-div-overflow-style row-4-card-div-overflow-style row-4-card-div-overflow-style-2 check-width text-white"> 
+						<div class="feedbot-menu-div" style="">
+							<ul class="ul-tab-option m-fb-opt feedbot-menu-ul">
 								<i class="fas fa-sliders-h float-left card-body-div-fb" data-what="menu-feedbots"></i>
 								<li class="fb-opt-1">FEED BOTS</li>
 							</ul>
 							<!-- Mobile view this will be the display-->
-							<div class="card-body-menu-div-fbots menu-feedbots" style="color: #6b6d70 !important;">
+							<div class="card-body-menu-div-fbots menu-feedbots">
 								<ul class="card-body-menu-div-ul">
 									<li id="checksum-chart-m" class="m-feedboot-opt-li" data-m-tab="m-chksum"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Checksum</span></li>
 									<li id="feed-success-m" class="m-feedboot-opt-li" data-m-tab="m-sStore" data-feedbots="getSuccessStores"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Success</span></li>
@@ -341,7 +341,7 @@
 									<li id="feed-servercharge-m" class="m-feedboot-opt-li" data-m-tab="m-scStorem" data-feedbots="getServerChargeStore"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i><span class="cbm-span">Server Charge</span></li>
 								</ul>
 							</div>
-							<ul class="ul-tab-option pc-fb-opt" style="display: none; margin-top: 2px;">
+							<ul class="ul-tab-option pc-fb-opt">
 								<li>FEED BOTS: </li>
 								<li class="feedbots-opt clk-options li-tab-option" id="checksum-chart"><span>Checksum</span></li>
 								<li data-feedbots="getSuccessStores" class="feedbots-opt clk-options li-tab-option" id="feed-success"><span>Success</span></li>
@@ -350,61 +350,63 @@
 							</ul>
 						</div>
 					</div>
-						<div class="dropdown-box dbox-hide" style="padding-bottom: 5px; display:none;"><!-- display none first-->
-							<div class="dropdown-div" style="width: 150px;">
-								<div class="select custom-bkgd">
-					                <span class="selected-data change-site">Website</span>
-					                <span class="float-right"><i class="fas fa-caret-down" ></i></span>
-					            </div>
-								<ul class="dropdown-menu cos-dropdown-menu">
-				                    <li class='opt-site-chk' data-website="aks">AKS</li>
-				                    <li class='opt-site-chk' data-website="cdd">CDD</li>
-				                    <li class='opt-site-chk' data-website="brexitgbp">BREXITGBP</li>
-			                    </ul>
-							</div>
-							<div class="float-right">
-								<input style="color:#fff;" type="button" name="" class="m-d col-xs-3 btn custom-bkgd" id="btn-getchksumreports" value="TABLE" data-toggle="modal" data-target="#checksum-modal">
-							</div>
+
+					<div class="dropdown-box dbox-hide"><!-- display none first-->
+						<div class="dropdown-div feedbot-dd-div">
+							<div class="select custom-bkgd">
+					       		<span class="selected-data change-site">Website</span>
+					        	<span class="float-right"><i class="fas fa-caret-down" ></i></span>
+					    	</div>
+							<ul class="dropdown-menu cos-dropdown-menu">
+				        		<li class='opt-site-chk' data-website="aks">AKS</li>
+				        		<li class='opt-site-chk' data-website="cdd">CDD</li>
+				        		<li class='opt-site-chk' data-website="brexitgbp">BREXITGBP</li>
+			            	</ul>
 						</div>
-					<div class="card-style dbox-content" style="height: 70%; padding: 5px;">
-						<div class="checksum-chart content-hide" style="height: 100%; display:none;">
+						<div class="float-right">
+							<input type="button" name="" class="m-d col-xs-3 btn custom-bkgd text-white" id="btn-getchksumreports" value="TABLE" data-toggle="modal" data-target="#checksum-modal">
+						</div>
+					</div>
+
+					<div class="card-style dbox-content">
+						<div class="checksum-chart content-hide">
 							<canvas id="checksum-4" class="checksum-canvas"></canvas>
 						</div>
-						<div id="feed-success-append" class="feed-success content-hide" style="height: 100%; overflow-y: auto; display: none;">
-							<div><h5 class="text-center mt-2 text-primary" style="font-weight:500; letter-spacing:1.5px;"><span class="s-title"></span>SUCCESS (4 HOURS)</h5></div>
+						<div id="feed-success-append" class="feed-success content-hide">
+							<div><h5 class="text-center mt-2 text-primary text-h5-tittle"><span class="s-title"></span>SUCCESS (4 HOURS)</h5></div>
 
-							<div class="col-sm-12 s-buttons" style="display: none;">
+							<div class="col-sm-12 s-buttons">
 
 							</div>
 							<div class="modal-sreports-data col-sm-12">
-								<div class="loader-successMdata col-sm-12" style="display: none; height: 500px;"><?php //$this->loader('layouts','loader'); ?></div>
+								<div class="loader-successMdata col-sm-12"><?php //$this->loader('layouts','loader'); ?></div>
 								<div class="modal-reports-data append-sreports padding-lr-10 row">
 									
 								</div>
 							</div>
 
 						</div>
-						<div id="feed-failed-append" class="feed-failed content-hide scrollbar-custom" style="height: 100%; overflow-y: auto;"> <!-- display:none;-->
-							<div><h5 class="text-center mt-2 text-primary" style="font-weight:500; letter-spacing:1.5px;"><span class="f-title"></span>FAILED STORES (4 HOURS)</h5></div>
+						<div id="feed-failed-append" class="feed-failed content-hide scrollbar-custom"> <!-- display:none;-->
+							<div><h5 class="text-center mt-2 text-primary text-h5-tittle"><span class="f-title"></span>FAILED STORES (4 HOURS)</h5></div>
 
-							<div class="col-sm-12 f-buttons" style="display: none;">
+							<div class="col-sm-12 f-buttons">
 
 							</div>
 							<div class="modal-freports-data col-sm-12">
-								<div class="loader-failedMdata col-sm-12" style="display: none; height: 500px;"><?php //$this->loader('layouts','loader'); ?></div>
+								<div class="loader-failedMdata col-sm-12"><?php //$this->loader('layouts','loader'); ?></div>
 								<div class="modal-reports-data append-freports padding-lr-10 row">
 
 								</div>
 							</div>
 						</div>
-						<div id="feed-servercharge-append" class="feed-servercharge content-hide" style="height: 100%; overflow-y: auto; display: none;">
-							<div><h5 class="text-center mt-2 text-primary" style="font-weight:500; letter-spacing:1.5px;"><span class="sc-title"></span>Server Charge (Reports)</h5></div>
+						<div id="feed-servercharge-append" class="feed-servercharge content-hide">
+							<div><h5 class="text-center mt-2 text-primary text-h5-tittle"><span class="sc-title"></span>Server Charge (Reports)</h5></div>
 
-							<div class="col-sm-12 sc-buttons" style="display: none;">
+							<div class="col-sm-12 sc-buttons">
                 
 							</div>
 							<div class="modal-screports-data col-sm-12">
-								<div class="loader-serverchargeMdata col-sm-12" style="display: none; height: 500px;"><?php //$this->loader('layouts','loader'); ?></div>
+								<div class="loader-serverchargeMdata col-sm-12"><?php //$this->loader('layouts','loader'); ?></div>
 								<div class="modal-reports-data append-screports padding-lr-10 row">
 									
 								</div>

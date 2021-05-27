@@ -1,0 +1,77 @@
+.content-title-div {
+    padding-bottom: 8px;
+}
+.content-title-p-1,
+.content-title-p-2 {
+    position: relative;
+    padding:  0 20px 0 20px;
+    color: #fff;
+}
+.content-title-p-1 {
+    top: 20px;
+    letter-spacing: 1px;
+}
+.content-title-p-2 {
+    top: 3px;
+    font-size: 13px;
+}
+.activities-content {
+    padding: 0 0 20px 0;
+}
+.filter-activities {
+    padding: 0 0 0 20px;
+}
+.ac-add-filter {
+    cursor: pointer;
+    position: relative;
+    top: 5px;
+}
+.ac-add-filter i {
+    color:#007bff;
+}
+.ac-add-filter:hover > .ac-add-filter-span{
+    text-decoration: underline;  
+}
+.act-dropdown {
+    cursor: pointer;
+}
+.act-dropdown:hover {
+    background-color:   #007bff;
+    color:  #fff;
+}
+.filter-functions {
+    display: none;
+    margin: 15px 0 0 0;
+}
+.filter-function-dd {
+    display: inline-block;
+    margin: 5px 0 0 0;
+}
+.filter-btn {
+    width: 160px;
+}
+.select-btn-employee-dm {
+    height: auto;   
+    max-height: 500px;
+    overflow-y: scroll; 
+    overflow-x: hidden  ; 
+}
+.tableBody-Even-background {
+    background-color: #cccccc;
+}
+.hide-act-data {
+    display: none;
+}
+.display-activities-content {
+    margin: 30px 0 0 0;
+}
+.dac-tr {
+    color: #fff;
+    background-color: #007bff;
+}
+.dac-tr-head {
+    padding: 10px;
+}
+.dac-tr-head-width {
+    width: 100px;
+}
