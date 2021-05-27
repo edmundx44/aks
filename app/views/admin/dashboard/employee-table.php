@@ -119,7 +119,7 @@
 							<div class="row" style="color:#fff;margin: 0;">
 								<div class="div-topheader-1 col-lg-12">
 									<h5 style="display: inline-block; margin-right: 10px;">Employees Count Activity</h5>
-									<p style="font-size:12px;font-weight: 500;">Display all action created, opens, modified and delete for every employee</p>
+									<p style="font-size:12px;font-weight: 500;">Display all actions create, open, modify and delete for every employee</p>
 								</div>                                
 							</div>
 						</div >
