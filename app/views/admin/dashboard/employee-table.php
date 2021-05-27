@@ -22,7 +22,7 @@
         var $_firstquery = { action: "user-activities", dateStart: $('#date-start').val(), dateEnd: $('#date-end').val() };
         if( ($('#date-start').val() && $('#date-end').val() ) != '' )
             if(dateValidLen($('#date-start').val()) && dateValidLen($('#date-end').val()))
-                    startAjax($_firstquery)
+                startAjax($_firstquery)
 
         $(document).on('click', '.ac-add-filter', function(){ $('.filter-functions').slideToggle('fast'); });
         $(document).on('click' , '#date-submit-filter', function(){
@@ -92,7 +92,7 @@
             return false;
         else{
             let $c_yy = $check[0], $c_mm = $check[1], $c_dd = $check[2];
-            return (($c_yy.length == 4 && ($c_mm.length && $c_dd.length) == 2)) ? true : false;
+            return ( $c_yy.length == 4 && $c_mm.length == 2 && $c_dd.length == 2 ) ? true : false;
         }
     }
 </script>
