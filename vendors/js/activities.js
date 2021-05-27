@@ -6,9 +6,10 @@ $(function() {
             if($('.select-btn-employee').html() == 'Employee' || $('.select-btn-action').html() == 'Action' || $('.select-btn-site').html() == 'Site') {
                 alertMsg('Invalid Entry, Cindly check it carefully.')
             }else{
-               toRequestEmployee = $('.select-btn-employee').attr('data-getEmployee');
+               toRequestEmployee = ($('.select-btn-employee').attr('data-getEmployee') != null ) ? $('.select-btn-employee').attr('data-getEmployee') : null ;
                toRequestAction =$('.select-btn-action').attr('data-getAction');
                toRequestSite = $('.select-btn-site').attr('data-getSite');
+
                var $_query = { action: 'recent-activity', employee: toRequestEmployee, website: toRequestSite, useraction: toRequestAction };
                recentActivity($_query)
             }
@@ -59,6 +60,7 @@ $(function() {
             getRole: $role
         }
         AjaxCall(url, dataRequest).done(function(data){
+            $('.select-btn-employee-dm').append('<span class="dropdown-item act-dropdown select-btn-employee-di" style="cursor: pointer;" data-employee="">Default</span>')
             for(var i in data){
                 let employee = data[i].username.substr(0,1).toUpperCase()+data[i].username.substr(1).toLowerCase();
                 $('.select-btn-employee-dm').append('<span class="dropdown-item act-dropdown select-btn-employee-di" style="cursor: pointer;" data-employee='+data[i].username+'>'+ employee +'</span>')
@@ -88,7 +90,7 @@ $(function() {
                     app +=  '   <td class="name" style="padding: 10px;">'+worker+'</td>';
                     app +=  '   <td class="action" style="padding: 10px;"> '+data[i].action+'</td>';
                     app +=  '   <td class="game_id hide-on-smmd-lg" style="padding: 10px;">'+game_id+'</td>';
-                    app +=  '   <td class="link hide-on-smmd-lg" style="padding: 10px;">'+data[i].url+'</td>';
+                    app +=  '   <td class="break-all link hide-on-smmd-lg" style="padding: 10px;">'+html_decode(data[i].url)+'</td>';
                     app +=  '   <td class="site hide-on-smmd-lg" style="padding: 10px;">'+data[i].site+'</td>';
                     app +=  '</tr>';
                     app +=  '<tr class="'+backColor+' hide-act-data">';
