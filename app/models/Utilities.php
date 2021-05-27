@@ -459,6 +459,15 @@ class Utilities{
 		]);
 	}
 
+
+	public function userActivityCount($dateStart, $dateEnd){
+		date_default_timezone_set("Asia/Manila");
+		$date1 = strtotime($dateStart);
+		$date2 = strtotime($dateEnd.'+1 day');
+		$sql ="SELECT COUNT(`action`) `total_per_action` ,`worker`, `action` FROM `test-server`.`price_team_activity` WHERE time >= $date1 AND time <= $date2  GROUP by `action` , `worker`";
+		return $this->_db->query($sql);
+	}
+
     public static function getMetacriticsNumberOfLinks($db,$id){
         $sql = "SELECT count(*) as count FROM `metacritic`.`statistics` WHERE `game_id` = $id";
         return $db->query($sql)->first();

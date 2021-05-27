@@ -1177,6 +1177,33 @@ class Ajax {
 				$utilities = new Utilities;
 				return $utilities->getAllUsers(trim($getInput->get('getRole')));
 			break;
+
+			case 'user-activities':
+				$utilities = new Utilities;
+				$ddS = explode("-", $getInput->get('dateStart'));
+				$ddE = explode("-", $getInput->get('dateEnd'));
+				$boolStart = checkdate ( $ddS[1] , $ddS[2] , $ddS[0] );
+				$boolEnd = checkdate ( $ddE[1] , $ddE[2] , $ddE[0] );
+				if( ($boolStart && $boolEnd) == true && strtotime($getInput->get('dateStart')) < strtotime($getInput->get('dateEnd')) )
+					$results = $utilities->userActivityCount($getInput->get('dateStart'), $getInput->get('dateEnd'))->results();
+				else
+					return [];
+				$final_array = array();
+				foreach ($results as $activity){
+				$activity->worker = ucfirst($activity->worker);
+				if(!empty($activity->worker)){
+					if(array_key_exists($activity->worker,$final_array)){
+						$final_array[$activity->worker][$activity->action] = $activity->total_per_action;
+					}else{
+							$final_array[$activity->worker] = array(
+									$activity->action => $activity->total_per_action,
+									'worker' => $activity->worker,
+								);
+							}
+						}
+				}
+				return $final_array;
+				break;
 		}
 	
 	}//END OF FUNCTION AJAXDATA

@@ -20,7 +20,7 @@
                         <div class="filter-activities">
 
                             <span class="ac-add-filter"><i class="fas fa-plus-square"></i> &nbsp; <span class="ac-add-filter-span">Add Filter</span></span>
-                            <a href="/aks/dashboard/employeeTable" class="btn btn-success float-right">Open Table</a>
+                            <a href="/aks/dashboard/employeeTable" class="btn btn-success float-right">Price Team</a>
                             
                             <div class="filter-functions">
 
