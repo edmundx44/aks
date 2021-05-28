@@ -1225,8 +1225,40 @@ class Ajax {
 						case 'byOne':
 							$deleterealDouble = $db->delete('`'.$site.'`.`pt_products`', $getId);
 						break;
-						
 					}
+				break;
+				case 'display-suspicious-double':
+
+					$site = self::getSite($getInput->get('site'));
+					$getMerchant = ($getInput->get('getMerchant') != '')? "AND merchant = '".$getInput->get('getMerchant')."'" : '';
+					$getOffset = ($getInput->get('getOffset') != '')? $getInput->get('getOffset') : 0 ;
+					$getlimit = ($getInput->get('getlimit') != '')?	$getInput->get('getlimit') : 2; //if not limit not 50 display all data
+					
+					
+					
+					$sql = "SELECT  merchant, normalised_name, edition, region, count(*) AS occurences, 
+						buy_url, id, price, dispo, search_name, created_by, created_time FROM `$site`.pt_products WHERE
+						merchant != '1'   AND merchant != '67' AND 
+						merchant != '157' AND merchant != '33' AND
+						merchant != '333' AND merchant != '3' AND normalised_name != '50' $getMerchant
+						GROUP BY merchant, normalised_name, edition, region
+						HAVING occurences > 1 ORDER BY price DESC LIMIT $getOffset, $getlimit";
+
+		            return  $db->query($sql)->results();
+				break;
+				case 'display-suspicious-double-total':
+					$site = self::getSite($getInput->get('site'));
+					$getMerchant = ($getInput->get('getMerchant') != '')? "AND merchant = '".$getInput->get('getMerchant')."'" : '';
+
+					$sqlTotal = "SELECT  count(*) AS occurences
+						FROM `$site`.pt_products WHERE
+						merchant != '1'   AND merchant != '67' AND 
+						merchant != '157' AND merchant != '33' AND
+						merchant != '333' AND merchant != '3' AND normalised_name != '50' $getMerchant
+						GROUP BY merchant, normalised_name, edition, region
+						HAVING occurences > 1";
+
+					return count($db->query($sqlTotal)->results());
 				break;
 		}
 	

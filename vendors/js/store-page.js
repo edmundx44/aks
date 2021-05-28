@@ -220,7 +220,7 @@ function displayStoreGames($merchantID, $offset, $limit, $toSearch, $site){
 			}
 		}
 
-		currentDisplay += data[0].currentDisplay;
+		currentDisplay = parseInt(currentDisplay) + parseInt(data[0].currentDisplay);
 		currentID = $merchantID;
 		total = data[0].total;
 	}).always(function() { 
