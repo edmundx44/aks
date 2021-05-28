@@ -1,4 +1,4 @@
-<?php $this->setSiteTitle("Status Controller"); ?>
+<?php $this->setSiteTitle("Double Links"); ?>
 <?php $this->start('head'); ?>
 	<script>
 		$(function() {
@@ -50,7 +50,7 @@
 					break;
 					case 'dl-suspicious-double-div':
 						var param = '?tab=suspicious-double';
-						$('.dl-dd-site').removeClass('d-xl-block');
+						$('.dl-dd-site').addClass('d-xl-block');
 					break;
 					case 'dl-metacritics-double-div':
 						var param = '?tab=metacritics-double';
@@ -109,7 +109,7 @@
 			switch($param){
 				case 'suspicious-double':
 					var divClassID = 'dl-suspicious-double-div';
-					$('.dl-dd-site').removeClass('d-xl-block');
+					$('.dl-dd-site').addClass('d-xl-block');
 				break;
 				case 'metacritics-double':
 					var divClassID = 'dl-metacritics-double-div';
