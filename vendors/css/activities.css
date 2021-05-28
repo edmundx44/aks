@@ -1,3 +1,4 @@
+
 .content-title-div {
   padding-bottom: 8px;
 }
@@ -68,6 +69,11 @@
 .dac-tr {
   color: #fff;
   background-color: #007bff;
+}
+.dac-tr-head-td-sticky {
+  position: sticky;
+  background-color: #0062cc;
+  top: 88px; /* Don't forget this, required for the stickiness */
 }
 .dac-tr-head {
   padding: 10px;

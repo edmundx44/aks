@@ -80,12 +80,12 @@
                             <table class="col-12">
                                 <thead>
                                     <tr class="dac-tr">
-                                        <th class="dac-tr-head">Date</th>
-                                        <th class="dac-tr-head">Employee</th>
-                                        <th class="dac-tr-head">Action</th>
-                                        <th class="dac-tr-head dac-tr-head-width hide-on-smmd-lg">Game ID</th>
-                                        <th class="dac-tr-head hide-on-smmd-lg">Link</th>
-                                        <th class="dac-tr-head hide-on-smmd-lg">Site</th>
+                                        <th class="dac-tr-head-td-sticky dac-tr-head">Date</th>
+                                        <th class="dac-tr-head-td-sticky dac-tr-head">Employee</th>
+                                        <th class="dac-tr-head-td-sticky dac-tr-head">Action</th>
+                                        <th class="dac-tr-head-td-sticky dac-tr-head dac-tr-head-width hide-on-smmd-lg">Game ID</th>
+                                        <th class="dac-tr-head-td-sticky dac-tr-head hide-on-smmd-lg">Link</th>
+                                        <th class="dac-tr-head-td-sticky dac-tr-head hide-on-smmd-lg">Site</th>
                                     </tr> 
                                 </thead>
                                 <tbody id="recent-activity-body">

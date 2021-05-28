@@ -200,7 +200,8 @@ function displayIcon(){
 		"fa-link",
 		"fa-podcast",
 		"fa-store-alt",
-		"fa-tools"
+		"fa-tools",
+		"fa-power-off"
 	];
 
 	$('i#nav-icon').each(function(i){
