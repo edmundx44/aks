@@ -16,13 +16,13 @@ class Utilities{
 	public static function getSite($site){
 		switch ($site) {
 			case 'aks':
-			case 'AKS': $site = 'test-server';
+			case 'AKS': $site = '`test-server`';
 			break;
 			case 'cdd':
-			case 'CDD': $site = 'compareprices';
+			case 'CDD': $site = '`compareprices`';
 			break;
 			case 'brexitgbp':
-			case 'BREXITGBP': $site = 'brexitgbp';
+			case 'BREXITGBP': $site = '`brexitgbp`';
 			break;
 		}
 		return $site;
@@ -380,66 +380,105 @@ class Utilities{
 	}
 
 	public function getRecentActivity($worker = '', $action = 'created', $site = 'aks'){
-		if($site == 'brexitgbp'){
+		$array = array();
+		switch ($site) {
+			case 'aks':
+				$leftJoin = '`test-server`';
+				$qSite = 'AKS';
+			break;
+			case 'cdd':
+				$leftJoin = '`compareprices`';
+				$qSite = 'CDD';
+			break;
+			case 'brexitgbp':
+				$leftJoin = '`brexitgbp`';
+				$qSite = 'BREXITGBP';
+			break;
+			default: break;
+		}
+		if ($worker != NULL && $action != null){
+			$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+		 			FROM `test-server`.`price_team_activity` u 
+		 			LEFT JOIN 
+		 			$leftJoin.`pt_products` tb 
+		 			ON tb.id = u.product_id 
+		 			WHERE u.worker = '$worker' AND u.site = '$qSite' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
+		}else if($worker != NULL && $action == null){
+			$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+		 			FROM `test-server`.`price_team_activity` u 
+		 			LEFT JOIN 
+		 			$leftJoin.`pt_products` tb 
+		 			ON tb.id = u.product_id 
+		 			WHERE u.worker = '$worker' AND u.site = '$qSite' ORDER BY `time` DESC LIMIT 100";
+		}else{
+			$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+		 			FROM `test-server`.`price_team_activity` u 
+		 			LEFT JOIN 
+		 			$leftJoin.`pt_products` tb 
+		 			ON tb.id = u.product_id 
+		 			WHERE u.site = '$qSite' ORDER BY `time` DESC LIMIT 100";
+		}
+		return $array = $this->_db->query($sql);
+		// if($site == 'brexitgbp'){
 
-    	 	if($worker != NULL){
-	            $sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
-						FROM `test-server`.`price_team_activity` u 
-						LEFT JOIN 
-						`brexitgbp`.`pt_products` tb 
-						ON tb.id = u.product_id 
-						WHERE 
-						u.worker = '$worker' AND u.site = 'BREXITGBP' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
-	        } else {
-	        	$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
-						FROM `test-server`.`price_team_activity` u 
-						LEFT JOIN 
-						`brexitgbp`.`pt_products` tb 
-						ON tb.id = u.product_id 
-						WHERE u.site = 'BREXITGBP' ORDER BY `time` DESC LIMIT 100";
-	        }
-        	return $this->_db->query($sql);
+    	//  	if($worker != NULL){
+	    //         $sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+		// 				FROM `test-server`.`price_team_activity` u 
+		// 				LEFT JOIN 
+		// 				`brexitgbp`.`pt_products` tb 
+		// 				ON tb.id = u.product_id 
+		// 				WHERE 
+		// 				u.worker = '$worker' AND u.site = 'BREXITGBP' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
+	    //     } else {
+	    //     	$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+		// 				FROM `test-server`.`price_team_activity` u 
+		// 				LEFT JOIN 
+		// 				`brexitgbp`.`pt_products` tb 
+		// 				ON tb.id = u.product_id 
+		// 				WHERE u.site = 'BREXITGBP' ORDER BY `time` DESC LIMIT 100";
+	    //     }
+        // 	return $this->_db->query($sql);
 
-    	}else if($site == 'cdd'){
+    	// }else if($site == 'cdd'){
 
-    		if($worker != NULL){
-	            $sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
-						FROM `test-server`.`price_team_activity` u 
-						LEFT JOIN 
-						`compareprices`.`pt_products` tb 
-						ON tb.id = u.product_id 
-						WHERE 
-						u.worker = '$worker' AND u.site = 'CDD' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
-	       } else {
-	        	$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
-						FROM `test-server`.`price_team_activity` u 
-						LEFT JOIN 
-						`compareprices`.`pt_products` tb 
-						ON tb.id = u.product_id 
-						WHERE u.site = 'CDD' ORDER BY `time` DESC LIMIT 100";
-	       }
-        	return $this->_db->query($sql);
+    	// 	if($worker != NULL){
+	    //         $sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+		// 				FROM `test-server`.`price_team_activity` u 
+		// 				LEFT JOIN 
+		// 				`compareprices`.`pt_products` tb 
+		// 				ON tb.id = u.product_id 
+		// 				WHERE 
+		// 				u.worker = '$worker' AND u.site = 'CDD' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
+	    //    } else {
+	    //     	$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+		// 				FROM `test-server`.`price_team_activity` u 
+		// 				LEFT JOIN 
+		// 				`compareprices`.`pt_products` tb 
+		// 				ON tb.id = u.product_id 
+		// 				WHERE u.site = 'CDD' ORDER BY `time` DESC LIMIT 100";
+	    //    }
+        // 	return $this->_db->query($sql);
 
-    	}else{
+    	// }else{
 
-			if($worker != NULL){
-					$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
-							FROM `test-server`.`price_team_activity` u
-							LEFT JOIN 
-							`test-server`.`pt_products` tb 
-							ON tb.id = u.product_id 
-							WHERE 
-							u.worker = '$worker' AND u.site = 'AKS' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
-				} else {
-					$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
-							FROM `test-server`.`price_team_activity` u 
-							LEFT JOIN 
-							`test-server`.`pt_products` tb 
-							ON tb.id = u.product_id 
-							WHERE u.site = 'AKS' ORDER BY `time` DESC LIMIT 100";
-				}
-        	return $this->_db->query($sql);
-    	}
+		// 	if($worker != NULL){
+		// 			$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+		// 					FROM `test-server`.`price_team_activity` u
+		// 					LEFT JOIN 
+		// 					`test-server`.`pt_products` tb 
+		// 					ON tb.id = u.product_id 
+		// 					WHERE 
+		// 					u.worker = '$worker' AND u.site = 'AKS' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
+		// 		} else {
+		// 			$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+		// 					FROM `test-server`.`price_team_activity` u 
+		// 					LEFT JOIN 
+		// 					`test-server`.`pt_products` tb 
+		// 					ON tb.id = u.product_id 
+		// 					WHERE u.site = 'AKS' ORDER BY `time` DESC LIMIT 100";
+		// 		}
+        // 	return $this->_db->query($sql);
+    	// }
 
 	}
 

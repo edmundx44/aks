@@ -50,6 +50,7 @@
                                         <span class="float-left select-btn-action">Action</span>
                                     </button>
                                     <div class="dropdown-menu select-btn-action-dm">
+                                        <span class="dropdown-item act-dropdown select-btn-action-di" data-action="">Default</span>
                                         <span class="dropdown-item act-dropdown select-btn-action-di" data-action="created">Create</span>
                                         <span class="dropdown-item act-dropdown select-btn-action-di" data-action="modified">Modified</span>
                                         <span class="dropdown-item act-dropdown select-btn-action-di" data-action="opens">Opens</span>

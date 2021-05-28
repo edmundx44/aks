@@ -7,11 +7,11 @@ use Core\Session;
 use App\Models\Users;
 use App\Models\Merchant;
 use App\Models\Utilities;
-use App\Controllers\DashboardController;
-use App\Controllers\StoreController;
-use App\Controllers\ToolsController;
-use App\Controllers\UtilitiesController;
-use App\Controllers\ReportsController;
+// use App\Controllers\DashboardController;
+// use App\Controllers\StoreController;
+// use App\Controllers\ToolsController;
+// use App\Controllers\UtilitiesController;
+// use App\Controllers\ReportsController;
 
 class Ajax {
 
