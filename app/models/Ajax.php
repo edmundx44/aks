@@ -97,10 +97,11 @@ class Ajax {
 			break;
 
 			case 'displayStoreGames':
+				//display all
 				$site = self::getSite($getInput->get('site'));
 				$resultArray = array();
 				$getOffset = $getInput->get('offset');
-				$limit = ($getInput->get('limit') == 0)? 50 : $getInput->get('limit');
+				$limit = ($getInput->get('limit') == 0)? 499 : $getInput->get('limit');
 
 				if($getInput->get('toSearch') != ''){
 					$conditions = "buy_url like ?";
@@ -991,6 +992,7 @@ class Ajax {
 				$x = 0;
 				$total = $getInput->get('getTotal');
 				$offset = $getInput->get('getOffset');
+
 				while($x != $total) {
 					if($x == $offset) {
 						$displayCheckerActivity = $db->find('`aks_bot_teamph`.`tblCheckerList`', [
@@ -1005,8 +1007,9 @@ class Ajax {
 						if($total < $offset) break;
 						$offset = $offset + 499;
 					}
-				  $x++;
+					$x++;
 				}
+
 				return $result;
 			break;
 
@@ -1228,13 +1231,10 @@ class Ajax {
 					}
 				break;
 				case 'display-suspicious-double':
-
 					$site = self::getSite($getInput->get('site'));
 					$getMerchant = ($getInput->get('getMerchant') != '')? "AND merchant = '".$getInput->get('getMerchant')."'" : '';
 					$getOffset = ($getInput->get('getOffset') != '')? $getInput->get('getOffset') : 0 ;
-					$getlimit = ($getInput->get('getlimit') != '')?	$getInput->get('getlimit') : 2; //if not limit not 50 display all data
-					
-					
+					$getlimit = ($getInput->get('getlimit') != '')?	$getInput->get('getlimit') : 499; //if not limit not 50 display all data
 					
 					$sql = "SELECT  merchant, normalised_name, edition, region, count(*) AS occurences, 
 						buy_url, id, price, dispo, search_name, created_by, created_time FROM `$site`.pt_products WHERE

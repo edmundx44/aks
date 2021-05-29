@@ -21,7 +21,7 @@
 
 			$(document).on('click', '.dl-sl-loadmore-btn', function(){
 				var getSite = ($('.dl-dd-site-span').html() == 'Select Site')? 'AKS' : $('.dl-dd-site-span').html();
-				displaySuspiciousDouble($('.sd-select-store-name').data('getstoreid'), setOffset, 2, getSite);
+				displaySuspiciousDouble($('.sd-select-store-name').data('getstoreid'), setOffset, 499, getSite);
 			});
 
 			$(document).on('input', '.sd-select-store-name', function(){
@@ -34,16 +34,16 @@
 				if(CheckListed($(this).val()) == true){
 					if($(this).val() != '') {
 						$(this).data('getstoreid', $('#stores-data [value="' + $(this).val() + '"]').data('storeid'));
-						displaySuspiciousDouble($('#stores-data [value="' + $(this).val() + '"]').data('storeid'), '', 2, getSite);
+						displaySuspiciousDouble($('#stores-data [value="' + $(this).val() + '"]').data('storeid'), '', 499, getSite);
 						displaySuspiciousDoubleTotal($('#stores-data [value="' + $(this).val() + '"]').data('storeid'), getSite);
 					}else{
 						$(this).data('getstoreid', '');
-						displaySuspiciousDouble('', '', 2, getSite);
+						displaySuspiciousDouble('', '', 499, getSite);
 						displaySuspiciousDoubleTotal('', getSite);
 					}
 				}else{
 					$(this).data('getstoreid', '');
-					displaySuspiciousDouble($(this).val(), '', 2, getSite);
+					displaySuspiciousDouble($(this).val(), '', 499, getSite);
 					displaySuspiciousDoubleTotal($(this).val(), getSite);
 				}
 			});
@@ -81,7 +81,7 @@
 						$('.sdl-total-result').html('0');
 						$('.display-suspicious-double-div').empty();
 
-						displaySuspiciousDouble($('.sd-select-store-name').data('getstoreid'), '', 2, $(this).html());
+						displaySuspiciousDouble($('.sd-select-store-name').data('getstoreid'), '', 499, $(this).html());
 						displaySuspiciousDoubleTotal($('.sd-select-store-name').data('getstoreid'), $(this).html());
 					break;
 					default:
@@ -115,7 +115,7 @@
 						var param = '?tab=suspicious-double';
 
 						displayStore();
-						displaySuspiciousDouble($('.sd-select-store-name').data('getstoreid'), '', 2, getSite);
+						displaySuspiciousDouble($('.sd-select-store-name').data('getstoreid'), '', 499, getSite);
 						displaySuspiciousDoubleTotal($('.sd-select-store-name').data('getstoreid'), getSite);
 					break;
 					case 'dl-metacritics-double-div':
@@ -222,7 +222,7 @@
 			var dataRequest =  { 
 				action: 'displayStore',
 			}
-			
+
 			AjaxCall(url, dataRequest).done(function(data){
 				for(var i in data) {
 					$('.stores-data-class').append('<option data-storeid="'+data[i].vols_id+'" value="'+data[i].vols_nom+'" >');
@@ -266,7 +266,7 @@
 					var divClassID = 'dl-suspicious-double-div';
 
 					displayStore();
-					displaySuspiciousDouble('', '', 2, getSite);
+					displaySuspiciousDouble('', '', 499, getSite);
 					displaySuspiciousDoubleTotal('', getSite);
 				break;
 				case 'metacritics-double':
