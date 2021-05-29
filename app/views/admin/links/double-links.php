@@ -11,11 +11,12 @@
 
 
 // Suspicious Double link section ----------------------------------------------
+
 			$(document).on('click', '.dl-sl-displayall-btn', function(){
 				var getSite = ($('.dl-dd-site-span').html() == 'Select Site')? 'AKS' : $('.dl-dd-site-span').html();
 				var getAllSum = parseInt(setTotal) - parseInt(setOffset);
-
 				displaySuspiciousDouble($('.sd-select-store-name').data('getstoreid'), setOffset, getAllSum, getSite);
+				console.log(setOffset + " " + setTotal);
 			});
 
 			$(document).on('click', '.dl-sl-loadmore-btn', function(){
@@ -24,10 +25,27 @@
 			});
 
 			$(document).on('input', '.sd-select-store-name', function(){
-				if($(this).val() != '') {
-					$(this).data('getstoreid', $('#stores-data [value="' + $(this).val() + '"]').data('storeid'));
+				setOffset = '0';
+				setTotal = '';
+				$('.sdl-total-result').html('0');
+				$('.display-suspicious-double-div').empty();
+				var getSite = ($('.dl-dd-site-span').html() == 'Select Site')? 'AKS' : $('.dl-dd-site-span').html();
+
+				if(CheckListed($(this).val()) == true){
+					if($(this).val() != '') {
+						$(this).data('getstoreid', $('#stores-data [value="' + $(this).val() + '"]').data('storeid'));
+						displaySuspiciousDouble($('#stores-data [value="' + $(this).val() + '"]').data('storeid'), '', 2, getSite);
+						displaySuspiciousDoubleTotal($('#stores-data [value="' + $(this).val() + '"]').data('storeid'), getSite);
+					}else{
+						$(this).data('getstoreid', '');
+						displaySuspiciousDouble('', '', 2, getSite);
+						displaySuspiciousDoubleTotal('', getSite);
+					}
+				}else{
+					$(this).data('getstoreid', '');
+					displaySuspiciousDouble($(this).val(), '', 2, getSite);
+					displaySuspiciousDoubleTotal($(this).val(), getSite);
 				}
-				else $(this).data('getstoreid', '');
 			});
 
 // real double link section -----------------------------------------------------
@@ -43,13 +61,10 @@
 				var id=[];
 			    $('.rd-delete-checkbox:checked').each(function(i){
 			  		id[i] = $(this).data('cproductid');
-				})
+				});
 
-				if(id.length === 0) {
-			   		alertMsg('kindly select atleast one data.');
-			    }else{
-			    	deleteRealDoubleLinks(id, 'bySelected');
-				}
+				if(id.length === 0) alertMsg('kindly select atleast one data.');
+				else deleteRealDoubleLinks(id, 'bySelected');
 			});
 
 			$(document).on('click', '.dl-delete-real-double', function(){
@@ -58,7 +73,22 @@
 
 			$(document).on('click', '.dl-dd-site-di', function(){
 				$('.dl-dd-site-span').html($(this).html());
-				displayRealDoubleLinks($(this).html());
+
+				switch(getUrlParameter('tab')){
+					case 'suspicious-double':
+						setOffset = '0';
+						setTotal = '';
+						$('.sdl-total-result').html('0');
+						$('.display-suspicious-double-div').empty();
+
+						displaySuspiciousDouble($('.sd-select-store-name').data('getstoreid'), '', 2, $(this).html());
+						displaySuspiciousDoubleTotal($('.sd-select-store-name').data('getstoreid'), $(this).html());
+					break;
+					default:
+						displayRealDoubleLinks($(this).html());
+					break;
+
+				}
 			});
 			
 // double link menu section -----------------------------------------------------
@@ -77,7 +107,6 @@
 						var param = '';
 
 						displayRealDoubleLinks(getSite);
-						
 					break;
 					case 'dl-suspicious-double-div':
 						$('.display-suspicious-double-div').empty();
@@ -88,7 +117,6 @@
 						displayStore();
 						displaySuspiciousDouble($('.sd-select-store-name').data('getstoreid'), '', 2, getSite);
 						displaySuspiciousDoubleTotal($('.sd-select-store-name').data('getstoreid'), getSite);
-
 					break;
 					case 'dl-metacritics-double-div':
 						$('.dl-dd-site').removeClass('d-xl-block');
@@ -98,6 +126,7 @@
 				}
 				var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + param;
 				window.history.pushState({ path: newurl }, '', newurl);
+
 			});
 
 			
@@ -113,7 +142,10 @@
 			}
 			AjaxCall(url, dataRequest).done(function(data){
 				setTotal = $.trim(data);
-			}).always(function(){});
+				$('.sdl-total-result').html($.trim(data));
+			}).always(function(){
+				var hideIfMax = (setOffset == setTotal)? $('.dl-sl-div').hide() : $('.dl-sl-div').show();
+			});
 		}
 
 		function displaySuspiciousDouble($merchantid, $offset, $limit, $site){
@@ -126,8 +158,8 @@
 				getlimit: $limit,
 				site: $site
 			}
+
 			AjaxCall(url, dataRequest).done(function(data){
-				
 				for(var i in data){
 					var getCreated = (data[i].created_by == '')? 'Created by "Unknown" in '+getSite+'' : 'Created by "'+data[i].created_by+'" in '+getSite+'';
 					var	append =	'<div style="padding: 10px;box-shadow: 0 1px 4px 0 rgb(0 0 0 / 24%);margin: 0 0 15px 0;">';
@@ -142,7 +174,7 @@
 
 				setOffset = parseInt(setOffset) + parseInt(data.length);
 			}).always(function(){
-				var hideIfMax = (setOffset == setTotal)? $('.dl-sl-div').hide() : '';
+				var hideIfMax = (setOffset == setTotal)? $('.dl-sl-div').hide() : $('.dl-sl-div').show();
 			});
 		}
 
@@ -190,18 +222,16 @@
 			var dataRequest =  { 
 				action: 'displayStore',
 			}
+			
 			AjaxCall(url, dataRequest).done(function(data){
 				for(var i in data) {
 					$('.stores-data-class').append('<option data-storeid="'+data[i].vols_id+'" value="'+data[i].vols_nom+'" >');
 				}
-
 			}).always(function(){});
-			
 		}
 
 		function deleteRealDoubleLinks($id, $byWhat){
 			var getSite = ($('.dl-dd-site-span').html() == 'Select Site')? 'AKS' : $('.dl-dd-site-span').html();
-
 			var dataRequest =  { 
 				action: 'delete-real-double-link',
 				site : getSite,
@@ -211,6 +241,16 @@
 			AjaxCall(url, dataRequest).done(function(){
 				displayRealDoubleLinks(getSite);
 			}).always(function(){});
+		}
+
+		function CheckListed( txtSearch  ) {
+			var objList = document.getElementById("stores-data")  ;
+			for (var i = 0; i < objList.options.length; i++) {
+				if ( objList.options[i].value.trim().toUpperCase() == txtSearch.trim().toUpperCase() ) {
+					return true;
+				}
+			}
+			return false ; // text does not matched ;
 		}
 
 		function setActiveTab($param){
@@ -348,7 +388,7 @@
 								<div class="bg-warning float-right rounded text-center text-white" style="width: 200px;padding: 7px;">
 									Total Result's  &nbsp; : &nbsp; 
 									<b>
-										<span class="total-result">0</span>
+										<span class="sdl-total-result"></span>
 									</b>
 								</div>
 							</div>
@@ -356,7 +396,7 @@
 							<div class="display-suspicious-double-div" style="margin: 15px 0 0 0;border:solid 1px transparent;">
 								<!-- dynamic data here from database -->
 							</div>
-							<div class="text-center dl-sl-div">
+							<div class="text-center dl-sl-div" style="display:none;">
 								<button class="btn btn-primary dl-sl-loadmore-btn"><i class="fas fa-spinner"></i> Load More</button>
 								<button class="btn btn-primary dl-sl-displayall-btn"><i class="fas fa-globe"></i> Display All</button>
 							</div>
