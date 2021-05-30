@@ -71,7 +71,7 @@ $(function() {
 
     function recentActivity($_query = null){
         if($_query == null)
-            var $_query = { action: 'recent-activity', employee: null, website: 'aks', useraction: 'created' };
+            var $_query = { action: 'recent-activity', employee: null, website: 'aks', useraction: null };
         AjaxCall(url+'dashboard/activities', $_query).done( recentActAjax )
     }
 

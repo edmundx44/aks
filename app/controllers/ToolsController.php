@@ -22,7 +22,7 @@ class ToolsController extends Controller {
 		$this->view->dataEdition =  $utilities->dataEdition();
 		$this->view->dataMerchant = $utilities->dataMerchant();
 			
-		$this->view->pageTitle = 'Merchant edition price check tool';
+		$this->view->pageTitle = 'Merchant edition price check';
 		$this->view->render('admin/tools/merchant-edition');
 	}
 
@@ -45,10 +45,10 @@ class ToolsController extends Controller {
 		$this->view->render('admin/tools/romain');
 	}
 
-	public function disabledStoreAction($queryParameters = false){
+	public function criticsErrorAction($queryParameters = false){
 		self::ajaxFunction();
-		$this->view->pageTitle = 'Disable Store Tool';
-		$this->view->render('admin/tools/disabled-store');
+		$this->view->pageTitle = 'Metacritics Error Ratings';
+		$this->view->render('admin/tools/critics-error');
 	}
 
 	public function feedDataAction($queryParameters = false){

@@ -46,7 +46,14 @@ class Ajax {
 								return $utilities->displayDisabledStore();
 							break;
 							case 'Metacritics':
-								return $utilities->displayDisabledMetacritics();
+								$getDisabled = $utilities->displayMetacritics();
+								$returnResponse = array();
+								foreach($getDisabled as $key){
+									if($key['status'] == 'disabled'){
+										array_push($returnResponse, $key);
+									}
+								}
+								return array('to' => 'Metacritics', 'count' => count($returnResponse),'data' => $returnResponse);
 							break;
 						}
 					break;
@@ -1228,6 +1235,73 @@ class Ajax {
 						
 					}
 				break;
+
+				case 'get-metacritics-status':
+					$utilities = new Utilities;
+					$response = $utilities->displayMetacritics();
+					return array('to' => 'critics' , 'data' => $response);
+				break;
+
+				case 'get-stores-status':
+					$utilities = new Utilities;
+					$site = $getInput->get('site');
+					$status = 1;  //static
+					$rating = 101; //static
+					if(!self::getSite($site))
+						return "Invalid Information";
+
+					$stores = $utilities->salepageFindByStatus($status)->results();
+					$over_all_links_count  = $utilities->getOfferCounts($site);
+					$over_all_rating_count = $utilities->getOfferCountsByRatings($site, $rating);
+					$response = array();
+					foreach($stores as $store){
+						$total_count_by_store=0;
+						$total_rating_by_store=0;
+						
+						if(isset($over_all_links_count[$store->vols_id]['count']))
+                            $total_count_by_store = $over_all_links_count[$store->vols_id]['count'];
+						if(isset($over_all_rating_count[$store->vols_id]['count']))
+                            $total_rating_by_store = $over_all_rating_count[$store->vols_id]['count'];
+
+						if($total_count_by_store > 0){
+							$total_count_by_store = $total_count_by_store * .95;
+							if( $total_rating_by_store <= $total_count_by_store){
+                                array_push($response, $array = [
+									'id' => $store->vols_id, 'merchant' => ucfirst($store->vols_nom), 'status'   => 'enabled'
+								]);
+                            }else{
+                                array_push($response, $array = [
+									'id' => $store->vols_id, 'merchant' => ucfirst($store->vols_nom), 'status'   => 'disabled'
+								]);
+                            }
+						}
+					}
+					return array('to' => 'merchant' , 'data' => $response);
+				break;
+
+				case 'update-statuscontroller':
+					$merchant = $getInput->get('id');
+					$status = $getInput->get('status');
+					$from = $getInput->get('from');
+					$utilities = new Utilities;
+
+					switch($from){
+						case 'merchants':
+							$site = $getInput->get('site');
+							if(!self::getSite($site))
+								return "Invalid Information";
+							$rating = ($status === 'ON') ? '101' : '0' ;
+							$response = $utilities->updateMerchantRating($site, $merchant, $rating); //return boolean if the return is false its success
+						break;
+						case 'critics':
+							$rating = ($status === 'ON') ? '1' : '2' ;
+							$response = $utilities->updateMetacriticsStatus($merchant, $rating); //return boolean if the return is false its success
+						break;
+						default:break;
+					}
+					 return $response;
+	
+				break;
 		}
 	
 	}//END OF FUNCTION AJAXDATA
@@ -1235,13 +1309,18 @@ class Ajax {
 	public static function getSite($site){
 		switch ($site) {
 			case 'AKS':
+			case 'aks':
 				$site = 'test-server';
 			break;
 			case 'CDD':
+			case 'cdd':
 				$site = 'compareprices';
 			break;
 			case 'BREX':
+			case 'brexitgbp':
 				$site = 'brexitgbp';
+			break;
+			default: $site = false;
 			break;
 		}
 		return $site;

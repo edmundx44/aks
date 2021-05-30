@@ -1,6 +1,6 @@
 <?php $this->setSiteTitle($this->pageTitle); ?>
 <?php $this->start('head'); ?>
-<link rel="stylesheet" href="<?=PROOT?>vendors/css/utilities-page.css" media="screen" title="no title" charset="utf-8">
+<link rel="stylesheet" href="<?=PROOT?>vendors/css/links-page.css" media="screen" title="no title" charset="utf-8">
 <script type="text/javascript">
     $(function(){
 
@@ -21,11 +21,11 @@
                     <!-- HEADER STARTS row-4-card-div-overflow-style-->
 						<div class="card-div-overflow-style row-4-card-div-overflow-style-2" style="position:relative; padding-top:20px;">
 							<div class="row" style="color:#fff;margin: 0;">
-								<div class="div-topheader-1 col-lg-9">
+								<div class="div-topheader-1 col-lg-10">
 									<h5 style="display: inline-block; margin-right: 10px;">Rhyn Tool</h5>
 									<p style="font-size:12px;font-weight: 500;">Check using by users</p>
 								</div>
-                                <div class="col-lg-3" style="padding-bottom:20px;">
+                                <div class="col-lg-2" style="padding-bottom:20px;">
                                     <div class="dropdown-website">
                                         <div class="selected-website">
                                             <span class="selected-data"><input id="website-btn" class="website-btn" type="button" value="AKS"></span>

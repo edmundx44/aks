@@ -1,6 +1,6 @@
 <?php $this->setSiteTitle($this->pageTitle); ?>
 <?php $this->start('head'); ?>
-<link rel="stylesheet" href="<?=PROOT?>vendors/css/utilities-page.css" media="screen" title="no title" charset="utf-8">
+<link rel="stylesheet" href="<?=PROOT?>vendors/css/links-page.css" media="screen" title="no title" charset="utf-8">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.12.0/underscore-min.js"></script>
 <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" >
 <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css">
@@ -120,11 +120,11 @@
                     <!-- HEADER STARTS row-4-card-div-overflow-style-->
 						<div class="card-div-overflow-style aks_bg_color" style="position:relative; padding-top:20px;">
 							<div class="row" style="color:#fff;margin: 0;">
-                                <div class="header-div col-lg-9">
+                                <div class="header-div col-lg-10">
 									<h5 class="header-title-page">Merchant Edition Check</h5>
 									<p class="header-text-paragraph">Check using Merchant and Edition</p>
 								</div>
-                                <div class="col-lg-3" style="padding-bottom:20px;">
+                                <div class="col-lg-2" style="padding-bottom:20px;">
                                     <div class="dropdown-website">
                                         <div class="selected-website">
                                             <span class="selected-data"><input id="website-btn" class="website-btn" type="button" value="AKS"></span>

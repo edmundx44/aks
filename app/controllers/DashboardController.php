@@ -37,8 +37,6 @@ class DashboardController extends Controller {
 
         self::ajaxFunction();
         $this->view->pageTitle = 'Notification';
-        $this->view->dateStart = date('Y-m-d', strtotime('-1 day'));
-        $this->view->dateStart = date('Y-m-d', strtotime('-1 day'));
         $this->view->render('admin/dashboard/employee-table');
     }
 
