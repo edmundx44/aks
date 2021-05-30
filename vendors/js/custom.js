@@ -617,7 +617,7 @@ function displayStoreGamesByNormalizedName($normalised_name,$site) {
 		site: $site
 	}
 
-	AjaxCall(url+'store', dataRequest).done(function(data) {
+	AjaxCall(url, dataRequest).done(function(data) {
 		$('.productName').text(data[0].searchName);
 		$('.productNormalizedName').text(data[0].nname);
 		$('#displayStoreGamesByNormalizedName').modal('show');

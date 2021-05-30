@@ -43,262 +43,39 @@
     </div>
 </div>
 
+
+
 <!-- Large modal -->
-<div class="modal fade bd-example-modal-lg add-edit-store-game-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog modal-lg" style="height:  calc(100% - 70px);">
-        <div class="modal-content" style="height:  100%;top: 70px;">
-            <div class="modal-header">
-                <h4 class="modal-title">Modal Header</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                
-            </div>
-
-            <div class="modal-body" style="height: 100%;overflow-y:auto;">
-                <div class="row">
-                    <!-- 1st row -------------------------- -->
-                    <div class="col-6">
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label">Merchant</span>
-                        </div>
-                        <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label">Search name</span>
-                        </div>
-                        <br><br>
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle add-edit-game-btn-edition" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;text-align: left;">Select edition</button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-6">
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label">Game ID - Normalized name</span>
-                        </div>
-                        <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label">Price</span>
-                        </div>
-                        <br><br>
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle add-edit-game-btn-region" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;text-align: left;">Select region</button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 2nd row -------------------------- -->
-                    <div class="col-12">
-                        <br><br>
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle add-edit-game-btn-ratings" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;text-align: left;">Select RATINGS</button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label">URL</span>
-                        </div>
-                    </div>
-
-                    <!-- 3rd row -------------------------- -->
-                    <div class="col-6">
-                        <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label">Keyword</span>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label">Category</span>
-                        </div>
-                    </div>
-
-                    <!-- 4th row -------------------------- -->
-                     <div class="col-12">
-                        <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label">BUY URL BIS</span>
-                        </div>
-                    </div>
-
-                    <!-- 5th row -------------------------- -->
-                    <div class="col-6">
-                        <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label">BUY URL TIER</span>
-                        </div>
-
-                        <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label">Releasedate</span>
-                        </div>
-
-                        <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label">metacritic score </span>
-                        </div>
-
-                        <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label">metacritic critic score </span>
-                        </div>
-
-                        <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label">metacritic user score</span>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label"> BUY URL 4 </span>
-                        </div>
-
-                        <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label">releaseyear</span>
-                        </div>
-
-                        <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label">metacritic count</span>
-                        </div>
-
-                        <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label">metacritic critic count </span>
-                        </div>
-
-                        <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);"/>
-                            <span class="floating-label">metacritic user count </span>
-                        </div>
-                    </div>
-
-                    <!-- 6th row -------------------------- -->
-                    <div class="col-12">
-                        <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);" style="border-color: green;" disabled/>
-                            <span class="floating-label"> </span>
-                        </div>
-                         <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);" style="border-color: green;" disabled/>
-                            <span class="floating-label"> </span>
-                        </div>
-                         <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);" style="border-color: green;" disabled/>
-                            <span class="floating-label"> </span>
-                        </div>
-                         <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);" style="border-color: green;" disabled/>
-                            <span class="floating-label"> </span>
-                        </div>
-                         <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);" style="border-color: green;" disabled/>
-                            <span class="floating-label"> </span>
-                        </div>
-                         <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);" style="border-color: green;" disabled/>
-                            <span class="floating-label"> </span>
-                        </div>
-                         <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);" style="border-color: green;" disabled/>
-                            <span class="floating-label"> </span>
-                        </div>
-                         <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);" style="border-color: green;" disabled/>
-                            <span class="floating-label"> </span>
-                        </div>
-                         <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);" style="border-color: green;" disabled/>
-                            <span class="floating-label"> </span>
-                        </div>
-                         <br>
-                        <div class="user-input-wrp">
-                            <br/>
-                            <input type="text" value='' class="inputText" onkeyup="this.setAttribute('value', this.value);" style="border-color: green;" disabled/>
-                            <span class="floating-label"> </span>
-                        </div>
-                         <br>
-                    </div>
-
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </div>
+<div class="modal fade bd-example-modal-lg add-edit-store-game-modal no-padding" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	<div class="modal-dialog modal-lg modal-xl-override" style="height:  calc(100% - 60px);" role="document">
+		<div class="modal-content" style="height:  100%;border-radius: 0;background-clip: initial; background: rgba(0,123,255, .5);border: none;padding: 10px;">
+			<div class="modal-content-wrapper" style="width: 100%;height: 100%;background-color: #fff;">
+				<div class="modal-content-header" style="height: 100px;background-color: #1e1e2f;">
+					<button type="button" class="close float-right" data-dismiss="modal" style="position: relative;right: 15px;top: 10px;color: #fff;font-size: 15px;">
+						<i class="fas fa-times"></i>
+					</button>
+					<div class="modal-content-header-content" style="padding: 10px 0 15px 15px;">
+						<p style="margin: 0; padding: 0;color: #fff;letter-spacing: 2px;">AKS</p>
+						<p class="text-warning text-center" style="margin: 0; padding: 0;color: #fff;font-size: 12px;">*** Do not add region on AKS PC games ***</p>
+						<p class="text-warning text-center" style="margin: 0; padding: 0;color: #fff;font-size: 12px;">LATAM, US, RUSSIA , ACCOUNT, APAC and ASIAN regions</p>
+						<p class="text-warning text-center" style="margin: 0; padding: 0;color: #fff;font-size: 12px;">About consoles all regions are autorised</p>
+					</div>
+				</div>
+				<div class="modal-content-body scrollbar-custom" style="height:  calc(100% - 170px);overflow-y: auto;">
+					<!-- <div class="input-text-div">
+						<i class="input-text-i fab fa-accusoft"></i>
+						<input type="text" name="" class="input-text-class">
+						<span class="input-text-span">Sample text</span>
+						<span class="input-text-border"></span>
+					</div> -->
+					
+				</div>
+				<div class="modal-content-foot" style="height: 70px;border-top: solid 1px rgba(0,123,255, .5); padding: 10px;text-align: right;">
+					<button class="btn btn-primary mt-1">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 
@@ -982,3 +759,32 @@
         </div>
     </div>
 </div>
+
+
+
+<!-- // default modal design
+<div class="modal fade bd-example-modal-lg add-edit-store-game-modal no-padding" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	<div class="modal-dialog modal-lg modal-xl-override" style="height:  calc(100% - 60px);" role="document">
+		<div class="modal-content" style="height:  100%;border-radius: 0;background-clip: initial; background: rgba(0,123,255, .5);border: none;padding: 10px;">
+			<div class="modal-content-wrapper" style="width: 100%;height: 100%;background-color: #fff;">
+				<div class="modal-content-header" style="height: 100px;background-color: #1e1e2f;">
+					<button type="button" class="close float-right" data-dismiss="modal" style="position: relative;right: 15px;top: 10px;color: #fff;font-size: 15px;">
+						<i class="fas fa-times"></i>
+					</button>
+					<div class="modal-content-header-content" style="padding: 10px 0 15px 15px;">
+						<p style="margin: 0; padding: 0;color: #fff;letter-spacing: 2px;">AKS</p>
+						<p class="text-warning text-center" style="margin: 0; padding: 0;color: #fff;font-size: 12px;">*** Do not add region on AKS PC games ***</p>
+						<p class="text-warning text-center" style="margin: 0; padding: 0;color: #fff;font-size: 12px;">LATAM, US, RUSSIA , ACCOUNT, APAC and ASIAN regions</p>
+						<p class="text-warning text-center" style="margin: 0; padding: 0;color: #fff;font-size: 12px;">About consoles all regions are autorised</p>
+					</div>
+				</div>
+				<div class="modal-content-body" style="height:  calc(100% - 170px);">
+					asdsad
+				</div>
+				<div class="modal-content-foot" style="height: 70px;border-top: solid 1px rgba(0,123,255, .5); padding: 10px;text-align: right;">
+					<button class="btn btn-primary mt-1">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> -->
