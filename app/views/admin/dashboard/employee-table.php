@@ -42,7 +42,7 @@
     });
     
     function startAjax($_query) {
-        AjaxCall(url+'dashboard/employeeTable',$_query).done(AjaxSuccess);
+        AjaxCall(url,$_query).done(AjaxSuccess);
     }
     
     function AjaxSuccess(data){

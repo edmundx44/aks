@@ -8,8 +8,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
 <script type="text/javascript">
-	//ESCAPE SPECIAL CHARACTERS	
-	var $url = '<?=PROOT?>tools/feedData';
+	//ESCAPE SPECIAL CHARACTERS
 	var $dataOpt = {
 		action: 'fd-display-merchant',
 		website : 'aks'
@@ -24,7 +23,7 @@
 	var feedTable = $('#display-feed-table').DataTable();
 	$(document).ready(function(){
         //populate merchant
-		AjaxCall($url, $dataOpt).done(populateMerchant); 
+		AjaxCall(url, $dataOpt).done(populateMerchant); 
         
         //FOR DROP DOWN SELECT ANIMATION
 		$('.option-click, .option-click-1').click( function() {
@@ -53,7 +52,7 @@
 			$dataOpt.website = $site;
 			globalSite = $site;
 			$target = 'fd-select-merchant';
-			AjaxCall($url, $dataOpt).done(populateMerchant);
+			AjaxCall(url, $dataOpt).done(populateMerchant);
 		});
 
         //search url in datatable
@@ -71,7 +70,7 @@
 				website : globalSite,
 				id : $dataGetFeed.id
 			}
-			AjaxCall($url, $data3).done(function(data){
+			AjaxCall(url, $data3).done(function(data){
 				console.log(data)
 				$('.search-labells').val(data).trigger("keyup");
 			});
@@ -85,7 +84,7 @@
             $dataGetFeed.store = $(this).find('.name').attr('data-name');
             $dataGetFeed.website = $dataOpt.website;
 			$dataGetFeed.id = $id;
-            AjaxCall($url, $dataGetFeed).done(function(data){
+            AjaxCall(url, $dataGetFeed).done(function(data){
             if(data != 'No merchant found'){
                 var items = []; 
                 var $columnCJS = [

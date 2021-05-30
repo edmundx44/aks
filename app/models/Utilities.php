@@ -491,10 +491,11 @@ class Utilities{
 
 	public function userActivityCount($dateStart, $dateEnd){
 		date_default_timezone_set("Asia/Manila");
-		$date1 = strtotime($dateStart);
+		$date1 = strtotime($dateStart); //positional
 		$date2 = strtotime($dateEnd.'+1 day');
-		$sql ="SELECT COUNT(`action`) `total_per_action` ,`worker`, `action` FROM `test-server`.`price_team_activity` WHERE time >= $date1 AND time <= $date2  GROUP by `action` , `worker`";
-		return $this->_db->query($sql);
+		$data = [ $date1 , $date2 ];
+		$sql ="SELECT COUNT(`action`) `total_per_action` ,`worker`, `action` FROM `test-server`.`price_team_activity` WHERE time >= ? AND time <= ?  GROUP by `action` , `worker`";
+		return $this->_db->query($sql, $data);
 	}
 
     public static function getMetacriticsNumberOfLinks($db,$id){

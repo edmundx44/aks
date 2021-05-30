@@ -2,12 +2,8 @@
 <?php $this->start('head'); ?>
 <link rel="stylesheet" href="<?=PROOT?>vendors/css/links-page.css" media="screen" title="no title" charset="utf-8">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.12.0/underscore-min.js"></script>
-<link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" >
-<link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css">
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
 <script type="text/javascript">
-    var $url = url+'tools/merchantEdition';
     var $dataReq = {
 		action: 'merchant_edition_price_tool',
         website: 'aks',
@@ -17,31 +13,24 @@
 
     $(function (){
 
-        if(sessionStorageCheck()){
-			$('.change-site').text('LOADING...');
-			var object = JSON.parse(getStorage('sessionStorage','OptionSite'));
-			if(object != null){
-				site = returnSite(object.site);
-				if(site != 'invalid'){
-                    $dataReq.website = site;
-                    AjaxCall($url, $dataReq).done( ajaxSuccess );
-				}else{ if(removedKeyNormal('sessionStorage','OptionSite')) console.log("Item has been removed") } //remove key if invalid site
-			}else{
-				AjaxCall($url, $dataReq).done( ajaxSuccess );
-			}
+        var init = safelyParseJSON(getStorage('sessionStorage','website')) 
+        if( init && returnSite(init) != null){
+            $dataReq.website = init;
+            AjaxCall(url, $dataReq).done( ajaxSuccess );
+		}else{ removedKeyNormal('sessionStorage','website') 
+			AjaxCall(url, $dataReq).done( ajaxSuccess );
 		}
 
         $(document).on('click', '.website-items', function(){
             $('#merchant-edition').empty();
             $('.input-search-merchant, .input-search-edition').val('');
-            $dataReq.merchant = '0',$dataReq.edition = '0';
-            var indexInput = $(this).parent().prevObject.index(); //get the index of li
+            $dataReq.merchant = '0', $dataReq.edition = '0';
+            var indexInput = $(this).parent().prevObject.index();
 			if($(this).parent()[0].children.length == 3 ){
-				site = (indexInput == 0 ) ? inputsSite[0].site : (indexInput == 1 ) ? inputsSite[1].site : (indexInput == 2 ) ? inputsSite[2].site : '';
-				var $data = { 'site': site, 'path': $url }
-				if(sessionStorageCheck()){ setStorage('sessionStorage','OptionSite',JSON.stringify($data)) } //store
-					$dataReq.website = site;
-					AjaxCall($url, $dataReq).done( ajaxSuccess );
+				var site = (indexInput == 0 ) ? inputsSite[0].site : (indexInput == 1 ) ? inputsSite[1].site : (indexInput == 2 ) ? inputsSite[2].site : '';
+                $dataReq.website = site;
+                setStorage('sessionStorage','website',JSON.stringify($dataReq.website))
+				AjaxCall(url, $dataReq).done( ajaxSuccess );
 			}else{ window.location.reload(); }
         });
 
@@ -86,8 +75,7 @@
         
         $(document).on('click', '#fire', function() {
             $('#merchant-edition').empty();
-            console.log($dataReq);
-            AjaxCall($url, $dataReq).done( ajaxSuccess );
+            AjaxCall(url, $dataReq).done( ajaxSuccess );
         });
 
         

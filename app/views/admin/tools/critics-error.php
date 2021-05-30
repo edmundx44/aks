@@ -7,11 +7,10 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
 <script type="text/javascript">
-    var $url = url+'tools/criticsError';
     var $dataReq = {action: 'metacriticsErrorRating'};
 
     $(function (){
-        AjaxCall($url,$dataReq).done( ajaxSuccess );
+        AjaxCall(url,$dataReq).done( ajaxSuccess );
     });
     function ajaxSuccess(data){
         var ajaxMetacriticResponse = [];

@@ -104,7 +104,7 @@ $(function (){
 			alertMsg("Check your input price...")	
 		}else{
 			if($this.attr("type") == "number" && dataReturn.dataTo != '')
-				AjaxCall(url+'store', dataReturn).done(function(data) {
+				AjaxCall(url, dataReturn).done(function(data) {
 					if(data) alertMsg("SUCCESS")
 				});
 			else
@@ -116,7 +116,7 @@ $(function (){
 		var dataReturn = storeUpdateProduct($(this).attr('data-prodId'), 'stock', $(this).val(), $('.dropdown-menu-btn').text());
 		var $this = $(this);
 		if($this.attr('type') == 'button'){
-			AjaxCall(url+'store', dataReturn).done(function(data) { console.log(data); alertMsg("SUCCESS" )});
+			AjaxCall(url, dataReturn).done(function(data) { console.log(data); alertMsg("SUCCESS" )});
 			$stock = ($(this).val() == 'Out Of Stock')? $(this).val('In stock'): $(this).val('Out Of Stock');
 		}else
 			alertMsg("Theres something wrong please try again");
@@ -205,7 +205,7 @@ function displayStoreGames($merchantID, $offset, $limit, $toSearch, $site){
 	}
 
 	var getMode = (localStorage.getItem("body-mode") == 'darkmode')? 'darkmode':'normal';
-	AjaxCall(url+'store', dataRequest).done(function(data) {
+	AjaxCall(url, dataRequest).done(function(data) {
 		var showHide = (data[0].total >= 50 || (data[0].total != '' && data[0].total >= 50))? $('.store-games-data-table-tfoot').show() : $('.store-games-data-table-tfoot').hide();
 		for(var i in data){
 			for(var j in data[0].data){
@@ -220,7 +220,7 @@ function displayStoreGames($merchantID, $offset, $limit, $toSearch, $site){
 			}
 		}
 
-		currentDisplay += data[0].currentDisplay;
+		currentDisplay = parseInt(currentDisplay) + parseInt(data[0].currentDisplay);
 		currentID = $merchantID;
 		total = data[0].total;
 	}).always(function() { 
@@ -233,7 +233,7 @@ function displayStore(){
 		action: 'displayStore'
 	}
 
-	AjaxCall(url+'store', dataRequest).done(function(data) {
+	AjaxCall(url, dataRequest).done(function(data) {
 		for(var i in data){
 			var append =  '<div class="col-md-12 col-lg-6 col-xl-3  store-list-div">';
 				append += '<div class="card store-list-card" id="'+data[i].vols_id+'" data-nname="'+data[i].vols_nom+'"">';
