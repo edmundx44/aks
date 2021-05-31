@@ -206,7 +206,7 @@ function displayStoreGames($merchantID, $offset, $limit, $toSearch, $site){
 
 	var getMode = (localStorage.getItem("body-mode") == 'darkmode')? 'darkmode':'normal';
 	AjaxCall(url, dataRequest).done(function(data) {
-		var showHide = (data[0].total >= 50 || (data[0].total != '' && data[0].total >= 50))? $('.store-games-data-table-tfoot').show() : $('.store-games-data-table-tfoot').hide();
+		var showHide = (data[0].total >= 499 || (data[0].total != '' && data[0].total >= 499))? $('.store-games-data-table-tfoot').show() : $('.store-games-data-table-tfoot').hide();
 		for(var i in data){
 			for(var j in data[0].data){
 				var getStatus = (data[0].data[j].dispo == 1)? 'In Stock' : 'Out Of Stock';
