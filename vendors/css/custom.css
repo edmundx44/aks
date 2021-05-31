@@ -31,6 +31,11 @@ html, body {
   background: #e64a19;
 }
 
+
+/*table tr background(even) ---------------------------------------------*/
+.tr-background-even {
+   	background-color: #cccccc;
+}
 /*css code here ---------------------------------------------------------*/
 /*start with letter B -------------------------------*/
 .active-class,
@@ -827,9 +832,9 @@ body {
 .cdd_color{ color: #f79b26 !important; }
 
 .btn-delete {
-    color: #fff;
-    background-color: #d9534f;
-    border-color: #d43f3a;
+	color: #fff;
+	background-color: #d9534f;
+	border-color: #d43f3a;
 }
 .clear{
 	clear: both;
@@ -839,4 +844,77 @@ body {
 }
 .clear-r{
 	clear: right;
+}
+
+
+
+/*/*custom textbox* ----------------------------------------------------/*/
+.input-text-div {
+	position: relative;
+	-webkit-transition: .3s ease-in-out;
+	-moz-transition: .3s ease-in-out;
+	-o-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+.input-text-i {
+	height: 38px;
+	z-index: 1;
+	width: 40px;
+	position: absolute;
+	border-right: none;
+	border: solid 2px #ccc;
+	text-align: center;
+	line-height: 2;
+	-webkit-transition: .3s ease-in-out;
+	-moz-transition: .3s ease-in-out;
+	-o-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+.input-text-class {
+	left: 40px;
+	height: 38px;
+	width: calc(100% - 40px);
+	position: relative;
+	border: solid 2px #ccc;
+	border-left: none;
+	background-color: transparent;
+	outline: none;
+	z-index: 1;
+	padding: 0 0 0 10px;
+	-webkit-transition: .3s ease-in-out;
+	-moz-transition: .3s ease-in-out;
+	-o-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+.input-text-class:focus ~ .input-text-span {
+	margin-top: -25px;
+	left: 0;
+}
+.input-text-class:focus ~ .input-text-border {
+	width: 100%;
+}
+.input-text-div:focus-within {
+	padding-top: 25px;
+}
+.input-text-span {
+	position: absolute; 
+	left: 50px;
+	margin-top: 8px;
+	-webkit-transition: .3s ease-in-out;
+	-moz-transition: .3s ease-in-out;
+	-o-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+.input-text-border {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 0;
+	height: 2px;
+	z-index: 2;
+	background-color: #8e8e8e;
+	-webkit-transition: .5s ease-in-out;
+	-moz-transition: .5s ease-in-out;
+	-o-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
 }

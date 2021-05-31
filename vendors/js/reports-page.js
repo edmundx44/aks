@@ -23,7 +23,7 @@ var onOpen = '';
 			// 				toInsert: filterCrProbs,
 			// 				getProblem: crgetProblem
 			// 			}
-			// 			AjaxCall(url+'reports', dataRequest).done(function(data) {
+			// 			AjaxCall(url, dataRequest).done(function(data) {
 			// 				$('#createReportModal').modal('hide');
 			// 				crProblemList($( "#datepickerReport" ).val());
 			// 			});
@@ -74,7 +74,7 @@ var onOpen = '';
 					dataID: $(this).data('id')
 				}
 
-				AjaxCall(url+'reports', dataRequest).done(function(data) {
+				AjaxCall(url, dataRequest).done(function(data) {
 					// console.log(data)
 					var getStock = (data.site[0].dispo == 1)? 'In Stock':'Out of Stock';
 					var appendSite = '<p class="ms-data-price"><span><b>PRICE : </b></span><span>'+data.site[0].price+'</span></p>';
@@ -118,7 +118,7 @@ var onOpen = '';
 					idToUpdate: $.trim($(this).data('tblid')),
 					reportStatus: changeReported
 				}
-				AjaxCall(url+'reports', dataRequest).done(function(data) {
+				AjaxCall(url, dataRequest).done(function(data) {
 
 					
 				}).always(_.debounce(function(){
@@ -133,7 +133,7 @@ $(document).on('click', '#remove-report', function(){
 		action: 'cr-remove-report',
 		idToRemove: $.trim($(this).data('tblid'))
 	}
-	AjaxCall(url+'reports', dataRequest).done(function(data) {
+	AjaxCall(url, dataRequest).done(function(data) {
 		crProblemList($( "#datepickerReport" ).val());
 	});
 });
@@ -179,7 +179,7 @@ $(document).on('click', '.open-info', function(){
 					getcrating: $(this).data('crating'),
 					getcid: $(this).data('cid')
 				}
-				AjaxCall(url+'reports', dataRequest).done(function(data) {
+				AjaxCall(url, dataRequest).done(function(data) {
 							
 				}).always(_.debounce(function(){
 					$('#report-modal-confirmation').modal('hide')
@@ -310,7 +310,7 @@ $(document).on('click', '.open-info', function(){
 					break;
 				}
 
-				AjaxCall(url+'reports', dataRequest).done(function(data) {
+				AjaxCall(url, dataRequest).done(function(data) {
 				}).always(_.debounce(function(){
 					crProblemList($( "#datepickerReport" ).val());
 				}), 200);
@@ -350,7 +350,7 @@ $(document).on('click', '.open-info', function(){
 					toAddProbsSite: toAddProbsSite,
 					rID: $.trim($('.span-what-tblid').html()),
 				}
-				AjaxCall(url+'reports', dataRequest).done(function(data) {
+				AjaxCall(url, dataRequest).done(function(data) {
 					if(data != null) {
 						for(var i in data){
 							var	append =	'<tr class="">';
@@ -377,7 +377,7 @@ $(document).on('click', '.open-info', function(){
 					toWhat: 'r-ols',
 					rID: $.trim($(this).data('tblid'))
 				}
-				AjaxCall(url+'reports', dataRequest).done(function(data) {
+				AjaxCall(url, dataRequest).done(function(data) {
 					for(var i in data){
 						var	append =	'<tr class="">';
 							append +=	'<td class="" style="padding: 5px 15px 5px 15px">'+ data[i].reportFeedback +'</td>';
@@ -439,7 +439,7 @@ $(document).on('click', '.open-info', function(){
 						toInsert: filterCrProbs,
 						getProblem: crgetProblem
 					}
-					AjaxCall(url+'reports', dataRequest).done(function(data) {
+					AjaxCall(url, dataRequest).done(function(data) {
 						$('#createReportModal').modal('hide');
 						crProblemList($( "#datepickerReport" ).val());
 					});
@@ -457,7 +457,7 @@ $(document).on('click', '.open-info', function(){
 						getUrl: $.trim($('#cr-url-txtbox').val())
 					}
 
-					AjaxCall(url+'reports', dataRequest).done(function(data) {
+					AjaxCall(url, dataRequest).done(function(data) {
 						if((data[0].data).length == 0) {
 							$('#'+data[0].site).attr('checked', false); // Unchecks it
 							alertMsg('NO DATA FOUND IN ' + data[0].site);
@@ -526,7 +526,7 @@ $(document).on('click', '.open-info', function(){
 				date: $date
 			}
 
-			AjaxCall(url+'reports', dataRequest).done(function(data) {
+			AjaxCall(url, dataRequest).done(function(data) {
 				for(var i in data){
 						var getreport = (data[i].toMerchant == 0)? "": "reported-back";
 						var getRating = (data[i].rating == 0)? "": "rating-101-back";
@@ -562,7 +562,7 @@ $(document).on('click', '.open-info', function(){
 				action: 'cr-display-completed',
 				// date: $date
 			}
-			AjaxCall(url+'reports', dataRequest).done(function(data) {
+			AjaxCall(url, dataRequest).done(function(data) {
 				for(var i in data){
 					var appendData = '<tr class="display-completed" style="letter-spacing: 2px;font-weight: 700;box-shadow: 0 1px 4px 0 rgb(0 0 0 / 20%);">'
 						// appendData += '<td class="" style="padding: 10px 15px 10px 15px;">'+data[i].merchantID+'</td>'
@@ -652,7 +652,7 @@ $(document).on('click', '.open-info', function(){
 					mfeedStock: mfeedStock
 				}
 
-				AjaxCall(url+'reports', dataRequest).done(function(data) {
+				AjaxCall(url, dataRequest).done(function(data) {
 					
 				}).always(_.debounce(function(){
 					$('#report-modal-confirmation, #crcac').modal('hide')
@@ -666,7 +666,7 @@ function textboxCheckUrl($url){
 			getUrl: $url
 		}
 
-		AjaxCall(url+'reports', dataRequest).done(function(data) {
+		AjaxCall(url, dataRequest).done(function(data) {
 			if(data.length >= 1) {
 				var getSite = '';
 				for(var i in data){

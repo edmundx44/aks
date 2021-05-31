@@ -1,6 +1,6 @@
 <?php $this->setSiteTitle($this->pageTitle); ?>
 <?php $this->start('head'); ?>
-<link rel="stylesheet" href="<?=PROOT?>vendors/css/utilities-page.css" media="screen" title="no title" charset="utf-8">
+<link rel="stylesheet" href="<?=PROOT?>vendors/css/links-page.css" media="screen" title="no title" charset="utf-8">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.12.0/underscore-min.js"></script>
 <!-- data tables -->
 <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" >
@@ -8,8 +8,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
 <script type="text/javascript">
-	//ESCAPE SPECIAL CHARACTERS	
-	var $url = '<?=PROOT?>tools/feedData';
+	//ESCAPE SPECIAL CHARACTERS
 	var $dataOpt = {
 		action: 'fd-display-merchant',
 		website : 'aks'
@@ -24,7 +23,7 @@
 	var feedTable = $('#display-feed-table').DataTable();
 	$(document).ready(function(){
         //populate merchant
-		AjaxCall($url, $dataOpt).done(populateMerchant); 
+		AjaxCall(url, $dataOpt).done(populateMerchant); 
         
         //FOR DROP DOWN SELECT ANIMATION
 		$('.option-click, .option-click-1').click( function() {
@@ -53,7 +52,7 @@
 			$dataOpt.website = $site;
 			globalSite = $site;
 			$target = 'fd-select-merchant';
-			AjaxCall($url, $dataOpt).done(populateMerchant);
+			AjaxCall(url, $dataOpt).done(populateMerchant);
 		});
 
         //search url in datatable
@@ -71,7 +70,7 @@
 				website : globalSite,
 				id : $dataGetFeed.id
 			}
-			AjaxCall($url, $data3).done(function(data){
+			AjaxCall(url, $data3).done(function(data){
 				console.log(data)
 				$('.search-labells').val(data).trigger("keyup");
 			});
@@ -85,7 +84,7 @@
             $dataGetFeed.store = $(this).find('.name').attr('data-name');
             $dataGetFeed.website = $dataOpt.website;
 			$dataGetFeed.id = $id;
-            AjaxCall($url, $dataGetFeed).done(function(data){
+            AjaxCall(url, $dataGetFeed).done(function(data){
             if(data != 'No merchant found'){
                 var items = []; 
                 var $columnCJS = [
@@ -266,11 +265,11 @@
                     <!-- HEADER STARTS row-4-card-div-overflow-style-->
 						<div class="card-div-overflow-style row-4-card-div-overflow-style-2" style="position:relative; padding-top:20px;">
 							<div class="row" style="color:#fff;margin: 0;">
-                                <div class="header-div col-lg-9">
+                                <div class="header-div col-lg-10">
 									<h5 class="header-title-page" style="letter-spacing:1.5px;">Merchant Feed Check</h5>
 									<p class="header-text-paragraph">Note: For better searching pls add a correct affiliate link on the respected merchant</p>
 								</div>
-                                <div class="col-lg-3" style="padding-bottom:20px;">
+                                <div class="col-lg-2" style="padding-bottom:20px;">
                                     <div class="dropdown-website">
                                         <div class="selected-website">
                                             <span class="selected-data"><input id="website-btn" class="website-btn" type="button" value="AKS"></span>

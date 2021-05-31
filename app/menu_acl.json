@@ -1,22 +1,20 @@
 {
-  "Dashboard" : "dashboard",
-  "Links" : {
-    "Real Double" : "utilities/realDouble",
-    "Affiliate Check" : "utilities/affiliateCheck",
-    "Suspicious Double" : "utilities/suspiciousDouble",
-    "Metacritics Double" : "utilities/metacriticsDouble",
-    "Metacritics Rating" : "utilities/metacriticsErrorRating"
-  },
-  "Reports" : "reports",
-  "Store" : "store",
-  "Tools" : {
-    "Price Check" : "tools/priceCheck",
-    "Feed Data" : "tools/feedData",
-    "Romain" : "tools/romain",
-    "Disabled Store": "tools/disabledStore",
-    "Merchant Edition" : "tools/merchantEdition",
-    "Rating List" : "tools/ratingList",
-    "Rhyn" : "tools/rhyn"
-  },
-  "Logout" : "user/logout"
+	"Dashboard" : "dashboard",
+	"Links" : {
+		"Affiliate Check" : "links/affiliateCheck",
+		"Double Links" : "links/doubleLinks"
+	},
+	"Reports" : "reports",
+	"Store" : "store",
+	"Tools" : {
+		"Price Check" : "tools/priceCheck",
+		"Feed Data" : "tools/feedData",
+		"Romain" : "tools/romain",
+		"Critics Error": "tools/criticsError",
+		"Merchant Edition" : "tools/merchantEdition",
+		"Rating List" : "tools/ratingList",
+		"Rhyn" : "tools/rhyn"
+	},
+	"Status Controller" : "status",
+	"Logout" : "user/logout"
 }

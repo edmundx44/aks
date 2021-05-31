@@ -10,7 +10,7 @@ use App\Models\Utilities;
 use App\Controllers\DashboardController;
 use App\Controllers\StoreController;
 use App\Controllers\ToolsController;
-use App\Controllers\UtilitiesController;
+use App\Controllers\LinksController;
 use App\Controllers\ReportsController;
 
 class Ajax {
@@ -46,7 +46,14 @@ class Ajax {
 								return $utilities->displayDisabledStore();
 							break;
 							case 'Metacritics':
-								return $utilities->displayDisabledMetacritics();
+								$getDisabled = $utilities->displayMetacritics();
+								$returnResponse = array();
+								foreach($getDisabled as $key){
+									if($key['status'] == 'disabled'){
+										array_push($returnResponse, $key);
+									}
+								}
+								return array('to' => 'Metacritics', 'count' => count($returnResponse),'data' => $returnResponse);
 							break;
 						}
 					break;
@@ -97,10 +104,11 @@ class Ajax {
 			break;
 
 			case 'displayStoreGames':
+				//display all
 				$site = self::getSite($getInput->get('site'));
 				$resultArray = array();
 				$getOffset = $getInput->get('offset');
-				$limit = ($getInput->get('limit') == 0)? 50 : $getInput->get('limit');
+				$limit = ($getInput->get('limit') == 0)? 499 : $getInput->get('limit');
 
 				if($getInput->get('toSearch') != ''){
 					$conditions = "buy_url like ?";
@@ -276,11 +284,11 @@ class Ajax {
                     );
                 return $returnData;
             break;
-            case 'AjaxRealDblLinks':
-                $getWebsite = $getInput->get('data');
-				$utilities = new Utilities;
-				return $utilities->AjaxRealDblLinks($getWebsite);
-            break;
+    //         case 'AjaxRealDblLinks':
+    //             $getWebsite = $getInput->get('data');
+				// $utilities = new Utilities;
+				// return $utilities->AjaxRealDblLinks($getWebsite);
+    //         break;
             case 'displayCheckSumAction':
 				//$dateNow = $getInput->get('dateNow'); //from ajax
                 $dateTime = date('Y-m-d');
@@ -991,6 +999,7 @@ class Ajax {
 				$x = 0;
 				$total = $getInput->get('getTotal');
 				$offset = $getInput->get('getOffset');
+
 				while($x != $total) {
 					if($x == $offset) {
 						$displayCheckerActivity = $db->find('`aks_bot_teamph`.`tblCheckerList`', [
@@ -1005,8 +1014,9 @@ class Ajax {
 						if($total < $offset) break;
 						$offset = $offset + 499;
 					}
-				  $x++;
+					$x++;
 				}
+
 				return $result;
 			break;
 
@@ -1177,6 +1187,154 @@ class Ajax {
 				$utilities = new Utilities;
 				return $utilities->getAllUsers(trim($getInput->get('getRole')));
 			break;
+
+			case 'user-activities':
+				$utilities = new Utilities;
+				$ddS = explode("-", $getInput->get('dateStart'));
+				$ddE = explode("-", $getInput->get('dateEnd'));
+				$boolStart = checkdate ( $ddS[1] , $ddS[2] , $ddS[0] );
+				$boolEnd = checkdate ( $ddE[1] , $ddE[2] , $ddE[0] );
+				if( ($boolStart && $boolEnd) == true && strtotime($getInput->get('dateStart')) < strtotime($getInput->get('dateEnd')) )
+					$results = $utilities->userActivityCount($getInput->get('dateStart'), $getInput->get('dateEnd'))->results();
+				else
+					return [];
+				$final_array = array();
+				foreach ($results as $activity){
+				$activity->worker = ucfirst($activity->worker);
+				if(!empty($activity->worker)){
+					if(array_key_exists($activity->worker,$final_array)){
+						$final_array[$activity->worker][$activity->action] = $activity->total_per_action;
+					}else{
+							$final_array[$activity->worker] = array(
+									$activity->action => $activity->total_per_action,
+									'worker' => $activity->worker,
+								);
+							}
+						}
+				}
+				return $final_array;
+				break;
+				case 'display-real-double-link':
+					$site = self::getSite($getInput->get('site'));
+					$sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs, `id`,`price`, `dispo` 
+        	        FROM `".$site."`.`pt_products` WHERE merchant NOT IN ('1','67','157','33','333') AND normalised_name != 50
+        	        GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
+
+        			return $db->query($sql)->results();
+				break;
+				case 'delete-real-double-link':
+					$site = self::getSite($getInput->get('site'));
+					$getId = $_POST['getId'];
+
+					switch ($getInput->get('getWhat')) {
+						case 'bySelected':
+							foreach ($getId as $id) {
+								$deleterealDouble = $db->delete('`'.$site.'`.`pt_products`', $id);
+							}
+						break;
+						case 'byOne':
+							$deleterealDouble = $db->delete('`'.$site.'`.`pt_products`', $getId);
+						break;
+					}
+				break;
+
+				case 'get-metacritics-status':
+					$utilities = new Utilities;
+					$response = $utilities->displayMetacritics();
+					return array('to' => 'critics' , 'data' => $response);
+				break;
+
+				case 'get-stores-status':
+					$utilities = new Utilities;
+					$site = $getInput->get('site');
+					$status = 1;  //static
+					$rating = 101; //static
+					if(!self::getSite($site))
+						return "Invalid Information";
+
+					$stores = $utilities->salepageFindByStatus($status)->results();
+					$over_all_links_count  = $utilities->getOfferCounts($site);
+					$over_all_rating_count = $utilities->getOfferCountsByRatings($site, $rating);
+					$response = array();
+					foreach($stores as $store){
+						$total_count_by_store=0;
+						$total_rating_by_store=0;
+						
+						if(isset($over_all_links_count[$store->vols_id]['count']))
+                            $total_count_by_store = $over_all_links_count[$store->vols_id]['count'];
+						if(isset($over_all_rating_count[$store->vols_id]['count']))
+                            $total_rating_by_store = $over_all_rating_count[$store->vols_id]['count'];
+
+						if($total_count_by_store > 0){
+							$total_count_by_store = $total_count_by_store * .95;
+							if( $total_rating_by_store <= $total_count_by_store){
+                                array_push($response, $array = [
+									'id' => $store->vols_id, 'merchant' => ucfirst($store->vols_nom), 'status'   => 'enabled'
+								]);
+                            }else{
+                                array_push($response, $array = [
+									'id' => $store->vols_id, 'merchant' => ucfirst($store->vols_nom), 'status'   => 'disabled'
+								]);
+                            }
+						}
+					}
+					return array('to' => 'merchant' , 'data' => $response);
+				break;
+
+				case 'update-statuscontroller':
+					$merchant = $getInput->get('id');
+					$status = $getInput->get('status');
+					$from = $getInput->get('from');
+					$utilities = new Utilities;
+
+					switch($from){
+						case 'merchants':
+							$site = $getInput->get('site');
+							if(!self::getSite($site))
+								return "Invalid Information";
+							$rating = ($status === 'ON') ? '101' : '0' ;
+							$response = $utilities->updateMerchantRating($site, $merchant, $rating); //return boolean if the return is false its success
+						break;
+						case 'critics':
+							$rating = ($status === 'ON') ? '1' : '2' ;
+							$response = $utilities->updateMetacriticsStatus($merchant, $rating); //return boolean if the return is false its success
+						break;
+						default:break;
+					}
+					 return $response;
+				break;
+
+				case 'display-suspicious-double':
+					$site = self::getSite($getInput->get('site'));
+					$getMerchant = ($getInput->get('getMerchant') != '')? "AND merchant = '".$getInput->get('getMerchant')."'" : '';
+					$getOffset = ($getInput->get('getOffset') != '')? $getInput->get('getOffset') : 0 ;
+					$getlimit = ($getInput->get('getlimit') != '')?	$getInput->get('getlimit') : 499; //if not limit not 50 display all data
+					
+					$sql = "SELECT  merchant, normalised_name, edition, region, count(*) AS occurences, 
+						buy_url, id, price, dispo, search_name, created_by, created_time FROM `$site`.pt_products WHERE
+						merchant != '1'   AND merchant != '67' AND 
+						merchant != '157' AND merchant != '33' AND
+						merchant != '333' AND merchant != '3' AND normalised_name != '50' $getMerchant
+						GROUP BY merchant, normalised_name, edition, region
+						HAVING occurences > 1 ORDER BY price DESC LIMIT $getOffset, $getlimit";
+
+		            return  $db->query($sql)->results();
+				break;
+				
+				case 'display-suspicious-double-total':
+					$site = self::getSite($getInput->get('site'));
+					$getMerchant = ($getInput->get('getMerchant') != '')? "AND merchant = '".$getInput->get('getMerchant')."'" : '';
+
+					$sqlTotal = "SELECT  count(*) AS occurences
+						FROM `$site`.pt_products WHERE
+						merchant != '1'   AND merchant != '67' AND 
+						merchant != '157' AND merchant != '33' AND
+						merchant != '333' AND merchant != '3' AND normalised_name != '50' $getMerchant
+						GROUP BY merchant, normalised_name, edition, region
+						HAVING occurences > 1";
+
+					return count($db->query($sqlTotal)->results());
+				break;
 		}
 	
 	}//END OF FUNCTION AJAXDATA
@@ -1184,13 +1342,18 @@ class Ajax {
 	public static function getSite($site){
 		switch ($site) {
 			case 'AKS':
+			case 'aks':
 				$site = 'test-server';
 			break;
 			case 'CDD':
+			case 'cdd':
 				$site = 'compareprices';
 			break;
 			case 'BREX':
+			case 'brexitgbp':
 				$site = 'brexitgbp';
+			break;
+			default: $site = false;
 			break;
 		}
 		return $site;

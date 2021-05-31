@@ -859,13 +859,13 @@
 				case 'Store':
 					$('.report-modal-header').html('Disabled Store');
 					for (var i in data.data){
-						disabledDiv(data.data[i].store, data.data[i].id);
+						disabledDiv(data.data[i].merchant, data.data[i].id);
 					}
 				break;
 				case 'Metacritics':
 					$('.report-modal-header').html('Disabled Metacritics');
 					for (var i in data.data){
-						disabledDiv(data.data[i].name, data.data[i].id);
+						disabledDiv(data.data[i].merchant, data.data[i].id);
 					}
 				break;
 				case 'AKS':
@@ -951,13 +951,10 @@
 	}
 
 	function disabledDiv($merchantName, $merchantID){
-		var n = $merchantName.toLowerCase();
-        var $storeName = n.substr(0,1).toUpperCase()+n.substr(1);
-
 		var appendData = "<div class='col-sm-6 disabled-divs' >";
 			appendData += "<div class='disabled-divs-1'>";
 			appendData += "<p>";
-			appendData += "<span style='letter-spacing:1.5px;font-weight:500;'>"+$storeName+"</span>";
+			appendData += "<span style='letter-spacing:1.5px;font-weight:500;'>"+$merchantName+"</span>";
 			appendData += "<span> ("+$merchantID+") </span>";
 			appendData += "</p>";
 			appendData += "</div>";

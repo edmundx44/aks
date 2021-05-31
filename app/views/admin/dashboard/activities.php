@@ -20,7 +20,7 @@
                         <div class="filter-activities">
 
                             <span class="ac-add-filter"><i class="fas fa-plus-square"></i> &nbsp; <span class="ac-add-filter-span">Add Filter</span></span>
-                            <a href="/aks/dashboard/employeeTable" class="btn btn-success float-right">Open Table</a>
+                            <a href="/aks/dashboard/employeeTable" class="btn btn-success float-right">Activity Counts</a>
                             
                             <div class="filter-functions">
 
@@ -50,6 +50,7 @@
                                         <span class="float-left select-btn-action">Action</span>
                                     </button>
                                     <div class="dropdown-menu select-btn-action-dm">
+                                        <span class="dropdown-item act-dropdown select-btn-action-di" data-action="">Default</span>
                                         <span class="dropdown-item act-dropdown select-btn-action-di" data-action="created">Create</span>
                                         <span class="dropdown-item act-dropdown select-btn-action-di" data-action="modified">Modified</span>
                                         <span class="dropdown-item act-dropdown select-btn-action-di" data-action="opens">Opens</span>
@@ -79,12 +80,12 @@
                             <table class="col-12">
                                 <thead>
                                     <tr class="dac-tr">
-                                        <th class="dac-tr-head">Date</th>
-                                        <th class="dac-tr-head">Employee</th>
-                                        <th class="dac-tr-head">Action</th>
-                                        <th class="dac-tr-head dac-tr-head-width hide-on-smmd-lg">Game ID</th>
-                                        <th class="dac-tr-head hide-on-smmd-lg">Link</th>
-                                        <th class="dac-tr-head hide-on-smmd-lg">Site</th>
+                                        <th class="dac-tr-head-td-sticky dac-tr-head">Date</th>
+                                        <th class="dac-tr-head-td-sticky dac-tr-head">Employee</th>
+                                        <th class="dac-tr-head-td-sticky dac-tr-head">Action</th>
+                                        <th class="dac-tr-head-td-sticky dac-tr-head dac-tr-head-width hide-on-smmd-lg">Game ID</th>
+                                        <th class="dac-tr-head-td-sticky dac-tr-head hide-on-smmd-lg">Link</th>
+                                        <th class="dac-tr-head-td-sticky dac-tr-head hide-on-smmd-lg">Site</th>
                                     </tr> 
                                 </thead>
                                 <tbody id="recent-activity-body">

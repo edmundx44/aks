@@ -82,9 +82,9 @@
 													<span class="data-display-function lmore-fucntion"> 
 														<i class="fas fa-spinner"></i> Load More 
 													</span> 
-													<span class="data-display-function dall-function"> 
+													<!-- <span class="data-display-function dall-function"> 
 														<i class="fas fa-globe"></i> Display All
-													</span>
+													</span> -->
 												</p>
 											</td>
 										</tr>

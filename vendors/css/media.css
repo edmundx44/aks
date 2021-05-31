@@ -1,6 +1,16 @@
 
+
+
+@media (min-width: 1500px) {
+	.modal-xl-override {
+		max-width: 65% !important;
+	}
+}
 /* Extra large devices (1200px and up)*/
 @media (min-width: 1200px ) and (max-width: 1499px) {
+	.modal-xl-override {
+		max-width: 65% !important;
+	}
 	.col-xxl-6 {
 		-webkit-box-flex: 0 !important;
 		-ms-flex: 0 0 50% !important;

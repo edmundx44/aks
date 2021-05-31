@@ -200,7 +200,8 @@ function displayIcon(){
 		"fa-link",
 		"fa-podcast",
 		"fa-store-alt",
-		"fa-tools"
+		"fa-tools",
+		"fa-power-off"
 	];
 
 	$('i#nav-icon').each(function(i){
@@ -441,63 +442,61 @@ function debounce(fun, mil){
     };
 }
 
-function OptionSite(inputs,className,classParent,bgColor){
-	var	opt = 		'<div class="select '+bgColor+'">';
-		opt += 			'<span class="selected-data change-site">Website</span>';
-		opt += 			'<span class="float-right"><i class="fas fa-caret-down" aria-hidden="true"></i></span>';
-		opt += 		'</div>';
-		opt += 		'<ul class="dropdown-menu cos-dropdown-menu '+classParent+'">'
-		opt += 			'<li class='+className+' data-website='+inputs[0].site+'>AKS</li>';
-		opt += 			'<li class='+className+' data-website='+inputs[1].site+'>CDD</li>';
-		opt += 			'<li class='+className+' data-website='+inputs[2].site+'>BREXITGBP</li>';
-		opt += 		'</ul>';
-	return opt
-}
-function returnSite($site){
-	switch($site){
-		case 'aks' : $site;
-		break;
-		case 'cdd' : $site;
-		break;
-		case 'brexitgbp' : $site;
-		break;
-		default: $site = 'invalid';
-		break
+function safelyParseJSON (json) {
+	var parsed = null;
+	try {
+		parsed = JSON.parse(json)
+	} catch (e) {
+		// do stuff here
 	}
+	return parsed;
+}
+function returnSite($site = null){
+	try {
+		switch($site){
+			case 'aks' : $site;
+			break;
+			case 'cdd' : $site;
+			break;
+			case 'brexitgbp' : $site;
+			break;
+			default: $site = null;
+			break
+		}
+	} catch (error) { }
 	return $site;
 }
-
-function localStorageCheck(){
-	return (typeof(Storage) !== "undefined") ? true : false;
-}
-function sessionStorageCheck(){
-	return (typeof(Storage) !== "undefined") ? true : false;
-}
 function setStorage($type,$key,$value){
-	switch($type){
-		case 'localStorage':
-			localStorage.setItem($key,$value);
-		break;
-		case 'sessionStorage':
-			sessionStorage.setItem($key,$value);
-		break;
-		default:
-		break;
+	var $return = true;
+	try {
+		if(typeof(Storage) !== "undefined") {
+			switch($type){
+				case 'localStorage': localStorage.setItem($key,$value);
+				break;
+				case 'sessionStorage': sessionStorage.setItem($key,$value);
+				break;
+				default: break;
+			}
+		}
+	} catch (e) {
+		$return = false
 	}
+	return $return;
 }
 function getStorage($type,$key){
-	switch($type){
-		case 'localStorage':
-			var items = localStorage.getItem($key);
-		break;
-		case 'sessionStorage':
-			var items = sessionStorage.getItem($key);
-		break;
-		default:
-			return 'invalid';
-		break;
-	}
-	return items;
+	var $item = null;
+	try {
+		if((typeof(Storage) !== "undefined")){
+			switch($type){
+				case 'localStorage': $item = localStorage.getItem($key);
+				break;
+				case 'sessionStorage': $item = sessionStorage.getItem($key);
+				break;
+				default: break;
+			}
+		}
+	} catch (error) { }
+	return $item;
 }
 
 function removeExistingItem($type,$key,$path){
@@ -508,7 +507,7 @@ function removeExistingItem($type,$key,$path){
 	// 	}
 	switch($type){
 		case 'localStorage':
-			var object = JSON.parse(localStorage.getItem($key));	
+			var object = safelyParseJSON(localStorage.getItem($key));	
 			if (object === null)  return true;
 			else if($path == object.path) return true;
 		    else if($path != object.path){
@@ -517,7 +516,7 @@ function removeExistingItem($type,$key,$path){
 		    }
 		break;
 		case 'sessionStorage':
-			var object = JSON.parse(sessionStorage.getItem($key));	
+			var object = safelyParseJSON(sessionStorage.getItem($key));	
 			if (object === null)  return true;
 			else if($path == object.path) return true;
 		    else if($path != object.path){
@@ -525,25 +524,26 @@ function removeExistingItem($type,$key,$path){
 		    	return false;
 		    }
 		break;
-		default:
-			return true;
+		default: return true;
 		break;
 	}
 }
 
 function removedKeyNormal($type,$key){
-	switch($type){
-		case 'localStorage':
-			localStorage.removeItem($key);
-		break;
-		case 'sessionStorage':
-			sessionStorage.removeItem($key);
-		break;
-		default:
-			return false;
-		break;
+	var $bool = true;
+	try {
+		if(typeof(Storage) !== "undefined"){
+			switch($type){
+				case 'localStorage': localStorage.removeItem($key);
+				break;
+				case 'sessionStorage': sessionStorage.removeItem($key);
+				break;
+			}
+		}
+	} catch (error) {
+		$bool = false;
 	}
-	return true;
+	return $bool;
 }
 
 function getUrlParameter(name) {
@@ -570,19 +570,13 @@ function alertMsg($msg){
  
 function returnSiteClass($site){
 	switch($site){
-		case 'AKS':
-		case 'aks':
+		case 'AKS': case 'aks':
 			var $class = 'aks_bg_color';
 			break;
-		case 'CDD':
-		case 'cdd':
+		case 'CDD': case 'cdd':
 			var $class = 'cdd_bg_color';
 			break;
-
-		case 'BREX':
-		case 'brex':
-		case 'brexitgbp':
-		case 'BREXITGBP':
+		case 'BREX': case 'brex': case 'BREXITGBP': case 'brexitgbp':
 			var $class = 'brexit_bg_color';
 			break;
 
@@ -593,16 +587,9 @@ function returnSiteClass($site){
 }
 function eRegex($string){
 	switch ($string){
-		case '+': 
-		case '-':
-		case '*': 
-		case '/': 
-		case '?': 
-		case '^': 
-		case '|': 
+		case '+': case '-': case '*':  case '/':  case '?':  case '^':  case '|': 
 			$string = "\/" + $string;
 		break;
-
 		default:
 		break;
 	}
@@ -616,7 +603,7 @@ function displayStoreGamesByNormalizedName($normalised_name,$site) {
 		site: $site
 	}
 
-	AjaxCall(url+'store', dataRequest).done(function(data) {
+	AjaxCall(url, dataRequest).done(function(data) {
 		$('.productName').text(data[0].searchName);
 		$('.productNormalizedName').text(data[0].nname);
 		$('#displayStoreGamesByNormalizedName').modal('show');

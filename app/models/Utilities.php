@@ -13,16 +13,16 @@ class Utilities{
 		$this->_db = DB::getInstance();
   	}
 
-	public static function getSite($site){
+	private static function getSite($site){
 		switch ($site) {
 			case 'aks':
-			case 'AKS': $site = 'test-server';
+			case 'AKS': $site = '`test-server`';
 			break;
 			case 'cdd':
-			case 'CDD': $site = 'compareprices';
+			case 'CDD': $site = '`compareprices`';
 			break;
 			case 'brexitgbp':
-			case 'BREXITGBP': $site = 'brexitgbp';
+			case 'BREXITGBP': $site = '`brexitgbp`';
 			break;
 		}
 		return $site;
@@ -92,6 +92,12 @@ class Utilities{
         return $displayMerchant;
 	}
 
+	public function salepageFindByStatus($data = 1 ){
+		$data = [ 'pos-one' => $data ];
+		$sql = "SELECT vols_id,vols_nom FROM `allkeyshops`.`sale_page` WHERE `status` = ? ORDER BY vols_nom ASC";
+		return $this->_db->query( $sql, $data );
+	}
+
 	public function merchantEditionPriceTool($site, $getMerchantId, $getEdition){
 		if ($getMerchantId == 0 || $getEdition == 0) {
 			$params = ['column' => ['`id`', '`merchant`', '`edition`', '`region`', '`normalised_name`', '`buy_url`', '`price`', '`dispo`', '`rating`', '`search_name`', '`created_by`', '`created_time`'],
@@ -106,7 +112,7 @@ class Utilities{
 				'limit' => 100,
 			 ];
 		}
-		$result =  $this->_db->find( '`'.self::getSite($site).'`.`pt_products`',$params);
+		$result =  $this->_db->find( ''.self::getSite($site).'.`pt_products`',$params);
 		return $result;
 	}
 
@@ -218,12 +224,12 @@ class Utilities{
 					if(array_key_exists($stores_invisible, $allStores)){
 						$returnDisabledStore[] = array(
 							'id' => $stores_invisible,
-							'store' => $allStores[$stores_invisible]
+							'merchant' => ucfirst($allStores[$stores_invisible])
 						);
 					}else{
 						$returnDisabledStore[] = array(
 							'id' => $stores_invisible,
-							'store' => $stores_invisible
+							'merchant' => ucfirst($stores_invisible)
 						);
 					}
 				}
@@ -235,7 +241,7 @@ class Utilities{
 		}
 	}
 
-	public function displayDisabledMetacritics(){
+	public function displayMetacritics(){
 		$returnResponse = array();
 		$getDataMeta = file_get_contents( ROOT . DS . 'app' . DS .'metacritics_stores.json');
 		$metaStores = json_decode($getDataMeta, true);
@@ -249,15 +255,22 @@ class Utilities{
 
 			if($number_of_links->count > 0){
 				$number_of_links->count = $number_of_links->count * .95;
-				if( $number_of_disabled_links->count1 >= $number_of_links->count){
+				if( $number_of_disabled_links->count1 <= $number_of_links->count){
 					array_push($returnResponse, array(
 						'id' => $id,
-						'name' => $name
+						'merchant' => ucfirst($name),
+						'status' => 'enabled'
+					));
+				}else{
+					array_push($returnResponse, array(
+						'id' => $id,
+						'merchant' => ucfirst($name),
+						'status' => 'disabled'
 					));
 				}
 			}
 		}
-		return array('to' => 'Metacritics', 'count' => count($returnResponse),'data' => $returnResponse);
+		return $returnResponse;
 	}
 
 	public function displayAllkeyshopStore(){
@@ -267,30 +280,14 @@ class Utilities{
 	}
 
 	public function AjaxRealDblLinks($site){
-		switch ($site) {
-        	case 'aks':
-        		 $sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs, `id`,`price`, `dispo` 
-        	        FROM `test-server`.`pt_products` WHERE merchant NOT IN ('1','67','157','33','333') AND normalised_name != 50
-        	        GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
-        		$returnResults = $this->_db->query($sql)->results();
-        	break;
-        	case 'cdd':
-        		$sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs, `id`,`price`, `dispo` 
-        	        FROM `compareprices`.`pt_products` WHERE merchant NOT IN ('1','67','157','33','333') AND normalised_name != 50
-        	        GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
-        		$returnResults = $this->_db->query($sql)->results();
-        	break;
-        	case 'brexitgbp':
-        		$sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs , `id`,`price`, `dispo` 
-        	        FROM `brexitgbp`.`pt_products` WHERE merchant NOT IN ('1','67','157','33','333') AND normalised_name != 50
-        	        GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
-        		$returnResults = $this->_db->query($sql)->results();
-        	break;
-        	default:
-        		return "INVALID INFORMATION";
-        	break;
-        }
-        return $returnResults;
+		$site = strtolower($site);
+		if(!in_array( $site, static::$_checkSite) )
+			return "INVALID INFORMATION";
+
+		$sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs, `id`,`price`, `dispo` 
+        	    FROM ".self::getSite($site).".`pt_products` WHERE merchant NOT IN ('1','67','157','33','333') AND normalised_name != 50
+        	    GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
+		return $returnResults = $this->_db->query($sql)->results();
 	}
 
 	public function metacriticsErrorRating(){
@@ -379,68 +376,53 @@ class Utilities{
 		return $function;
 	}
 
-	public function getRecentActivity($worker = '', $action = 'created', $site = 'aks'){
-		if($site == 'brexitgbp'){
-
-    	 	if($worker != NULL){
-	            $sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
-						FROM `test-server`.`price_team_activity` u 
-						LEFT JOIN 
-						`brexitgbp`.`pt_products` tb 
-						ON tb.id = u.product_id 
-						WHERE 
-						u.worker = '$worker' AND u.site = 'BREXITGBP' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
-	        } else {
-	        	$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
-						FROM `test-server`.`price_team_activity` u 
-						LEFT JOIN 
-						`brexitgbp`.`pt_products` tb 
-						ON tb.id = u.product_id 
-						WHERE u.site = 'BREXITGBP' ORDER BY `time` DESC LIMIT 100";
-	        }
-        	return $this->_db->query($sql);
-
-    	}else if($site == 'cdd'){
-
-    		if($worker != NULL){
-	            $sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
-						FROM `test-server`.`price_team_activity` u 
-						LEFT JOIN 
-						`compareprices`.`pt_products` tb 
-						ON tb.id = u.product_id 
-						WHERE 
-						u.worker = '$worker' AND u.site = 'CDD' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
-	       } else {
-	        	$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
-						FROM `test-server`.`price_team_activity` u 
-						LEFT JOIN 
-						`compareprices`.`pt_products` tb 
-						ON tb.id = u.product_id 
-						WHERE u.site = 'CDD' ORDER BY `time` DESC LIMIT 100";
-	       }
-        	return $this->_db->query($sql);
-
-    	}else{
-
-			if($worker != NULL){
-					$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
-							FROM `test-server`.`price_team_activity` u
-							LEFT JOIN 
-							`test-server`.`pt_products` tb 
-							ON tb.id = u.product_id 
-							WHERE 
-							u.worker = '$worker' AND u.site = 'AKS' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
-				} else {
-					$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
-							FROM `test-server`.`price_team_activity` u 
-							LEFT JOIN 
-							`test-server`.`pt_products` tb 
-							ON tb.id = u.product_id 
-							WHERE u.site = 'AKS' ORDER BY `time` DESC LIMIT 100";
-				}
-        	return $this->_db->query($sql);
-    	}
-
+	public function getRecentActivity($worker = '', $action = '', $site = 'aks'){
+		switch ($site) {
+			case 'aks':
+				$leftJoin = '`test-server`';
+				$qSite = 'AKS';
+			break;
+			case 'cdd':
+				$leftJoin = '`compareprices`';
+				$qSite = 'CDD';
+			break;
+			case 'brexitgbp':
+				$leftJoin = '`brexitgbp`';
+				$qSite = 'BREXITGBP';
+			break;
+			default: break;
+		}
+		if ($worker != NULL && $action != null){
+			$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+		 			FROM `test-server`.`price_team_activity` u 
+		 			LEFT JOIN 
+		 			$leftJoin.`pt_products` tb 
+		 			ON tb.id = u.product_id 
+		 			WHERE u.worker = '$worker' AND u.site = '$qSite' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
+		}else if($worker != NULL && $action == null){
+			$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+		 			FROM `test-server`.`price_team_activity` u 
+		 			LEFT JOIN 
+		 			$leftJoin.`pt_products` tb 
+		 			ON tb.id = u.product_id 
+		 			WHERE u.worker = '$worker' AND u.site = '$qSite' ORDER BY `time` DESC LIMIT 100";
+		}else if($worker == NULL && $action != null){
+			$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+		 			FROM `test-server`.`price_team_activity` u 
+		 			LEFT JOIN 
+		 			$leftJoin.`pt_products` tb 
+		 			ON tb.id = u.product_id 
+		 			WHERE u.site = '$qSite' AND u.action='$action' ORDER BY `time` DESC LIMIT 100";
+		}else{
+			//Default if null null
+			$sql = "SELECT u.id, u.worker, u.url, u.site, u.action, u.product_id, u.time, tb.normalised_name
+		 			FROM `test-server`.`price_team_activity` u 
+		 			LEFT JOIN 
+		 			$leftJoin.`pt_products` tb 
+		 			ON tb.id = u.product_id 
+		 			WHERE u.site = '$qSite' ORDER BY `time` DESC LIMIT 100";
+		}
+		return $this->_db->query($sql);
 	}
 
 	public function getAllUsers($role){
@@ -457,6 +439,63 @@ class Utilities{
 			'bind' => [$getBind],
 			'order' => 'username'
 		]);
+	}
+
+	public function getOfferCounts($site){
+		$table = static::getSite($site);
+		$sql = "SELECT merchant, count(*) AS 'count' FROM $table.`pt_products` Group By merchant";
+		$results = $this->_db->query($sql)->results();
+		$array = array();
+		foreach($results as $key => $value){
+			if(!array_key_exists($value->merchant, $array)){
+				$id = $value->merchant;
+				if(isset($id)) {
+					$array[$id]['count'] = $value->count;
+					$array[$id]['merchant'] = $id;
+				};
+			}
+		}
+		return $array;
+	}
+	
+	public function getOfferCountsByRatings($site ,$rating){
+		$data = [ 'rating' => $rating ]; //positional
+		$table = static::getSite($site);
+		$sql = "SELECT merchant, count(*) AS 'count' FROM $table.`pt_products` WHERE `rating` = ? Group By merchant";
+		$results = $this->_db->query($sql, $data)->results();
+		$array = array();
+		foreach($results as $key => $value){
+			if(!array_key_exists($value->merchant, $array)){
+				$id = $value->merchant;
+				if(isset($id)) {
+					$array[$id]['count'] = $value->count;
+					$array[$id]['merchant'] = $id;
+				};
+			}
+		}
+		return $array;
+	}
+
+	public function updateMerchantRating($site, $merchant, $rating){
+		$data = [ $rating , $merchant ]; //positional
+		$table = static::getSite($site);
+		$sql = "UPDATE {$table}.`pt_products` SET `rating` = ? WHERE merchant = ? ";
+		return $this->_db->query($sql, $data)->error();
+	}
+
+	public function updateMetacriticsStatus($merchant, $rating){
+		$data = [ $rating , $merchant ]; //positional
+    	$sql = "UPDATE `metacritic`.`statistics` SET `status` = ? WHERE `game_id` = ? ";
+		return $this->_db->query($sql, $data)->error();
+	}
+
+	public function userActivityCount($dateStart, $dateEnd){
+		date_default_timezone_set("Asia/Manila");
+		$date1 = strtotime($dateStart); //positional
+		$date2 = strtotime($dateEnd.'+1 day');
+		$data = [ $date1 , $date2 ];
+		$sql ="SELECT COUNT(`action`) `total_per_action` ,`worker`, `action` FROM `test-server`.`price_team_activity` WHERE time >= ? AND time <= ?  GROUP by `action` , `worker`";
+		return $this->_db->query($sql, $data);
 	}
 
     public static function getMetacriticsNumberOfLinks($db,$id){
