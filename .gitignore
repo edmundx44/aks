@@ -3,3 +3,4 @@
 /plugins
 .vscode/*
 .git/*
+/vendors/assets/payment-fees.js
