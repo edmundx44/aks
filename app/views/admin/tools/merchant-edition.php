@@ -135,7 +135,7 @@
                                         <span class="selected-merchant"><input type="text" class="input-search-merchant form-control" data-search="search" placeholder="Merchant"></span>
 										<span class="icon-select"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
 									</div>
-									<ul class="merchant-menu-me option-menu-click searchable-ul">
+									<ul class="merchant-menu-me option-menu-click searchable-ul scrollbar-custom">
                                         <li class='li-store' data-merId="0" data-name="Default">Default</li>
                                         <?php foreach ($this->dataMerchant as $key => $value): ?>     
                                             <li class='li-store' data-merId="<?= trim($key) ?>" data-name="<?= $value ?>"><?="$value $key" ?></li>
@@ -147,7 +147,7 @@
                                         <span class="selected-edition"><input type="text" class="input-search-edition form-control" data-search="search" placeholder="Edition"></span>
 										<span class="icon-select"><i class="fas fa-caret-down" aria-hidden="true"></i></span>
 									</div>
-									<ul class="edition-menu-me option-menu-click-1 searchable-ul">
+									<ul class="edition-menu-me option-menu-click-1 searchable-ul scrollbar-custom">
                                         <li class='li-edition' data-ediId='0' data-name="Default">Default</li>
                                         <li class='li-edition' data-ediId='1' data-name="Standard">1-Standard</li>
 										<li class='li-edition' data-ediId='16' data-name="16-DLC">16-DLC</li>

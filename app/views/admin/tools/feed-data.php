@@ -292,7 +292,7 @@
                                         <span class="selected-merchant"><input type="text" class="input-search-merchant form-control" data-search="search" placeholder="Merchant"></span>
 										<span class="position-icon-1 cus-icon-style"><i class="fas fa-caret-down" aria-hidden="true"></i></span>
 									</div>
-									<ul class="merchant-menu option-menu-click searchable-ul">
+									<ul class="merchant-menu option-menu-click searchable-ul scrollbar-custom">
                                         
                                         
 									</ul>
