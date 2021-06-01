@@ -241,7 +241,7 @@
 		}
 		.store-list p{
 			letter-spacing: 1.5px;
-			font-weight: 700;
+			font-weight: 500;
 		}
 		#confimation-header-style{
 			font-size: 20px;

@@ -1,0 +1,135 @@
+.store-list {
+  padding: 15px 15px 0 15px;
+}
+.store-list-div {
+  padding-bottom: 25px;
+  border-radius: 5px;
+}
+.store-list-card {
+  box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%),
+    0 5px 10px -5px rgb(107 109 112 / 40%);
+  overflow: hidden;
+  border-radius: 5px;
+}
+.store-list p {
+  letter-spacing: 1.5px;
+  font-weight: 500;
+}
+
+.report-modal-header {
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+.modal-fees-content {
+  background-color: #edf0f5 !important;
+}
+.modal-fees-body {
+  padding: 4px 10px 4px 10px;
+}
+.no-padding {
+  padding: 0 !important;
+}
+
+.merchant-list:hover {
+  background-color: #edf0f5;
+  cursor: pointer;
+}
+.add-btn-style:hover,
+.dropdown-div .select:hover {
+  background-color: #0f228a;
+}
+#website-btn:hover,
+.input-range:hover,
+.input-percent:hover,
+.input-flat:hover,
+.input-merchant:hover,
+.input-merchant-id:hover {
+  background-color: #36587b !important;
+}
+.div-add-btn {
+  width: 150px;
+}
+.add-btn-style {
+  cursor: pointer;
+  display: block;
+  padding: 8px 12px 8px 12px;
+  background-color: #3f51b5;
+  color: #fff;
+  letter-spacing: 2px;
+  border-radius: 5px;
+  width: 100%;
+  min-width: 100px;
+  border: none;
+  font-size: 14px;
+  outline: 0;
+}
+.input-range,
+.input-percent,
+.input-flat,
+.input-merchant,
+.input-merchant-id,
+.input-site {
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  background-color: #2c3e50;
+  padding: 4px;
+  outline: none;
+  width: 100%;
+}
+#pp-table thead th,
+#cc-table thead th,
+#pp-table table th,
+#cc-table table th,
+#pp-table tbody tr td,
+#cc-table tbody tr td,
+#add-merchant-table thead th,
+#add-merchant-table tbody tr td {
+  border: 0;
+  padding: 5px 10px 5px 10px;
+}
+.title-fees {
+  background-color: #fff;
+  border-radius: 3px;
+  padding: 4px 10px 4px 10px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-size: 18px;
+  height: 35px;
+}
+#remove-row {
+  padding: 3px 6px 0px 6px;
+}
+.add-paypal-row,
+.add-card-row {
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: #edf0f5;
+  cursor: pointer;
+}
+#add-store-btn {
+  background: #03458c;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  text-align: center;
+  color: #fff;
+  letter-spacing: 2px;
+  width: 100%;
+  font-weight: 700;
+  padding: 10px;
+}
+#modal-confirmation {
+  background: linear-gradient(60deg, #2576cc, #2472c6) !important;
+  border: none;
+  border-radius: 0 0 5px 5px;
+  cursor: pointer;
+  outline: none;
+  text-align: center;
+  color: #fff;
+  letter-spacing: 2px;
+  width: 100%;
+  font-weight: 700;
+  padding: 5px;
+}

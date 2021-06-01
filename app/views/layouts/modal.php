@@ -760,6 +760,90 @@
     </div>
 </div>
 
+<!-- report modal -->
+<div class="modal fade" id="feesModal" role="dialog" style="z-index:1041">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-fees-content">
+            <div class="modal-header">
+                <h4 class="modal-title report-modal-header">Update Data</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body modal-fees-body">
+                <div class="add-div-store col-sm-12">
+                    <div class="title-fees">Merchant Info</div>
+                    <table id="add-merchant-table" class="table">
+                        <thead>
+                            <th>Merchant</th>
+                            <th>Id</th>
+                            <th style="width: 33.33% !important;">Site</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input id="merchant-name" class="input-merchant text-left" type="text" name="name" value="" placeholder="Name"></td>
+                                <td><input id="merchant-id" class="input-merchant-id text-left" type="number" name="id" value="" placeholder="Id"></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <input id="website-btn" class="btn dropdown-toggle input-site" type="button" data-toggle="dropdown" value="Website">
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width:100%">
+                                            <div class="dropdown-item website-items" data-website="aks">AKS</div>
+                                            <div class="dropdown-item website-items" ata-website="cdd">CDD</div>
+                                            <div class="dropdown-item website-items" ata-website="brexitgbp">BREXITGBP</div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="display-more-fees col-sm-12 mt-3">
+                    <div class="display-pp">
+                        <div class="title-fees">
+                            <div class="title-paypal" style="float:left">Paypal Fees</div>
+                            <div class="add-paypal-row" data-row="paypal" style="float:right">+ row</div>
+                        </div>
+                        <table id="pp-table" class="table">
+                            <thead>
+                                <th>Range</th>
+                                <th>Percent</th>
+                                <th>Flat</th>
+                                <th></th>
+                            </thead>
+                            <tbody id="append-pp-fees-body">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="display-cc" style="margin-top: 20px;">
+                        <div class="title-fees">
+                            <div class="title-card" style="float:left">Card Fees</div>
+                            <div class="add-card-row" data-row="card" style="float:right">+ row</div>
+                        </div>
+                        <table id="cc-table" class="table">
+                            <thead>
+                                <th>Range</th>
+                                <th>Percent</th>
+                                <th>Flat</th>
+                                <th></th>
+                            </thead>
+                            <tbody id="append-cc-fees-body">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer append-footer-btn">
+                <button type="button" class="btn btn-primary btn-default btn-fees" id="btn-save-fees">Update</button>
+                <button type="button" class="btn btn-primary btn-default btn-fees" id="btn-add-fees">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 
 
 <!-- // default modal design

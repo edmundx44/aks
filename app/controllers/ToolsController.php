@@ -3,6 +3,7 @@ namespace App\Controllers;
 use Core\Controller;
 use Core\H;
 use Core\DB;
+use App\Models\AjaxFees;
 
 class ToolsController extends Controller {
 
@@ -45,6 +46,17 @@ class ToolsController extends Controller {
 	public function feedDataAction($queryParameters = false){
 		$this->view->pageTitle = 'Feed Data';
 		$this->view->render('admin/tools/feed-data');
+	}
+
+	public function aksFeesAction($queryParamaters = false){
+		//Used another file for easy debug
+		if($this->request->isPost('action')){
+            $ajaxResult = AjaxFees::ajaxData($this->request->get('action'));
+            $this->jsonResponse($ajaxResult);
+        }
+		$this->view->pageTitle = "Store Fees";
+        $this->view->render('admin/tools/aks-fees');
+
 	}
 
 	public function ratingListAction($queryParameters = false){
