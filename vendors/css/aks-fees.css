@@ -38,14 +38,7 @@
 .dropdown-div .select:hover {
   background-color: #0f228a;
 }
-#website-btn:hover,
-.input-range:hover,
-.input-percent:hover,
-.input-flat:hover,
-.input-merchant:hover,
-.input-merchant-id:hover {
-  background-color: #36587b !important;
-}
+
 .div-add-btn {
   width: 150px;
 }

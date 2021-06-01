@@ -786,8 +786,8 @@
                                         <input id="website-btn" class="btn dropdown-toggle input-site" type="button" data-toggle="dropdown" value="Website">
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width:100%">
                                             <div class="dropdown-item website-items" data-website="aks">AKS</div>
-                                            <div class="dropdown-item website-items" ata-website="cdd">CDD</div>
-                                            <div class="dropdown-item website-items" ata-website="brexitgbp">BREXITGBP</div>
+                                            <div class="dropdown-item website-items" data-website="cdd">CDD</div>
+                                            <div class="dropdown-item website-items" data-website="brexitgbp">BREXITGBP</div>
                                         </div>
                                     </div>
                                 </td>

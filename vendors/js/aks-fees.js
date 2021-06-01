@@ -67,9 +67,9 @@
                         AjaxCall($url , $_query).done(function(data){
                             console.log(data)
                             if(data) {
-                                alert("Success");
-                                $('#feesModal').modal('hide'); 
-                                window.location.reload();
+                                alertMsg("Success");
+                                $('#feesModal').modal('hide');
+                                AjaxStores();
                             }
                         });
                     })
@@ -122,9 +122,9 @@
                         AjaxCall($url, $_query).done(function(data){
                             console.log(data);
                             if(data){
-                                alert("Success");
-                                $('#feesModal').modal('hide'); 
-                                window.location.reload();
+                                alertMsg("Success");
+                                $('#feesModal').modal('hide');
+                                AjaxStores(); 
                             }
                             else{
                                 alertMsg("Data didnt save check input ID... ");
@@ -143,9 +143,9 @@
                     $_query = { action: 'removedStore', id: $id_to_update }
                     AjaxCall($url, $_query).done(function(data){
                         if(data){
-                            alert("Success");
-                            $('#feesModal').modal('hide'); 
-                            window.location.reload();
+                            alertMsg("Success");
+                            $('#feesModal').modal('hide');
+                            AjaxStores(); 
                         }
                         else{
                             alertMsg("Data didnt save check input ID... ");
@@ -202,6 +202,7 @@
 	}
     //display store query
     function storeList(res){
+        $('#append-merchants').empty(); 
 		for (var i in res){
             var n = res[i].merchant_name.toLowerCase();
             var storeName = n.substr(0,1).toUpperCase()+n.substr(1);
