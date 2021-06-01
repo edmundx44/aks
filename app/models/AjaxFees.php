@@ -15,7 +15,7 @@ class AjaxFees{
 		$db = DB::getInstance();
 
         if (preg_match('/E\:/',  __DIR__) OR preg_match('/C\:/',  __DIR__)) {
-            $file_location = 'app/payment-fees.js'; //in local
+            $file_location = 'vendors/assets/payment-fees.js'; //in local
         } else {
             $file_location = '/var/www/sites-eu/allkeyshop.com/blog/wp-content/plugins/aks-prices/assets/js/payment-fees.js';
         }

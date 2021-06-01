@@ -1,7 +1,7 @@
 function get_payment_fees()
 {
 	var infinity = 9007199254740992
-	var shops = [13,61616,17,47,31,733,73,94,100,72,40,122,701,218,227,272,162,317,315,318,158,163,307,178,67,212,704,323,174,224,176];
+	var shops = [13,61616,17,47,31,733,73,94,100,72,40,122,701,218,227,272,162,317,315,318,158,163,307,178,67,212,704,323,174,224,176,400];
 	fees = {};
 
 	for (var index in shops)
@@ -901,6 +901,37 @@ function get_payment_fees()
 			fees[shop]['card'][30]['b'] = 0;
 			fees[shop]['card'][infinity] = {};
 			fees[shop]['card'][infinity]['a'] = 1.010437;
+			fees[shop]['card'][infinity]['b'] = 0;
+		}
+
+		if (shop == 400 )
+		{
+			fees[shop]['paypal'][5] = {};
+			fees[shop]['paypal'][5]['a'] = 1;
+			fees[shop]['paypal'][5]['b'] = 0;
+			fees[shop]['paypal'][10] = {};
+			fees[shop]['paypal'][10]['a'] = 1;
+			fees[shop]['paypal'][10]['b'] = 0;
+			fees[shop]['paypal'][20] = {};
+			fees[shop]['paypal'][20]['a'] = 1;
+			fees[shop]['paypal'][20]['b'] = 0;
+			fees[shop]['paypal'][30] = {};
+			fees[shop]['paypal'][30]['a'] = 1;
+			fees[shop]['paypal'][30]['b'] = 0;
+			fees[shop]['paypal'][infinity] = {};
+			fees[shop]['paypal'][infinity]['a'] = 1;
+			fees[shop]['paypal'][infinity]['b'] = 0;
+			fees[shop]['card'][10] = {};
+			fees[shop]['card'][10]['a'] = 1;
+			fees[shop]['card'][10]['b'] = 0;
+			fees[shop]['card'][20] = {};
+			fees[shop]['card'][20]['a'] = 1;
+			fees[shop]['card'][20]['b'] = 0;
+			fees[shop]['card'][30] = {};
+			fees[shop]['card'][30]['a'] = 1;
+			fees[shop]['card'][30]['b'] = 0;
+			fees[shop]['card'][infinity] = {};
+			fees[shop]['card'][infinity]['a'] = 1;
 			fees[shop]['card'][infinity]['b'] = 0;
 		}
 
