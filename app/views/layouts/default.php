@@ -54,7 +54,7 @@ use Core\Session;
           <?php include 'footer.php'; ?>
         </div>
 
-        <!-- <div class="float-anywhere" id="float-anywhere">
+        <div class="float-anywhere" id="float-anywhere">
           <i class="fas fa-cog settings-icon" style=""></i>
 
           <div class="float-settings-menu">
@@ -81,8 +81,8 @@ use Core\Session;
           <div class="float-settings-menu">
             <i class="fas fa-bullseye float-settings-icon" data-toggle="tooltip" title="Add tooltip title"></i>
           </div>
-          <div class="float-settings-menu" style="top:6px;background-color: #eee;width: 35px;height: 35px;"></div> <!-- *background -->
-        </div> -->
+          <div class="float-settings-menu" style="top:6px;background-color: #eee;width: 35px;height: 35px;"></div> 
+        </div> 
 
         <?php include 'modal.php'; ?>
       </div>
