@@ -61,14 +61,251 @@
 						<p class="text-warning text-center" style="margin: 0; padding: 0;color: #fff;font-size: 12px;">About consoles all regions are autorised</p>
 					</div>
 				</div>
-				<div class="modal-content-body scrollbar-custom" style="height:  calc(100% - 170px);overflow-y: auto;">
-					<!-- <div class="input-text-div">
-						<i class="input-text-i fab fa-accusoft"></i>
-						<input type="text" name="" class="input-text-class">
-						<span class="input-text-span">Sample text</span>
-						<span class="input-text-border"></span>
-					</div> -->
-					
+				<div class="modal-content-body scrollbar-custom" style="height:  calc(100% - 170px);overflow-y: auto;overflow-x:hidden;">
+                    <div class="row" style="padding: 10px 25px 40px 25px;">
+
+                        <!-- 1st row -------------------------- -->
+                        <div class="col-sm-6">
+                            <div class="input-text-div" style="margin: 30px 0 0 0;">
+                                <i class="input-text-i fas fa-store-alt"></i>
+                                <input type="text" name="" class="input-text-class" required>
+                                <span class="input-text-span">Merchant</span>
+                                <span class="input-text-border"></span>
+                            </div>
+                            <div class="input-text-div" style="margin: 30px 0 0 0;">
+                                <i class="input-text-i fas fa-search"></i>
+                                <input type="text" name="" class="input-text-class" required>
+                                <span class="input-text-span">Search name</span>
+                                <span class="input-text-border"></span>
+                            </div>
+                            <div class="dropdown" style="margin: 30px 0 0 0;">
+                                <button class="btn btn-primary dropdown-toggle add-edit-game-btn-edition" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;text-align: left;">Select edition</button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-text-div" style="margin: 30px 0 0 0;">
+                                <i class="input-text-i fas fa-key"></i>
+                                <input type="text" name="" class="input-text-class" required>
+                                <span class="input-text-span">Game ID</span>
+                                <span class="input-text-border"></span>
+                            </div>
+                            <div class="input-text-div" style="margin: 30px 0 0 0;">
+                                <i class="input-text-i fas fa-money-check-alt"></i>
+                                <input type="text" name="" class="input-text-class" required>
+                                <span class="input-text-span">Price</span>
+                                <span class="input-text-border"></span>
+                            </div>
+                            <div class="dropdown" style="margin: 30px 0 0 0;">
+                                <button class="btn btn-primary dropdown-toggle add-edit-game-btn-region" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;text-align: left;">Select region</button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2nd row -------------------------- -->
+                        <div class="col-sm-12">
+                            <div class="dropdown" style="margin: 30px 0 0 0;">
+                                <button class="btn btn-primary dropdown-toggle add-edit-game-btn-ratings" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;text-align: left;">Select RATINGS</button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </div>
+                            <div class="input-text-div" style="margin: 30px 0 0 0;">
+                                <i class="input-text-i fas fa-external-link-alt"></i>
+                                <input type="text" name="" class="input-text-class" required>
+                                <span class="input-text-span">Url</span>
+                                <span class="input-text-border"></span>
+                            </div>
+                        </div>
+
+                        <!-- 3rd row -------------------------- -->
+                        <div class="col-sm-6">
+                            <div class="input-text-div" style="margin: 30px 0 0 0;">
+                                <i class="input-text-i fas fa-braille"></i>
+                                <input type="text" name="" class="input-text-class" required>
+                                <span class="input-text-span">Keyword</span>
+                                <span class="input-text-border"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="input-text-div" style="margin: 30px 0 0 0;">
+                                <i class="input-text-i fas fa-external-link-square-alt"></i>
+                                <input type="text" name="" class="input-text-class" required>
+                                <span class="input-text-span">Category</span>
+                                <span class="input-text-border"></span>
+                            </div>
+                        </div>
+
+						<!-- 4th row -------------------------- -->
+						<div class="col-sm-12">
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fas fa-external-link-square-alt"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span">BUY URL BIS</span>
+								<span class="input-text-border"></span>
+							</div>
+						</div>
+
+						<!-- 5th row -------------------------- -->
+	                    <div class="col-sm-6">
+	                    	<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fab fa-staylinked"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span">BUY URL TIER</span>
+								<span class="input-text-border"></span>
+							</div>
+
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i far fa-calendar-alt"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span">Releasedate</span>
+								<span class="input-text-border"></span>
+							</div>
+
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fas fa-plus-circle"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span">metacritic score</span>
+								<span class="input-text-border"></span>
+							</div>
+
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fas fa-plus-circle"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span">metacritic critic score</span>
+								<span class="input-text-border"></span>
+							</div>
+
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fas fa-plus-circle"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span">metacritic user score</span>
+								<span class="input-text-border"></span>
+							</div>
+						</div>
+
+						<div class="col-sm-6">
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fab fa-staylinked"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span">BUY URL 4</span>
+								<span class="input-text-border"></span>
+							</div>
+
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fas fa-calendar"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span">releaseyear</span>
+								<span class="input-text-border"></span>
+							</div>
+
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fas fa-adjust"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span">metacritic count</span>
+								<span class="input-text-border"></span>
+							</div>
+
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fas fa-adjust"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span">metacritic critic count</span>
+								<span class="input-text-border"></span>
+							</div>
+
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fas fa-adjust"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span">metacritic user count</span>
+								<span class="input-text-border"></span>
+							</div>
+						</div>
+
+						<!-- 6th row -------------------------- -->
+	                    <div class="col-sm-12">
+	                    	<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fab fa-accusoft"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span"></span>
+								<span class="input-text-border border border-warning"></span>
+							</div>
+
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fab fa-accusoft"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span"></span>
+								<span class="input-text-border border border-warning"></span>
+							</div>
+
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fab fa-accusoft"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span"></span>
+								<span class="input-text-border border border-warning"></span>
+							</div>
+
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fab fa-accusoft"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span"></span>
+								<span class="input-text-border border border-warning"></span>
+							</div>
+
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fab fa-accusoft"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span"></span>
+								<span class="input-text-border border border-warning"></span>
+							</div>
+
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fab fa-accusoft"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span"></span>
+								<span class="input-text-border border border-warning"></span>
+							</div>
+
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fab fa-accusoft"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span"></span>
+								<span class="input-text-border border border-warning"></span>
+							</div>
+
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fab fa-accusoft"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span"></span>
+								<span class="input-text-border border border-warning"></span>
+							</div>
+
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fab fa-accusoft"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span"></span>
+								<span class="input-text-border border border-warning"></span>
+							</div>
+
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fab fa-accusoft"></i>
+								<input type="text" name="" class="input-text-class" required>
+								<span class="input-text-span"></span>
+								<span class="input-text-border border border-warning"></span>
+							</div>
+	                    </div>
+
+                    </div> <!-- end row -->
 				</div>
 				<div class="modal-content-foot" style="height: 70px;border-top: solid 1px rgba(0,123,255, .5); padding: 10px;text-align: right;">
 					<button class="btn btn-primary mt-1">Submit</button>

@@ -1,6 +1,7 @@
 html, body {
 	font-family: 'Raleway', sans-serif !important;
 	color: #6b6d70 !important;
+	scroll-behavior: smooth;
 }
 
 .tooltip {
@@ -11,14 +12,19 @@ html, body {
 	scrollbar-color: #a9afbb;
 	scrollbar-width: thin !important;
 }
-.scrollbar-custom::-webkit-scrollbar {
+
+.scrollbar-custom::-webkit-scrollbar,
+::-webkit-scrollbar {
 	width: 8px;
 	border-radius: 8px;
 }
-.scrollbar-custom::-webkit-scrollbar-thumb {
+.scrollbar-custom::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb {
 	background: #a9afbb;
+	border-radius: 8px;
 }
-.scrollbar-custom-ds::-webkit-scrollbar-track {
+
+.scrollbar-custom-ds::-webkit-scrollbar-track, {
 	background: #3f51b5;
 }
 .scrollbar-custom-akssnap::-webkit-scrollbar-track {
@@ -886,20 +892,22 @@ body {
 	-o-transition: .3s ease-in-out;
 	transition: .3s ease-in-out;
 }
-.input-text-class:focus ~ .input-text-span {
-	margin-top: -25px;
+.input-text-class:focus ~ .input-text-span,
+.input-text-class:valid ~ .input-text-span {
+	margin-top: -30px;
 	left: 0;
 }
 .input-text-class:focus ~ .input-text-border {
 	width: 100%;
 }
-.input-text-div:focus-within {
+/*.input-text-div:focus-within {
 	padding-top: 25px;
-}
+}*/
 .input-text-span {
 	position: absolute; 
+	height: 38px;
 	left: 50px;
-	margin-top: 8px;
+	padding-top: 8px;
 	-webkit-transition: .3s ease-in-out;
 	-moz-transition: .3s ease-in-out;
 	-o-transition: .3s ease-in-out;
