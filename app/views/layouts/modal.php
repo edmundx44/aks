@@ -1002,7 +1002,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content modal-fees-content">
             <div class="modal-header">
-                <h4 class="modal-title report-modal-header">Update Data</h4>
+                <h4 id="aks-fees-modal" class="modal-title report-modal-header">Update Data</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body modal-fees-body">

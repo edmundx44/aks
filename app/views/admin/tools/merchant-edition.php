@@ -113,16 +113,14 @@
 									<p class="header-text-paragraph">Check using Merchant and Edition</p>
 								</div>
                                 <div class="col-lg-2" style="padding-bottom:20px;">
-                                    <div class="dropdown-website">
-                                        <div class="selected-website">
-                                            <span class="selected-data"><input id="website-btn" class="website-btn" type="button" value="AKS"></span>
-                                            <span class="position-icon-1"><i class="fas fa-caret-down" ></i></span>
+                                    <div class="dropdown" style="border-radius:5px; border: 1px solid #0b5509;">
+                                        <input id="website-btn" class="btn dropdown-toggle input-site website-btn " type="button" data-toggle="dropdown" value="Website">
+                                        <span class="position-icon-1 text-white"><i class="fas fa-caret-down" ></i></span>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width:100%">
+                                            <div class="dropdown-item website-items" data-website="aks">AKS</div>
+                                            <div class="dropdown-item website-items" data-website="cdd">CDD</div>
+                                            <div class="dropdown-item website-items" data-website="brexitgbp">BREXITGBP</div>
                                         </div>
-                                        <ul class="website-menu" style="display:none;">
-                                            <li class='website-items' data-website="aks">AKS</li>
-                                            <li class='website-items' data-website="cdd">CDD</li>
-                                            <li class='website-items' data-website="brexitgbp">BREXITGBP</li>
-                                        </ul>
                                     </div>
                                 </div>
 							</div>

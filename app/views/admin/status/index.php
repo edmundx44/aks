@@ -35,7 +35,6 @@
 
 			$(document).on('click', '.website-items', function(){
 				$('#website-btn').val($(this).attr('data-website').toUpperCase())
-				$('.selected-data').attr('data-selected-site', $(this).attr('data-website'))
 				var indexInput = $(this).parent().prevObject.index(); //get the index of li
 				if($(this).parent()[0].children.length == 3 ){
 			    	var site = (indexInput == 0 ) ? inputsSite[0].site : (indexInput == 1 ) ? inputsSite[1].site : (indexInput == 2 ) ? inputsSite[2].site : '';
@@ -277,17 +276,15 @@
 								<p class="rating-title">Note: By setting the button to OFF it will be disabled all offers and will not be displayed in website and vice versa</p>
 							</div>
 							<div class="col-lg-2 div-site-hide" style="display:none">
-								<div class="dropdown-website row-4-card-div-overflow-style-2">
-									<div class="selected-website">
-										<span class="selected-data"><input id="website-btn" class="website-btn" type="button" value="AKS"></span>
-										<span class="position-icon-1"><i class="fas fa-caret-down" ></i></span>
-									</div>
-									<ul class="website-menu" style="display:none;">
-										<li class='website-items' data-website="aks">AKS</li>
-										<li class='website-items' data-website="cdd">CDD</li>
-										<li class='website-items' data-website="brexitgbp">BREXITGBP</li>
-									</ul>
-								</div>
+								<div class="dropdown row-4-card-div-overflow-style-2" style="border-radius:5px;">
+                                    <input id="website-btn" class="btn dropdown-toggle input-site website-btn " type="button" data-toggle="dropdown" value="Website">
+									<span class="position-icon-1 text-white"><i class="fas fa-caret-down" ></i></span>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width:100%">
+                                        <div class="dropdown-item website-items" data-website="aks">AKS</div>
+                                        <div class="dropdown-item website-items" data-website="cdd">CDD</div>
+                                        <div class="dropdown-item website-items" data-website="brexitgbp">BREXITGBP</div>
+                                    </div>
+                                </div>
 							</div>					
 						</div>
 					</div>

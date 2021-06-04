@@ -1,6 +1,6 @@
-    var $url = url+'tools/aksFees';
-    var $id_to_update = null;
-    var df_value = {
+    const $url = url+'tools/aksFees';
+    var $id_to_update;
+    const df_value = {
         "10": [{ percent: 0, flat: 0 }],
         "20": [{ percent: 0, flat: 0 }],
         "30": [{ percent: 0, flat: 0 }],
@@ -41,8 +41,9 @@
                     $('#feesModal').modal('show'); 
                 }
                 //console.log(data);
-                $('.modal-title').text(data[0].merchant_name.toUpperCase() +' '+data[0].merchant_id);
-                $('.modal-title').attr('data-merchant',data[0].merchant_id);
+                $('#aks-fees-modal').text(data[0].merchant_name.toUpperCase() +' '+data[0].merchant_id);
+                $('#aks-fees-modal').attr('data-merchant',data[0].merchant_id);
+                $('#aks-fees-modal').attr('data-idd',data[0].id);
                 $('.merchant-list').removeAttr('disabled');
                 $('.merchant-list').css({ "pointer-events": "" })
                 $('.append-footer-btn').prepend('<button type="button" class="mr-auto btn btn-danger btn-default btn-fees" id="remove-store-btn">Remove store</button>')
@@ -82,10 +83,11 @@
             $('.btn-fees').hide();
             $('#btn-add-fees').show();
             $('.add-div-store').show();
-            $('.modal-title').text("Add Merchant");
+            $('#aks-fees-modal').text("Add Merchant");
             $('#append-pp-fees-body').empty();
             $('#append-cc-fees-body').empty();
-
+            $('#aks-fees-modal').removeAttr('data-merchant');
+            $('#aks-fees-modal').removeAttr('data-idd');
             Object.keys(df_value).forEach(function(range){
                 var append = addTableRow(range, df_value[range][0].percent, df_value[range][0].flat);
                 $('#append-pp-fees-body').append(append);
@@ -196,6 +198,7 @@
     });
     //query stores
     function AjaxStores($_query = false){
+    $id_to_update = null;
 		if(!$_query)		
 			var $_query = { action : "aks-fees-merchant" , site : 'aks'}
 		AjaxCall($url, $_query).done(storeList)
