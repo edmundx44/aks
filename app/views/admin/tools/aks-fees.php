@@ -20,7 +20,7 @@
                                 <div class="col-lg-2" style="padding-bottom:20px;">
                                     <div class="">
                                         <div class="selected-website">
-                                            <span class="add-span"><input id="add-store-btn" type="button" value="ADD Store"></span>
+                                            <span class="add-span"><input id="add-store-btn" type="button" value="ADD Store" style="border: 1px solid #418bff;"></span>
                                         </div>
                                     </div>
                                 </div>                            

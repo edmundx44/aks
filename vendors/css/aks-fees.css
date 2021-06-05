@@ -101,7 +101,7 @@
   cursor: pointer;
 }
 #add-store-btn {
-  background: #03458c;
+  background: transparent;
   border: none;
   border-radius: 5px;
   cursor: pointer;

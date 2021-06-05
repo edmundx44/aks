@@ -26,7 +26,7 @@
 									<p style="font-size:12px;font-weight: 500;">Check using by users</p>
 								</div>
                                 <div class="col-lg-2" style="padding-bottom:20px;">
-                                    <div class="dropdown row-4-card-div-overflow-style-2" style="border-radius:5px; border: 1px solid #0b5509;">
+                                    <div class="dropdown" style="border-radius:5px; border: 1px solid #418bff;">
                                         <input id="website-btn" class="btn dropdown-toggle input-site website-btn " type="button" data-toggle="dropdown" value="Website">
                                         <span class="position-icon-1 text-white"><i class="fas fa-caret-down" ></i></span>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width:100%">
