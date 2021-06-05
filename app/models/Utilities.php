@@ -276,6 +276,19 @@ class Utilities{
 		return $returnResponse;
 	}
 
+		
+    public function getMetacriticsNumberOfLinks(int $id){
+		$param = [ $id ];
+        $sql = "SELECT count(*) as 'count' FROM `metacritic`.`statistics` WHERE `game_id` = ?";
+        return $this->_db->query($sql, $param)->first();
+    }
+
+    public function getMetacriticsDisabledLinks(int $id){
+		$param = [ $id ];
+        $sql = "SELECT count(*) as 'count' FROM `metacritic`.`statistics` WHERE `game_id` = ? AND `status` = 1";
+        return $this->_db->query($sql, $param)->first();
+    }
+
 	public function displayAllkeyshopStore(){
 		$sql = "SELECT `vols_id`, `vols_nom`, `analytic_name`, `status` FROM `allkeyshops`.sale_page order by vols_nom asc";
 		$result = $this->_db->query($sql)->results();
@@ -518,16 +531,32 @@ class Utilities{
 		return $this->_db->query($sql, $data);
 	}
 
-    public function getMetacriticsNumberOfLinks(int $id){
-		$param = [ $id ];
-        $sql = "SELECT count(*) as 'count' FROM `metacritic`.`statistics` WHERE `game_id` = ?";
-        return $this->_db->query($sql, $param)->first();
-    }
-    public function getMetacriticsDisabledLinks(int $id){
-		$param = [ $id ];
-        $sql = "SELECT count(*) as 'count' FROM `metacritic`.`statistics` WHERE `game_id` = ? AND `status` = 1";
-        return $this->_db->query($sql, $param)->first();
-    }
+	public function priceTeam(){
+		$sql = "SELECT username FROM `test-server`.`admin_user` where `role`= 'price_team' ORDER BY `username` ";
+		return $this->_db->query($sql);
+	}
+
+	public function priceTeamActivity(string $site, string $worker, string $action = 'created'){
+		if(in_array($site, static::$_checkSite)){
+			$params = [ 
+				'column' => ['`id`', '`product_id`', '`worker`', '`site`', '`action`', '`time`' ],
+				'conditions' => ['worker = ?', 'site = ?', 'action = ?'], 
+				'bind' => [ $worker, strtoupper($site), $action ],
+				'order' => "id DESC",
+				'limit' => 100,
+			 ];
+			if(empty($worker)){
+				$params['conditions'] = [ 'site = ?', 'action = ?'];
+				$params['bind'] = [ strtoUpper($site), $action];
+			}
+			$result =  $this->_db->find( '`test-server`.`price_team_activity`', $params);
+			foreach($results as $row){
+				$product_id = [];
+				$json_result[$store['id']] = $store;
+			}
+		}
+		return [];
+	}
 
     /*------------------ FOR AFFILIATE LINK CHECK action = "ajaxAffiliateLinkCheck" --------------*/
     public static function get_good_sqlv2($merchant_id,$affiliate_link,$dbName){

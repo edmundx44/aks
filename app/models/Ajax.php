@@ -1335,6 +1335,55 @@ class Ajax {
 
 					return count($db->query($sqlTotal)->results());
 				break;
+
+				case 'aks-rhyn-tool':
+					$utilities = new Utilities;
+					return $utilities->priceTeam()->results();
+				break;
+
+				case 'rhyn-tool-display':
+					if(!self::getSite($getInput->get('site'))) return [];
+					$utilities = new Utilities;
+
+					$priceTeam = $getInput->get('priceTeam');
+
+					//GET 100 ID
+					// $retrieveMerchant = $utilities->dataMerchant();
+					// $retrieveEdition = $utilities->dataEdition();
+					// $retrieveRegions = $utilities->dataRegion();
+					$retrieveResults = $utilities->priceTeamActivity( $getInput->get('site'), $getInput->get('priceTeam') );
+					$id_containers = array();
+					return $merchants = implode(",", array_keys($retrieveResults));
+					// $arrayThis =array();
+					// if(!empty($retrieveResults)){
+					// 	foreach ($retrieveResults as $key){
+					// 		$merchantData = (!array_key_exists($key->merchant, $retrieveMerchant)) ? 'No Data' : $retrieveMerchant[$key->merchant];
+					// 		$editionData = (!array_key_exists($key->edition, $retrieveEdition)) ? 'No Data' : $retrieveEdition[$key->edition];
+					// 		$regionData = (!array_key_exists($key->region, $retrieveRegions)) ? 'No Data' : $retrieveRegions[$key->region];
+
+					// 		array_push($arrayThis, array(
+					// 				'id' => $key->id,
+					// 				'merchant' => ucfirst($merchantData),
+					// 				'edition' => ucfirst($editionData),
+					// 				'region' => ucfirst($regionData),
+					// 				'game_id' => $key->normalised_name,
+					// 				'buy_url' => $key->buy_url,
+					// 				'price' => $key->price,
+					// 				'dispo' => $key->dispo,
+					// 				'rating' => $key->rating,
+					// 				'search_name' => $key->search_name,
+					// 				'created_by' => ucfirst($key->created_by),
+					// 				'created_time' => date('M d Y h:i A',strtotime($key->created_time.'+8 hours')),
+					// 			)
+					// 		);
+					// 	}
+					// }
+					// $returnArrayData['success'] = array(
+					// 	'data' => $arrayThis,
+					// 	'returnWebsite'=> $postSite
+					// );
+					// return $returnArrayData;
+				break;
 		}
 	
 	}//END OF FUNCTION AJAXDATA
