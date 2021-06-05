@@ -492,26 +492,26 @@
 			case 'getSuccessStores':
 				$('.append-sreports').empty();
 				$('.s-buttons').empty();
-				var param1 = 'sreports' , param2 = 's-buttons', appendTo= 'append-sreports' ,showBtn = 's-buttons' ,titleTo = 's-title';
+				var className = 'sreports' , buttonDiv = 's-buttons', appendTo= 'append-sreports' ,showBtn = 's-buttons' ,titleTo = 's-title';
 				var textFailed = "NO SUCCESS RUNTIME FOR NOW";
 			break;
 			case 'getFailedStores':
 				$('.append-freports').empty();
 				$('.f-buttons').empty();
-				var param1 = 'freports' , param2 = 'f-buttons', appendTo= 'append-freports' ,showBtn = 'f-buttons' ,titleTo = 'f-title';
+				var className = 'freports' , buttonDiv = 'f-buttons', appendTo= 'append-freports' ,showBtn = 'f-buttons' ,titleTo = 'f-title';
 				var textFailed = "NO FAILED RUNTIME FOR NOW";
 			break;
 			case 'getServerChargeStore':
 				$('.append-screports').empty();
 				$('.sc-buttons').empty();
-				var param1 = 'screports' , param2 = 'sc-buttons', appendTo= 'append-screports' ,showBtn = 'sc-buttons' ,titleTo = 'sc-title';
+				var className = 'screports' , buttonDiv = 'sc-buttons', appendTo= 'append-screports' ,showBtn = 'sc-buttons' ,titleTo = 'sc-title';
 				var textFailed = "NO FAILED SERVER CHARGE FOR NOW";
 			break;
 			default:
 			break;
 		}
 		if(data.length != 0){
-			btnSuccessFailServerChargeFiltered(param1, param2);
+			btnSuccessFailServerChargeFiltered(className, buttonDiv);
 			for(var i in data){
 				var $bgColor = (data[i].website == 'aks') ?  'aks_color' : (data[i].website == 'cdd') ? 'cdd_color' : (data[i].website == 'brexitgbp') ? 'brexitgbp_color' : "";
 				if(data[i].website == 'brexitgbp'){
