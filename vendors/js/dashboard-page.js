@@ -18,8 +18,6 @@
 		checkWidthFB(); //it will take effect it its reload
 		callChangelogs()
 
-		var display1 = 
-
 		$.when(
 			xhr_AjaxCall(url+'dashboard','POST','displayRunAndSuccessAction').done(function(data){ displayRunAndSuccess(data) }),
 			xhr_AjaxCall(url+'dashboard','POST','displayPriceToZeroCountsCounts').done(function(data) { displayPriceToZero(data) }),
