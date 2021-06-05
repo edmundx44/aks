@@ -7,7 +7,7 @@ use Core\Model;
 class Utilities{
 
 	private $_db;
-	public static $_checkSite = [ 'aks' , 'cdd', 'brexitgbp'];
+	private static $_checkSite = [ 'aks' , 'cdd', 'brexitgbp'];
 	
 	public function __construct() {
 		$this->_db = DB::getInstance();
@@ -204,7 +204,7 @@ class Utilities{
 		return $this->_db->query($serverCharge);
 	}
 
-	public function displayDisabledStore(){
+	public function getSalePageByKeyValue(){
 		$sql = "SELECT `vols_id`,`vols_nom`,`analytic_name` FROM `allkeyshops`.`sale_page` ";
 		$arrayStores = $this->_db->query($sql);
 		$allStores = array();
@@ -214,11 +214,14 @@ class Utilities{
 				if(isset($id))  $allStores[$id]=$value->analytic_name;
 			}
 		}
+		return $allStores;
+	}
 
+	public function displayDisabledStore(){
+		$allStores = $this->getSalePageByKeyValue();
 		$returnDisabledStore = array();
-		$invisible_stores = json_decode(@file_get_contents('https://www.allkeyshop.com/blog/wp-content/plugins/aks-merchants/api/merchants/inactive'),true); 
-		//$invisible_stores = '';
-		if (FALSE !== ($invisible_stores)) {
+		try {
+			$invisible_stores = json_decode(@file_get_contents('https://www.allkeyshop.com/blog/wp-content/plugins/aks-merchants/api/merchants/inactive'),true); 
 			if(!empty($invisible_stores)){
 				foreach ($invisible_stores as $stores_invisible) {
 					if(array_key_exists($stores_invisible, $allStores)){
@@ -233,11 +236,11 @@ class Utilities{
 						);
 					}
 				}
-
 				return array('to' => 'Store', 'count' => count($returnDisabledStore), 'data' => $returnDisabledStore);;
-			}
-		} else {
-			return FALSE;
+			}else
+				return $returnDisabledStore;
+		} catch (\Throwable $th) {
+			return $returnDisabledStore;
 		}
 	}
 
@@ -250,12 +253,12 @@ class Utilities{
 		foreach ($metaStores as $key) {
 			$id = $key['id'];
 			$name = $key['name'];
-			$number_of_links = self::getMetacriticsNumberOfLinks($this->_db, $id); //# of links
-			$number_of_disabled_links = self::getMetacriticsDisabledLinks($this->_db, $id); //# of disabled links
+			$number_of_links = $this->getMetacriticsNumberOfLinks($id); //# of links
+			$number_of_disabled_links = $this->getMetacriticsDisabledLinks($id); //# of disabled links
 
 			if($number_of_links->count > 0){
 				$number_of_links->count = $number_of_links->count * .95;
-				if( $number_of_disabled_links->count1 <= $number_of_links->count){
+				if( $number_of_disabled_links->count <= $number_of_links->count){
 					array_push($returnResponse, array(
 						'id' => $id,
 						'merchant' => ucfirst($name),
@@ -279,7 +282,7 @@ class Utilities{
 		return $result;
 	}
 
-	public function AjaxRealDblLinks($site){
+	public function AjaxRealDblLinks(string $site){
 		$site = strtolower($site);
 		if(!in_array( $site, static::$_checkSite) )
 			return "INVALID INFORMATION";
@@ -312,7 +315,7 @@ class Utilities{
     	return $returnResults = $this->_db->query($sql);
 	}
 
-	public function getFeedBotData($website, $merchantId){
+	public function getFeedBotData(string $website, $merchantId){
 		$array = array();
 		$origin = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
 		if($origin == 'http://localhost'){
@@ -353,7 +356,7 @@ class Utilities{
         return $array;
 	}
 
-	public function feedSearchUrl($website, $merchantId){
+	public function feedSearchUrl(string $website, $merchantId){
 		//This is from Bot Admin file get the text value function then parse the string using eval to use as function
 		//Get the edit_url function 
 		$origin = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
@@ -376,7 +379,7 @@ class Utilities{
 		return $function;
 	}
 
-	public function getRecentActivity($worker = '', $action = '', $site = 'aks'){
+	public function getRecentActivity(string $worker = '',string $action = '', string $site = 'aks'){
 		switch ($site) {
 			case 'aks':
 				$leftJoin = '`test-server`';
@@ -441,7 +444,7 @@ class Utilities{
 		]);
 	}
 
-	public function getOfferCounts($site){
+	public function getOfferCounts(string $site){
 		$table = static::getSite($site);
 		$sql = "SELECT merchant, count(*) AS 'count' FROM $table.`pt_products` Group By merchant";
 		$results = $this->_db->query($sql)->results();
@@ -458,7 +461,8 @@ class Utilities{
 		return $array;
 	}
 	
-	public function getOfferCountsByRatings($site ,$rating){
+	//USING GROUP BY MERCHANT
+	public function getOfferCountsByRatings(string $site ,$rating){
 		$data = [ 'rating' => $rating ]; //positional
 		$table = static::getSite($site);
 		$sql = "SELECT merchant, count(*) AS 'count' FROM $table.`pt_products` WHERE `rating` = ? Group By merchant";
@@ -476,7 +480,23 @@ class Utilities{
 		return $array;
 	}
 
-	public function updateMerchantRating($site, $merchant, $rating){
+	//1 MERCHANT ONLY USING BY rating
+	public function getMerchantCountsByRatings(string $site, $merchant, $rating){
+		$param = [ $merchant, $rating ]; //positional
+		$table = static::getSite($site);
+		$sql = "SELECT `merchant`, count(merchant) as 'count' FROM $table.`pt_products` WHERE `merchant` = ?  AND `rating` = ? Group By merchant ";
+		return $results = $this->_db->query($sql, $param)->results();
+	}
+
+	//1 MERCHANT ONLY USING BY merchant
+	public function getMerchantCounts(string $site, $merchant){
+		$param = [ $merchant ]; //positional
+		$table = static::getSite($site);
+		$sql = "SELECT merchant, count(*) AS 'count' FROM $table.`pt_products` WHERE `merchant` = ? Group By merchant";
+		return $results = $this->_db->query($sql, $param)->results();
+	}
+
+	public function updateMerchantRating(string $site, $merchant, $rating){
 		$data = [ $rating , $merchant ]; //positional
 		$table = static::getSite($site);
 		$sql = "UPDATE {$table}.`pt_products` SET `rating` = ? WHERE merchant = ? ";
@@ -489,7 +509,7 @@ class Utilities{
 		return $this->_db->query($sql, $data)->error();
 	}
 
-	public function userActivityCount($dateStart, $dateEnd){
+	public function userActivityCount(string $dateStart, string $dateEnd){
 		date_default_timezone_set("Asia/Manila");
 		$date1 = strtotime($dateStart); //positional
 		$date2 = strtotime($dateEnd.'+1 day');
@@ -498,13 +518,15 @@ class Utilities{
 		return $this->_db->query($sql, $data);
 	}
 
-    public static function getMetacriticsNumberOfLinks($db,$id){
-        $sql = "SELECT count(*) as count FROM `metacritic`.`statistics` WHERE `game_id` = $id";
-        return $db->query($sql)->first();
+    public function getMetacriticsNumberOfLinks(int $id){
+		$param = [ $id ];
+        $sql = "SELECT count(*) as 'count' FROM `metacritic`.`statistics` WHERE `game_id` = ?";
+        return $this->_db->query($sql, $param)->first();
     }
-    public static function getMetacriticsDisabledLinks($db,$id){
-        $sql = "SELECT count(*) as count1 FROM `metacritic`.`statistics` WHERE `game_id` = $id AND `status` = 1";
-        return $db->query($sql)->first();
+    public function getMetacriticsDisabledLinks(int $id){
+		$param = [ $id ];
+        $sql = "SELECT count(*) as 'count' FROM `metacritic`.`statistics` WHERE `game_id` = ? AND `status` = 1";
+        return $this->_db->query($sql, $param)->first();
     }
 
     /*------------------ FOR AFFILIATE LINK CHECK action = "ajaxAffiliateLinkCheck" --------------*/
