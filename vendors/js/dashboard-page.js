@@ -1051,7 +1051,7 @@
 
 		}
 
-		function addPointerEvents($to ,$classTarget = ""){
+		function addPointerEvents($to){
 			$('.card-body-div-sub').removeClass('div-disabled');
 			$('.view-more-icon').removeClass('pointer-events-none');
 			$('.card-body-div-sub-span').removeClass('pointer-events-none');
@@ -1073,7 +1073,7 @@
 
 		}
 
-		function removedPointerEvents($to ,$classTarget = ""){
+		function removedPointerEvents($to){
 			switch($to){
 				case 'Store':
 				case 'Metacritics':
