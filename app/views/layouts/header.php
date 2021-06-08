@@ -72,7 +72,14 @@
 		-o-transition: .1s ease-in-out;
 		transition: .1s ease-in-out;
 	}
-	
+	.header-search-btn {
+		display: inline-block;
+		padding: 5px 10px 5px 10px; 
+		border-radius: 5px;
+		cursor: pointer;
+		left: -5px;
+		position: relative;
+	}
 	/*.header-ul-li:hover > i {
 		font-size: 18px;
 		top: 2px;
@@ -128,13 +135,13 @@
 				</div> -->
 			</div>
 			<form class="form-inline search-btn-form">
-					<div class="user-input-wrp" style="width: calc(100% - 88px);overflow: hidden;top: -10px;">
+					<!-- <div class="user-input-wrp" style="width: calc(100% - 88px);overflow: hidden;top: -10px;">
 						<br>
 						<input type="text" value="" class="inputText" id="" onkeyup="this.setAttribute('value', this.value);" style="background-color: transparent;color: #6b6d70;border-radius: 0 0 5px 0;">
 						<span class="floating-label">Search</span>
-					</div>
-					<ul style="list-style-type: none; padding: 0;margin: -15px 0 0 0;position: absolute;right: 18px;">
-						<li style="display: inline-block;padding: 5px 10px 5px 10px; background-color: #007bff;border-radius: 5px;color: #fff;cursor: pointer;left: -5px;position: relative;">
+					</div> -->
+					<ul style="list-style-type: none; padding: 0;margin: 10px 0 0 0;position: absolute;right: 18px;">
+						<li class="btn btn-primary header-search-btn" title="Search product">
 							<i class="fas fa-search"></i>
 						</li>
 						<a href="/aks/dashboard/activities" style="text-decoration: none;"	>

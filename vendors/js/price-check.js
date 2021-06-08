@@ -45,9 +45,7 @@ $(function() {
 				getWrongAffDaily();
 			break;
 		}
-		var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + param;
-		window.history.pushState({ path: newurl }, '', newurl);
-
+		changeUrlParameter(param);
 	});
 
 // affiliate problem report section ----------------------------------------------------------------------

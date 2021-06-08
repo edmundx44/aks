@@ -997,7 +997,288 @@
     </div>
 </div>
 
+<!-- 
+search product modal
+// default modal design -->
+<div class="modal fade no-padding" id="search-product-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	<div class="modal-dialog modal-lg spm-dialog spm-dialog-height" role="document">
+		<div class="modal-content spm-content">
+			<div class="spm-content-wrapper">
+				<div class="spm-content-header">
+					<div class="dropdown" style="width: 150px;margin-right: 0;display: block;margin-left: auto;">
+						<button class="btn btn-primary dropdown-toggle search-product-modal-dd-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;">Select Site</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
+							<span class="dropdown-item search-product-modal-ddi">AKS</span>
+							<span class="dropdown-item search-product-modal-ddi">CDD</span>
+							<span class="dropdown-item search-product-modal-ddi">BREX</span>
+						</div>
+					</div>
+					<div class="input-text-div" style="margin: 15px 0 0 0;">
+						<input type="text" name="" class="input-text-class search-product-modal-txt" required>
+						<i class="input-text-i fas fa-search search-product-modal-i"></i>
+						<span class="input-text-span search-product-modal-span">Search Product</span>
+						<span class="input-text-border"></span>
+                    </div>
+				</div>
+				<div class="text-center spmc-loader-wrapper">
+					<span style="font-weight: 500;font-size: 15px;letter-spacing: 2px;">Processing</span>
+					<div class="boxes box-loader">
+						<div class="box">
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</div>
+						<div class="box">
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</div>
+						<div class="box">
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</div>
+						<div class="box">
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</div>
+					</div>
+				</div>
+				<div class="spm-content-body">
+					<div class="spm-sub-header">
+						<div class="spm-sub-header-tittle" style="margin: 10px 0 0 0;">
+							<span>
+								&nbsp; &nbsp; 
+								<i class="far fa-eye"></i>
+								<span class="spmc-display-header-span-what">Product found in</span>
+								<span class="spmc-span-site">AKS</span>
+							</span>
+						</div>
+						<div class="spm-sub-header-btn">
+							<button class="btn btn-info spmc-btn spmc-create-btn" style="position: relative;"><i class="fas fa-plus-square"></i> &nbsp; Create</button>
+							<button class="btn btn-info spmc-btn spmc-request-id-btn" style="position: relative;display:none;"><i class="fas fa-plus-square"></i> &nbsp; Request</button>
+						</div>
+					</div>
+					<div class="spm-content-display">
+							
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
 
+<style>
+	.spm-dialog-height-max {
+		margin-top: ;
+		height:  calc(100% - 60px);
+	}
+	.spm-dialog-height-mid {
+		margin-top: 10%;
+		height:  calc(100% - 300px);
+	}
+	.spm-dialog-height-min {
+		margin-top: 15%;
+		height:  calc(100% - 480px);
+	}
+	.spm-dialog-height {
+		margin-top: 20%;
+		height:;
+	}
+	.spm-dialog {
+		/*overflow: hidden;*/
+		-webkit-transition: .2s ease-in-out !important;
+		-moz-transition: .2s ease-in-out !important;
+		-o-transition: .2s ease-in-out !important;
+		transition: .2s ease-in-out !important;
+	}
+
+
+	.spm-content {
+		height: 100%;
+		border-radius: 0;
+		background-clip: initial;
+		background: rgba(0,123,255, .5);
+		border: none;
+		padding: 10px;
+	}
+	.spm-content-wrapper {
+		height: 100%;
+		padding: 10px;
+		width: 100%;
+		background-color: #fff;
+		position: relative;
+	}
+	.search-product-modal-txt {
+		left: 0;
+		border-right: none;
+		padding-left: 5px;
+		border-left: solid 2px #ccc;
+	}
+	.search-product-modal-i {
+		cursor: pointer;
+	}
+	.search-product-modal-span {
+		left: 5px;
+	}
+	.spm-content-body {
+		margin: 10px 0 0 0;
+		height: calc(100% - 100px);
+		overflow: hidden;
+		display: none;
+	}
+	.spm-sub-header {
+		display: flex;
+		justify-content: space-between;
+	}
+	.spm-content-display {
+		margin: 10px 0 0 0;
+		height: calc(100% - 50px);
+		overflow-x: scroll;
+	}
+	.spmc-display-content-wrapper {
+		margin: 0 0 10px 0;
+		box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%);
+		padding: 15px;
+		cursor: pointer;
+		word-break: break-all;
+	}
+	.spmc-display-content-wrapper:hover {
+		background-color: #ededed;
+	}
+	.spmc-display-content-merchant {
+		font-weight: 500;
+	}
+	.spmc-btn {
+		display: none;
+	}
+
+
+	/*loader div -------------------------------------------*/
+	.spmc-loader-wrapper {
+		margin: 10px 0 0 0;
+		padding-bottom: 35px;
+		display: none;
+	}
+	.boxes {
+		margin-top: 10px;
+		margin-left: auto;
+		margin-right: auto;
+		 --size: 12px;
+		 --duration: 800ms;
+		 height: calc(var(--size) * 2);
+		 width: calc(var(--size) * 3);
+		 position: relative;
+		 transform-style: preserve-3d;
+		 transform-origin: 50% 50%;
+		 transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
+	}
+	.boxes .box {
+		 width: var(--size);
+		 height: var(--size);
+		 top: 0;
+		 left: 0;
+		 position: absolute;
+		 transform-style: preserve-3d;
+	}
+	 .boxes .box:nth-child(1) {
+		 transform: translate(100%, 0);
+		 animation: box1 var(--duration) linear infinite;
+	}
+	 .boxes .box:nth-child(2) {
+		 transform: translate(0, 100%);
+		 animation: box2 var(--duration) linear infinite;
+	}
+	 .boxes .box:nth-child(3) {
+		 transform: translate(100%, 100%);
+		 animation: box3 var(--duration) linear infinite;
+	}
+	 .boxes .box:nth-child(4) {
+		 transform: translate(200%, 0);
+		 animation: box4 var(--duration) linear infinite;
+	}
+	.boxes .box > div {
+		 --background: #5c8df6;
+		 --top: auto;
+		 --right: auto;
+		 --bottom: auto;
+		 --left: auto;
+		 --translateZ: calc(var(--size) / 2);
+		 --rotateY: 0deg;
+		 --rotateX: 0deg;
+		 position: absolute;
+		 width: 100%;
+		 height: 100%;
+		 background: var(--background);
+		 top: var(--top);
+		 right: var(--right);
+		 bottom: var(--bottom);
+		 left: var(--left);
+		 transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));
+	}
+	 .boxes .box > div:nth-child(1) {
+		 --top: 0;
+		 --left: 0;
+	}
+	 .boxes .box > div:nth-child(2) {
+		 --background: #145af2;
+		 --right: 0;
+		 --rotateY: 90deg;
+	}
+	 .boxes .box > div:nth-child(3) {
+		 --background: #447cf5;
+		 --rotateX: -90deg;
+	}
+	 .boxes .box > div:nth-child(4) {
+		 --background: #dbe3f4;
+		 --top: 0;
+		 --left: 0;
+		 --translateZ: calc(var(--size) * 3 * -1);
+	}
+	 @keyframes box1 {
+		 0%, 50% {
+			 transform: translate(100%, 0);
+		}
+		 100% {
+			 transform: translate(200%, 0);
+		}
+	}
+	 @keyframes box2 {
+		 0% {
+			 transform: translate(0, 100%);
+		}
+		 50% {
+			 transform: translate(0, 0);
+		}
+		 100% {
+			 transform: translate(100%, 0);
+		}
+	}
+	 @keyframes box3 {
+		 0%, 50% {
+			 transform: translate(100%, 100%);
+		}
+		 100% {
+			 transform: translate(0, 100%);
+		}
+	}
+	 @keyframes box4 {
+		 0% {
+			 transform: translate(200%, 0);
+		}
+		 50% {
+			 transform: translate(200%, 100%);
+		}
+		 100% {
+			 transform: translate(100%, 100%);
+		}
+	}
+</style>
 
 <!-- // default modal design
 <div class="modal fade bd-example-modal-lg add-edit-store-game-modal no-padding" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">

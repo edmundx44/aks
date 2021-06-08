@@ -61,27 +61,32 @@ $(document).ready(function(){
 	$(document).on('click', '.dropdown-website', function(){ $(this).find('.website-menu').slideToggle(200); });
 	
 	$(document).keydown(function(event){
-		
-		if(event.which === 27) {
-			$('.modal').modal('hide');
+		switch(true){
+			case (event.which === 27):
+				$('.modal').modal('hide');
+			break;
+			case ((event.which === 65 && event.altKey && event.shiftKey)):
+				$('.modal').modal('hide');
+				$('.add-edit-store-game-modal').modal('show');
+			break;
+			case ((event.which === 68 && event.altKey && event.shiftKey)):
+				$('.switch-checkbox').trigger('click');
+			break;
+			case ((event.which === 81 && event.altKey && event.shiftKey)):
+				window.location.href = "/aks/dashboard/activities";
+			break;
+			case ((event.which === 82 && event.altKey && event.shiftKey)):
+				$('.modal').modal('hide');
+				crProblemArr = [];
+				$('#createReportModal').modal('show');
+			break;
+			case ((event.which === 83 && event.altKey && event.shiftKey)):
+				$('.modal').modal('hide');
+				$('.header-search-btn').trigger('click');
+			break;
+			// case ():	
+			// break;
 		}
-		if((event.which === 65 && event.altKey && event.shiftKey)) {
-			$('.modal').modal('hide');
-			$('.add-edit-store-game-modal').modal('show');
-		}
-		if((event.which === 82 && event.altKey && event.shiftKey)) {
-			$('.modal').modal('hide');
-			crProblemArr = [];
-			$('#createReportModal').modal('show');
-		} 
-		if((event.which === 68 && event.altKey && event.shiftKey)) {
-			$('.switch-checkbox').trigger('click');
-		} 
-		
-		if((event.which === 81 && event.altKey && event.shiftKey)) {
-			window.location.href = "/aks/dashboard/activities";
-		} 
-		
 	}); 
 
 	$(window).scroll(function(){
@@ -179,9 +184,122 @@ $(document).ready(function(){
 			$(".float-settings-icon").removeClass('show-div');
 		}
 	});
+
+// search modal section -----------------------------------------------------------
+
+	switch(getUrlParameter('search')){
+		case 'true':
+			$('#search-product-modal').modal('show');
+		break;
+	}
+	
+	$('#search-product-modal').on('hidden.bs.modal', function () {
+		var getUrl  = window.location.href;  
+		var getMatch = getUrl.match(/(\?|\&)([^=]+)\=([^&]+)/gm);
+
+		if(getMatch == '?search=true') {
+			var notCleanUrl = removeURLParameter(getUrl, 'search');
+			var getClean = notCleanUrl.substr(notCleanUrl.length - 1); 
+			if(getClean == '?') getClean = notCleanUrl.substring(0,notCleanUrl.length - 1);
+			var newurl = getClean;
+		}else var newurl = removeURLParameter(getUrl, 'search');
+		
+		window.history.pushState({ path: newurl }, '', newurl);
+	});
+
+	$(document).on('click', '.header-search-btn', function(){
+		var getUrl  = window.location.href;  
+		var getMatch = getUrl.match(/(\?|\&)([^=]+)\=([^&]+)/gm);
+
+		if(getMatch){
+			if(!getUrlParameter('search')){
+				var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + getMatch + "&search=true";
+			}
+		}else var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + "?search=true";
+
+		window.history.pushState({ path: newurl }, '', newurl);
+		$('#search-product-modal').modal('show');
+	});
+
+	$(document).on('click', '.search-product-modal-ddi', function(){
+		switch($(this).html()){
+			case 'AKS':
+				var addBtnType = 'btn-success';
+			break;
+			case 'CDD':
+				var addBtnType = 'btn-warning';
+			break;
+			case 'BREX':
+				var addBtnType = 'btn-danger';
+			break;
+			default:
+				var addBtnType = 'btn-primary';
+			break;
+		}
+		$('.search-product-modal-dd-btn').removeClass('btn-primary btn-success btn-warning btn-danger').addClass(addBtnType).html($(this).html());
+		if ($('.search-product-modal-txt').val() != '') mainSearchProduct($(this).html(), $('.search-product-modal-txt').val()) ;
+	});
+
+	$(document).on('change', '.search-product-modal-txt', function(){
+		var getSite = ($('.search-product-modal-dd-btn').html() == 'Select Site')? 'AKS' : $('.search-product-modal-dd-btn').html();
+		if ($(this).val() != '') mainSearchProduct(getSite, $(this).val());
+		else {
+			$('.spm-dialog').removeClass('spm-dialog-height spm-dialog-height-min spm-dialog-height-mid spm-dialog-height-max').addClass('spm-dialog-height');
+			$('.spm-content-body').hide();
+		}
+	});
+
 	
 }); // end docuemtn ready
 
+function mainSearchProduct($site, $toSearch){
+	$('.spm-content-display').empty();
+	$('.spmc-loader-wrapper').slideDown();
+	var dataRequest =  {
+		action: 'main-search-product',
+		toSearch: $toSearch,
+		site: $site
+	}
+
+	AjaxCall(url, dataRequest).done(function(data) {
+		for(var i in data){
+			var append = '<div class="spmc-display-content-wrapper">';
+				append += '<span class="spmc-display-content-merchant">'+data[i].vols_nom+'</span><br>';
+				append += '<span>'+data[i].buy_url_raw+'</span>';
+				append += '</div>';	
+			$('.spm-content-display').append(append);
+		}
+		// console.log(data);
+	}).always(function(data) {
+		$('.spmc-loader-wrapper').hide();
+		$('.spm-content-body').show();
+		$('.spmc-span-site').html($site)
+		
+		if(data.length == 0){
+			$('.spmc-display-header-span-what').html("No product found in ");
+			$('.spmc-btn').hide();
+			$('.spmc-request-id-btn').show();
+		}else {
+			switch(true){
+				case (data.length > 1 && data.length < 4):
+					$('.spm-dialog').removeClass('spm-dialog-height spm-dialog-height-min spm-dialog-height-mid spm-dialog-height-max').addClass('spm-dialog-height-min');
+				break;
+				case (data.length > 4 && data.length < 7):
+					$('.spm-dialog').removeClass('spm-dialog-height spm-dialog-height-min spm-dialog-height-mid spm-dialog-height-max').addClass('spm-dialog-height-mid');
+				break;
+				case (data.length >= 7):
+					$('.spm-dialog').removeClass('spm-dialog-height spm-dialog-height-min spm-dialog-height-mid spm-dialog-height-max').addClass('spm-dialog-height-max');
+				break;
+			}
+			// console.log(data.length)
+			$('.spmc-display-header-span-what').html("Product found in ");
+			$('.spmc-btn').hide();
+			$('.spmc-create-btn').show();
+		}
+
+		
+	});
+}
 
 function removeEmptyTitle(){
 	var items = $('body').find('.header-title');
@@ -552,6 +670,33 @@ function getUrlParameter(name) {
 	var results = regex.exec(location.href);
 	return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, '    '));
 };
+
+function changeUrlParameter($param) {
+	var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + $param;
+	window.history.pushState({ path: newurl }, '', newurl);
+}
+
+function removeURLParameter(url, parameter) {
+    //prefer to use l.search if you have a location/link object
+    var urlparts= url.split('?');   
+    if (urlparts.length>=2) {
+
+        var prefix= encodeURIComponent(parameter)+'=';
+        var pars= urlparts[1].split(/[&;]/g);
+
+        //reverse iteration as may be destructive
+        for (var i= pars.length; i-- > 0;) {    
+            //idiom for string.startsWith
+            if (pars[i].lastIndexOf(prefix, 0) !== -1) {  
+                pars.splice(i, 1);
+            }
+        }
+        url= urlparts[0]+'?'+pars.join('&');
+        return url;
+    } else {
+        return url;
+    }
+}
 
 function confirmationModal($appendtoheader, $appendtobody, $appendtofooter){
 	$('#report-modal-confirmation').modal('show');

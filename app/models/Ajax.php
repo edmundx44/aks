@@ -1335,6 +1335,35 @@ class Ajax {
 
 					return count($db->query($sqlTotal)->results());
 				break;
+				case 'main-search-product':
+					$site = self::getSite($getInput->get('site'));
+					if(!is_numeric($getInput->get('toSearch'))){
+						// $getConditions = ['buy_url_raw like ?', 'search_name like ?'];
+						// $getBind = ['%'.htmlspecialchars_decode($getInput->get('toSearch')).'%', '%'.htmlspecialchars_decode($getInput->get('toSearch')).'%'];
+						$getWhere = '`buy_url_raw` like "%'.htmlspecialchars_decode($getInput->get('toSearch')).'%"  OR `search_name` like "%'.htmlspecialchars_decode($getInput->get('toSearch')).'%"';
+					}else {
+						if(strlen($getInput->get('toSearch')) == 14) {
+							// $getConditions = ['buy_url_raw like ?'];
+							// $getBind = ['%'.htmlspecialchars_decode($getInput->get('toSearch')).'%'];
+							$getWhere = '`buy_url_raw` like "%'.htmlspecialchars_decode($getInput->get('toSearch')).'%" ';
+						}else {
+							// $getConditions = ['normalised_name = ?'];
+							// $getBind = [htmlspecialchars_decode($getInput->get('toSearch'))];
+							$getWhere = '`normalised_name` = "'.htmlspecialchars_decode($getInput->get('toSearch')).'"';
+						}
+						
+					}
+					// return $db->find('`'.$site.'`.`pt_products`',[
+					// 	'column' => ['`buy_url_raw`', '`normalised_name`' ,'`merchant`', '`id`'],
+					// 	'conditions' => $getConditions,
+					// 	'bind' => $getBind,
+					// ]);
+					$sql = "SELECT `s`.`id`, `s`.`merchant`, `p`.`vols_nom`, `s`.`buy_url_raw`, `s`.`normalised_name` 
+							FROM `$site`.`pt_products` `s`
+							inner join `allkeyshops`.`sale_page` `p` ON `s`.`merchant` = `p`.`vols_id`
+							WHERE $getWhere";
+					return $db->query($sql)->results();
+				break;
 		}
 	
 	}//END OF FUNCTION AJAXDATA
