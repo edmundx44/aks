@@ -1391,16 +1391,19 @@ class Ajax {
 					if(!self::getSite($getInput->get('website'))) return [];
 					$utilities = new Utilities;
 
-					$limit  = $getInput->get('offset');
-					$offset = $getInput->get('limit');
-					$total  = $getInput->get('total');
+					$limit  = $getInput->get('limit');
+					$offset = $getInput->get('offset');
+					$search = $getInput->get('toSearch');
 					$rating = $getInput->get('rating');
 					$website = $getInput->get('website');
-					$merchant = $getInput->get('merchant');
+					$merchant = ($getInput->get('merchant') == 'Default') ? '' :  $getInput->get('merchant');
 
 					$finalResults = $utilities->getDisplayByRatings($rating, $merchant, $website, $offset);
-					$totalRatings = $utilities->getTotalbyRating($rating, $website)[0]->count;
-					
+					if(empty($merchant))
+						$totalRatings = $utilities->getTotalbyRating($rating, $website)[0]->count;
+					else
+						$totalRatings = $utilities->getTotalRatingByMerchant($rating, $website, $merchant)[0]->count;
+
 					$totalRating = [];
 					$responseContainer =array();
 
@@ -1430,7 +1433,10 @@ class Ajax {
 					$response['success'] = array( 'data' => $responseContainer, 'offset' => $offset, 'total' => $totalRatings);
 					return $response;
 				break;
-				
+				case 'append-merchants':
+					$utilities = new Utilities;
+					return $utilities->getDataMerchant();
+				break;
 				case 'main-search-product':
 					$site = self::getSite($getInput->get('site'));
 					if(!is_numeric($getInput->get('toSearch'))){

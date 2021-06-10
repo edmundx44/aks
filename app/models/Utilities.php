@@ -43,6 +43,7 @@ class Utilities{
 		return $url;
 	}
 
+	//unique
 	public function dataMerchant(){
 		$retrieveMerchant = array();
 		$sql = "SELECT vols_id, vols_nom FROM `allkeyshops`.`sale_page` ORDER BY vols_nom ASC";
@@ -54,6 +55,11 @@ class Utilities{
 			}
 		}
 		return $retrieveMerchant;
+	}
+
+	public function getDataMerchant(){
+		$sql = "SELECT vols_id, vols_nom FROM `allkeyshops`.`sale_page` ORDER BY vols_nom ASC";
+		return $sqlMerchant = $this->_db->query($sql)->results();
 	}
 
 	public function dataEdition(){
@@ -581,6 +587,13 @@ class Utilities{
 		$param = [ $rating ];
 		$table = static::getSite($site);
 		$sql = "SELECT `rating`, count(`rating`) as 'count' FROM $table.`pt_products` WHERE `rating` = ? AND `created_time` < DATE_SUB(NOW(), INTERVAL 1 DAY)";
+		return $results = $this->_db->query($sql, $param)->results();
+	}
+
+	public function getTotalRatingByMerchant(int $rating, string $site, $merchant){
+		$param = [ $rating, $merchant ];
+		$table = static::getSite($site);
+		$sql = "SELECT `rating`, count(`rating`) as 'count' FROM $table.`pt_products` WHERE `rating` = ? AND `merchant` = ? AND `created_time` < DATE_SUB(NOW(), INTERVAL 1 DAY)";
 		return $results = $this->_db->query($sql, $param)->results();
 	}
 

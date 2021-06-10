@@ -4,14 +4,16 @@
 <script type="text/javascript">
     const request = { 
         currentDisplay : 0,
+        totalRatings: 0,
         merchant : '',
-        total : '',
         rating: 101,
         website: 'aks',
         toSearch : '',
     }
 
     $(function(){
+        appendMerchants();
+
         var param = getUrlParameter('tab');
         headerTitle(param);
         $('.header-menu-item').removeClass('active-item-menu');
@@ -29,19 +31,38 @@
         
         $(document).on('click', '.website-items', function(){
             var indexInput = $(this).parent().prevObject.index();
+            $("#search-rating").val('');
             if($(this).parent()[0].children.length == 3 ){
                 request.currentDisplay = 0;
                 request.merchant = '';
-                request.total = '';
+                request.total = 0;
                 request.toSearch = '';
-
+                
 				request.website = (indexInput == 0 ) ? inputsSite[0].site : (indexInput == 1 ) ? inputsSite[1].site : (indexInput == 2 ) ? inputsSite[2].site : '';
                 setStorage('sessionStorage','website',JSON.stringify(request.website))
                 displayRequest(request.rating, '', request.website);
             }
         });
 
+        $(document).on('click', '.select-btn-merchant-di', function(){
+            $('.input-search-merchant').val($(this).html())
+            request.currentDisplay = 0;
+            request.merchant = $(this).attr('data-merchant');
+            displayRequest(request.rating, request.merchant, request.website);
+        });
 
+        //search merchant in input text
+		$(document).on('keyup','.input-search-merchant', function() {
+            var typo = regExpEscape(this.value);
+			if($(this).closest('div').attr('data-content') == 'Merchant'){
+                $('.searchable-ul .name').each(function(){
+                    if($(this).html().search(new RegExp(typo, "i")) < 0)
+                        $(this).closest('span').fadeOut(500);
+                    else 
+                       $(this).closest('span').fadeIn(500);
+                });
+            }
+        });
 
     //END 
     });
@@ -78,20 +99,22 @@
         $('.rating-note').text(note);
     }
 
-    function displayRequest($rating = 101, $merchant = '', $website = 'aks', $offset = 0, $limit = 0, $total = 0){
+    function displayRequest($rating = 101, $merchant = '', $website = 'aks', $offset = 0, $limit = 0, $toSearch = ''){
         $data = {
             action: 'rating-list',
             offset: $offset,
             limit: $limit,
-            total: $total,
             rating: $rating,
             merchant: $merchant,
             website: $website,
+            toSearch: $toSearch
         }
         AjaxCall(url, $data).done(function(data){
             $('#rating-list-display').empty();
             $('#empty-res-data').empty();
+            $("#search-rating").val('');
             var result = data.success.data;
+            var totalRatingText = 0;
             if(result != ''){
                 for(var i in result){
                     var app =  '<div class="result-merchant card-style mb-3">';
@@ -105,18 +128,38 @@
                         app += '</div>';
                     $('#rating-list-display').append(app);
                 }
-            request.currentDisplay = Number(request.currentDisplay) + Number(data.success.total);
+            request.currentDisplay = Number(request.currentDisplay) + Number(result.length);
+            request.totalRatings = Number(data.success.total);
+            totalRatingText = request.currentDisplay+'/'+request.totalRatings;
             }else
                 $('#rhyn-tool-display').append('<h4 id="empty-res-data" class="text-center col-sm-12" style="padding:150px;">No Data Found</h4>');
             $('#website-btn').val($website.toUpperCase())
-            $("#total-ratings").html(request.currentDisplay);
+            $(".rating-total-result").html(totalRatingText);
         });
         
     }
 
+    function appendMerchants(){
+        AjaxCall(url,$data = {action: 'append-merchants'}).done(function(data){
+            $('.select-merchant-div').append('<span class="dropdown-item act-dropdown select-btn-merchant-di name" data-merchant="Default">All</span>')
+            for(var i in data){
+                let merchant = data[i].vols_nom.substr(0,1).toUpperCase()+data[i].vols_nom.substr(1).toLowerCase();
+                $('.select-merchant-div').append('<span class="dropdown-item act-dropdown select-btn-merchant-di name" data-merchant='+data[i].vols_id+'>'+ merchant +' '+data[i].vols_id+'</span>')
+            }
+        });
+    }
 
 </script>
 <style>
+    .select-merchant-div {
+        height: auto;
+        max-height: 500px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    .select-btn-merchant{
+        cursor: pointer;
+    }
     .result-merchant{
         padding: 4px 10px 4px 10px;
     }
@@ -196,16 +239,31 @@
 							</div>
 						</div >
                     <!-- CONTENT STARTS -->
-                        <div class="col-xs-12 div-body-table mt-2 mb-2" class="rating-list-containter">
-                            <div class="col-lg-12 no-padding mb-3" id="search">
-                                    <input type="text" class="form-control col-lg-6" placeholder="Search Link">
-                                    <div class="total-div col-lg-6">
-                                        Total Result: <span id="total-ratings"></span>
-                                    </div>
-                            </div>
-							<div class="col-lg-12 no-padding" id="rating-list-display">
-								
+                        <div class="col-xs-12 div-body-table mb-2" class="rating-list-containter">
+                        
+                            <div style="padding: 0 0 35px 0;border:solid 1px transparent;position: relative;">
+								<div class="float-left col-3 no-padding">
+									<div class="dropdown form-group">
+                                        <div class="dropdown-toggle filter-btn" data-content="Merchant" data-toggle="dropdown">
+										    <input type="text" class="form-control input-search-merchant bg-warning text-white border-0" placeholder="Select Store">
+ 
+                                        </div>
+                                        <div class="dropdown-menu select-merchant-div scrollbar-custom searchable-ul" style="width:100%;">
+                                                <!-- dynamic data here from database -->
+                                        </div>
+									</div>
+
+								</div>
+								<div class="bg-warning float-right rounded text-center text-white" style="width: 200px;padding: 7px;">
+									Total Result's  &nbsp; : &nbsp; 
+									<b>
+										<span class="rating-total-result"></span>
+									</b>
+								</div>
 							</div>
+
+                            <div class="col-lg-12 no-padding mb-2" id="search"><input id="search-rating" type="text" class="form-control" placeholder="Search Link"></div>
+							<div class="col-lg-12 no-padding" id="rating-list-display"></div>
                             <div class="col-lg-12 text-center" style="padding:10px;">
                                 <span class="data-display-function lmore-fucntion"> 
 									<i class="fas fa-spinner"></i> Load More 
