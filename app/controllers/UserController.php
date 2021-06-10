@@ -33,7 +33,7 @@ class UserController extends Controller {
         if($user && password_verify($this->request->get('password'), $user->password)) {
           $remember = $loginModel->getRememberMeChecked();
           $user->login($remember);
-          Router::redirect('');
+          Router::redirect('dashboard');
         }  else {
 
           // $db = DB::getInstance();
