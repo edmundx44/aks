@@ -15,9 +15,11 @@ class AjaxFees{
 		$db = DB::getInstance();
 
         if (preg_match('/E\:/',  __DIR__) OR preg_match('/C\:/',  __DIR__)) {
-            $file_location = 'vendors/assets/payment-fees.js'; //in local
+            $file_location = 'vendors/assets/js/payment-fees.js'; //in local
         } else {
-            $file_location = '/var/www/sites-eu/allkeyshop.com/blog/wp-content/plugins/aks-prices/assets/js/payment-fees.js';
+            //$file_location = '/var/www/sites-eu/allkeyshop.com/admin/bot_de_v2/aks/vendors/assets/js/payment-fees.js'; //testing only
+
+            //$file_location = '/var/www/sites-eu/allkeyshop.com/blog/wp-content/plugins/aks-prices/assets/js/payment-fees.js';
         }
 
         switch ($post) {

@@ -494,7 +494,7 @@ class Utilities{
 	}
 
 	//1 MERCHANT ONLY USING BY rating
-	public function getMerchantCountsByRatings(string $site, $merchant, $rating){
+	public function getMerchantCountsByRatings(string $site, $merchant, int $rating){
 		$param = [ $merchant, $rating ]; //positional
 		$table = static::getSite($site);
 		$sql = "SELECT `merchant`, count(merchant) as 'count' FROM $table.`pt_products` WHERE `merchant` = ?  AND `rating` = ? Group By merchant ";
@@ -535,7 +535,7 @@ class Utilities{
 		$sql = "SELECT username FROM `test-server`.`admin_user` where `role`= 'price_team' ORDER BY `username` ";
 		return $this->_db->query($sql);
 	}
-
+	
 	public function priceTeamActivity(string $site, string $worker, string $action = 'created'){
 		if(in_array($site, static::$_checkSite)){
 			$params = [ 
@@ -549,13 +549,39 @@ class Utilities{
 				$params['conditions'] = [ 'site = ?', 'action = ?'];
 				$params['bind'] = [ strtoUpper($site), $action];
 			}
-			$result =  $this->_db->find( '`test-server`.`price_team_activity`', $params);
-			foreach($results as $row){
-				$product_id = [];
-				$json_result[$store['id']] = $store;
-			}
+			$results =  $this->_db->find( '`test-server`.`price_team_activity`', $params);
+			
+			$product_id = [];
+			if(!empty($results))
+				foreach($results as $row){ array_push( $product_id, $row->product_id ); }
+			return array (  'results' => $results, 'id_container' => $product_id );
 		}
 		return [];
+	}
+
+	
+	public function getDisplayByRatings(int $rating, string $merchant, string $website, int $offset = 0, int $limit = 10){
+		$params = [ 
+				'column' => ['`id`', '`search_name`', '`buy_url`', '`price`', '`dispo`', '`merchant`', '`normalised_name`', '`created_time`', '`edition`', '`region`' ],
+				'conditions' => [ 'rating = ?', 'merchant = ?', 'created_time < DATE_SUB(NOW(), INTERVAL 1 DAY)'], 
+				'bind' => [ $rating, $merchant,  ],
+				'order' => "id DESC",
+				'limit' => $limit,
+				'offset' => $offset
+			 ];
+		if(empty($merchant)){
+			$params['conditions'] = [ 'rating = ?', 'created_time < DATE_SUB(NOW(), INTERVAL 1 DAY)'];
+			$params['bind'] = [ $rating ];
+		}
+		$table = self::getSite($website);
+		return $results =  $this->_db->find( $table.'.'.'`pt_products`', $params);
+	}
+
+	public function getTotalbyRating(int $rating, string $site){
+		$param = [ $rating ];
+		$table = static::getSite($site);
+		$sql = "SELECT `rating`, count(`rating`) as 'count' FROM $table.`pt_products` WHERE `rating` = ? AND `created_time` < DATE_SUB(NOW(), INTERVAL 1 DAY)";
+		return $results = $this->_db->query($sql, $param)->results();
 	}
 
     /*------------------ FOR AFFILIATE LINK CHECK action = "ajaxAffiliateLinkCheck" --------------*/

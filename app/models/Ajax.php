@@ -908,11 +908,11 @@ class Ajax {
 								'edition' => ucfirst($editionData),
 								'region' => ucfirst($regionData),
 								'game_id' => $key->normalised_name,
-								'buy_url' => $key->buy_url,
+								'buy_url' => htmlspecialchars($key->buy_url),
 								'price' => $key->price,
 								'dispo' => $key->dispo,
 								'rating' => $key->rating,
-								'search_name' => $key->search_name,
+								'search_name' => htmlspecialchars($key->search_name),
 								'created_by' => ucfirst($key->created_by),
 								'created_time' => date('M d Y h:i A',strtotime($key->created_time.'+8 hours')),
 							)
@@ -1345,44 +1345,90 @@ class Ajax {
 					if(!self::getSite($getInput->get('site'))) return [];
 					$utilities = new Utilities;
 
+					$responseSite = strtoupper($getInput->get('site'));
+					$table = '`'.self::getsite($getInput->get('site')).'`.`pt_products`';
 					$priceTeam = $getInput->get('priceTeam');
+					$rawResults = $utilities->priceTeamActivity( $getInput->get('site'), $getInput->get('priceTeam') );
+					$responseContainer =array();
 
-					//GET 100 ID
-					// $retrieveMerchant = $utilities->dataMerchant();
-					// $retrieveEdition = $utilities->dataEdition();
-					// $retrieveRegions = $utilities->dataRegion();
-					$retrieveResults = $utilities->priceTeamActivity( $getInput->get('site'), $getInput->get('priceTeam') );
-					$id_containers = array();
-					return $merchants = implode(",", array_keys($retrieveResults));
-					// $arrayThis =array();
-					// if(!empty($retrieveResults)){
-					// 	foreach ($retrieveResults as $key){
-					// 		$merchantData = (!array_key_exists($key->merchant, $retrieveMerchant)) ? 'No Data' : $retrieveMerchant[$key->merchant];
-					// 		$editionData = (!array_key_exists($key->edition, $retrieveEdition)) ? 'No Data' : $retrieveEdition[$key->edition];
-					// 		$regionData = (!array_key_exists($key->region, $retrieveRegions)) ? 'No Data' : $retrieveRegions[$key->region];
+					if(!empty($rawResults['id_container'])){
+						$query_id = implode("," ,$rawResults['id_container']);
+						$sql = "SELECT `id`,`merchant`,`edition`,`region`,`normalised_name`,`buy_url`,`price`,`dispo`,`search_name`,`created_by`,`created_time` 
+							    FROM $table WHERE `id` in ($query_id) ORDER BY `created_time` DESC";
+						$finalResults = $db->query($sql)->results();
 
-					// 		array_push($arrayThis, array(
-					// 				'id' => $key->id,
-					// 				'merchant' => ucfirst($merchantData),
-					// 				'edition' => ucfirst($editionData),
-					// 				'region' => ucfirst($regionData),
-					// 				'game_id' => $key->normalised_name,
-					// 				'buy_url' => $key->buy_url,
-					// 				'price' => $key->price,
-					// 				'dispo' => $key->dispo,
-					// 				'rating' => $key->rating,
-					// 				'search_name' => $key->search_name,
-					// 				'created_by' => ucfirst($key->created_by),
-					// 				'created_time' => date('M d Y h:i A',strtotime($key->created_time.'+8 hours')),
-					// 			)
-					// 		);
-					// 	}
-					// }
-					// $returnArrayData['success'] = array(
-					// 	'data' => $arrayThis,
-					// 	'returnWebsite'=> $postSite
-					// );
-					// return $returnArrayData;
+						if(!empty($finalResults)){
+							$retrieveMerchant = $utilities->dataMerchant();
+							$retrieveEdition = $utilities->dataEdition();
+							$retrieveRegions = $utilities->dataRegion();
+							foreach ($finalResults as $key){
+								$merchantData = (!array_key_exists($key->merchant, $retrieveMerchant)) ? 'No Data' : $retrieveMerchant[$key->merchant];
+								$editionData = (!array_key_exists($key->edition, $retrieveEdition)) ? 'No Data' : $retrieveEdition[$key->edition];
+								$regionData = (!array_key_exists($key->region, $retrieveRegions)) ? 'No Data' : $retrieveRegions[$key->region];
+								array_push($responseContainer, array(
+										'id' => $key->id,
+										'merchant' => ucfirst($merchantData),
+										'edition' => ucfirst($editionData),
+										'region' => ucfirst($regionData),
+										'game_id' => $key->normalised_name,
+										'buy_url' => htmlspecialchars($key->buy_url),
+										'price' => $key->price,
+										'dispo' => $key->dispo,
+										'search_name' => htmlspecialchars($key->search_name),
+										'created_by' => ucfirst($key->created_by),
+										'created_time' => date('M d Y h:i A',strtotime($key->created_time)),
+										'site' => $responseSite
+									)
+								);
+							}
+						}
+					}
+					$response['success'] = array( 'data' => $responseContainer, 'site' => $responseSite);
+					return $response;
+				break;
+				case 'rating-list':
+					if(!self::getSite($getInput->get('website'))) return [];
+					$utilities = new Utilities;
+
+					$limit  = $getInput->get('offset');
+					$offset = $getInput->get('limit');
+					$total  = $getInput->get('total');
+					$rating = $getInput->get('rating');
+					$website = $getInput->get('website');
+					$merchant = $getInput->get('merchant');
+
+					$finalResults = $utilities->getDisplayByRatings($rating, $merchant, $website, $offset);
+					$totalRatings = $utilities->getTotalbyRating($rating, $website)[0]->count;
+					
+					$totalRating = [];
+					$responseContainer =array();
+
+					if(!empty($finalResults)){
+						$retrieveMerchant = $utilities->dataMerchant();
+						$retrieveEdition = $utilities->dataEdition();
+						$retrieveRegions = $utilities->dataRegion();
+						foreach ($finalResults as $key){
+							$merchantData = (!array_key_exists($key->merchant, $retrieveMerchant)) ? 'No Data' : $retrieveMerchant[$key->merchant];
+							$editionData = (!array_key_exists($key->edition, $retrieveEdition)) ? 'No Data' : $retrieveEdition[$key->edition];
+							$regionData = (!array_key_exists($key->region, $retrieveRegions)) ? 'No Data' : $retrieveRegions[$key->region];
+								array_push($responseContainer, array(
+									'id' => $key->id,
+									'merchant' => ucfirst($merchantData),
+									'edition' => ucfirst($editionData),
+									'region' => ucfirst($regionData),
+									'game_id' => $key->normalised_name,
+									'buy_url' => htmlspecialchars($key->buy_url),
+									'price' => $key->price,
+									'dispo' => $key->dispo,
+									'search_name' => htmlspecialchars($key->search_name),
+									'created_time' => date('M d Y h:i A',strtotime($key->created_time))
+								)
+							);
+						}
+					}
+					$response['success'] = array( 'data' => $responseContainer, 'offset' => $offset, 'total' => $totalRatings);
+					return $response;
+
 				break;
 		}
 	

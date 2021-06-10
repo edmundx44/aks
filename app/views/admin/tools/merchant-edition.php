@@ -175,11 +175,6 @@
 </div>
 
 <style>
-    .button-go{
-        padding: 8px;
-        letter-spacing: 1.5px;
-        vertical-align: initial;
-    }
     .result-merchant{
         padding: 4px 10px 4px 10px;
     }
@@ -206,6 +201,14 @@
     }
     .me-res{
         font-weight:500;
+    }
+    .url-redirect{
+        word-break: break-all;
+    }
+    .button-go{
+        padding: 8px;
+        letter-spacing: 1.5px;
+        vertical-align: initial;
     }
     .input-search{
         outline:none;

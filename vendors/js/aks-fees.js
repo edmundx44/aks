@@ -70,7 +70,9 @@
                             if(data) {
                                 alertMsg("Success");
                                 $('#feesModal').modal('hide');
-                                AjaxStores();
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 1500);
                             }
                         });
                     })
@@ -126,7 +128,9 @@
                             if(data){
                                 alertMsg("Success");
                                 $('#feesModal').modal('hide');
-                                AjaxStores(); 
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 1500);
                             }
                             else{
                                 alertMsg("Data didnt save check input ID... ");
@@ -147,7 +151,9 @@
                         if(data){
                             alertMsg("Success");
                             $('#feesModal').modal('hide');
-                            AjaxStores(); 
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1500);
                         }
                         else{
                             alertMsg("Data didnt save check input ID... ");

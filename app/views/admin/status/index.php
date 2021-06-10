@@ -8,7 +8,11 @@
 		$(function() {
 
 			setActiveTab(getUrlParameter('tab'));
-				
+			
+			$(window).bind('popstate', function(event) {
+				var state = event.originalEvent.state;		
+			});
+
 			$(document).on('click', '.sc-li-btn', function(){
 				$('.sc-li-btn').removeClass('active-sc-menu');
 				$('#'+$(this).attr('id')).addClass('active-sc-menu');
@@ -21,16 +25,16 @@
 					case 'sc-merchant-div':
 						var param = '';
 						$('.div-site-hide').show();
-						AjaxStores();
+						var ajax = AjaxStores();
 					break;
 					case 'sc-metacritics-div':
 						var param = '?tab=metacritics';
 						$('.div-site-hide').hide();
-						AjaxCritics();
+						var ajax = AjaxCritics();
 					break;
 				}
 				var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + param;
-				window.history.pushState({ path: newurl }, '', newurl);
+				window.history.pushState({ path: newurl, ajax: ajax }, '', newurl);
 			});
 
 			$(document).on('click', '.website-items', function(){
