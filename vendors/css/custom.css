@@ -884,6 +884,7 @@ body {
 	border: solid 2px #ccc;
 	border-left: none;
 	background-color: transparent;
+	color: #6b6d70;
 	outline: none;
 	z-index: 1;
 	padding: 0 0 0 10px;
@@ -891,11 +892,14 @@ body {
 	-moz-transition: .3s ease-in-out;
 	-o-transition: .3s ease-in-out;
 	transition: .3s ease-in-out;
+	font-size: 14px;
 }
 .input-text-class:focus ~ .input-text-span,
 .input-text-class:valid ~ .input-text-span {
 	margin-top: -30px;
 	left: 0;
+	font-weight: 500;
+	font-size: 13px;
 }
 .input-text-class:focus ~ .input-text-border {
 	width: 100%;
