@@ -1402,6 +1402,11 @@ class Ajax {
 						'order' => 'name asc'
 					]);
 				break;
+				case 'get-edition':
+					return $db->find('`test-server`.`pt_editions_eu`',[
+						'column' => ['id', 'name']
+					]);
+				break;
 		}
 	
 	}//END OF FUNCTION AJAXDATA

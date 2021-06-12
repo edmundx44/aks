@@ -1,12 +1,12 @@
 <link rel="stylesheet" href="<?=PROOT?>vendors/css/modal.css" media="screen" title="no title" charset="utf-8">
 
 <div class="modal" id="displayStoreGamesByNormalizedName">
-    <div class="modal-dialog displayStoreGamesByNormalizedNameDialog">
-        <div class="modal-content displayStoreGamesByNormalizedNameContent" style="top: 70px;">
-      
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <!-- search name and normalized name -->
+	<div class="modal-dialog displayStoreGamesByNormalizedNameDialog">
+		<div class="modal-content displayStoreGamesByNormalizedNameContent" style="top: 70px;">
+
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<!-- search name and normalized name -->
                 <div class="modal-title">
                     <div class="sideborder"></div>
                     <span class="productName"></span> 
@@ -164,20 +164,15 @@ search product modal
                             </div>
                             <div class="dropdown" style="margin: 30px 0 0 0;">
                         
-	                            <input type="text" class="input-text-class dropdown-toggle ae-edition-input" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
+	                            <input type="text" class="input-text-class ae-edition-input" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
 	                            <i class="input-text-i fal fa-angle-down"></i>
 	                            <span class="input-text-span" style="left: 5px">Select Edition</span>
 	                            <span class="input-text-border"></span>
-                            	<!-- <i class="fal fa-angle-down" style="position: absolute; right: 15px;margin-top: 13px;"></i>
-                                <input type="text" class="dropdown-toggle ae-edition-input" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent;z-index: 1;width: 100%;height: 38px;outline: none; border: solid 2px #ccc;position: relative;" placeholder="Select Edition"> -->
 
+	                            <div class="dropdown-menu-div dmd-edition">
+									<!-- data from database -->
+								</div>
 
-
-                                <div class="dropdown-menu ae-edition-input-dm" aria-labelledby="dropdownMenuButton" style="width: 100%;">
-                                    <span class="dropdown-item ae-edition-input-di" data-valueni="t1">test1</span>
-                                    <span class="dropdown-item ae-edition-input-di" data-valueni="t2">test2</span>
-                                    <span class="dropdown-item ae-edition-input-di" data-valueni="t3">test3</span>
-                                </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -195,38 +190,33 @@ search product modal
                             </div>
                             <div class="dropdown" style="margin: 30px 0 0 0;">
 
-                            	<input type="text" class="input-text-class dropdown-toggle ae-region-input" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
+                            	<input type="text" class="input-text-class ae-region-input" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
 	                            <i class="input-text-i fal fa-angle-down"></i>
 	                            <span class="input-text-span" style="left: 5px">Select Region</span>
 	                            <span class="input-text-border"></span>
 
-
-                            	<!-- <i class="fal fa-angle-down" style="position: absolute; right: 15px;margin-top: 13px;"></i>
-                                <input type="text" class="dropdown-toggle ae-region-input" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent;z-index: 1;width: 100%;height: 38px;outline: none; border: solid 2px #ccc;position: relative;" placeholder="Select Region"> -->
-
-                                <div class="dropdown-menu ae-region-input-dm" aria-labelledby="dropdownMenuButton" style="width: 100%;height: auto;max-height: 400px;overflow-x: hidden;overflow-y: scroll;">
-                                	<!-- display from database -->
-                                </div>
+								<div class="dropdown-menu-div dmd-region">
+									<!-- display data from database -->
+								</div>
                             </div>
                         </div>
 
                         <!-- 2nd row -------------------------- -->
                         <div class="col-sm-12">
                             <div class="dropdown" style="margin: 30px 0 0 0;">
-                            	<input type="text" class="input-text-class dropdown-toggle ae-ratings-input" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
+                            	<input type="text" class="input-text-class ae-ratings-input" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
 	                            <i class="input-text-i fal fa-angle-down"></i>
 	                            <span class="input-text-span" style="left: 5px">Select RATINGS</span>
 	                            <span class="input-text-border"></span>
 
-                                <!-- <button class="btn btn-primary dropdown-toggle ae-ratings-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;text-align: left;">Select RATINGS</button> -->
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
-                                    <a class="dropdown-item" href="#">0</a>
-                                    <a class="dropdown-item" href="#">101</a>
-                                    <a class="dropdown-item" href="#">102</a>
-                                    <a class="dropdown-item" href="#">103</a>
-                                    <a class="dropdown-item" href="#">104</a>
-                                    <a class="dropdown-item" href="#">404</a>
-                                </div>
+                                <div class="dropdown-menu-div dmd-ratings" style="overflow:hidden !important;">
+									<div class="dropdown-menu-div-sub dmds-ratings" >0</div>
+									<div class="dropdown-menu-div-sub dmds-ratings" >101</div>
+									<div class="dropdown-menu-div-sub dmds-ratings" >102</div>
+									<div class="dropdown-menu-div-sub dmds-ratings" >103</div>
+									<div class="dropdown-menu-div-sub dmds-ratings" >104</div>
+									<div class="dropdown-menu-div-sub dmds-ratings" >404</div>
+								</div>
                             </div>
                             <div class="input-text-div" style="margin: 30px 0 0 0;">
                                 <i class="input-text-i fas fa-external-link-alt"></i>
@@ -1219,10 +1209,25 @@ search product modal
 		color: #fff;
 		background-color: #138496;
 	}
-	.ae-region-input-di {
+	
+	.dropdown-menu-div {
+		display: none;
+		width: 100%;
+		height: auto;
+		max-height: 400px;
+		background-color: #fff;
+		border: solid 1px #ccc;
+		position: absolute;
+		z-index: 2;
+		overflow: scroll;
+		overflow-x: hidden;
+	}
+	.dropdown-menu-div-sub {
+		padding: 10px 25px;
 		cursor: pointer;
 	}
-	.ae-region-input-di:hover {
+	
+	.dropdown-menu-div-sub:hover {
 		color: #fff;
 		background-color: #0069d9;
 	}

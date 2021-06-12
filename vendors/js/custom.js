@@ -17,6 +17,7 @@ var toggleVal = 0,
 
 	var crProblemArr = [];
 	var saveRegion = [];
+	var saveEdition = [];
 
 	$div.css({
 		left: Math.floor( Math.random() * widthMax ),
@@ -65,7 +66,7 @@ $(document).ready(function(){
 		
 
 		if(event.which === 27) {
-			$('.modal').modal('hide');
+			// $('.modal').modal('hide');
 		}else if((event.which === 65 && event.shiftKey)) {
 			$('.modal').modal('hide');
 			$('.add-edit-store-game-modal').modal('show');
@@ -178,6 +179,16 @@ $(document).ready(function(){
 			});
 			$(".float-settings-icon").removeClass('show-div');
 		}
+		if(!$(event.target).is('.ae-region-input, .dmd-region *')) {
+			$('.dmd-region').hide();
+		}
+		if(!$(event.target).is('.ae-edition-input, .dmd-edition *')) {
+			$('.dmd-edition').hide();
+		}
+		if(!$(event.target).is('.ae-ratings-input, .dmd-ratings *')) {
+			$('.dmd-ratings').hide();
+		}
+		
 	});
 
 // search modal section -----------------------------------------------------------
@@ -248,7 +259,9 @@ $(document).ready(function(){
 
 	
 		var getSite = ($('.search-product-modal-dd-btn').html() == 'Select Site')? 'AKS' : $('.search-product-modal-dd-btn').html();
+		callEdition();
 		callRegion(getSite)
+
 		var dataRequest =  {
 			action: 'get-product-info',
 			toGet: $(this).data('productid'),
@@ -296,31 +309,80 @@ $(document).ready(function(){
 	});
 
 // add edit modal section -----------------------------------------------------------
-	$(document).on('keyup', '.ae-edition-input', function(){
-        getValeditionOrRegion('edition', $(this).val())
+	$(document).on('click input', '.ae-edition-input', function(){
+		var getVal = $(this).val();
+		$('.dmd-edition').show().empty();
+
+		var getOuput = saveEdition.filter(function (items) {
+		  return items.id.includes(getVal) || items.name.includes(getVal);
+		});
+
+		var displayTop = ['1','16','7','5','4','33'];
+		for(var i in getOuput){
+			if($.inArray(getOuput[i].id, displayTop) != -1) {
+				$('.dmd-edition').prepend(getOuput[i].toAppend) 
+			} else {
+				$('.dmd-edition').append(getOuput[i].toAppend) 
+			}
+		}
+
 	});
 
-	$(document).on('click', '.ae-edition-input-di', function(){
-		$('.ae-edition-input').val($(this).html())
+	$(document).on('click', '.dmds-edition', function(){
+		$('.ae-edition-input').val($(this).data('nameni'));
+		$('.dmd-edition').hide();
+		// $(this).data('idni')
 	});
 
-	$(document).on('keyup', '.ae-region-input', function(){
-        var getSite = ($('.search-product-modal-dd-btn').html() == 'Select Site')? 'AKS' : $('.search-product-modal-dd-btn').html();
-		if ($(this).val() == '') callRegion(getSite);
-		getValeditionOrRegion('region', $(this).val())
+	$(document).on('click input', '.ae-region-input', function(){
+		var getVal = $(this).val();
+		$('.dmd-region').show().empty();
+
+		var getOuput = saveRegion.filter(function (items) {
+		  return items.id.includes(getVal) || items.name.includes(getVal);
+		});
+
+		for(var i in getOuput){
+			$('.dmd-region').append(getOuput[i].toAppend) 
+		}
+
 	});
 
-	$(document).on('click', '.ae-region-input-di', function(){
-		$('.ae-region-input').val($(this).html())
+	$(document).on('click', '.dmds-region', function(){
+		$('.ae-region-input').val($(this).data('nameni'));
+		$('.dmd-region').hide();
+		// $(this).data('idni')
 	});
 
+	$(document).on('click', '.ae-ratings-input', function(){
+		$('.dmd-ratings').show();
+	});
+	$(document).on('click', '.dmds-ratings', function(){
+		$('.ae-ratings-input').val($(this).html());
+		$('.dmd-ratings').hide();
+	});
 	
 
 }); // end docuemtn ready
 
-function callRegion($site){
-	$('.ae-region-input-dm').empty();
 
+function callEdition(){
+	saveEdition = []
+	var dataRequest =  {
+		action: 'get-edition',
+	}
+	AjaxCall(url, dataRequest).done(function(data) {
+		for(var i in data){
+			saveEdition.push({
+				'id' : data[i].id,
+				'name' : data[i].name.toLowerCase(),
+				'toAppend': '<div class="dropdown-menu-div-sub dmds-edition" data-nameni="'+data[i].name.toLowerCase()+'" data-idni='+data[i].id+'><span class="dmds-data-name">'+data[i].name.toLowerCase()+'</span> = <span class="dmds-data-id"> '+data[i].id+' </span></div>'
+			});
+		}
+	}).always(function() {});
+}
+function callRegion($site){
+	saveRegion = []
 	var dataRequest =  {
 		action: 'get-region',
 		site: $site
@@ -341,10 +403,11 @@ function callRegion($site){
 				if($.inArray(data[i].id, excluded) === -1) {
 					if(!(data[i].name).match(/(AUS|EU|EMEA|Uplay EMEA)/)) {
 						if((data[i].name).match(/(US|LATAM|NA|xbox)/i)) {
-							$('.ae-region-input-dm').append('<span class="dropdown-item ae-region-input-di" data-valueni="'+data[i].id+'">'+data[i].name+'</span>');
-							saveRegion[data[i].id] = [{
-								'name' : data[i].name
-							}]
+							saveRegion.push({
+								'id' : data[i].id,
+								'name' : data[i].name.toLowerCase(),
+								'toAppend': '<div class="dropdown-menu-div-sub dmds-region" data-nameni="'+data[i].name.toLowerCase()+'" data-idni='+data[i].id+'><span class="dmds-data-name">'+data[i].name.toLowerCase()+'</span> = <span class="dmds-data-id"> '+data[i].id+' </span></div>'
+							});
 						}
 					}
 				}
@@ -353,31 +416,17 @@ function callRegion($site){
 				
 				if($.inArray(data[i].id, excluded) === -1) {
 					if(!(data[i].name).match(/(LATAM|RU|APAC|ASIA|STEAM GIFT NA| US |Epic Store US|GOG US|Origin US)/i)) {
-						$('.ae-region-input-dm').append('<span class="dropdown-item ae-region-input-di" data-valueni="'+data[i].id+'">'+data[i].name+'</span>');
-						saveRegion[data[i].id] = [{
-							'name' : data[i].name
-						}]
+						saveRegion.push({
+							'id' : data[i].id,
+							'name' : data[i].name.toLowerCase(),
+							'toAppend': '<div class="dropdown-menu-div-sub dmds-region" data-nameni="'+data[i].name.toLowerCase()+'" data-idni='+data[i].id+'><span class="dmds-data-name">'+data[i].name.toLowerCase()+'</span> = <span class="dmds-data-id"> '+data[i].id+' </span></div>'
+						});
 					}
 					
 				}
 			}
 		}
-	}).always(function() {
-
-	});
-}
-
-
-function getValeditionOrRegion($what, $toSearch){
-	$('.ae-'+$what+'-input-dm').empty()
-	if(saveRegion[$toSearch] !== undefined) {
-		$('.ae-'+$what+'-input-dm').append('<span class="dropdown-item ae-'+$what+'-input-di" data-valueni="'+$toSearch+'">'+saveRegion[$toSearch][0].name+'</span>');
-	}else{
-		if($('.ae-region-input').val() != '') {
-			$('.ae-'+$what+'-input-dm').append('<span class="spmc-err-msg" style="padding: 25px;"> No region found.</span>');
-		}
-	}
-
+	}).always(function() {});
 }
 
 
