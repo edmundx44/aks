@@ -16,6 +16,7 @@ var toggleVal = 0,
 	var day = d.getDate();
 
 	var crProblemArr = [];
+	var saveRegion = [];
 
 	$div.css({
 		left: Math.floor( Math.random() * widthMax ),
@@ -61,32 +62,26 @@ $(document).ready(function(){
 	$(document).on('click', '.dropdown-website', function(){ $(this).find('.website-menu').slideToggle(200); });
 	
 	$(document).keydown(function(event){
-		switch(true){
-			case (event.which === 27):
-				$('.modal').modal('hide');
-			break;
-			case ((event.which === 65 && event.altKey && event.shiftKey)):
-				$('.modal').modal('hide');
-				$('.add-edit-store-game-modal').modal('show');
-			break;
-			case ((event.which === 68 && event.altKey && event.shiftKey)):
-				$('.switch-checkbox').trigger('click');
-			break;
-			case ((event.which === 81 && event.altKey && event.shiftKey)):
-				window.location.href = "/aks/dashboard/activities";
-			break;
-			case ((event.which === 82 && event.altKey && event.shiftKey)):
-				$('.modal').modal('hide');
-				crProblemArr = [];
-				$('#createReportModal').modal('show');
-			break;
-			case ((event.which === 83 && event.altKey && event.shiftKey)):
-				$('.modal').modal('hide');
-				$('.header-search-btn').trigger('click');
-			break;
-			// case ():	
-			// break;
+		
+
+		if(event.which === 27) {
+			$('.modal').modal('hide');
+		}else if((event.which === 65 && event.shiftKey)) {
+			$('.modal').modal('hide');
+			$('.add-edit-store-game-modal').modal('show');
+		}else if((event.which === 68 && event.shiftKey)){
+			$('.switch-checkbox').trigger('click');
+		}else if((event.which === 81 && event.shiftKey)){
+			window.location.href = "/aks/dashboard/activities";
+		}else if((event.which === 82 && event.shiftKey)) {
+			crProblemArr = [];
+			$('.modal').modal('hide');
+			$('#createReportModal').modal('show');
+		}else if((event.which === 83 && event.shiftKey)) {
+			$('.modal').modal('hide');
+			$('.header-search-btn').trigger('click');
 		}
+				
 	}); 
 
 	$(window).scroll(function(){
@@ -249,12 +244,147 @@ $(document).ready(function(){
 		}
 	});
 
+	$(document).on('click', '.spmc-dm-di', function(){
+
 	
+		var getSite = ($('.search-product-modal-dd-btn').html() == 'Select Site')? 'AKS' : $('.search-product-modal-dd-btn').html();
+		callRegion(getSite)
+		var dataRequest =  {
+			action: 'get-product-info',
+			toGet: $(this).data('productid'),
+			site: getSite
+		}
+		AjaxCall(url, dataRequest).done(function(data) {
+				$('.ae-product-p-title').html(getSite);
+				$('.ae-merchant-input').val(data[0].merchant);
+				$('.ae-search-name-input').val(data[0].search_name);
+				$('.ae-edition-input').val(data[0].edition);
+				$('.ae-gameid-input').val(data[0].normalised_name);
+				$('.ae-price-input').val(data[0].price);
+				$('.ae-region-input').val(data[0].region);
+				$('.ae-ratings-input').val(data[0].rating);
+				$('.ae-url-input').val(data[0].buy_url);
+				$('.ae-keyword-input').val(data[0].keyword);
+				$('.ae-category-input').val(data[0].category);
+				$('.ae-buy-url-bis-input').val(data[0].buy_url_bis);
+				$('.ae-buy-url-tier-input').val(data[0].buy_url_tier);
+				$('.ae-release-date-input').val(data[0].releasedate);
+				$('.ae-metacritic-score-input').val(data[0].metacritic_score);
+				$('.ae-metacritic-critic-score-input').val(data[0].metacritic_critic_score);
+				$('.ae-metacritic-user-score-input').val(data[0].metacritic_user_score);
+				$('.ae-buy-url-4-input').val(data[0].buy_url_4);
+				$('.ae-release-year-input').val(data[0].releaseyear);
+				$('.ae-metacritic-count-input').val(data[0].metacritic_count);
+				$('.ae-metacritic-critic-count-input').val(data[0].metacritic_critic_count);
+				$('.ae-metacritic-user-count-input').val(data[0].metacritic_user_count);
+
+				$('.ae-image-url-input').val(data[0].image_url);
+				$('.ae-description-input').val(data[0].description);
+				$('.ae-description-usa-or-eu-input').val(data[0].descriptionEuUsa);
+				$('.ae-description-ru-input').val(data[0].descriptionRu);
+				$('.ae-description-fr-input').val(data[0].descriptionFr);
+				$('.ae-description-de-input').val(data[0].descriptionDe);
+				$('.ae-description-es-input').val(data[0].descriptionEs);
+				$('.ae-description-it-input').val(data[0].descriptionIt);
+				$('.ae-description-pt-input').val(data[0].descriptionPt);
+				$('.ae-description-nl-input').val(data[0].descriptionNl);
+			
+
+		}).always(function() {
+			$('.add-edit-store-game-modal').modal('show');
+		});
+	});
+
+// add edit modal section -----------------------------------------------------------
+	$(document).on('keyup', '.ae-edition-input', function(){
+        getValeditionOrRegion('edition', $(this).val())
+	});
+
+	$(document).on('click', '.ae-edition-input-di', function(){
+		$('.ae-edition-input').val($(this).html())
+	});
+
+	$(document).on('keyup', '.ae-region-input', function(){
+        var getSite = ($('.search-product-modal-dd-btn').html() == 'Select Site')? 'AKS' : $('.search-product-modal-dd-btn').html();
+		if ($(this).val() == '') callRegion(getSite);
+		getValeditionOrRegion('region', $(this).val())
+	});
+
+	$(document).on('click', '.ae-region-input-di', function(){
+		$('.ae-region-input').val($(this).html())
+	});
+
+	
+
 }); // end docuemtn ready
 
+function callRegion($site){
+	$('.ae-region-input-dm').empty();
+
+	var dataRequest =  {
+		action: 'get-region',
+		site: $site
+	}
+	AjaxCall(url, dataRequest).done(function(data) {
+		for(var i in data){
+			if($site == 'CDD'){
+				var excluded = [
+					'80latam',
+					'3latam',
+					'1latam',
+					'154',
+					'steangiftlatam',
+					'steamlatam',
+					'uplaylatam'
+				];
+
+				if($.inArray(data[i].id, excluded) === -1) {
+					if(!(data[i].name).match(/(AUS|EU|EMEA|Uplay EMEA)/)) {
+						if((data[i].name).match(/(US|LATAM|NA|xbox)/i)) {
+							$('.ae-region-input-dm').append('<span class="dropdown-item ae-region-input-di" data-valueni="'+data[i].id+'">'+data[i].name+'</span>');
+							saveRegion[data[i].id] = [{
+								'name' : data[i].name
+							}]
+						}
+					}
+				}
+			}else{
+				var excluded = ['129','2573'];
+				
+				if($.inArray(data[i].id, excluded) === -1) {
+					if(!(data[i].name).match(/(LATAM|RU|APAC|ASIA|STEAM GIFT NA| US |Epic Store US|GOG US|Origin US)/i)) {
+						$('.ae-region-input-dm').append('<span class="dropdown-item ae-region-input-di" data-valueni="'+data[i].id+'">'+data[i].name+'</span>');
+						saveRegion[data[i].id] = [{
+							'name' : data[i].name
+						}]
+					}
+					
+				}
+			}
+		}
+	}).always(function() {
+
+	});
+}
+
+
+function getValeditionOrRegion($what, $toSearch){
+	$('.ae-'+$what+'-input-dm').empty()
+	if(saveRegion[$toSearch] !== undefined) {
+		$('.ae-'+$what+'-input-dm').append('<span class="dropdown-item ae-'+$what+'-input-di" data-valueni="'+$toSearch+'">'+saveRegion[$toSearch][0].name+'</span>');
+	}else{
+		if($('.ae-region-input').val() != '') {
+			$('.ae-'+$what+'-input-dm').append('<span class="spmc-err-msg" style="padding: 25px;"> No region found.</span>');
+		}
+	}
+
+}
+
+
 function mainSearchProduct($site, $toSearch){
-	$('.spm-content-display').empty();
+	$('.spm-content-display, .spmc-dm').empty();
 	$('.spmc-loader-wrapper').slideDown();
+
 	var dataRequest =  {
 		action: 'main-search-product',
 		toSearch: $toSearch,
@@ -262,14 +392,22 @@ function mainSearchProduct($site, $toSearch){
 	}
 
 	AjaxCall(url, dataRequest).done(function(data) {
+		var checkUnique = [];
+
 		for(var i in data){
 			var append = '<div class="spmc-display-content-wrapper">';
-				append += '<span class="spmc-display-content-merchant">'+data[i].vols_nom+'</span><br>';
-				append += '<span>'+data[i].buy_url_raw+'</span>';
-				append += '</div>';	
+				append += '<div class="spmc-dcw-btn-div"><button class="btn btn-info spmc-open-list-btn">Open list</button></div>';
+				append += '<div class="spmc-dcw-merchant-div">'+data[i].vols_nom+'</div>';
+				append += '<div class="spmc-dcw-url-div">'+data[i].buy_url+'</div>';
+				append += '</div>';
+
+			if($.inArray(data[i].vols_nom, checkUnique) == -1 ) {
+				checkUnique.push(data[i].vols_nom);
+				$('.spmc-dm').append('<span class="dropdown-item spmc-dm-di" data-productid='+data[i].id+' data-productnormalisename='+data[i].normalised_name+'>'+data[i].vols_nom+'</span>')
+			}
+			
 			$('.spm-content-display').append(append);
 		}
-		// console.log(data);
 	}).always(function(data) {
 		$('.spmc-loader-wrapper').hide();
 		$('.spm-content-body').show();
@@ -294,10 +432,8 @@ function mainSearchProduct($site, $toSearch){
 			// console.log(data.length)
 			$('.spmc-display-header-span-what').html("Product found in ");
 			$('.spmc-btn').hide();
-			$('.spmc-create-btn').show();
-		}
-
-		
+			$('.spmc-btn-merchant-create').show();
+		}	
 	});
 }
 

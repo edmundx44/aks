@@ -1435,31 +1435,69 @@ class Ajax {
 				case 'main-search-product':
 					$site = self::getSite($getInput->get('site'));
 					if(!is_numeric($getInput->get('toSearch'))){
-						// $getConditions = ['buy_url_raw like ?', 'search_name like ?'];
-						// $getBind = ['%'.htmlspecialchars_decode($getInput->get('toSearch')).'%', '%'.htmlspecialchars_decode($getInput->get('toSearch')).'%'];
 						$getWhere = '`buy_url_raw` like "%'.htmlspecialchars_decode($getInput->get('toSearch')).'%"  OR `search_name` like "%'.htmlspecialchars_decode($getInput->get('toSearch')).'%"';
 					}else {
 						if(strlen($getInput->get('toSearch')) == 14) {
-							// $getConditions = ['buy_url_raw like ?'];
-							// $getBind = ['%'.htmlspecialchars_decode($getInput->get('toSearch')).'%'];
 							$getWhere = '`buy_url_raw` like "%'.htmlspecialchars_decode($getInput->get('toSearch')).'%" ';
 						}else {
-							// $getConditions = ['normalised_name = ?'];
-							// $getBind = [htmlspecialchars_decode($getInput->get('toSearch'))];
 							$getWhere = '`normalised_name` = "'.htmlspecialchars_decode($getInput->get('toSearch')).'"';
 						}
-						
 					}
-					// return $db->find('`'.$site.'`.`pt_products`',[
-					// 	'column' => ['`buy_url_raw`', '`normalised_name`' ,'`merchant`', '`id`'],
-					// 	'conditions' => $getConditions,
-					// 	'bind' => $getBind,
-					// ]);
-					$sql = "SELECT `s`.`id`, `s`.`merchant`, `p`.`vols_nom`, `s`.`buy_url_raw`, `s`.`normalised_name` 
+
+					$sql = "SELECT `s`.`id`, `s`.`merchant`, `p`.`vols_nom`, `s`.`buy_url`, `s`.`normalised_name` 
 							FROM `$site`.`pt_products` `s`
 							inner join `allkeyshops`.`sale_page` `p` ON `s`.`merchant` = `p`.`vols_id`
 							WHERE $getWhere";
 					return $db->query($sql)->results();
+				break;
+				case 'get-product-info':
+					$site = self::getSite($getInput->get('site'));
+					$toGet = $getInput->get('toGet');
+					$getEuUsaDisc = ($getInput->get('site') == 'CDD')? 'description-eu' : 'description-usa';
+
+					$sql = "SELECT 
+								`merchant`, 
+								`search_name`,
+								`edition`,
+								`normalised_name`,
+								`price`,
+								`region`,
+								`rating`,
+								`buy_url`,
+								`keyword`,
+								`category`,
+								`buy_url_bis`,
+								`buy_url_tier`,
+								`releasedate`,
+								`metacritic_score`,
+								`metacritic_critic_score`,
+								`metacritic_user_score`,
+								`buy_url_4`,
+								`releaseyear`,
+								`metacritic_count`,
+								`metacritic_critic_count`,
+								`metacritic_user_count`,
+								`image_url`,
+								`description`,
+								`$getEuUsaDisc` AS descriptionEuUsa,
+								`description-ru` AS descriptionRu,
+								`description-fr` AS descriptionFr,
+								`description-de` AS descriptionDe,
+								`description-es` AS descriptionEs,
+								`description-it` AS descriptionIt,
+								`description-pt` AS descriptionPt,
+								`description-nl` AS descriptionNl
+							FROM `$site`.`pt_products` 
+							WHERE `id` = $toGet";
+					return $db->query($sql)->results();
+				break;
+				case 'get-region':
+					return $db->find('`test-server`.`pt_regions_amaurer`',[
+						'column' => ['id', 'name'],
+						'conditions' => ['locale = ?'],
+						'bind' => ['en'],
+						'order' => 'name asc'
+					]);
 				break;
 		}
 	
