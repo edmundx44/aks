@@ -13,7 +13,7 @@ class Utilities{
 		$this->_db = DB::getInstance();
   	}
 
-	private static function getSite($site){
+	private static function getTable($site){
 		switch ($site) {
 			case 'aks':
 			case 'AKS': $site = '`test-server`';
@@ -77,7 +77,7 @@ class Utilities{
 	
 	public function dataRegion(){
 		$retrieveRegions = array();
-		$sql = "SELECT id,name FROM `test-server`.`pt_regions_amaurer`";
+		$sql = "SELECT `id`, `name` FROM `test-server`.`pt_regions_amaurer` WHERE `locale` = 'en'";
 		$sqlRegions = $this->_db->query($sql)->results();
 		foreach($sqlRegions as $key => $value){
 			if(!array_key_exists($value->id, $retrieveRegions)) $retrieveRegions[$value->id] = $value->name;
@@ -118,7 +118,7 @@ class Utilities{
 				'limit' => 100,
 			 ];
 		}
-		$result =  $this->_db->find( ''.self::getSite($site).'.`pt_products`',$params);
+		$result =  $this->_db->find( ''.self::getTable($site).'.`pt_products`',$params);
 		return $result;
 	}
 
@@ -307,7 +307,7 @@ class Utilities{
 			return "INVALID INFORMATION";
 
 		$sql = "SELECT `buy_url`, `edition`, `region`, `normalised_name`, `merchant`, COUNT(*) as occurs, `id`,`price`, `dispo` 
-        	    FROM ".self::getSite($site).".`pt_products` WHERE merchant NOT IN ('1','67','157','33','333') AND normalised_name != 50
+        	    FROM ".self::getTable($site).".`pt_products` WHERE merchant NOT IN ('1','67','157','33','333') AND normalised_name != 50
         	    GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
 		return $returnResults = $this->_db->query($sql)->results();
 	}
@@ -464,7 +464,7 @@ class Utilities{
 	}
 
 	public function getOfferCounts(string $site){
-		$table = static::getSite($site);
+		$table = static::getTable($site);
 		$sql = "SELECT merchant, count(*) AS 'count' FROM $table.`pt_products` Group By merchant";
 		$results = $this->_db->query($sql)->results();
 		$array = array();
@@ -483,7 +483,7 @@ class Utilities{
 	//USING GROUP BY MERCHANT
 	public function getOfferCountsByRatings(string $site ,$rating){
 		$data = [ 'rating' => $rating ]; //positional
-		$table = static::getSite($site);
+		$table = static::getTable($site);
 		$sql = "SELECT merchant, count(*) AS 'count' FROM $table.`pt_products` WHERE `rating` = ? Group By merchant";
 		$results = $this->_db->query($sql, $data)->results();
 		$array = array();
@@ -502,7 +502,7 @@ class Utilities{
 	//1 MERCHANT ONLY USING BY rating
 	public function getMerchantCountsByRatings(string $site, $merchant, int $rating){
 		$param = [ $merchant, $rating ]; //positional
-		$table = static::getSite($site);
+		$table = static::getTable($site);
 		$sql = "SELECT `merchant`, count(merchant) as 'count' FROM $table.`pt_products` WHERE `merchant` = ?  AND `rating` = ? Group By merchant ";
 		return $results = $this->_db->query($sql, $param)->results();
 	}
@@ -510,14 +510,14 @@ class Utilities{
 	//1 MERCHANT ONLY USING BY merchant
 	public function getMerchantCounts(string $site, $merchant){
 		$param = [ $merchant ]; //positional
-		$table = static::getSite($site);
+		$table = static::getTable($site);
 		$sql = "SELECT merchant, count(*) AS 'count' FROM $table.`pt_products` WHERE `merchant` = ? Group By merchant";
 		return $results = $this->_db->query($sql, $param)->results();
 	}
 
 	public function updateMerchantRating(string $site, $merchant, $rating){
 		$data = [ $rating , $merchant ]; //positional
-		$table = static::getSite($site);
+		$table = static::getTable($site);
 		$sql = "UPDATE {$table}.`pt_products` SET `rating` = ? WHERE merchant = ? ";
 		return $this->_db->query($sql, $data)->error();
 	}
@@ -538,7 +538,8 @@ class Utilities{
 	}
 
 	public function priceTeam(){
-		$sql = "SELECT username FROM `test-server`.`admin_user` where `role`= 'price_team' ORDER BY `username` ";
+		//where `role`= 'price_team'
+		$sql = "SELECT username FROM `test-server`.`admin_user` ORDER BY `username` ";
 		return $this->_db->query($sql);
 	}
 	
@@ -566,7 +567,7 @@ class Utilities{
 	}
 
 	
-	public function getDisplayByRatings(int $rating, string $merchant, string $website, int $offset = 0, int $limit = 10){
+	public function getDisplayByRatings(int $rating, string $merchant, string $website, int $offset = 0, int $limit = 50){
 		$params = [ 
 				'column' => ['`id`', '`search_name`', '`buy_url`', '`price`', '`dispo`', '`merchant`', '`normalised_name`', '`created_time`', '`edition`', '`region`' ],
 				'conditions' => [ 'rating = ?', 'merchant = ?', 'created_time < DATE_SUB(NOW(), INTERVAL 1 DAY)'], 
@@ -579,24 +580,76 @@ class Utilities{
 			$params['conditions'] = [ 'rating = ?', 'created_time < DATE_SUB(NOW(), INTERVAL 1 DAY)'];
 			$params['bind'] = [ $rating ];
 		}
-		$table = self::getSite($website);
+		$table = self::getTable($website);
 		return $results =  $this->_db->find( $table.'.'.'`pt_products`', $params);
 	}
 
 	public function getTotalbyRating(int $rating, string $site){
 		$param = [ $rating ];
-		$table = static::getSite($site);
+		$table = static::getTable($site);
 		$sql = "SELECT `rating`, count(`rating`) as 'count' FROM $table.`pt_products` WHERE `rating` = ? AND `created_time` < DATE_SUB(NOW(), INTERVAL 1 DAY)";
 		return $results = $this->_db->query($sql, $param)->results();
 	}
 
 	public function getTotalRatingByMerchant(int $rating, string $site, $merchant){
 		$param = [ $rating, $merchant ];
-		$table = static::getSite($site);
+		$table = static::getTable($site);
 		$sql = "SELECT `rating`, count(`rating`) as 'count' FROM $table.`pt_products` WHERE `rating` = ? AND `merchant` = ? AND `created_time` < DATE_SUB(NOW(), INTERVAL 1 DAY)";
 		return $results = $this->_db->query($sql, $param)->results();
 	}
 
+	public function getDisplayTbaPrices(string $merchant, string $website, int $offset = 0, int $limit = 50){
+		$params = [ 
+				'column' => ['`id`', '`search_name`', '`buy_url`', '`price`', '`dispo`', '`merchant`', '`normalised_name`', '`created_time`', '`edition`', '`region`' ],
+				'conditions' => [ 'price = ?', 'merchant = ?', 'buy_url != ?'], 
+				'bind' => [ 0.02, $merchant, '' ],
+				'order' => "id DESC",
+				'limit' => $limit,
+				'offset' => $offset
+			 ];
+		if(empty($merchant)){
+			$params['conditions'] = [ 'price = ?' ];
+			$params['bind'] = [ 0.02 ];
+		}
+		$table = self::getTable($website);
+		return $results =  $this->_db->find( $table.'.'.'`pt_products`', $params);
+	}
+
+	public function getTotalTbaPrices(string $website){
+		$param = [ 0.02 , '' ];
+		$table = static::getTable($website);
+		$sql = "SELECT COUNT(price) as 'count' FROM $table.`pt_products` WHERE `price` = ? AND `buy_url` != ? ";
+		return $results = $this->_db->query($sql, $param)->results();
+	}
+
+	public function getTotalTbaPricesByMerchant(string $merchant, string $website){
+		$param = [ $merchant, 0.02 , '' ];
+		$table = static::getTable($website);
+		$sql = "SELECT COUNT(price) as 'count' FROM $table.`pt_products` WHERE `merchant` = ? AND `price` = ? AND `buy_url` != ?";
+		return $results = $this->_db->query($sql, $param)->results();
+	}
+
+	public function searchRatingOffers(string $rating, string $website, $search){
+		$table = self::getTable($website);
+		$param = [ $rating ];
+		$where = 'pt.`rating` = ? AND pt.`buy_url` LIKE "%'.htmlspecialchars_decode($search).'%" AND region.`locale` = "en" ORDER BY pt.`id` DESC LIMIT 20';
+		
+		if(empty($rating)){
+			$param = [ (float)0.02 ];
+			$where = 'pt.`price` = ? AND pt.`buy_url` LIKE "%'.htmlspecialchars_decode($search).'%" AND region.`locale` = "en" ORDER BY pt.`id` DESC LIMIT 20';
+		}
+		//pt.`edition`, pt.`region`,
+		$sql = "SELECT pt.`id`, pt.`merchant`, pt.`normalised_name`, pt.`buy_url`, pt.`price`, pt.`dispo`, pt.`search_name`, pt.`created_by`, pt.`created_time`, 
+				`region`.`name` as `region`,
+				`edition`.`name` as `edition`
+				FROM $table.`pt_products` as pt
+				LEFT JOIN `test-server`.`pt_regions_amaurer` as `region` ON `region`.`id` = pt.`region`
+				LEFT JOIN `test-server`.`pt_editions_eu` as `edition` ON `edition`.`id` = pt.`edition`
+				WHERE $where";
+		return $results = $this->_db->query($sql, $param)->results();
+	}
+
+	
     /*------------------ FOR AFFILIATE LINK CHECK action = "ajaxAffiliateLinkCheck" --------------*/
     public static function get_good_sqlv2($merchant_id,$affiliate_link,$dbName){
 		$sql="SELECT buy_url,id,normalised_name

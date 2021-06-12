@@ -1349,41 +1349,20 @@ class Ajax {
 					$table = '`'.self::getsite($getInput->get('site')).'`.`pt_products`';
 					$priceTeam = $getInput->get('priceTeam');
 					$rawResults = $utilities->priceTeamActivity( $getInput->get('site'), $getInput->get('priceTeam') );
-					$responseContainer =array();
+					$finalResults = [];
 
 					if(!empty($rawResults['id_container'])){
-						$query_id = implode("," ,$rawResults['id_container']);
-						$sql = "SELECT `id`,`merchant`,`edition`,`region`,`normalised_name`,`buy_url`,`price`,`dispo`,`search_name`,`created_by`,`created_time` 
-							    FROM $table WHERE `id` in ($query_id) ORDER BY `created_time` DESC";
+						$query_id = implode("," ,$rawResults['id_container']); //LIMIT 100 only here
+						$sql = "SELECT pt.`id`, pt.`merchant`, pt.`edition`, pt.`region`, pt.`normalised_name`, pt.`buy_url`, pt.`price`, pt.`dispo`, pt.`search_name`, pt.`created_by`, pt.`created_time`, 
+								`region`.`name` as region_name,
+								`edition`.`name` as edition_name
+								FROM $table as pt
+								LEFT JOIN `test-server`.`pt_regions_amaurer` as `region` ON `region`.`id` = pt.`region`
+								LEFT JOIN `test-server`.`pt_editions_eu` as `edition` ON `edition`.`id` = pt.`edition`
+								WHERE pt.`id` in ($query_id) AND region.`locale` = 'en' ORDER BY pt.`created_time` DESC LIMIT 100";
 						$finalResults = $db->query($sql)->results();
-
-						if(!empty($finalResults)){
-							$retrieveMerchant = $utilities->dataMerchant();
-							$retrieveEdition = $utilities->dataEdition();
-							$retrieveRegions = $utilities->dataRegion();
-							foreach ($finalResults as $key){
-								$merchantData = (!array_key_exists($key->merchant, $retrieveMerchant)) ? 'No Data' : $retrieveMerchant[$key->merchant];
-								$editionData = (!array_key_exists($key->edition, $retrieveEdition)) ? 'No Data' : $retrieveEdition[$key->edition];
-								$regionData = (!array_key_exists($key->region, $retrieveRegions)) ? 'No Data' : $retrieveRegions[$key->region];
-								array_push($responseContainer, array(
-										'id' => $key->id,
-										'merchant' => ucfirst($merchantData),
-										'edition' => ucfirst($editionData),
-										'region' => ucfirst($regionData),
-										'game_id' => $key->normalised_name,
-										'buy_url' => htmlspecialchars($key->buy_url),
-										'price' => $key->price,
-										'dispo' => $key->dispo,
-										'search_name' => htmlspecialchars($key->search_name),
-										'created_by' => ucfirst($key->created_by),
-										'created_time' => date('M d Y h:i A',strtotime($key->created_time)),
-										'site' => $responseSite
-									)
-								);
-							}
-						}
 					}
-					$response['success'] = array( 'data' => $responseContainer, 'site' => $responseSite);
+					$response['success'] = array( 'data' => $finalResults, 'site' => $responseSite);
 					return $response;
 				break;
 
@@ -1391,22 +1370,20 @@ class Ajax {
 					if(!self::getSite($getInput->get('website'))) return [];
 					$utilities = new Utilities;
 
-					$limit  = $getInput->get('limit');
 					$offset = $getInput->get('offset');
-					$search = $getInput->get('toSearch');
 					$rating = $getInput->get('rating');
 					$website = $getInput->get('website');
 					$merchant = ($getInput->get('merchant') == 'Default') ? '' :  $getInput->get('merchant');
+					$totalRatings = 0;
 
-					$finalResults = $utilities->getDisplayByRatings($rating, $merchant, $website, $offset);
-					if(empty($merchant))
-						$totalRatings = $utilities->getTotalbyRating($rating, $website)[0]->count;
-					else
-						$totalRatings = $utilities->getTotalRatingByMerchant($rating, $website, $merchant)[0]->count;
-
-					$totalRating = [];
+					if($rating == 'tba'){
+						$finalResults = $utilities->getDisplayTbaPrices($merchant, $website, $offset);
+						$totalRatings = (empty($merchant)) ? $utilities->getTotalTbaPrices($website)[0]->count : $utilities->getTotalTbaPricesByMerchant($merchant, $website)[0]->count;
+					}else{
+						$finalResults = $utilities->getDisplayByRatings($rating, $merchant, $website, $offset);
+						$totalRatings = (empty($merchant)) ? $utilities->getTotalbyRating($rating, $website)[0]->count : $utilities->getTotalRatingByMerchant($rating, $website, $merchant)[0]->count;
+					}
 					$responseContainer =array();
-
 					if(!empty($finalResults)){
 						$retrieveMerchant = $utilities->dataMerchant();
 						$retrieveEdition = $utilities->dataEdition();
@@ -1422,8 +1399,8 @@ class Ajax {
 									'region' => ucfirst($regionData),
 									'game_id' => $key->normalised_name,
 									'buy_url' => htmlspecialchars($key->buy_url),
-									'price' => $key->price,
-									'dispo' => $key->dispo,
+									'price' => (float)$key->price,
+									'dispo' => (int)$key->dispo,
 									'search_name' => htmlspecialchars($key->search_name),
 									'created_time' => date('M d Y h:i A',strtotime($key->created_time))
 								)
@@ -1437,6 +1414,24 @@ class Ajax {
 					$utilities = new Utilities;
 					return $utilities->getDataMerchant();
 				break;
+				case 'search-rating-list':
+					$utilities = new Utilities;
+					$rating = $getInput->get('rating');
+					$website = $getInput->get('website');
+					$search = $getInput->get('toSearch');
+					
+					$totalRatings = 0;
+					$responseContainer =array();
+
+					$rating = ($rating == 'tba') ? '' : $rating ;
+					$finalResults = $utilities->searchRatingOffers($rating, $website, $search);
+					if(!empty($finalResults))
+						$totalRatings = count($finalResults);
+					
+					$response['success'] = array( 'data' => $finalResults, 'total' => $totalRatings);
+					return $response;
+				break;
+				
 				case 'main-search-product':
 					$site = self::getSite($getInput->get('site'));
 					if(!is_numeric($getInput->get('toSearch'))){

@@ -109,7 +109,7 @@ class DB {
 
     $sql = "SELECT {$sqlField} FROM {$table}{$conditionString}{$order}{$limit}{$offset}";
     if($this->query($sql, $bind,$class)) {
-      if(!count($this->_result)) return false;
+      if(!count($this->_result)) return false; //comment this because it return false if 0 data found
       return true;
     }
     return false;

@@ -72,8 +72,8 @@
                     app +=  '<p class="text-note">Create by '+result[i].created_by+' on '+result[i].created_time+'</p>';
                     app +=  '<div> <span class="me-text">Merchant</span><span class="me-res">'+result[i].merchant+'</span> </div>';
                     app +=  '<div class="div-inline"><span class="me-text">Price</span><span class="me-res">'+result[i].price+'</span></div>';
-                    app +=  '<div class="div-inline"><span class="me-text">Edition</span><span class="me-res">'+result[i].edition+'</span></div>';
-                    app +=  '<div class="div-inline"><span class="me-text">Region</span><span class="me-res">'+result[i].region+'</span></div>';
+                    app +=  '<div class="div-inline"><span class="me-text">Edition</span><span class="me-res">'+result[i].edition_name+'</span></div>';
+                    app +=  '<div class="div-inline"><span class="me-text">Region</span><span class="me-res">'+result[i].region_name+'</span></div>';
                     app +=  '<div><span class="me-res">'+result[i].search_name+'</span></div>';
                     app +=  '<div><span class="me-res"><a class="url-redirect" href='+result[i].buy_url+' target="_blank">'+result[i].buy_url+'</a></span></div>';
                     app += '</div>';

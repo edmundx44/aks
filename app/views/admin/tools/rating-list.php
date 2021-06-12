@@ -7,8 +7,7 @@
         totalRatings: 0,
         merchant : '',
         rating: 101,
-        website: 'aks',
-        toSearch : '',
+        website: 'aks'
     }
 
     $(function(){
@@ -17,38 +16,57 @@
         var param = getUrlParameter('tab');
         headerTitle(param);
         $('.header-menu-item').removeClass('active-item-menu');
-        var init = safelyParseJSON(getStorage('sessionStorage','website'));
+        var initSite = safelyParseJSON(getStorage('sessionStorage','website'));
         
         if(param == '') $('#menu-rating101').addClass('active-item-menu')
         else $('#menu-'+param).addClass('active-item-menu')
 
-        if( init && returnSite(init) != null){
-            request.website = init;
-            displayRequest(request.rating, '', request.website);
-		}else{ removedKeyNormal('sessionStorage','website') 
-			displayRequest(request.rating, '', 'aks');
+        if( initSite && returnSite(initSite) != null){
+            request.website = initSite;
+            var $initData = checkRequest(request.rating, '', request.website);
+            ($initData != null) ?  displayRequest($initData) : alertMsg('Please Reload the page..');
+		}else{ 
+            removedKeyNormal('sessionStorage','website')
+            var $initData = checkRequest(request.rating, '', 'aks');
+            ($initData != null) ?  displayRequest($initData) : alertMsg('Please Reload the page..');
 		}
         
+        //select website
         $(document).on('click', '.website-items', function(){
             var indexInput = $(this).parent().prevObject.index();
             $("#search-rating").val('');
+            $('#rating-list-display').empty();
             if($(this).parent()[0].children.length == 3 ){
                 request.currentDisplay = 0;
                 request.merchant = '';
                 request.total = 0;
-                request.toSearch = '';
                 
 				request.website = (indexInput == 0 ) ? inputsSite[0].site : (indexInput == 1 ) ? inputsSite[1].site : (indexInput == 2 ) ? inputsSite[2].site : '';
                 setStorage('sessionStorage','website',JSON.stringify(request.website))
-                displayRequest(request.rating, '', request.website);
+                var $data = checkRequest(request.rating, '', request.website);
+                ($data != null) ? displayRequest($data) : alertMsg('Please Reload the page..');
             }
+            
         });
 
+        //select merchant
         $(document).on('click', '.select-btn-merchant-di', function(){
             $('.input-search-merchant').val($(this).html())
+            $('#rating-list-display').empty();
+            $("#search-rating").val('');
+
             request.currentDisplay = 0;
             request.merchant = $(this).attr('data-merchant');
-            displayRequest(request.rating, request.merchant, request.website);
+
+            var $data = checkRequest(request.rating, request.merchant, request.website);
+            ($data != null) ? displayRequest($data) : alertMsg('Please Reload the page..');
+        });
+
+        //laod more
+        $(document).on('click', '.lmore-function', function lmore(data) {
+            var $datalmore = checkRequest(request.rating, request.merchant, request.website, request.currentDisplay);
+            if(request.currentDisplay != request.totalRatings && request.currentDisplay < request.totalRatings)
+                ($datalmore != null) ? displayRequest($datalmore) : alertMsg('Please Reload the page..');
         });
 
         //search merchant in input text
@@ -56,16 +74,87 @@
             var typo = regExpEscape(this.value);
 			if($(this).closest('div').attr('data-content') == 'Merchant'){
                 $('.searchable-ul .name').each(function(){
-                    if($(this).html().search(new RegExp(typo, "i")) < 0)
-                        $(this).closest('span').fadeOut(500);
-                    else 
-                       $(this).closest('span').fadeIn(500);
+                    ($(this).html().search(new RegExp(typo, "i")) < 0) ? $(this).closest('span').fadeOut(500) : $(this).closest('span').fadeIn(500);                       
                 });
             }
         });
 
+        $(document).on('focusout', '#search-rating', function(){   
+            var $search = this.value;
+            request.currentDisplay = 0;
+            request.totalRatings = 0;
+            request.merchant = '';
+            $data = { action: "search-rating-list", toSearch: $search, rating: request.rating, website: request.website };
+            if($search.length >= 5) {
+                $('#rating-list-display').empty();  
+                AjaxCall(url, $data).done(appendResultDiv) 
+            }else
+                alertMsg("Atleast 5 characters") ;            
+        });
+        //search url in datatable
+        $('#search-rating').keypress(function(e){
+			if(e.which == 13)
+                $(this).blur();
+		});
+
     //END 
     });
+
+    function checkRequest($rating = 101, $merchant = '', $website = 'aks', $offset = 0){
+        $data = {
+            action: 'rating-list',
+            offset: $offset,
+            rating: $rating,
+            merchant: $merchant,
+            website: $website
+        }
+        if( [101,102,103,104,'tba'].includes($data.rating) && 
+            ['aks','cdd','brexitgbp'].includes($data.website) &&
+            $data.offset >= 0 )
+            return $data;
+        return null;
+    }
+
+    function displayRequest($data){
+        AjaxCall(url, $data).done(appendResultDiv)
+    }
+
+    function appendResultDiv(data){
+        $('#empty-res-data').empty();
+        var result = data.success.data;
+        var totalRatingText = 0;
+        if(result != ''){
+            for(var i in result){
+                var app =  '<div class="result-merchant card-style mb-3">';
+                    app +=  '<p class="text-note">Create on '+result[i].created_time+'</p>';
+                    app +=  '<div> <span class="me-text">Merchant</span><span class="me-res">'+result[i].merchant+'</span> </div>';
+                    app +=  '<div class="div-inline"><span class="me-text">Price</span><span class="me-res">'+result[i].price+'</span></div>';
+                    app +=  '<div class="div-inline"><span class="me-text">Edition</span><span class="me-res">'+result[i].edition+'</span></div>';
+                    app +=  '<div class="div-inline"><span class="me-text">Region</span><span class="me-res">'+result[i].region+'</span></div>';
+                    app +=  '<div><span class="me-res">'+result[i].search_name+'</span></div>';
+                    app +=  '<div><span class="me-res"><a class="url-redirect" href='+result[i].buy_url+' target="_blank">'+result[i].buy_url+'</a></span></div>';
+                    app += '</div>';
+                $('#rating-list-display').append(app);
+            }
+            request.currentDisplay = parseInt(request.currentDisplay) + parseInt(result.length);
+            request.totalRatings = parseInt(data.success.total);
+            totalRatingText = request.currentDisplay+'/'+request.totalRatings;
+        }else
+            $('#rating-list-display').append('<h4 id="empty-res-data" class="text-center col-sm-12" style="padding:150px;">No Data Found</h4>');
+        $('#website-btn').val($data.website.toUpperCase());
+        $(".rating-total-result").html(totalRatingText);
+        (totalRatingText != 0 && request.currentDisplay != request.totalRatings) ? $('#lmore-div').show() : $('#lmore-div').hide();        
+    }
+
+    function appendMerchants(){
+        AjaxCall(url,$data = {action: 'append-merchants'}).done(function(data){
+            $('.select-merchant-div').append('<span class="dropdown-item act-dropdown select-btn-merchant-di name" data-merchant="Default">All</span>')
+            for(var i in data){
+                let merchant = data[i].vols_nom.substr(0,1).toUpperCase()+data[i].vols_nom.substr(1).toLowerCase();
+                $('.select-merchant-div').append('<span class="dropdown-item act-dropdown select-btn-merchant-di name" data-merchant='+data[i].vols_id+'>'+ merchant +' '+data[i].vols_id+'</span>')
+            }
+        });
+    }
 
     function headerTitle(param){
         let title, note;
@@ -87,7 +176,8 @@
                 break;
             case 'tbaprices':
                     title = "TBA Offers";
-                    note = 'Offers with price is equal to 0.02';
+                    request.rating = 'tba';
+                    note = 'Offers with price is equal to 0.02 based on the release date of the game thats equals to this month';
                 break;
             default:
                 title = "Rating 101";
@@ -98,57 +188,7 @@
         $('.rating-title').text(title);
         $('.rating-note').text(note);
     }
-
-    function displayRequest($rating = 101, $merchant = '', $website = 'aks', $offset = 0, $limit = 0, $toSearch = ''){
-        $data = {
-            action: 'rating-list',
-            offset: $offset,
-            limit: $limit,
-            rating: $rating,
-            merchant: $merchant,
-            website: $website,
-            toSearch: $toSearch
-        }
-        AjaxCall(url, $data).done(function(data){
-            $('#rating-list-display').empty();
-            $('#empty-res-data').empty();
-            $("#search-rating").val('');
-            var result = data.success.data;
-            var totalRatingText = 0;
-            if(result != ''){
-                for(var i in result){
-                    var app =  '<div class="result-merchant card-style mb-3">';
-                        app +=  '<p class="text-note">Create on '+result[i].created_time+'</p>';
-                        app +=  '<div> <span class="me-text">Merchant</span><span class="me-res">'+result[i].merchant+'</span> </div>';
-                        app +=  '<div class="div-inline"><span class="me-text">Price</span><span class="me-res">'+result[i].price+'</span></div>';
-                        app +=  '<div class="div-inline"><span class="me-text">Edition</span><span class="me-res">'+result[i].edition+'</span></div>';
-                        app +=  '<div class="div-inline"><span class="me-text">Region</span><span class="me-res">'+result[i].region+'</span></div>';
-                        app +=  '<div><span class="me-res">'+result[i].search_name+'</span></div>';
-                        app +=  '<div><span class="me-res"><a class="url-redirect" href='+result[i].buy_url+' target="_blank">'+result[i].buy_url+'</a></span></div>';
-                        app += '</div>';
-                    $('#rating-list-display').append(app);
-                }
-            request.currentDisplay = Number(request.currentDisplay) + Number(result.length);
-            request.totalRatings = Number(data.success.total);
-            totalRatingText = request.currentDisplay+'/'+request.totalRatings;
-            }else
-                $('#rhyn-tool-display').append('<h4 id="empty-res-data" class="text-center col-sm-12" style="padding:150px;">No Data Found</h4>');
-            $('#website-btn').val($website.toUpperCase())
-            $(".rating-total-result").html(totalRatingText);
-        });
-        
-    }
-
-    function appendMerchants(){
-        AjaxCall(url,$data = {action: 'append-merchants'}).done(function(data){
-            $('.select-merchant-div').append('<span class="dropdown-item act-dropdown select-btn-merchant-di name" data-merchant="Default">All</span>')
-            for(var i in data){
-                let merchant = data[i].vols_nom.substr(0,1).toUpperCase()+data[i].vols_nom.substr(1).toLowerCase();
-                $('.select-merchant-div').append('<span class="dropdown-item act-dropdown select-btn-merchant-di name" data-merchant='+data[i].vols_id+'>'+ merchant +' '+data[i].vols_id+'</span>')
-            }
-        });
-    }
-
+    
 </script>
 <style>
     .select-merchant-div {
@@ -189,6 +229,20 @@
     .url-redirect{
         word-break: break-all;
     }
+    .header-menu-item:hover{
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    a.a-style{
+        color:#fff;
+        text-decoration:none;
+    }
+    .lmore-function{
+        background: linear-gradient(60deg, #004ea3, #0062cc) !important;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        color:#fff;
+    }
 </style>
 <?php $this->end(); ?>
 
@@ -200,11 +254,11 @@
                 <div class="card-div-overflow-style row-1-card-div-overflow-style row-1-card-div-overflow-style-1">
 					<p class="card-bulletin header-card-bulitin">MENU :</p>
 					<ul class="header-ul-menu">
-						<li class="header-menu-item" id="menu-rating101" data-div="rating101"><a href="<?= PROOT.'tools/ratingList?tab=rating101' ?>">Rating 101</a></li>
-						<li class="header-menu-item" id="menu-rating102" data-div="rating102"><a href="<?= PROOT.'tools/ratingList?tab=rating102' ?>">Rating 102</a></li>
-						<li class="header-menu-item" id="menu-rating103" data-div="rating103"><a href="<?= PROOT.'tools/ratingList?tab=rating103' ?>">Rating 103</a></li>
-						<li class="header-menu-item" id="menu-rating104" data-div="rating104"><a href="<?= PROOT.'tools/ratingList?tab=rating104' ?>">Rating 104</a></li>
-						<li class="header-menu-item" id="menu-tbaprice" data-div="tbaprice"><a href="<?= PROOT.'tools/ratingList?tab=tbaprices' ?>">TBA Prices</a></li>
+						<li class="header-menu-item" id="menu-rating101" data-div="rating101"><a class ="a-style" href="<?= PROOT.'tools/ratingList?tab=rating101' ?>">Rating 101</a></li>
+						<li class="header-menu-item" id="menu-rating102" data-div="rating102"><a class ="a-style" href="<?= PROOT.'tools/ratingList?tab=rating102' ?>">Rating 102</a></li>
+						<li class="header-menu-item" id="menu-rating103" data-div="rating103"><a class ="a-style" href="<?= PROOT.'tools/ratingList?tab=rating103' ?>">Rating 103</a></li>
+						<li class="header-menu-item" id="menu-rating104" data-div="rating104"><a class ="a-style" href="<?= PROOT.'tools/ratingList?tab=rating104' ?>">Rating 104</a></li>
+						<li class="header-menu-item" id="menu-tbaprices" data-div="tbaprices"><a   class ="a-style" href="<?= PROOT.'tools/ratingList?tab=tbaprices' ?>">TBA Prices</a></li>
 					</ul>
 				</div>
             </div>
@@ -264,8 +318,8 @@
 
                             <div class="col-lg-12 no-padding mb-2" id="search"><input id="search-rating" type="text" class="form-control" placeholder="Search Link"></div>
 							<div class="col-lg-12 no-padding" id="rating-list-display"></div>
-                            <div class="col-lg-12 text-center" style="padding:10px;">
-                                <span class="data-display-function lmore-fucntion"> 
+                            <div id="lmore-div" class="col-lg-12 text-center" style="padding:10px;display:none;">
+                                <span class="data-display-function lmore-function"> 
 									<i class="fas fa-spinner"></i> Load More 
 								</span>
                             </div>
