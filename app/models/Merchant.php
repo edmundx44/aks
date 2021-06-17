@@ -166,40 +166,39 @@ class Merchant {
 			break;
 
 		}
+
 		//$x("//input[@id='radio486'] [0] / @onclick ")
 		$scrapedData = array(); 
 		$getUrl = $url;
 		$getUrlSub = $url;
 		$x = 0;
 		while ($x < 10) {
-		    $html = self::getUrlContent($getUrl ,$userAgent ,$httpHeader);
-		    $getUrl = $html['redirect_url'];
-		    if($html['http_code'] == 200){
-		        $getUrl = $html['url'];
-		        //$getCont = self::getUrlContent($getUrl ,$userAgent ,$httpHeader);
-		        $getCont = $html;
-		        $doc = new DOMDocument;
-		        $doc->preserveWhiteSpace = false;
-		        @$doc->loadHTML($getCont['content']);
-		        $xpath = new DOMXpath($doc);
+			$html = self::getUrlContent($getUrl ,$userAgent ,$httpHeader);
+			$getUrl = $html['redirect_url'];
+			if($html['http_code'] == 200){
+				$getUrl = $html['url'];
+				//$getCont = self::getUrlContent($getUrl ,$userAgent ,$httpHeader);
+				$getCont = $html;
+				$doc = new DOMDocument;
+				$doc->preserveWhiteSpace = false;
+				@$doc->loadHTML($getCont['content']);
+				$xpath = new DOMXpath($doc);
 
-		        $getMainPrice = (!empty($xpathMainPrice))? $xpath->query($xpathMainPrice) : '';
-                $get1stPriceQuery = $xpath->query($xpathLowerPrice);
-                $getStockQuery = $xpath->query($xpathStock);
-            
-                $node1stPrice = ($get1stPriceQuery->length == 1)? $get1stPriceQuery->item(0)->nodeValue : 0 ;
-                $nodeMainPrice = (!empty($getMainPrice) and $getMainPrice->length == 1)? $getMainPrice->item(0)->nodeValue : 0 ;
-    
-                $getPrice = ($node1stPrice <= $nodeMainPrice)? $node1stPrice : $nodeMainPrice;
+				$getMainPrice = (!empty($xpathMainPrice))? $xpath->query($xpathMainPrice) : '';
+				$get1stPriceQuery = $xpath->query($xpathLowerPrice);
+				$getStockQuery = $xpath->query($xpathStock);
+
+				$node1stPrice = ($get1stPriceQuery->length == 1)? $get1stPriceQuery->item(0)->nodeValue : 0 ;
+				$nodeMainPrice = (!empty($getMainPrice) and $getMainPrice->length == 1)? $getMainPrice->item(0)->nodeValue : 0 ;
+
+				$getPrice = ($node1stPrice <= $nodeMainPrice)? $node1stPrice : $nodeMainPrice;
 
 				switch($getMerchant){
 					case 'mmoga': $getStock = (trim($getStockQuery->item(0)->nodeValue) == 'available')? 'In stock' : "Out of stock";
 					break;	
-
 					default: $getStock = ($getStockQuery->length == 1)? 'In stock' : "Out of stock";
 					break;
 				}
-
 
 				$scrapedData = array(
 					'sitePrice' => $getPrice,
@@ -208,13 +207,13 @@ class Merchant {
 
 				$getUrl = $getUrlSub;
 				return $scrapedData;
-		        break;
-		    }
+				break; //break loop
+			}
 			$x++;
 		}
-		if($x == 10 )
-			return $scrapedData = ['sitePrice' => 'Something went wrong !!', 'siteStock' => "Something went wrong !!"];
+		if($x == 10 ) return $scrapedData = ['sitePrice' => 'Something went wrong !!', 'siteStock' => "Something went wrong !!"];
 	}
+
 	public static function getUrlContent($url, $userAgent, $httpHeader) {
 		$options = array(
 			CURLOPT_PROXY          => 'http://bot:hidemyass@aksdeveu1.allkeyshop.com:8181',
@@ -230,17 +229,17 @@ class Merchant {
 			CURLOPT_HTTPHEADER     => $httpHeader,
 		);
 
-		$ch      = curl_init( $url );
+		$ch			= curl_init( $url );
 		curl_setopt_array( $ch, $options );
-		$content = curl_exec( $ch );
-		$err     = curl_errno( $ch );
-		$errmsg  = curl_error( $ch );
-		$header  = curl_getinfo( $ch );
+		$content	= curl_exec( $ch );
+		$err		= curl_errno( $ch );
+		$errmsg		= curl_error( $ch );
+		$header		= curl_getinfo( $ch );
 		curl_close( $ch );
 
-		$header['errno']   = $err;
-		$header['errmsg']  = $errmsg;
-		$header['content'] = $content;
+		$header['errno']	= $err;
+		$header['errmsg']	= $errmsg;
+		$header['content']	= $content;
 		return $header;
 	}
 
@@ -248,10 +247,8 @@ class Merchant {
 		$price = str_replace(',', '.' ,$price);
 		$price1 = str_replace(',', '.' ,$price1);
 
-		if(isset($price) && isset($price1))
-			return $price = ((float)$price < (float)$price1) ? (float)$price : (float)$price1;
-		else 
-			return 'Something went wrong !!';
+		if(isset($price) && isset($price1)) return $price = ((float)$price < (float)$price1) ? (float)$price : (float)$price1;
+		else return 'Something went wrong !!';
 	}
 
 }

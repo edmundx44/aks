@@ -59,8 +59,8 @@
 
 			$(document).on('click', '#rd-delete-selected', function(){
 				var id=[];
-			    $('.rd-delete-checkbox:checked').each(function(i){
-			  		id[i] = $(this).data('cproductid');
+				$('.rd-delete-checkbox:checked').each(function(i){
+					id[i] = $(this).data('cproductid');
 				});
 
 				if(id.length === 0) alertMsg('kindly select atleast one data.');
@@ -163,13 +163,13 @@
 				for(var i in data){
 					var getCreated = (data[i].created_by == '')? 'Created by "Unknown" in '+getSite+'' : 'Created by "'+data[i].created_by+'" in '+getSite+'';
 					var	append =	'<div style="padding: 10px;box-shadow: 0 1px 4px 0 rgb(0 0 0 / 24%);margin: 0 0 15px 0;">';
-				        append +=	'	<p style="padding: 5px 0 5px 0;margin: 0;font-size: 13px;">'+ moment(data[i].created_time).format('MMMM Do YYYY, h:mm:ss a'); +'</p>';
-				        append +=	'	<p style="padding: 5px 0 5px 0;margin: 0;font-size: 13px;">'+getCreated+'</p>';
-				        append +=	'	<p style="padding: 5px 0 5px 0;margin: 0;font-size: 13px;"><a href="'+data[i].buy_url+'">'+data[i].buy_url+'</a></p>';
-				        append +=	'	<p style="padding: 5px 0 5px 0;margin: 0;font-size: 13px;">'+data[i].search_name+'</p>';
-				        append +=	'	<p style="padding: 5px 0 5px 0;margin: 0;font-size: 13px;"><span>PRICE : <span>'+data[i].price+'</span></span>  &nbsp; <span>REGION : <span>'+data[i].region+'</span></span>  &nbsp; <span>EDITION : <span>'+data[i].edition+'</span></span></p>';
-				        append +=	'</div>';
-				        $('.display-suspicious-double-div').append(append);								
+						append +=	'	<p style="padding: 5px 0 5px 0;margin: 0;font-size: 13px;">'+ moment(data[i].created_time).format('MMMM Do YYYY, h:mm:ss a'); +'</p>';
+						append +=	'	<p style="padding: 5px 0 5px 0;margin: 0;font-size: 13px;">'+getCreated+'</p>';
+						append +=	'	<p style="padding: 5px 0 5px 0;margin: 0;font-size: 13px;"><a href="'+data[i].buy_url+'">'+data[i].buy_url+'</a></p>';
+						append +=	'	<p style="padding: 5px 0 5px 0;margin: 0;font-size: 13px;">'+data[i].search_name+'</p>';
+						append +=	'	<p style="padding: 5px 0 5px 0;margin: 0;font-size: 13px;"><span>PRICE : <span>'+data[i].price+'</span></span>  &nbsp; <span>REGION : <span>'+data[i].region+'</span></span>  &nbsp; <span>EDITION : <span>'+data[i].edition+'</span></span></p>';
+						append +=	'</div>';
+						$('.display-suspicious-double-div').append(append);								
 				}
 
 				setOffset = parseInt(setOffset) + parseInt(data.length);
@@ -194,22 +194,22 @@
 					var getStock = (data[i].dispo == 1)? 'In stock' : 'Out of Stock';
 
 					var	append =	'<tr class="'+backColor+' tr-body-display-data">';
-				        append +=	'	<td class="hide-on-smmd" style="padding: 10px;">'+ data[i].buy_url +'</td>';
-				        append +=	'	<td style="padding: 10px;">'+ data[i].price +'</td>';
-				        append +=	'	<td style="padding: 10px;">'+ getStock +'</td>';
-				        append +=	'	<td style="padding: 10px;text-align:center;">'
-				        append +=	'		<button class="btn btn-primary">Copy link</button> &nbsp;';
-				        append +=	'		<button class="btn btn-warning dl-delete-real-double text-white" data-productid="'+data[i].id+'">Delete</button> &nbsp;';
-				        append +=	'		<input type="checkbox" class="rd-delete-checkbox" data-cproductid="'+data[i].id+'">';
-				        append +=	'	</td>';
-				        append +=	'</tr>';
-				        append +=	'<tr class="'+backColor+' sub-tr-head">';
-				        append +=	'	<td colspan="3">';
-				        append +=	'		<div style="padding: 0 10px 10px 10px;word-break: break-all;">';
-				        append +=	'			<p>Activity : <span>'+ data[i].buy_url +'</span></p>';
-				        append +=	'		</div>';
-				        append +=	'	</td>';
-				        append +=	'</tr>';
+						append +=	'	<td class="hide-on-smmd" style="padding: 10px;">'+ data[i].buy_url +'</td>';
+						append +=	'	<td style="padding: 10px;">'+ data[i].price +'</td>';
+						append +=	'	<td style="padding: 10px;">'+ getStock +'</td>';
+						append +=	'	<td style="padding: 10px;text-align:center;">'
+						append +=	'		<button class="btn btn-primary">Copy link</button> &nbsp;';
+						append +=	'		<button class="btn btn-warning dl-delete-real-double text-white" data-productid="'+data[i].id+'">Delete</button> &nbsp;';
+						append +=	'		<input type="checkbox" class="rd-delete-checkbox" data-cproductid="'+data[i].id+'">';
+						append +=	'	</td>';
+						append +=	'</tr>';
+						append +=	'<tr class="'+backColor+' sub-tr-head">';
+						append +=	'	<td colspan="3">';
+						append +=	'		<div style="padding: 0 10px 10px 10px;word-break: break-all;">';
+						append +=	'			<p>Activity : <span>'+ data[i].buy_url +'</span></p>';
+						append +=	'		</div>';
+						append +=	'	</td>';
+						append +=	'</tr>';
 					$("#dl-real-double-display-content-div").append(append);
 					counter++;
 				}
@@ -340,7 +340,7 @@
 									<span class="dropdown-item dl-dd-site-di" data-whatni="cdd">CDD</span>
 									<span class="dropdown-item dl-dd-site-di" data-whatni="brex">BREX</span>
 								</div>
-	                        </div>
+							</div>
 
 							<ul class="dl-cb-ul-menu d-xl-block" style="display: none;">
 								<li class="dl-li-btn active-dl-menu" id="dl-real-double-div">Real Double</li>
@@ -361,18 +361,18 @@
 							</div>
 
 							<table class="col-12" style="margin: 20px 0 0 0;">
-                                <thead>
-                                    <tr class="" style="color: #fff;background-color: #007bff;">
-                                        <th class="hide-on-smmd" style="padding: 10px;width: 45%;">Link</th>
-                                        <th class="" style="padding: 10px;width: 10%;">Price</th>
-                                        <th class="" style="padding: 10px;width: 10%;;">Stock</th>
-                                        <th class="" style="padding: 10px;width: 35%;text-align:center;">Action</th>
-                                    </tr> 
-                                </thead>
-                                <tbody id="dl-real-double-display-content-div">
-                                    <!-- dynamic data here from database -->
-                                </tbody>
-                            </table>
+								<thead>
+									<tr class="" style="color: #fff;background-color: #007bff;">
+										<th class="hide-on-smmd" style="padding: 10px;width: 45%;">Link</th>
+										<th class="" style="padding: 10px;width: 10%;">Price</th>
+										<th class="" style="padding: 10px;width: 10%;;">Stock</th>
+										<th class="" style="padding: 10px;width: 35%;text-align:center;">Action</th>
+									</tr> 
+								</thead>
+								<tbody id="dl-real-double-display-content-div">
+									<!-- dynamic data here from database -->
+								</tbody>
+							</table>
 						</div>
 
 						<div class="dl-content-div dl-suspicious-double-div" style="display: none;position: relative;">

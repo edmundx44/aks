@@ -179,15 +179,20 @@ $(document).ready(function(){
 			});
 			$(".float-settings-icon").removeClass('show-div');
 		}
-		if(!$(event.target).is('.ae-region-input, .dmd-region *')) {
-			$('.dmd-region').hide();
+		if(!$(event.target).is('.dropdown-inputbox, .dropdown-menu-div *')) {
+			$('.dropdown-menu-div').hide();
 		}
-		if(!$(event.target).is('.ae-edition-input, .dmd-edition *')) {
-			$('.dmd-edition').hide();
-		}
-		if(!$(event.target).is('.ae-ratings-input, .dmd-ratings *')) {
-			$('.dmd-ratings').hide();
-		}
+		
+		// if(!$(event.target).is('.ae-region-input, .dmd-region *')) {
+		// 	$('.dmd-region').hide();
+		// }
+		// if(!$(event.target).is('.ae-edition-input, .dmd-edition *')) {
+		// 	$('.dmd-edition').hide();
+		// }
+		// if(!$(event.target).is('.ae-ratings-input, .dmd-ratings *')) {
+		// 	$('.dmd-ratings').hide();
+		// }
+		
 		
 	});
 
@@ -310,8 +315,10 @@ $(document).ready(function(){
 
 // add edit modal section -----------------------------------------------------------
 	$(document).on('click input', '.ae-edition-input', function(){
-		var getVal = $(this).val();
+		$('.dropdown-menu-div').hide();
 		$('.dmd-edition').show().empty();
+		var getVal = $(this).val();
+		
 
 		var getOuput = saveEdition.filter(function (items) {
 		  return items.id.includes(getVal) || items.name.includes(getVal);
@@ -331,30 +338,30 @@ $(document).ready(function(){
 	$(document).on('click', '.dmds-edition', function(){
 		$('.ae-edition-input').val($(this).data('nameni'));
 		$('.dmd-edition').hide();
-		// $(this).data('idni')
 	});
 
 	$(document).on('click input', '.ae-region-input', function(){
-		var getVal = $(this).val();
+		$('.dropdown-menu-div').hide();
 		$('.dmd-region').show().empty();
-
+		var getVal = $(this).val();
 		var getOuput = saveRegion.filter(function (items) {
 		  return items.id.includes(getVal) || items.name.includes(getVal);
 		});
 
+		console.log(saveRegion)
+
 		for(var i in getOuput){
 			$('.dmd-region').append(getOuput[i].toAppend) 
 		}
-
 	});
 
 	$(document).on('click', '.dmds-region', function(){
 		$('.ae-region-input').val($(this).data('nameni'));
 		$('.dmd-region').hide();
-		// $(this).data('idni')
 	});
 
 	$(document).on('click', '.ae-ratings-input', function(){
+		$('.dropdown-menu-div').hide();
 		$('.dmd-ratings').show();
 	});
 	$(document).on('click', '.dmds-ratings', function(){

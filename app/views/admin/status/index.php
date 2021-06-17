@@ -38,7 +38,7 @@
 				$('.selected-data').attr('data-selected-site', $(this).attr('data-website'))
 				var indexInput = $(this).parent().prevObject.index(); //get the index of li
 				if($(this).parent()[0].children.length == 3 ){
-			    	var site = (indexInput == 0 ) ? inputsSite[0].site : (indexInput == 1 ) ? inputsSite[1].site : (indexInput == 2 ) ? inputsSite[2].site : '';
+					var site = (indexInput == 0 ) ? inputsSite[0].site : (indexInput == 1 ) ? inputsSite[1].site : (indexInput == 2 ) ? inputsSite[2].site : '';
 					let $_query = { action : "get-stores-status", site : site }
 					setStorage('sessionStorage','website',JSON.stringify($_query.site))
 					AjaxStores($_query)
@@ -73,16 +73,16 @@
 		}); // end document ready function
 		
 		function confirmDialog($con, onConfirm){
-    	    var fClose = function(){
-    			  modal.modal("hide");
-    	    };
-    	    var modal = $("#report-modal-confirmation");
+			var fClose = function(){
+				modal.modal("hide");
+			};
+			var modal = $("#report-modal-confirmation");
 			modal.modal('show');
 			$('.confirmation-tittle').empty().html($con.header);
 			$('.modal-content-body').empty().append($con.body);
 			$('.confirmation-modal-footer').empty().append($con.footer);	
-    	    $("#modal-confirmation").unbind().one('click', onConfirm).one('click', fClose);
-        }
+			$("#modal-confirmation").unbind().one('click', onConfirm).one('click', fClose);
+		}
 
 		function setActiveTab($param){
 			$('.sc-li-btn').removeClass('active-sc-menu');
@@ -166,7 +166,7 @@
 					app += 			'<div><input id="input-'+res[i].id+'" class="btn-status '+valClass+'" type="button" value='+val+'></div>';
 					app += 		'</div>';
 					app +=	'</div>';
-            	$(append).append(app);
+				$(append).append(app);
 			}
 			$from = append.split("-")[1];
 		}
@@ -251,7 +251,7 @@
 		}
 		#confirmation-body-style{
 			padding-top: 10px;
-    		padding-bottom: 10px;
+			padding-bottom: 10px;
 		}
 	</style>
 <?php $this->end(); ?>

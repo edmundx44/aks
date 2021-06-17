@@ -61,8 +61,6 @@
 		font-size: 12px;
 		color: #ffa726;
 	}
-
-	
 </style>
 <?php $this->end(); ?>
 
@@ -354,14 +352,14 @@
 					<div class="dropdown-box dbox-hide"><!-- display none first-->
 						<div class="dropdown-div feedbot-dd-div">
 							<div class="select custom-bkgd">
-					       		<span class="selected-data change-site">Website</span>
-					        	<span class="float-right"><i class="fas fa-caret-down" ></i></span>
-					    	</div>
+								<span class="selected-data change-site">Website</span>
+								<span class="float-right"><i class="fas fa-caret-down" ></i></span>
+							</div>
 							<ul class="dropdown-menu cos-dropdown-menu">
-				        		<li class='opt-site-chk' data-website="aks">AKS</li>
-				        		<li class='opt-site-chk' data-website="cdd">CDD</li>
-				        		<li class='opt-site-chk' data-website="brexitgbp">BREXITGBP</li>
-			            	</ul>
+								<li class='opt-site-chk' data-website="aks">AKS</li>
+								<li class='opt-site-chk' data-website="cdd">CDD</li>
+								<li class='opt-site-chk' data-website="brexitgbp">BREXITGBP</li>
+							</ul>
 						</div>
 						<div class="float-right">
 							<input type="button" name="" class="m-d col-xs-3 btn custom-bkgd text-white" id="btn-getchksumreports" value="TABLE" data-toggle="modal" data-target="#checksum-modal">
@@ -401,9 +399,7 @@
 						</div>
 						<div id="feed-servercharge-append" class="feed-servercharge content-hide">
 							<div><h5 class="text-center mt-2 text-primary text-h5-tittle"><span class="sc-title"></span>Server Charge (Reports)</h5></div>
-
 							<div class="col-sm-12 sc-buttons">
-                
 							</div>
 							<div class="modal-screports-data col-sm-12">
 								<div class="loader-serverchargeMdata col-sm-12"><?php //$this->loader('layouts','loader'); ?></div>

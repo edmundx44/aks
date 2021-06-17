@@ -9,24 +9,24 @@
 <script type="text/javascript">
     var $dataReq = {action: 'metacriticsErrorRating'};
 
-    $(function (){
-        AjaxCall(url,$dataReq).done( ajaxSuccess );
-    });
-    function ajaxSuccess(data){
-        var ajaxMetacriticResponse = [];
-        for (var i in data){    
-		    var toPush = [
-		    		gotoMetaUrl(data[i].url),
-		            data[i].userid,
-		           	data[i].game_id,
-		            data[i].normalised_name,
-		            data[i].rating_type,
-		            ratingScoreBg(data[i].critics_score),
-		            ratingScoreBg(data[i].users_rating_score),
-		        ]
-		    ajaxMetacriticResponse.push(toPush);
+	$(function (){
+		AjaxCall(url,$dataReq).done( ajaxSuccess );
+	});
+	function ajaxSuccess(data){
+		var ajaxMetacriticResponse = [];
+		for (var i in data){    
+			var toPush = [
+				gotoMetaUrl(data[i].url),
+				data[i].userid,
+				data[i].game_id,
+				data[i].normalised_name,
+				data[i].rating_type,
+				ratingScoreBg(data[i].critics_score),
+				ratingScoreBg(data[i].users_rating_score),
+			]
+			ajaxMetacriticResponse.push(toPush);
 		}
-        if(ajaxMetacriticResponse != null){
+		if(ajaxMetacriticResponse != null){
 			$('#table-metacritics-error-rating').DataTable( {
 				destroy: true,
 				responsive: true,
@@ -34,27 +34,27 @@
 				lengthMenu: [[25, 50, 100, -1],[25, 50, 100, "All"]], // Sets up the amount of records to display
 				scrollX: 420,
 				data: ajaxMetacriticResponse,
-		        columns: [
-		        	{ title : "URL" },
-		            { title : "USER ID" },
-		            { title : "GAME ID" },
-		            { title : "NORMALISED NAME" },
-		            { title : "RATING TYPE" },
-		            { title : "CRITIC SCORE" },
-		            { title : "USER RATING SCORE" },
-		        ]
-		    });
+				columns: [
+					{ title : "URL" },
+					{ title : "USER ID" },
+					{ title : "GAME ID" },
+					{ title : "NORMALISED NAME" },
+					{ title : "RATING TYPE" },
+					{ title : "CRITIC SCORE" },
+					{ title : "USER RATING SCORE" },
+				]
+			});
 		}	
-    }
+	}
 
-    function gotoMetaUrl(url){
-    	return "<a href='"+ url +"' target='_blank'>"+url+"</a>"
-    }
-    function ratingScoreBg($ratingScore){
+	function gotoMetaUrl(url){
+		return "<a href='"+ url +"' target='_blank'>"+url+"</a>"
+	}
+	function ratingScoreBg($ratingScore){
 		if($ratingScore < 10){
-		    return $ratingScore = '<span class="text-success"><b>'+$ratingScore+'</b></span>';
+			return $ratingScore = '<span class="text-success"><b>'+$ratingScore+'</b></span>';
 		}else{
-		    return $ratingScore = '<span class="text-danger"><b>'+$ratingScore+'</b></span>';
+			return $ratingScore = '<span class="text-danger"><b>'+$ratingScore+'</b></span>';
 		}
 	}
 </script>
@@ -62,30 +62,30 @@
 
 <?php $this->start('body')?>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12 col-md-12 mtop-35px">
-            <div class="card card-style">
-                <div class="card-body no-padding">
-                    <!-- HEADER STARTS row-4-card-div-overflow-style-->
-						<div class="card-div-overflow-style row-4-card-div-overflow-style-2" style="position:relative; padding-top:20px;">
-							<div class="row" style="color:#fff;margin: 0;">
-                                <div class="header-div col-lg-10">
-									<h5 class="header-title-page">Metacritics Error Check</h5>
-									<p class="header-text-paragraph">Error will appears here if the critics or user rating score is above <b class="cdd_color" style="font-size:18px">10</b></p>
-								</div>
+	<div class="row">
+		<div class="col-lg-12 col-md-12 mtop-35px">
+			<div class="card card-style">
+				<div class="card-body no-padding">
+					<!-- HEADER STARTS row-4-card-div-overflow-style-->
+					<div class="card-div-overflow-style row-4-card-div-overflow-style-2" style="position:relative; padding-top:20px;">
+						<div class="row" style="color:#fff;margin: 0;">
+							<div class="header-div col-lg-10">
+								<h5 class="header-title-page">Metacritics Error Check</h5>
+								<p class="header-text-paragraph">Error will appears here if the critics or user rating score is above <b class="cdd_color" style="font-size:18px">10</b></p>
 							</div>
-                        </div>
-                    <!-- CONTENT STARTS row-4-card-div-overflow-style-->
-                        <div>
-                            <div class="col-lg-12" style="font-size: 14px;">
-                                <table id="table-metacritics-error-rating" class="display" width="100%">
+						</div>
+					</div>
+					<!-- CONTENT STARTS row-4-card-div-overflow-style-->
+					<div>
+						<div class="col-lg-12" style="font-size: 14px;">
+							<table id="table-metacritics-error-rating" class="display" width="100%">
 
-                                </table>
-				            </div>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <?php $this->end()?> 

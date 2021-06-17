@@ -1,10 +1,10 @@
 <?php
-  use Core\Router;
-  use Core\H;
-  use App\Models\Users;
-  $menu = Router::getMenu('menu_acl');
-  $currentPage = H::currentPage(); //for active only
-  $currentPageUse = (is_array($val)) ? trim(preg_replace('/^(\/[^\/]+)(\/[^\/]+)(\/[^\/]+)\/?|.+/','${1}${2}${3}',$currentPage)) : $currentPage;
+	use Core\Router;
+	use Core\H;
+	use App\Models\Users;
+	$menu = Router::getMenu('menu_acl');
+	$currentPage = H::currentPage(); //for active only
+	$currentPageUse = (is_array($val)) ? trim(preg_replace('/^(\/[^\/]+)(\/[^\/]+)(\/[^\/]+)\/?|.+/','${1}${2}${3}',$currentPage)) : $currentPage;
 ?>
 <style type="text/css">
 	.header-content {
