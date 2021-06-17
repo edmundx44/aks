@@ -1332,6 +1332,14 @@ class Ajax {
 					'column' => ['id', 'name']
 				]);
 			break;
+			case 'ae-create-action':
+			// $data = array();
+			// foreach(explode('&', $_POST['toCreateData']) as $value){
+			// 	return explode('=', $value);			   	
+			// }
+			// parse_str($_GET, $params);
+				
+			break;
 		}
 	
 	}//END OF FUNCTION AJAXDATA

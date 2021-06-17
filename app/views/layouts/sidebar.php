@@ -12,75 +12,69 @@
 <style>
 	.switch-btn {
 		top: 3px;
-  position: relative;
-  display: inline-block;
-  width: 30px;
-  height: 14px;
-}
+		position: relative;
+		display: inline-block;
+		width: 30px;
+		height: 14px;
+	}
+	.switch-btn input { 
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+	.switch-slider {
+		position: absolute;
+		cursor: pointer;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #ccc;
+		-webkit-transition: .4s;
+		transition: .4s;
+	}
+	.switch-slider:before {
+		position: absolute;
+		content: "";
+		height: 10px;
+		width: 11px;
+		left: 2px;
+		bottom: 2px;
+		background-color: white;
+		-webkit-transition: .4s;
+		transition: .4s;
+	}
+	input:checked + .switch-slider {
+		background-color: #2196F3;
+	}
+	input:focus + .switch-slider {
+		box-shadow: 0 0 1px #2196F3;
+	}
+	input:checked + .switch-slider:before {
+		-webkit-transform: translateX(15px);
+		-ms-transform: translateX(15px);
+		transform: translateX(15px);
+	}
 
-.switch-btn input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+	/* Rounded switch-sliders */
+	.switch-slider.round {
+		border-radius: 34px;
+	}
 
-.switch-slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.switch-slider:before {
-  position: absolute;
-  content: "";
-  height: 10px;
-  width: 11px;
-  left: 2px;
-  bottom: 2px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .switch-slider {
-  background-color: #2196F3;
-}
-
-input:focus + .switch-slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .switch-slider:before {
-  -webkit-transform: translateX(15px);
-  -ms-transform: translateX(15px);
-  transform: translateX(15px);
-}
-
-/* Rounded switch-sliders */
-.switch-slider.round {
-  border-radius: 34px;
-}
-
-.switch-slider.round:before {
-  border-radius: 50%;
-}
-.div-img-logout-settings-li {
-	margin-bottom: 5px;
-	cursor: pointer;
-	padding:5px;
-	font-size: 13px;
-	height: 30px;
-	border-radius: 5px;
-}
-.div-img-logout-settings-li:hover {
-	background-color: #e1e1e2;
-}
+	.switch-slider.round:before {
+		border-radius: 50%;
+	}
+	.div-img-logout-settings-li {
+		margin-bottom: 5px;
+		cursor: pointer;
+		padding:5px;
+		font-size: 13px;
+		height: 30px;
+		border-radius: 5px;
+	}
+	.div-img-logout-settings-li:hover {
+		background-color: #e1e1e2;
+	}
 </style>
 
 
