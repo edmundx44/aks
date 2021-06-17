@@ -248,10 +248,10 @@
 
 <?php $this->start('body')?>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12 col-md-12 mtop-35px">
-            <div class="card-body rdl-card-main-wrap no-padding">
-                <div class="card-div-overflow-style row-1-card-div-overflow-style row-1-card-div-overflow-style-1">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 mtop-35px">
+			<div class="card-body rdl-card-main-wrap no-padding">
+				<div class="card-div-overflow-style row-1-card-div-overflow-style row-1-card-div-overflow-style-1">
 					<p class="card-bulletin header-card-bulitin">MENU :</p>
 					<ul class="header-ul-menu">
 						<li class="header-menu-item" id="menu-rating101" data-div="rating101"><a class ="a-style" href="<?= PROOT.'tools/ratingList?tab=rating101' ?>">Rating 101</a></li>
@@ -261,9 +261,9 @@
 						<li class="header-menu-item" id="menu-tbaprices" data-div="tbaprices"><a   class ="a-style" href="<?= PROOT.'tools/ratingList?tab=tbaprices' ?>">TBA Prices</a></li>
 					</ul>
 				</div>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="container-fluid">
@@ -324,10 +324,17 @@
 								</span>
                             </div>
 						</div>
-                </div>
-            </div>
-        </div>
-    </div>
+					</div >
+					<!-- CONTENT STARTS -->
+					<div class="col-xs-12 div-body-table mt-4 mb-2" class="merchant-edition">
+						<div class="col-lg-12 no-padding" id="merchant-edition">
+							test
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <?php $this->end()?>
 

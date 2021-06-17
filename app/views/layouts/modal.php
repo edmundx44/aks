@@ -1,46 +1,46 @@
 <link rel="stylesheet" href="<?=PROOT?>vendors/css/modal.css" media="screen" title="no title" charset="utf-8">
 
 <div class="modal" id="displayStoreGamesByNormalizedName">
-    <div class="modal-dialog displayStoreGamesByNormalizedNameDialog">
-        <div class="modal-content displayStoreGamesByNormalizedNameContent" style="top: 70px;">
-      
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <!-- search name and normalized name -->
-                <div class="modal-title">
-                    <div class="sideborder"></div>
-                    <span class="productName"></span> 
-                    <span class="productNormalizedName"></span> 
-                </div>
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <br>
-                <br>
-                <br>
-            </div>
-            
-            <!-- Modal body -->
-            <div class="modal-body displayStoreGamesByNormalizedNameBody">
-                <div class="nname-modal-thead">
-                    <div class="nname-modal-thead-div">
-                        <div class="modal-child modal-child-1">Merchant</div>
-                        <div class="modal-child modal-child-2">Region</div>
-                        <div class="modal-child modal-child-3">Edition</div>
-                        <div class="modal-child modal-child-4">Stock</div>
-                        <div class="modal-child modal-child-5">Price</div>
-                        <div class="modal-child modal-child-6"> &nbsp; </div>
-                    </div>
-                </div>
-                <div class="nname-modal-tbody">
-                </div>
+	<div class="modal-dialog displayStoreGamesByNormalizedNameDialog">
+		<div class="modal-content displayStoreGamesByNormalizedNameContent" style="top: 70px;">
 
-            </div>
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<!-- search name and normalized name -->
+				<div class="modal-title">
+					<div class="sideborder"></div>
+					<span class="productName"></span> 
+					<span class="productNormalizedName"></span> 
+				</div>
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<br>
+				<br>
+				<br>
+			</div>
 
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn modal-close-btn" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
+			<!-- Modal body -->
+			<div class="modal-body displayStoreGamesByNormalizedNameBody">
+				<div class="nname-modal-thead">
+					<div class="nname-modal-thead-div">
+						<div class="modal-child modal-child-1">Merchant</div>
+						<div class="modal-child modal-child-2">Region</div>
+						<div class="modal-child modal-child-3">Edition</div>
+						<div class="modal-child modal-child-4">Stock</div>
+						<div class="modal-child modal-child-5">Price</div>
+						<div class="modal-child modal-child-6"> &nbsp; </div>
+					</div>
+				</div>
+				<div class="nname-modal-tbody">
+					<!-- dynamic data here -->
+				</div>
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn modal-close-btn" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- 
@@ -51,23 +51,23 @@ search product modal
 		<div class="modal-content spm-content">
 			<div class="spm-content-wrapper">
 				<div class="spm-content-header">
-					<div class="dropdown" style="width: 150px;margin-right: 0;display: block;margin-left: auto;">
-						<button class="btn btn-primary dropdown-toggle search-product-modal-dd-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;">Select Site</button>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
+					<div class="dropdown spm-header-dd">
+						<button class="btn btn-primary dropdown-toggle search-product-modal-dd-btn col-12" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Select Site</button>
+						<div class="dropdown-menu col-12" aria-labelledby="dropdownMenuButton">
 							<span class="dropdown-item search-product-modal-ddi">AKS</span>
 							<span class="dropdown-item search-product-modal-ddi">CDD</span>
 							<span class="dropdown-item search-product-modal-ddi">BREX</span>
 						</div>
 					</div>
-					<div class="input-text-div" style="margin: 15px 0 0 0;">
+					<div class="input-text-div spm-header-search-box">
 						<input type="text" name="" class="input-text-class search-product-modal-txt" required>
 						<i class="input-text-i fas fa-search search-product-modal-i"></i>
 						<span class="input-text-span search-product-modal-span">Search Product</span>
 						<span class="input-text-border"></span>
-                    </div>
+					</div>
 				</div>
 				<div class="text-center spmc-loader-wrapper">
-					<span style="font-weight: 500;font-size: 15px;letter-spacing: 2px;">Processing</span>
+					<span class="span-txt">Processing</span>
 					<div class="boxes box-loader">
 						<div class="box">
 							<div></div>
@@ -97,7 +97,7 @@ search product modal
 				</div>
 				<div class="spm-content-body">
 					<div class="spm-sub-header">
-						<div class="spm-sub-header-tittle" style="margin: 10px 0 0 0;">
+						<div class="spm-sub-header-tittle">
 							<span>
 								&nbsp; &nbsp; 
 								<i class="far fa-eye"></i>
@@ -108,15 +108,15 @@ search product modal
 						<div class="spm-sub-header-btn">
 							<div class="spmc-btn spmc-btn-merchant-create">
 
-								<div class="dropdown" style="display: inline-block;position: relative;">
-									<button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;box-shadow: none;"><i class="fas fa-plus-square"></i> &nbsp; &nbsp; Select Merchant&nbsp; &nbsp; &nbsp; &nbsp;</button>
-									<div class="dropdown-menu spmc-dm" aria-labelledby="dropdownMenuButton" style="width: 100%;">
+								<div class="dropdown spmc-content-dd">
+									<button class="btn btn-info dropdown-toggle col-12" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus-square"></i> &nbsp; &nbsp; Select Merchant&nbsp; &nbsp; &nbsp; &nbsp;</button>
+									<div class="dropdown-menu spmc-dm col-12" aria-labelledby="dropdownMenuButton">
 										<!-- display from database -->
 									</div>
 								</div>
 							</div>
 							
-							<button class="btn btn-info spmc-btn spmc-request-id-btn" style="position: relative;display:none;"><i class="fas fa-plus-square"></i> &nbsp; Request</button>
+							<button class="btn btn-info spmc-btn spmc-request-id-btn"><i class="fas fa-plus-square"></i> &nbsp; Request</button>
 						</div>
 					</div>
 					<div class="spm-content-display">
@@ -129,131 +129,117 @@ search product modal
 	</div>
 </div>
 
-<!-- Large modal -->
+<!-- add edit modal -->
 <div class="modal fade bd-example-modal-lg add-edit-store-game-modal no-padding" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-	<div class="modal-dialog modal-lg modal-xl-override" style="height:  calc(100% - 60px);" role="document">
-		<div class="modal-content" style="height:  100%;border-radius: 0;background-clip: initial; background: rgba(0,123,255, .5);border: none;padding: 10px;">
-			<div class="modal-content-wrapper" style="width: 100%;height: 100%;background-color: #fff;">
-				<div class="modal-content-header" style="height: 100px;background-color: #1e1e2f;">
-					<button type="button" class="close float-right" data-dismiss="modal" style="position: relative;right: 15px;top: 10px;color: #fff;font-size: 15px;">
+	<div class="modal-dialog modal-lg modal-xl-override ae-modal-dialog" role="document">
+		<div class="modal-content ae-modal-content">
+			<div class="modal-content-wrapper ae-modal-conten-wrapper">
+				<div class="modal-content-header ae-modal-content-header">
+					<button type="button" class="close float-right ae-modal-dismiss" data-dismiss="modal">
 						<i class="fas fa-times"></i>
 					</button>
-					<div class="modal-content-header-content" style="padding: 10px 0 15px 15px;">
-						<p class="ae-product-p-title" style="margin: 0; padding: 0;color: #fff;letter-spacing: 2px;"></p>
-						<p class="text-warning text-center" style="margin: 0; padding: 0;color: #fff;font-size: 12px;">*** Do not add region on AKS PC games ***</p>
-						<p class="text-warning text-center" style="margin: 0; padding: 0;color: #fff;font-size: 12px;">LATAM, US, RUSSIA , ACCOUNT, APAC and ASIAN regions</p>
-						<p class="text-warning text-center" style="margin: 0; padding: 0;color: #fff;font-size: 12px;">About consoles all regions are autorised</p>
+					<div class="modal-content-header-content ae-modal-content-header-content">
+						<p class="ae-product-p-title"></p>
+						<p class="text-warning text-center ae-ppt-span">*** Do not add region on AKS PC games ***</p>
+						<p class="text-warning text-center ae-ppt-span">LATAM, US, RUSSIA , ACCOUNT, APAC and ASIAN regions</p>
+						<p class="text-warning text-center ae-ppt-span">About consoles all regions are autorised</p>
 					</div>
 				</div>
-				<div class="modal-content-body scrollbar-custom" style="height:  calc(100% - 170px);overflow-y: auto;overflow-x:hidden;">
-                    <div class="row" style="padding: 10px 25px 40px 25px;">
+				<div class="modal-content-body scrollbar-custom ae-modal-content-body">
+					<div class="row ae-mcb-row">
 
-                        <!-- 1st row -------------------------- -->
-                        <div class="col-sm-6">
-                            <div class="input-text-div" style="margin: 30px 0 0 0;">
-                                <i class="input-text-i fas fa-store-alt"></i>
-                                <input type="text" name="" class="input-text-class ae-merchant-input" required>
-                                <span class="input-text-span">Merchant</span>
-                                <span class="input-text-border"></span>
-                            </div>
-                            <div class="input-text-div" style="margin: 30px 0 0 0;">
-                                <i class="input-text-i fas fa-search"></i>
-                                <input type="text" name="" class="input-text-class ae-search-name-input" required>
-                                <span class="input-text-span">Search name</span>
-                                <span class="input-text-border"></span>
-                            </div>
-                            <div class="dropdown" style="margin: 30px 0 0 0;">
-                        
-	                            <input type="text" class="input-text-class dropdown-toggle ae-edition-input" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
-	                            <i class="input-text-i fal fa-angle-down"></i>
-	                            <span class="input-text-span" style="left: 5px">Select Edition</span>
-	                            <span class="input-text-border"></span>
-                            	<!-- <i class="fal fa-angle-down" style="position: absolute; right: 15px;margin-top: 13px;"></i>
-                                <input type="text" class="dropdown-toggle ae-edition-input" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent;z-index: 1;width: 100%;height: 38px;outline: none; border: solid 2px #ccc;position: relative;" placeholder="Select Edition"> -->
+						<!-- 1st row -------------------------- -->
+						<div class="col-sm-6">
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fas fa-store-alt"></i>
+								<input type="text" name="" class="input-text-class ae-merchant-input" required>
+								<span class="input-text-span">Merchant</span>
+								<span class="input-text-border"></span>
+							</div>
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fas fa-search"></i>
+								<input type="text" name="" class="input-text-class ae-search-name-input" required>
+								<span class="input-text-span">Search name</span>
+								<span class="input-text-border"></span>
+							</div>
+							<div class="dropdown" style="margin: 30px 0 0 0;">
+								<input type="text" class="input-text-class ae-edition-input dropdown-inputbox" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
+								<i class="input-text-i fal fa-angle-down"></i>
+								<span class="input-text-span" style="left: 5px">Select Edition</span>
+								<span class="input-text-border"></span>
 
+								<div class="dropdown-menu-div dmd-edition">
+									<!-- data from database -->
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fas fa-key"></i>
+								<input type="text" name="" class="input-text-class ae-gameid-input" required> <!-- game id = normalise name -->
+								<span class="input-text-span">Game ID</span>
+								<span class="input-text-border"></span>
+							</div>
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fas fa-money-check-alt"></i>
+								<input type="text" name="" class="input-text-class ae-price-input" required>
+								<span class="input-text-span">Price</span>
+								<span class="input-text-border"></span>
+							</div>
+							<div class="dropdown" style="margin: 30px 0 0 0;">
+								<input type="text" class="input-text-class ae-region-input dropdown-inputbox" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
+								<i class="input-text-i fal fa-angle-down"></i>
+								<span class="input-text-span" style="left: 5px">Select Region</span>
+								<span class="input-text-border"></span>
+								<div class="dropdown-menu-div dmd-region">
+									<!-- display data from database -->
+								</div>
+							</div>
+						</div>
 
+						<!-- 2nd row -------------------------- -->
+						<div class="col-sm-12">
+							<div class="dropdown" style="margin: 30px 0 0 0;">
+								<input type="text" class="input-text-class ae-ratings-input dropdown-inputbox" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
+								<i class="input-text-i fal fa-angle-down"></i>
+								<span class="input-text-span" style="left: 5px">Select RATINGS</span>
+								<span class="input-text-border"></span>
 
-                                <div class="dropdown-menu ae-edition-input-dm" aria-labelledby="dropdownMenuButton" style="width: 100%;">
-                                    <span class="dropdown-item ae-edition-input-di" data-valueni="t1">test1</span>
-                                    <span class="dropdown-item ae-edition-input-di" data-valueni="t2">test2</span>
-                                    <span class="dropdown-item ae-edition-input-di" data-valueni="t3">test3</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="input-text-div" style="margin: 30px 0 0 0;">
-                                <i class="input-text-i fas fa-key"></i>
-                                <input type="text" name="" class="input-text-class ae-gameid-input" required> <!-- game id = normalise name -->
-                                <span class="input-text-span">Game ID</span>
-                                <span class="input-text-border"></span>
-                            </div>
-                            <div class="input-text-div" style="margin: 30px 0 0 0;">
-                                <i class="input-text-i fas fa-money-check-alt"></i>
-                                <input type="text" name="" class="input-text-class ae-price-input" required>
-                                <span class="input-text-span">Price</span>
-                                <span class="input-text-border"></span>
-                            </div>
-                            <div class="dropdown" style="margin: 30px 0 0 0;">
+								<div class="dropdown-menu-div dmd-ratings" style="overflow:hidden !important;">
+									<div class="dropdown-menu-div-sub dmds-ratings" >0</div>
+									<div class="dropdown-menu-div-sub dmds-ratings" >101</div>
+									<div class="dropdown-menu-div-sub dmds-ratings" >102</div>
+									<div class="dropdown-menu-div-sub dmds-ratings" >103</div>
+									<div class="dropdown-menu-div-sub dmds-ratings" >104</div>
+									<div class="dropdown-menu-div-sub dmds-ratings" >404</div>
+								</div>
+							</div>
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fas fa-external-link-alt"></i>
+								<input type="text" name="" class="input-text-class ae-url-input" required> <!-- url = buy url -->
+								<span class="input-text-span">Url</span>
+								<span class="input-text-border"></span>
+							</div>
+						</div>
 
-                            	<input type="text" class="input-text-class dropdown-toggle ae-region-input" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
-	                            <i class="input-text-i fal fa-angle-down"></i>
-	                            <span class="input-text-span" style="left: 5px">Select Region</span>
-	                            <span class="input-text-border"></span>
+						<!-- 3rd row -------------------------- -->
+						<div class="col-sm-6">
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fas fa-braille"></i>
+								<input type="text" name="" class="input-text-class ae-keyword-input" required>
+								<span class="input-text-span">Keyword</span>
+								<span class="input-text-border"></span>
+							</div>
+						</div>
 
-
-                            	<!-- <i class="fal fa-angle-down" style="position: absolute; right: 15px;margin-top: 13px;"></i>
-                                <input type="text" class="dropdown-toggle ae-region-input" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent;z-index: 1;width: 100%;height: 38px;outline: none; border: solid 2px #ccc;position: relative;" placeholder="Select Region"> -->
-
-                                <div class="dropdown-menu ae-region-input-dm" aria-labelledby="dropdownMenuButton" style="width: 100%;height: auto;max-height: 400px;overflow-x: hidden;overflow-y: scroll;">
-                                	<!-- display from database -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 2nd row -------------------------- -->
-                        <div class="col-sm-12">
-                            <div class="dropdown" style="margin: 30px 0 0 0;">
-                            	<input type="text" class="input-text-class dropdown-toggle ae-ratings-input" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
-	                            <i class="input-text-i fal fa-angle-down"></i>
-	                            <span class="input-text-span" style="left: 5px">Select RATINGS</span>
-	                            <span class="input-text-border"></span>
-
-                                <!-- <button class="btn btn-primary dropdown-toggle ae-ratings-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;text-align: left;">Select RATINGS</button> -->
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
-                                    <a class="dropdown-item" href="#">0</a>
-                                    <a class="dropdown-item" href="#">101</a>
-                                    <a class="dropdown-item" href="#">102</a>
-                                    <a class="dropdown-item" href="#">103</a>
-                                    <a class="dropdown-item" href="#">104</a>
-                                    <a class="dropdown-item" href="#">404</a>
-                                </div>
-                            </div>
-                            <div class="input-text-div" style="margin: 30px 0 0 0;">
-                                <i class="input-text-i fas fa-external-link-alt"></i>
-                                <input type="text" name="" class="input-text-class ae-url-input" required> <!-- url = buy url -->
-                                <span class="input-text-span">Url</span>
-                                <span class="input-text-border"></span>
-                            </div>
-                        </div>
-
-                        <!-- 3rd row -------------------------- -->
-                        <div class="col-sm-6">
-                            <div class="input-text-div" style="margin: 30px 0 0 0;">
-                                <i class="input-text-i fas fa-braille"></i>
-                                <input type="text" name="" class="input-text-class ae-keyword-input" required>
-                                <span class="input-text-span">Keyword</span>
-                                <span class="input-text-border"></span>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div class="input-text-div" style="margin: 30px 0 0 0;">
-                                <i class="input-text-i fas fa-external-link-square-alt"></i>
-                                <input type="text" name="" class="input-text-class ae-category-input" required>
-                                <span class="input-text-span">Category</span>
-                                <span class="input-text-border"></span>
-                            </div>
-                        </div>
+						<div class="col-sm-6">
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
+								<i class="input-text-i fas fa-external-link-square-alt"></i>
+								<input type="text" name="" class="input-text-class ae-category-input" required>
+								<span class="input-text-span">Category</span>
+								<span class="input-text-border"></span>
+							</div>
+						</div>
 
 						<!-- 4th row -------------------------- -->
 						<div class="col-sm-12">
@@ -266,8 +252,8 @@ search product modal
 						</div>
 
 						<!-- 5th row -------------------------- -->
-	                    <div class="col-sm-6">
-	                    	<div class="input-text-div" style="margin: 30px 0 0 0;">
+						<div class="col-sm-6">
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fab fa-staylinked"></i>
 								<input type="text" name="" class="input-text-class ae-buy-url-tier-input" required>
 								<span class="input-text-span">Buy url tier</span>
@@ -341,8 +327,8 @@ search product modal
 						</div>
 
 						<!-- 6th row -------------------------- -->
-	                    <div class="col-sm-12">
-	                    	<div class="input-text-div" style="margin: 30px 0 0 0;">
+						<div class="col-sm-12">
+							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fab fa-accusoft"></i>
 								<input type="text" name="" class="input-text-class ae-image-url-input" style="background-color: #ededed" disabled>
 								<span class="input-text-span"></span>
@@ -411,9 +397,9 @@ search product modal
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
-	                    </div>
+						</div>
 
-                    </div> <!-- end row -->
+					</div> <!-- end row -->
 				</div>
 				<div class="modal-content-foot" style="height: 70px;border-top: solid 1px rgba(0,123,255, .5); padding: 10px;text-align: right;">
 					<button class="btn btn-primary mt-1">Submit</button>
@@ -423,23 +409,21 @@ search product modal
 	</div>
 </div>
 
-
 <!-- checksum Modal -->
 <div id="checksum-modal" class="modal fade" role="dialog">
-  <div class="modal-dialog checksum-dialog">
-
-    <!-- Modal content-->
-        <div class="modal-content modal-con-override" style="top: 70px; border-radius: .5rem">
-            <div class="modal-header" style="background: linear-gradient(60deg, #004ea3, #0062cc);color: #fff;letter-spacing: 1px;">
-                <h5 class="modal-title dateChange">CHECKSUM 
-                    <?php 
-                        echo "(PH:". $today = date('M d',strtotime(date('M d'))).")";
-                    ?>
-                </h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="col-sm-12 modal-checksum-site" data-modal-checksumsite="aks" style="margin-bottom: 5px;margin-top: 5px;">
-                <div class="dropdown-box dbox-hide">
+	<div class="modal-dialog checksum-dialog">
+		<!-- Modal content-->
+		<div class="modal-content modal-con-override" style="top: 70px; border-radius: .5rem">
+			<div class="modal-header" style="background: linear-gradient(60deg, #004ea3, #0062cc);color: #fff;letter-spacing: 1px;">
+				<h5 class="modal-title dateChange">CHECKSUM 
+ 					<?php 
+						echo "(PH:". $today = date('M d',strtotime(date('M d'))).")";
+					?>
+				</h5>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="col-sm-12 modal-checksum-site" data-modal-checksumsite="aks" style="margin-bottom: 5px;margin-top: 5px;">
+				<div class="dropdown-box dbox-hide">
                     <div class="dropdown-div" style="width: 150px;">
                         <div class="select custom-bkgd">
                             <span class="selected-data change-site">Website</span>
@@ -452,7 +436,7 @@ search product modal
                         </ul>
                     </div>
                     <div class="float-right custom-bkgd chkTable-total" style="padding: 8px;width: 120px;color: #fff;text-align: center;">TOTAL</div>
-                </div>
+				</div>
             </div>
                 <div class="modal-checksum-data col-sm-12">
                     <table class="table table-checksum">
@@ -474,9 +458,8 @@ search product modal
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                 <!-- <button type="button" class="btn btn-success addChangeLog">Submit</button> -->
             </div>
-        </div>
-
-    </div>
+		</div>
+	</div>
 </div>
 
 <!-- report modal -->
@@ -1265,6 +1248,30 @@ search product modal
 
 
 <style>
+/*search product modal or spm section ---------------------------------------------------------------*/
+	.spm-header-dd {
+		width: 150px;
+		margin-right: 0;
+		display: block;
+		margin-left: auto;
+	}
+	.spm-header-search-box {
+		margin: 15px 0 0 0;
+	}	
+	.spm-sub-header-tittle {
+		margin: 10px 0 0 0;
+	}
+	.spmc-content-dd {
+		display: inline-block;
+		position: relative;
+	}
+	.dropdown-toggle {
+		box-shadow: none !important;
+	}
+	.spmc-request-id-btn {
+		position: relative;
+		display:none;
+	}
 	.spm-dialog-height-max {
 		margin-top: ;
 		height:  calc(100% - 60px);
@@ -1279,10 +1286,8 @@ search product modal
 	}
 	.spm-dialog-height {
 		margin-top: 20%;
-		height:;
 	}
 	.spm-dialog {
-		/*overflow: hidden;*/
 		-webkit-transition: .2s ease-in-out !important;
 		-moz-transition: .2s ease-in-out !important;
 		-o-transition: .2s ease-in-out !important;
@@ -1376,10 +1381,24 @@ search product modal
 		color: #fff;
 		background-color: #138496;
 	}
-	.ae-region-input-di {
+	.dropdown-menu-div {
+		display: none;
+		width: 100%;
+		height: auto;
+		max-height: 400px;
+		background-color: #fff;
+		border: solid 1px #ccc;
+		position: absolute;
+		z-index: 2;
+		overflow: auto;
+		overflow-x: hidden;
+	}
+	.dropdown-menu-div-sub {
+		padding: 10px 25px;
 		cursor: pointer;
 	}
-	.ae-region-input-di:hover {
+	
+	.dropdown-menu-div-sub:hover {
 		color: #fff;
 		background-color: #0069d9;
 	}
@@ -1389,6 +1408,11 @@ search product modal
 		margin: 10px 0 0 0;
 		padding-bottom: 35px;
 		display: none;
+	}
+	.span-txt {
+		font-weight: 500;
+		font-size: 15px;
+		letter-spacing: 2px;
 	}
 	.boxes {
 		margin-top: 10px;
@@ -1502,6 +1526,57 @@ search product modal
 		 100% {
 			 transform: translate(100%, 100%);
 		}
+	}
+/*add edit modal section ------------------------------------------*/
+	.ae-modal-dialog {
+		height:  calc(100% - 60px);
+	}
+	.ae-modal-content {
+		height:  100%;
+		border-radius: 0;
+		background-clip: initial; 
+		background: rgba(0,123,255, .5);
+		border: none;
+		padding: 10px;
+	}
+	.ae-modal-conten-wrapper {
+		width: 100%;
+		height: 100%;
+		background-color: #fff;
+	}
+	.ae-modal-content-header {
+		height: 100px;
+		background-color: #1e1e2f;
+	}
+	.ae-modal-dismiss {
+		position: relative;
+		right: 15px;
+		top: 10px;
+		color: #fff;
+		font-size: 15px;
+	}
+	.ae-modal-content-header-content {
+		padding: 10px 0 15px 15px;
+	}
+	.ae-product-p-title {
+		margin: 0; 
+		padding: 0;
+		color: #fff;
+		letter-spacing: 2px;
+	}
+	.ae-ppt-span {
+		margin: 0; 
+		padding: 0;
+		color: #fff;
+		font-size: 12px;
+	}
+	.ae-modal-content-body {
+		height:  calc(100% - 170px);
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+	.ae-mcb-row {
+		padding: 10px 25px 40px 25px;
 	}
 </style>
 
