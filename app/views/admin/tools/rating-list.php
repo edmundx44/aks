@@ -291,7 +291,7 @@
                                 </div>
                                 
 							</div>
-						</div >
+						</div>
                     <!-- CONTENT STARTS -->
                         <div class="col-xs-12 div-body-table mb-2" class="rating-list-containter">
                         
@@ -324,17 +324,12 @@
 								</span>
                             </div>
 						</div>
-					</div >
-					<!-- CONTENT STARTS -->
-					<div class="col-xs-12 div-body-table mt-4 mb-2" class="merchant-edition">
-						<div class="col-lg-12 no-padding" id="merchant-edition">
-							test
-						</div>
-					</div>
+                        
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
 <?php $this->end()?>
 
