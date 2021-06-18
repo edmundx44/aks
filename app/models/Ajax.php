@@ -1430,6 +1430,14 @@ class Ajax {
 					'order' => 'vols_nom ASC'
 				]);
 			break;
+			case 'ae-create-action':
+			// $data = array();
+			// foreach(explode('&', $_POST['toCreateData']) as $value){
+			// 	return explode('=', $value);			   	
+			// }
+			// parse_str($_GET, $params);
+				
+			break;
 		}
 	
 	}//END OF FUNCTION AJAXDATA

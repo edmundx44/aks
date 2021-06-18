@@ -145,6 +145,11 @@
 	.dataTables_filter input[type="search"]{
 		width: 100% !important;
 	}
+	.ae-autocreation-available-div-content {
+		border-radius: initial !important;
+		width: calc(100% - 20px) !important;
+		border-right: none !important;
+	}
 }
 
 /* small devices (tablets, 768px)*/
@@ -174,6 +179,11 @@
 	.displayStoreGamesByNormalizedNameDialog {
 		max-width: calc(100% - 20px) !important;
 		height: calc(100% - 20px) !important;
+	}
+	.ae-autocreation-available-btn {
+		left: 10px !important;
+		border-radius: initial !important;
+		z-index: 3;
 	}
 }
 

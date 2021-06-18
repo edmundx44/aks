@@ -140,30 +140,162 @@ search product modal
 					</button>
 					<div class="modal-content-header-content ae-modal-content-header-content">
 						<p class="ae-product-p-title"></p>
+						<p style="position:absolute;font-size: 9px;color: #fff;text-transform: uppercase;letter-spacing: 2px;">Mode : <span class="ae-to-what"></span></p>
 						<p class="text-warning text-center ae-ppt-span">*** Do not add region on AKS PC games ***</p>
 						<p class="text-warning text-center ae-ppt-span">LATAM, US, RUSSIA , ACCOUNT, APAC and ASIAN regions</p>
 						<p class="text-warning text-center ae-ppt-span">About consoles all regions are autorised</p>
 					</div>
 				</div>
 				<div class="modal-content-body scrollbar-custom ae-modal-content-body">
-					<div class="row ae-mcb-row">
+					<div class="ae-autocreation-available-btn">
+						<i class="fas fa-cogs ae-aad-icon"></i>
+					</div>
+					<div class="ae-autocreation-available-div-content">
+						<ul class="ae-aadc-ul">
+							<li class="ae-aadc-li" id="ae-addc-i-on-aks">AKS</li>
+							<li class="ae-aadc-li" id="ae-addc-i-on-cdd">CDD</li>
+							<li class="ae-aadc-li" id="ae-addc-i-on-brex">BREXIT</li>
+						</ul>
+						<p class="ae-aadc-description">Auto creation include's.</p>
+						<div class="ae-aadc-includes ae-addc-i-on-aks">
+
+							<!-- available for aks here  -->
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for AKS "<span>FR</span>"
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for AKS "<span>DE</span>"
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for AKS "<span>FR</span>"
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for AKS "<span>DE</span>"
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for AKS "<span>FR</span>"
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for AKS "<span>DE</span>"
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for AKS "<span>FR</span>"
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for AKS "<span>DE</span>"
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for AKS "<span>FR</span>"
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for AKS "<span>DE</span>"
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for AKS "<span>FR</span>"
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for AKS "<span>DE</span>"
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for AKS "<span>FR</span>"
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for AKS "<span>DE</span>"
+								</label>
+							</div>
+						</div>
+						<div class="ae-aadc-includes ae-addc-i-on-cdd">
+
+							<!-- available for CDD here  -->
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for cdd "<span>FR</span>"
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for cdd "<span>DE</span>"
+								</label>
+							</div>
+						</div>
+						<div class="ae-aadc-includes ae-addc-i-on-brex">
+
+							<!-- available for brex here  -->
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for brex "<span>FR</span>"
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+									Auto for Brex "<span>DE</span>"
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="row ae-mcb-row" id="ae-mcb-row">
 
 						<!-- 1st row -------------------------- -->
 						<div class="col-sm-6">
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-store-alt"></i>
-								<input type="text" name="" class="input-text-class ae-merchant-input" required>
+								<input type="text" name="ae-merchant-input" class="input-text-class ae-merchant-input" required>
 								<span class="input-text-span">Merchant</span>
 								<span class="input-text-border"></span>
 							</div>
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-search"></i>
-								<input type="text" name="" class="input-text-class ae-search-name-input" required>
+								<input type="text" name="ae-search-name-input" class="input-text-class ae-search-name-input" required>
 								<span class="input-text-span">Search name</span>
 								<span class="input-text-border"></span>
 							</div>
 							<div class="dropdown" style="margin: 30px 0 0 0;">
-								<input type="text" class="input-text-class ae-edition-input dropdown-inputbox" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
+								<input type="text" name="ae-edition-input" class="input-text-class ae-edition-input dropdown-inputbox" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
 								<i class="input-text-i fal fa-angle-down"></i>
 								<span class="input-text-span" style="left: 5px">Select Edition</span>
 								<span class="input-text-border"></span>
@@ -176,18 +308,18 @@ search product modal
 						<div class="col-sm-6">
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-key"></i>
-								<input type="text" name="" class="input-text-class ae-gameid-input" required> <!-- game id = normalise name -->
+								<input type="text" name="ae-gameid-input" class="input-text-class ae-gameid-input" required> <!-- game id = normalise name -->
 								<span class="input-text-span">Game ID</span>
 								<span class="input-text-border"></span>
 							</div>
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-money-check-alt"></i>
-								<input type="text" name="" class="input-text-class ae-price-input" required>
+								<input type="text" name="ae-price-input" class="input-text-class ae-price-input" required>
 								<span class="input-text-span">Price</span>
 								<span class="input-text-border"></span>
 							</div>
 							<div class="dropdown" style="margin: 30px 0 0 0;">
-								<input type="text" class="input-text-class ae-region-input dropdown-inputbox" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
+								<input type="text" name="ae-region-input" class="input-text-class ae-region-input dropdown-inputbox" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
 								<i class="input-text-i fal fa-angle-down"></i>
 								<span class="input-text-span" style="left: 5px">Select Region</span>
 								<span class="input-text-border"></span>
@@ -200,7 +332,7 @@ search product modal
 						<!-- 2nd row -------------------------- -->
 						<div class="col-sm-12">
 							<div class="dropdown" style="margin: 30px 0 0 0;">
-								<input type="text" class="input-text-class ae-ratings-input dropdown-inputbox" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
+								<input type="text" name="ae-ratings-input" class="input-text-class ae-ratings-input dropdown-inputbox" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
 								<i class="input-text-i fal fa-angle-down"></i>
 								<span class="input-text-span" style="left: 5px">Select RATINGS</span>
 								<span class="input-text-border"></span>
@@ -216,7 +348,7 @@ search product modal
 							</div>
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-external-link-alt"></i>
-								<input type="text" name="" class="input-text-class ae-url-input" required> <!-- url = buy url -->
+								<input type="text" name="ae-url-input" class="input-text-class ae-url-input" required> <!-- url = buy url -->
 								<span class="input-text-span">Url</span>
 								<span class="input-text-border"></span>
 							</div>
@@ -226,7 +358,7 @@ search product modal
 						<div class="col-sm-6">
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-braille"></i>
-								<input type="text" name="" class="input-text-class ae-keyword-input" required>
+								<input type="text" name="ae-keyword-input" class="input-text-class ae-keyword-input" required>
 								<span class="input-text-span">Keyword</span>
 								<span class="input-text-border"></span>
 							</div>
@@ -235,7 +367,7 @@ search product modal
 						<div class="col-sm-6">
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-external-link-square-alt"></i>
-								<input type="text" name="" class="input-text-class ae-category-input" required>
+								<input type="text" name="ae-category-input" class="input-text-class ae-category-input" required>
 								<span class="input-text-span">Category</span>
 								<span class="input-text-border"></span>
 							</div>
@@ -245,7 +377,7 @@ search product modal
 						<div class="col-sm-12">
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-external-link-square-alt"></i>
-								<input type="text" name="" class="input-text-class ae-buy-url-bis-input" required>
+								<input type="text" name="ae-buy-url-bis-input" class="input-text-class ae-buy-url-bis-input" required>
 								<span class="input-text-span">Buy url bis</span>
 								<span class="input-text-border"></span>
 							</div>
@@ -255,35 +387,35 @@ search product modal
 						<div class="col-sm-6">
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fab fa-staylinked"></i>
-								<input type="text" name="" class="input-text-class ae-buy-url-tier-input" required>
+								<input type="text" name="ae-buy-url-tier-input" class="input-text-class ae-buy-url-tier-input" required>
 								<span class="input-text-span">Buy url tier</span>
 								<span class="input-text-border"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i far fa-calendar-alt"></i>
-								<input type="text" name="" class="input-text-class ae-release-date-input" style="background-color: #ededed" required>
+								<input type="text" name="ae-release-date-input" class="input-text-class ae-release-date-input" required>
 								<span class="input-text-span">Release date</span>
 								<span class="input-text-border"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-plus-circle"></i>
-								<input type="text" name="" class="input-text-class ae-metacritic-score-input" style="background-color: #ededed" required>
+								<input type="text" name="ae-metacritic-score-input" class="input-text-class ae-metacritic-score-input" required>
 								<span class="input-text-span">Metacritic score</span>
 								<span class="input-text-border"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-plus-circle"></i>
-								<input type="text" name="" class="input-text-class ae-metacritic-critic-score-input" style="background-color: #ededed" required>
+								<input type="text" name="ae-metacritic-critic-score-input" class="input-text-class ae-metacritic-critic-score-input" required>
 								<span class="input-text-span">Metacritic critic score</span>
 								<span class="input-text-border"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-plus-circle"></i>
-								<input type="text" name="" class="input-text-class ae-metacritic-user-score-input" style="background-color: #ededed" required>
+								<input type="text" name="ae-metacritic-user-score-input" class="input-text-class ae-metacritic-user-score-input" required>
 								<span class="input-text-span">Metacritic user score</span>
 								<span class="input-text-border"></span>
 							</div>
@@ -292,35 +424,35 @@ search product modal
 						<div class="col-sm-6">
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fab fa-staylinked"></i>
-								<input type="text" name="" class="input-text-class ae-buy-url-4-input" required>
+								<input type="text" name="ae-buy-url-4-input" class="input-text-class ae-buy-url-4-input" required>
 								<span class="input-text-span">Buy url 4</span>
 								<span class="input-text-border"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-calendar"></i>
-								<input type="text" name="" class="input-text-class ae-release-year-input" style="background-color: #ededed" required>
+								<input type="text" name="ae-release-year-input" class="input-text-class ae-release-year-input" required>
 								<span class="input-text-span">Release year</span>
 								<span class="input-text-border"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-adjust"></i>
-								<input type="text" name="" class="input-text-class ae-metacritic-count-input" style="background-color: #ededed" required>
+								<input type="text" name="ae-metacritic-count-input" class="input-text-class ae-metacritic-count-input" required>
 								<span class="input-text-span">Metacritic count</span>
 								<span class="input-text-border"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-adjust"></i>
-								<input type="text" name="" class="input-text-class ae-metacritic-critic-count-input" style="background-color: #ededed" required>
+								<input type="text" name="ae-metacritic-critic-count-input" class="input-text-class ae-metacritic-critic-count-input" required>
 								<span class="input-text-span">Metacritic critic count</span>
 								<span class="input-text-border"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-adjust"></i>
-								<input type="text" name="" class="input-text-class ae-metacritic-user-count-input" style="background-color: #ededed" required>
+								<input type="text" name="ae-metacritic-user-count-input" class="input-text-class ae-metacritic-user-count-input" required>
 								<span class="input-text-span">Metacritic user count</span>
 								<span class="input-text-border"></span>
 							</div>
@@ -330,70 +462,70 @@ search product modal
 						<div class="col-sm-12">
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="" class="input-text-class ae-image-url-input" style="background-color: #ededed" disabled>
+								<input type="text" name="ae-image-url-input" class="input-text-class ae-image-url-input" style="background-color: #ededed;pointer-events: none;">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="" class="input-text-class ae-description-input" style="background-color: #ededed" disabled>
+								<input type="text" name="ae-description-input" class="input-text-class ae-description-input" style="background-color: #ededed;pointer-events: none;">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="" class="input-text-class ae-description-usa-or-eu-input" style="background-color: #ededed" disabled>
+								<input type="text" name="ae-description-usa-or-eu-input" class="input-text-class ae-description-usa-or-eu-input" style="background-color: #ededed;pointer-events: none;">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="" class="input-text-class ae-description-ru-input" style="background-color: #ededed" disabled>
+								<input type="text" name="ae-description-ru-input" class="input-text-class ae-description-ru-input" style="background-color: #ededed;pointer-events: none;">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="" class="input-text-class ae-description-fr-input" style="background-color: #ededed" disabled>
+								<input type="text" name="ae-description-fr-input" class="input-text-class ae-description-fr-input" style="background-color: #ededed;pointer-events: none;">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="" class="input-text-class ae-description-de-input" style="background-color: #ededed" disabled>
+								<input type="text" name="ae-description-de-input" class="input-text-class ae-description-de-input" style="background-color: #ededed;pointer-events: none;">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="" class="input-text-class ae-description-es-input" style="background-color: #ededed" disabled>
+								<input type="text" name="ae-description-es-input" class="input-text-class ae-description-es-input" style="background-color: #ededed;pointer-events: none;">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="" class="input-text-class ae-description-it-input" style="background-color: #ededed" disabled>
+								<input type="text" name="ae-description-it-input" class="input-text-class ae-description-it-input" style="background-color: #ededed;pointer-events: none;">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="" class="input-text-class ae-description-pt-input" style="background-color: #ededed" disabled>
+								<input type="text" name="ae-description-pt-input" class="input-text-class ae-description-pt-input" style="background-color: #ededed;pointer-events: none;">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="" class="input-text-class ae-description-nl-input" style="background-color: #ededed" disabled>
+								<input type="text" name="ae-description-nl-input" class="input-text-class ae-description-nl-input" style="background-color: #ededed;pointer-events: none;">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
@@ -401,8 +533,8 @@ search product modal
 
 					</div> <!-- end row -->
 				</div>
-				<div class="modal-content-foot" style="height: 70px;border-top: solid 1px rgba(0,123,255, .5); padding: 10px;text-align: right;">
-					<button class="btn btn-primary mt-1">Submit</button>
+				<div class="modal-content-foot ae-modal-footer" style="height: 70px;border-top: solid 1px rgba(0,123,255, .5); padding: 10px;text-align: right;">
+					<!-- append button create of edit dynamic -->
 				</div>
 			</div>
 		</div>
@@ -1527,6 +1659,7 @@ search product modal
 			 transform: translate(100%, 100%);
 		}
 	}
+
 /*add edit modal section ------------------------------------------*/
 	.ae-modal-dialog {
 		height:  calc(100% - 60px);
@@ -1574,6 +1707,95 @@ search product modal
 		height:  calc(100% - 170px);
 		overflow-y: auto;
 		overflow-x: hidden;
+	}
+	.ae-autocreation-available-btn {
+		position: fixed;
+		top: 50%;
+		left: -10px;
+		transform: translate(-50%, -50%);
+		width: 40px;
+		height: 40px;
+		background-color: #fff;
+		border-radius: 5px 0 0 5px;
+		cursor: pointer;
+		text-align: center;
+		color: #007bff;
+		z-index: 4;
+
+	}
+	.ae-aad-icon {
+		font-size: 16px;
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		-webkit-transition: .1s ease-in-out !important;
+		-moz-transition: .1s ease-in-out !important;
+		-o-transition: .1s ease-in-out !important;
+		transition: .1s ease-in-out !important;
+	}
+	.ae-aad-icon:hover {
+		margin: 1px 0 0 1px;
+		font-size: 20px;
+	}
+	.ae-autocreation-available-div-content {
+		position: fixed;
+		top: 50%;
+		left: 0;
+		transform: translate(10px, -50%);
+		width: calc(40% - 28px);
+		height: 400px;
+		border: solid 2px #007bff;
+		border-left: none;
+		z-index: 3;
+		background-color: #fff;
+		border-radius: 0 5px 5px 0;
+		overflow: hidden;
+		display: none;
+	}
+	.ae-aadc-ul {
+		list-style-type: none;
+		padding: 0px;
+		margin: 2px;
+		display: flex;
+		background-color: #007bff;
+		color: #fff;
+		border-top-right-radius: 3px;
+	}
+	.ae-aadc-li {
+		display: inline-block;
+		width: 33.33%;
+		text-align: center;
+		padding: 10px;
+		cursor: pointer;
+		letter-spacing: 2px;
+		font-size: 15px;
+	}
+	.ae-aadc-li:hover {
+		color: #6b6d70;
+		background-color: #fff;
+	}
+	.ae-aadc-description {
+		background-color: #fff;
+		position: absolute;
+		margin: 0 0 0 0;
+		padding: 15px 15px;
+		font-size: 13px;
+		width: calc(100% - 10px);
+		z-index: 1;
+	}
+	.ae-aadc-includes {
+		height: calc(100% - 40px);
+		padding: 50px 35px 15px 35px;
+		font-size: 15px;
+		overflow: auto;
+	}
+	.ae-aadc-includes .form-check {
+		margin-bottom: 5px;
+	}
+	.ae-addc-i-on-cdd
+	.ae-addc-i-on-brex {
+		display: none;
 	}
 	.ae-mcb-row {
 		padding: 10px 25px 40px 25px;
