@@ -128,31 +128,12 @@
 					<!-- HEADER STARTS row-4-card-div-overflow-style-->
 					<div class="card-div-overflow-style row-4-card-div-overflow-style-2" style="position:relative; padding-top:20px;">
 						<div class="row" style="color:#fff;margin: 0;">
-							<div class="div-topheader-1 col-lg-10">
+							<div class="div-topheader-1 col-lg-12">
 								<h5 style="display: inline-block; margin-right: 10px;">Rhyn Tool</h5>
 								<p style="font-size:12px;font-weight: 500;">Check using by users</p>
 							</div>
-							<div class="col-lg-2" style="padding-bottom:20px;">
-								<div class="dropdown-website">
-									<div class="selected-website">
-										<span class="selected-data"><input id="website-btn" class="website-btn" type="button" value="AKS"></span>
-										<span class="position-icon-1"><i class="fas fa-caret-down" ></i></span>
-									</div>
-									<ul class="website-menu" style="display:none;">
-										<li class='website-items' data-website="aks">AKS</li>
-										<li class='website-items' data-website="cdd">CDD</li>
-										<li class='website-items' data-website="brexitgbp">BREXITGBP</li>
-									</ul>
-								</div>
-<<<<<<< HEAD
-                                <div id="website-content" class="col-lg-2" style="padding-bottom:20px;">
-                                    <div class="dropdown-title" style="border-radius:5px;">
-                                        <input id="website-btn" class="btn input-site website-btn " type="button" value="Website" style="pointer-events: none;">
-                                    </div>
-                                </div>
-                                
-							</div>
 						</div >
+                    </div>
                     <!-- CONTENT STARTS -->
                     <div class="activities-content">
                         <div class="filter-activities">
@@ -188,15 +169,6 @@
 							<div class="col-lg-12 no-padding" id="rhyn-tool-display">
 								
 							</div>
-=======
-							</div>
-						</div>
-					</div >
-					<!-- CONTENT STARTS -->
-					<div class="col-xs-12 div-body-table mt-4 mb-2" class="merchant-edition">
-						<div class="col-lg-12 no-padding" id="merchant-edition">
-								test
->>>>>>> 8f63ca41074b90d03a6ecf8b220895057b78010a
 						</div>
 					</div>
 				</div>

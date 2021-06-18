@@ -1424,6 +1424,12 @@ class Ajax {
 					'column' => ['id', 'name']
 				]);
 			break;
+			case 'get-merchant':
+				return $db->find('`allkeyshops`.`sale_page`',[
+					'column' => ['vols_id', 'vols_nom'],
+					'order' => 'vols_nom ASC'
+				]);
+			break;
 		}
 	
 	}//END OF FUNCTION AJAXDATA

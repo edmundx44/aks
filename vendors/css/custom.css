@@ -24,7 +24,7 @@ html, body {
 	border-radius: 8px;
 }
 
-.scrollbar-custom-ds::-webkit-scrollbar-track, {
+.scrollbar-custom-ds::-webkit-scrollbar-track {
 	background: #3f51b5;
 }
 .scrollbar-custom-akssnap::-webkit-scrollbar-track {

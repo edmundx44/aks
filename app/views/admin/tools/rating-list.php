@@ -191,6 +191,9 @@
     
 </script>
 <style>
+    .me-edition{
+        position:relative;
+    }
     .select-merchant-div {
         height: auto;
         max-height: 500px;
@@ -302,7 +305,7 @@
 										    <input type="text" class="form-control input-search-merchant bg-warning text-white border-0" placeholder="Select Store">
  
                                         </div>
-                                        <div class="dropdown-menu select-merchant-div scrollbar-custom searchable-ul" style="width:100%;">
+                                        <div class="dropdown-menu select-merchant-div scrollbar-custom searchable-ul" style="width:100%; position:relative">
                                                 <!-- dynamic data here from database -->
                                         </div>
 									</div>
@@ -324,7 +327,7 @@
 								</span>
                             </div>
 						</div>
-                        
+
 				</div>
 			</div>
 		</div>

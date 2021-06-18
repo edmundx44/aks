@@ -10,15 +10,25 @@
 		merchant: '0',
 		edition: '0',
 	};
-
+	var conEdition = [];
+	var conMerchant = [];
 	$(function (){
+		
 		var init = safelyParseJSON(getStorage('sessionStorage','website')) 
 		if( init && returnSite(init) != null){
 			$dataReq.website = init;
-			AjaxCall(url, $dataReq).done( ajaxSuccess );
-		}else{ removedKeyNormal('sessionStorage','website') 
-			AjaxCall(url, $dataReq).done( ajaxSuccess );
-		}
+		}else 
+			removedKeyNormal('sessionStorage','website') 
+
+		Promise.all([ 
+			getMerchant() ,
+			getEdition() , 
+			AjaxCall(url, $dataReq).done( ajaxSuccess ) 
+		]).then(() => {
+			console.log('All Ajax done with success!')
+		}).catch((response) => {
+			alert('All Ajax done: some failed!')
+		})
 
 		$(document).on('click', '.website-items', function(){
 			$('#merchant-edition').empty();
@@ -33,47 +43,112 @@
 			}else{ window.location.reload(); }
 		});
 
-		//FOR DROP DOWN SELECT ANIMATION // na na ni sa index.php sa dashboards
-		$('.option-click, .option-click-1').click( function() {
-			if($(this).attr('data-toggle') == 'Merchant')
-				$(this).find('.option-menu-click').slideToggle(200);
-			else if($(this).attr('data-toggle') == 'Edition')
-				$(this).find('.option-menu-click-1').slideToggle(200);
+		$(document).on('click input', '.input-search-edition', function(){
+			$('.select-edition-div').show().empty();
+			var matcher = new RegExp( regExpEscape(this.value) , "i");
+			var getOuput = conEdition.filter(function (items) {
+				return matcher.test(items.search)
+			});
+
+			var displayTop = ['1','16','7','5','4','33'];
+			for(var i in getOuput){
+				if($.inArray(getOuput[i].id, displayTop) != -1) {
+					$('.select-edition-div').prepend(getOuput[i].toAppend) 
+				} else {
+					$('.select-edition-div').append(getOuput[i].toAppend) 
+				}
+			}
 		});
 
-		//search 
-		$(document).on('keyup','.input-search-merchant,.input-search-edition', function() {
-			var typo = regExpEscape(this.value);
-			if($(this).closest('div').attr('data-content') == 'Merchant'){
-				$('.searchable-ul .li-store').each(function(){
-					if($(this).text().search(new RegExp(typo, "i")) < 0) $(this).closest('li').fadeOut(500);
-					else $(this).closest('li').fadeIn(500);
-				});
-			}else if($(this).closest('div').attr('data-content') == 'Edition'){
-				$('.searchable-ul .li-edition').each(function(){
-					if($(this).text().search(new RegExp(typo, "i")) < 0) $(this).closest('li').fadeOut(500);
-					else $(this).closest('li').fadeIn(500);
-				});
+		$(document).on('click input', '.input-search-merchant', function(){
+			$('.select-merchant-div').show().empty();
+			var matcher = new RegExp( regExpEscape(this.value) , "i");
+			var getOuput = conMerchant.filter(function (items) {
+				return matcher.test(items.search)
+			});
+
+			for(var i in getOuput){
+				$('.select-merchant-div').append(getOuput[i].toAppend) 
 			}
 		});
-		//click store or edition
-		$(document).on('click', '.li-store, .li-edition', function() {
-			if($(this).closest('div').attr('data-toggle') == 'Merchant'){
-				let $value = $(this).attr('data-name');
-				$dataReq.merchant = $(this).attr('data-merId');
-				$('.input-search-merchant').val($value);
-			}else if($(this).closest('div').attr('data-toggle') == 'Edition'){
-				let $value = $(this).attr('data-name');
-				$dataReq.edition = $(this).attr('data-ediId');
-			$('.input-search-edition').val($value);
-			}
-		});
+
+		//FOR DROP DOWN SELECT ANIMATION // na na ni sa index.php sa dashboards
+		// $('.option-click, .option-click-1').click( function() {
+		// 	if($(this).attr('data-toggle') == 'Merchant')
+		// 		$(this).find('.option-menu-click').slideToggle(200);
+		// 	else if($(this).attr('data-toggle') == 'Edition')
+		// 		$(this).find('.option-menu-click-1').slideToggle(200);
+		// });
+
+		// //search 
+		// $(document).on('keyup','.input-search-merchant,.input-search-edition', function() {
+		// 	var typo = regExpEscape(this.value);
+		// 	if($(this).closest('div').attr('data-content') == 'Merchant'){
+		// 		$('.searchable-ul .li-store').each(function(){
+		// 			if($(this).text().search(new RegExp(typo, "i")) < 0) $(this).closest('li').fadeOut(500);
+		// 			else $(this).closest('li').fadeIn(500);
+		// 		});
+		// 	}else if($(this).closest('div').attr('data-content') == 'Edition'){
+		// 		$('.searchable-ul .li-edition').each(function(){
+		// 			if($(this).text().search(new RegExp(typo, "i")) < 0) $(this).closest('li').fadeOut(500);
+		// 			else $(this).closest('li').fadeIn(500);
+		// 		});
+		// 	}
+		// });
+		// //click store or edition
+		// $(document).on('click', '.li-store, .li-edition', function() {
+		// 	if($(this).closest('div').attr('data-toggle') == 'Merchant'){
+		// 		let $value = $(this).attr('data-name');
+		// 		$dataReq.merchant = $(this).attr('data-merId');
+		// 		$('.input-search-merchant').val($value);
+		// 	}else if($(this).closest('div').attr('data-toggle') == 'Edition'){
+		// 		let $value = $(this).attr('data-name');
+		// 		$dataReq.edition = $(this).attr('data-ediId');
+		// 	$('.input-search-edition').val($value);
+		// 	}
+		// });
 	
 		$(document).on('click', '#fire', function() {
 			$('#merchant-edition').empty();
 			AjaxCall(url, $dataReq).done( ajaxSuccess );
 		});
 	});
+
+	function getEdition(){
+		conEdition = []
+		var dataRequest =  {
+			action: 'get-edition',
+		}
+		AjaxCall(url, dataRequest).done(function(data) {
+			for(var i in data){
+				var name = data[i].name.substr(0,1).toUpperCase()+data[i].name.substr(1).toLowerCase();
+				conEdition.push({
+					'id' : data[i].id,
+					'name' : name,
+					'search': name +' '+ data[i].id,
+					'toAppend': '<div class="me-merchant" data-me-edition-ni="'+ name +'" data-edition-id-ni='+data[i].id+'><span class="me-data-name">'+ name +'</span> = <span class="me-data-id"> '+data[i].id+' </span></div>'
+				});
+			}
+		}).always(function() {});
+	}
+
+	function getMerchant(){
+		conMerchant = []
+		var dataRequest =  {
+			action: 'get-merchant',
+		}
+		AjaxCall(url, dataRequest).done(function(data) {
+			for(var i in data){
+				var name = data[i].vols_nom.substr(0,1).toUpperCase()+data[i].vols_nom.substr(1).toLowerCase();
+				conMerchant.push({
+					'id' : data[i].vols_id,
+					'name' : name,
+					'search': name +' '+ data[i].vols_id,
+					'toAppend': '<div class="me-merchant" data-me-merchant-ni="'+ name +'" data-merchant-id-ni='+data[i].vols_id+'><span class="me-data-name">'+ name +'</span> = <span class="me-data-id"> '+data[i].vols_id+' </span></div>'
+				});
+			}
+		}).always(function() {});
+	}
 
 	function ajaxSuccess(data) {
 		var result = data.success.data;
@@ -119,67 +194,38 @@
                                     </div>
                                 </div>
 							</div>
-							<div class="col-lg-2" style="padding-bottom:20px;">
-								<div class="dropdown-website">
-									<div class="selected-website">
-										<span class="selected-data"><input id="website-btn" class="website-btn" type="button" value="AKS"></span>
-										<span class="position-icon-1"><i class="fas fa-caret-down" ></i></span>
+						</div>
+						<div>
+								<div style="padding: 0 0 2px 0;border:solid 1px transparent;position: relative;">
+									<div style="display:inline-block; width:300px">
+										<div class="col-md-12 no-padding">
+											<div class="dropdown form-group">
+												<div class="dropdown-toggle filter-btn" data-content="Merchant" data-toggle="dropdown">
+													<input type="text" class="text-dark form-control input-search-merchant text-white border-0" placeholder="Select Store">
+												</div>
+												<div class="dropdown-menu select-merchant-div hide-dropdown scrollbar-custom" aria-labelledby="dropdownMenuButton" style="width:100%; padding: 0; max-height: 400px; overflow-x:hidden; ">
+														
+												</div>
+											</div>
+
+										</div>
 									</div>
-									<ul class="merchant-menu-me option-menu-click searchable-ul scrollbar-custom">
-                                        <li class='li-store' data-merId="0" data-name="Default">Default</li>
-                                        <?php foreach ($this->dataMerchant as $key => $value): ?>     
-                                            <li class='li-store' data-merId="<?= trim($key) ?>" data-name="<?= $value ?>"><?="$value $key" ?></li>
-                                        <?php endforeach; ?>
-									</ul>
-								</div>
-								<div class="dropdown-edition-me option-click-1 col col-md-3 no-padding" data-toggle="Edition">
-									<div class="selected-edition-me div-aks-bgcolor-2" data-content="Edition" style="padding:1px">
-                                        <span class="selected-edition"><input type="text" class="input-search-edition form-control" data-search="search" placeholder="Edition"></span>
-										<span class="icon-select"><i class="fas fa-caret-down" aria-hidden="true"></i></span>
+									
+									<div style="display:inline-block; width:300px">
+										<div class="col-md-12 no-padding">
+											<div class="dropdown form-group">
+												<div class="dropdown-toggle filter-btn" data-content="Edition" data-toggle="dropdown">
+													<input type="text" class="text-dark form-control input-search-edition text-white border-0" placeholder="Select Edition">
+												</div>
+												<div class="dropdown-menu select-edition-div scrollbar-custom" aria-labelledby="dropdownMenuButton" style="width:100%; padding: 0; max-height: 400px; overflow-x:hidden; ">
+
+												</div>
+											</div>
+
+										</div>
 									</div>
-									<ul class="edition-menu-me option-menu-click-1 searchable-ul scrollbar-custom">
-                                        <li class='li-edition' data-ediId='0' data-name="Default">Default</li>
-                                        <li class='li-edition' data-ediId='1' data-name="Standard">1-Standard</li>
-										<li class='li-edition' data-ediId='16' data-name="16-DLC">16-DLC</li>
-										<li class='li-edition' data-ediId='7' data-name="7-Deluxe">7-Deluxe</li>
-										<li class='li-edition' data-ediId='5' data-name="5-Early Access">5-Early Access</li>
-										<li class='li-edition' data-ediId='4' data-name="4-Limited">4-Limited</li>
-										<li class='li-edition' data-ediId='33' data-name="33-Preorder bonus">33-Preorder bonus</li>
-										<li class="no-hover text-center">*****************************</li>
-                                        <?php asort($this->dataEdition);
-                                        foreach($this->dataEdition as $key => $value): ?>
-                                            <li class='li-edition' data-ediId="<?= trim($key) ?>" data-name="<?= $value ?>"><?="$value $key" ?></li>
-                                        <?php   endforeach; ?>
-									</ul>
+									<input type="button" id="fire" class="button-go btn" data-search="go" value="Check">
 								</div>
-								<ul class="merchant-menu-me option-menu-click searchable-ul">
-									<li class='li-store' data-merId="0" data-name="Default">Default</li>
-									<?php foreach ($this->dataMerchant as $key => $value): ?>     
-										<li class='li-store' data-merId="<?= trim($key) ?>" data-name="<?= $value ?>"><?="$value $key" ?></li>
-									<?php endforeach; ?>
-								</ul>
-							</div>
-							<div class="dropdown-edition-me option-click-1 col col-md-3 no-padding" data-toggle="Edition">
-								<div class="selected-edition-me div-aks-bgcolor-2" data-content="Edition" style="padding:1px">
-									<span class="selected-edition"><input type="text" class="input-search-edition form-control" data-search="search" placeholder="Edition"></span>
-									<span class="icon-select"><i class="fas fa-caret-down" aria-hidden="true"></i></span>
-								</div>
-								<ul class="edition-menu-me option-menu-click-1 searchable-ul">
-									<li class='li-edition' data-ediId='0' data-name="Default">Default</li>
-									<li class='li-edition' data-ediId='1' data-name="Standard">1-Standard</li>
-									<li class='li-edition' data-ediId='16' data-name="16-DLC">16-DLC</li>
-									<li class='li-edition' data-ediId='7' data-name="7-Deluxe">7-Deluxe</li>
-									<li class='li-edition' data-ediId='5' data-name="5-Early Access">5-Early Access</li>
-									<li class='li-edition' data-ediId='4' data-name="4-Limited">4-Limited</li>
-									<li class='li-edition' data-ediId='33' data-name="33-Preorder bonus">33-Preorder bonus</li>
-									<li class="no-hover text-center">*****************************</li>
-									<?php asort($this->dataEdition);
-										foreach($this->dataEdition as $key => $value): ?>
-										<li class='li-edition' data-ediId="<?= trim($key) ?>" data-name="<?= $value ?>"><?="$value $key" ?></li>
-									<?php   endforeach; ?>
-								</ul>
-							</div>
-							<input type="button" id="fire" class="button-go btn div-aks-bgcolor-2 text-white" data-search="go" value="Check">
 						</div>
 					</div>
 					<div class="col-xs-12 div-body-table mt-4 mb-2" class="merchant-edition">
@@ -194,6 +240,16 @@
 </div>
 
 <style>
+	.me-edition,
+	.me-merchant{
+		padding: 5px 10px;
+		cursor: pointer;
+		font-size:15px;
+	}
+	.me-edition:first-child,
+	.me-merchant:first-child{
+		margin-top:5px;
+	}
     .result-merchant{
         padding: 4px 10px 4px 10px;
     }

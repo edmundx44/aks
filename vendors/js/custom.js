@@ -347,9 +347,7 @@ $(document).ready(function(){
 		var getOuput = saveRegion.filter(function (items) {
 		  return items.id.includes(getVal) || items.name.includes(getVal);
 		});
-
-		console.log(saveRegion)
-
+		
 		for(var i in getOuput){
 			$('.dmd-region').append(getOuput[i].toAppend) 
 		}
