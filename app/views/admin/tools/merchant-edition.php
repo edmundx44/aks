@@ -43,8 +43,9 @@
 			}else{ window.location.reload(); }
 		});
 
-		$(document).on('click input', '.input-search-edition', function(){
-			$('.select-edition-div').show().empty();
+		$(document).on('click input', '.me-merchant-input', function(){
+			$('.dropdown-menu-div').hide();
+			$('.me-edition-dmd').show();
 			var matcher = new RegExp( regExpEscape(this.value) , "i");
 			var getOuput = conEdition.filter(function (items) {
 				return matcher.test(items.search)
@@ -60,8 +61,9 @@
 			}
 		});
 
-		$(document).on('click input', '.input-search-merchant', function(){
-			$('.select-merchant-div').show().empty();
+		$(document).on('click input', '.me-edition-input', function(){
+			$('.dropdown-menu-div').hide();
+			$('.me-edition-dmd').show();
 			var matcher = new RegExp( regExpEscape(this.value) , "i");
 			var getOuput = conMerchant.filter(function (items) {
 				return matcher.test(items.search)
@@ -195,37 +197,34 @@
                                 </div>
 							</div>
 						</div>
-						<div>
-								<div style="padding: 0 0 2px 0;border:solid 1px transparent;position: relative;">
-									<div style="display:inline-block; width:300px">
-										<div class="col-md-12 no-padding">
-											<div class="dropdown form-group">
-												<div class="dropdown-toggle filter-btn" data-content="Merchant" data-toggle="dropdown">
-													<input type="text" class="text-dark form-control input-search-merchant text-white border-0" placeholder="Select Store">
-												</div>
-												<div class="dropdown-menu select-merchant-div hide-dropdown scrollbar-custom" aria-labelledby="dropdownMenuButton" style="width:100%; padding: 0; max-height: 400px; overflow-x:hidden; ">
-														
-												</div>
-											</div>
-
+						<div class="row" style="padding-left:15px;padding-right:15px;">
+							<div class="col-3">
+								<div class="col-12 no-padding">
+									<div class="dropdown">
+										<input type="text" class="input-text-class me-merchant-input me-input-field" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
+										<i class="input-text-i me-merchant-icon me-icon-field fal fa-angle-down"></i>
+										<span class="input-text-span me-merchant-text me-text-field" style="left: 5px">Select Merchant</span>
+										<div class="dropdown-menu-div me-merchant-dmd" style="overflow:hidden !important;">
+											<div class="dropdown-menu-div-sub me-merchant-dmds" >0</div>
+											<div class="dropdown-menu-div-sub me-merchant-dmds" >1</div>
 										</div>
 									</div>
-									
-									<div style="display:inline-block; width:300px">
-										<div class="col-md-12 no-padding">
-											<div class="dropdown form-group">
-												<div class="dropdown-toggle filter-btn" data-content="Edition" data-toggle="dropdown">
-													<input type="text" class="text-dark form-control input-search-edition text-white border-0" placeholder="Select Edition">
-												</div>
-												<div class="dropdown-menu select-edition-div scrollbar-custom" aria-labelledby="dropdownMenuButton" style="width:100%; padding: 0; max-height: 400px; overflow-x:hidden; ">
-
-												</div>
-											</div>
-
-										</div>
-									</div>
-									<input type="button" id="fire" class="button-go btn" data-search="go" value="Check">
 								</div>
+							</div>
+							<div class="col-3">
+								<div class="col-12 no-padding">
+									<div class="dropdown">
+										<input type="text" class="input-text-class me-edition-input me-input-field" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
+										<i class="input-text-i me-edition-icon me-icon-field fal fa-angle-down"></i>
+										<span class="input-text-span me-edition-text me-text-field" style="left: 5px">Select Edition</span>
+										<div class="dropdown-menu-div me-edition-dmd" style="overflow:hidden !important;">
+											<div class="dropdown-menu-div-sub me-edition-dmds" >0</div>
+											<div class="dropdown-menu-div-sub me-edition-dmds" >1</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- <input type="button" id="fire" class="button-go btn" data-search="go" value="Check"> -->
 						</div>
 					</div>
 					<div class="col-xs-12 div-body-table mt-4 mb-2" class="merchant-edition">
@@ -240,6 +239,15 @@
 </div>
 
 <style>
+	.me-input-field:focus,
+	.me-input-field:focus ~ .me-icon-field{
+		margin-top: 30px;
+	}
+
+	.me-input-field:focus ~ .me-text-field{
+		margin: 0;
+	}
+
 	.me-edition,
 	.me-merchant{
 		padding: 5px 10px;
