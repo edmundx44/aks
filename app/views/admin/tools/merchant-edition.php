@@ -226,7 +226,6 @@
 							</div>
 							<!-- <input type="button" id="fire" class="button-go btn" data-search="go" value="Check"> -->
 						</div>
-					</div>
 					<div class="col-xs-12 div-body-table mt-4 mb-2" class="merchant-edition">
 						<div class="col-lg-12 no-padding" id="merchant-edition">
 								
