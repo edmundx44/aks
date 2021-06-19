@@ -1371,6 +1371,7 @@ class Ajax {
 				return $db->query($sql)->results();
 			break;
 			case 'get-product-info':
+
 				$site = self::getSite($getInput->get('site'));
 				$toGet = $getInput->get('toGet');
 				$getEuUsaDisc = ($getInput->get('site') == 'CDD')? 'description-eu' : 'description-usa';
@@ -1409,7 +1410,46 @@ class Ajax {
 						`description-nl` AS descriptionNl
 					FROM `$site`.`pt_products` 
 					WHERE `id` = $toGet";
-				return $db->query($sql)->results();
+
+				return array( 'data' => $db->query($sql)->results());
+			break;
+			case 'create-product-avaiable':
+
+				//if the request merchant is is found in $visibility get the visibility settings
+				//then if the request merchant is found in the $stores_with_different_regions check again if the merchant is found in $visibility and get the visibility settings
+
+				$merchant = $getInput->get('merchant');
+
+				$options  = array('http' => array('user_agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36'));
+				$context  = stream_context_create($options);
+				$json = file_get_contents('https://www.allkeyshop.com/blog/wp-content/plugins/aks-merchants/api/merchants/visibility', false, $context);
+				$visibility = json_decode($json, true);
+				
+				$createOffer = array();
+				$createOfferWIthAnotherRegion = array();
+				if(array_key_exists( $merchant, $visibility)){
+					$createOffer[$merchant] = [
+						'allkeyshop_com' => $visibility[$merchant]['allkeyshop_com'],
+						'reviewitusa' => $visibility[$merchant]['reviewitusa'],
+						'allkeyshop_com_gbp' => $visibility[$merchant]['allkeyshop_com_gbp']
+					];	
+				}
+
+				$create_with_different_region = array();
+				$stores_with_different_regions = require('/xampp/htdocs/aks/vendors/assets/stores_with_different_regions_new.php');
+				if(array_key_exists( $merchant, $stores_with_different_regions)){
+					foreach($stores_with_different_regions[$merchant]['create'] as $merchant => $value){
+						if(array_key_exists( $merchant, $visibility)){
+							$createOfferWIthAnotherRegion[$merchant] = [
+								'allkeyshop_com' => $visibility[$merchant]['allkeyshop_com'],
+								'reviewitusa' => $visibility[$merchant]['reviewitusa'],
+								'allkeyshop_com_gbp' => $visibility[$merchant]['allkeyshop_com_gbp']
+							];	
+						}
+					}
+				}
+				return array( 'merchantToBeCreated' => $createOffer , 'regionAvailableToBeCreated' => $createOfferWIthAnotherRegion);
+				
 			break;
 			case 'get-region':
 				return $db->find('`test-server`.`pt_regions_amaurer`',[

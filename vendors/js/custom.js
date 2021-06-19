@@ -278,6 +278,8 @@ $(document).ready(function(){
 			site: getSite
 		}
 		AjaxCall(url, dataRequest).done(function(data) {
+				var data = data.data;
+
 				$('.ae-product-p-title').html(getSite);
 				$('.ae-merchant-input').val(data[0].merchant);
 				$('.ae-search-name-input').val(data[0].search_name);
@@ -311,14 +313,21 @@ $(document).ready(function(){
 				$('.ae-description-it-input').val(data[0].descriptionIt);
 				$('.ae-description-pt-input').val(data[0].descriptionPt);
 				$('.ae-description-nl-input').val(data[0].descriptionNl);
-			
 
+				$('.ae-autocreation-available-btn').attr('data-product-merchant', data[0].merchant);
 		}).always(function() {
 			$('.ae-to-what').html('create');
 			$('.ae-modal-footer').append('<button class="btn btn-primary mt-1" id="ae-btn-add">Create</button>')
 			$('.add-edit-store-game-modal').modal('show');
 		});
 	});
+
+	$(document).on('click','.ae-autocreation-available-btn', function() {
+		var $merchant = $(this).attr('data-product-merchant');
+		AjaxCall(url, { action: 'create-product-avaiable' , merchant: $merchant } ).done(function(data){
+			console.log(data);
+		});
+	})
 
 // add edit modal section -----------------------------------------------------------
 	$(document).on('click input', '.ae-edition-input', function(){
