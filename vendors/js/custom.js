@@ -179,7 +179,7 @@ $(document).ready(function(){
 			});
 			$(".float-settings-icon").removeClass('show-div');
 		}
-		if(!$(event.target).is('.dropdown-inputbox, .dropdown-menu-div *')) {
+		if(!$(event.target).is('.dropdown-inputbox, .dropdown-inputbox *, .dropdown-menu-div *')) {
 			$('.dropdown-menu-div').hide();
 		}
 
@@ -339,7 +339,6 @@ $(document).ready(function(){
 				$('.dmd-edition').append(getOuput[i].toAppend) 
 			}
 		}
-
 	});
 
 	$(document).on('click', '.dmds-edition', function(){
