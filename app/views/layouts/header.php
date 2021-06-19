@@ -144,12 +144,12 @@
 						<li class="btn btn-primary header-search-btn" title="Search product">
 							<i class="fas fa-search"></i>
 						</li>
-						<a href="/aks/dashboard/activities" style="text-decoration: none;"	>
+						<a href="/akss/dashboard/activities" style="text-decoration: none;"	>
 							<li title="Activities" class="header-ul-li">
 								<i class="fas fa-clipboard-list" title="Activities"></i>
 							</li>
 						</a>
-						<a href="/aks/dashboard/notification" style="text-decoration: none;"	>
+						<a href="/akss/dashboard/notification" style="text-decoration: none;"	>
 							<li title="Notification" class="header-ul-li">
 								<i class="fas fa-bell" title="Notification"></i>
 							</li>
