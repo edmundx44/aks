@@ -8,196 +8,182 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
 <script type="text/javascript">
-	//ESCAPE SPECIAL CHARACTERS
-	var $dataOpt = {
-		action: 'fd-display-merchant',
-		website : 'aks'
-	};
-	var $dataGetFeed = {
-		action: 'fd-get-data',
-		website : null,
-		id : null,
-		store: null
-	};
-	var globalSite = "aks";
-	var feedTable = $('#display-feed-table').DataTable();
-	$(document).ready(function(){
-		//populate merchant
-		AjaxCall(url, $dataOpt).done(populateMerchant); 
 
-		//FOR DROP DOWN SELECT ANIMATION
-		$('.option-click, .option-click-1').click( function() {
-			if($(this).attr('data-toggle') == 'Merchant')
-				$(this).find('.option-menu-click').slideToggle(200);
-		});
+var conMerchant = [];
+var merchant = null;
+var feedTable = $('#display-feed-table').DataTable();
 
-		//search merchant in input text
-		$(document).on('keyup','.input-search-merchant', function() {
-			var typo = regExpEscape(this.value);
-			if($(this).closest('div').attr('data-content') == 'Merchant'){
-				$('.searchable-ul .li-store .name').each(function(){
-					if($(this).text().search(new RegExp(typo, "i")) < 0)
-						$(this).closest('li').fadeOut(500);
-					else 
-						$(this).closest('li').fadeIn(500);
-				});
-			}
-		});
-
-		//when selecting website
-		$(document).on('click', '.website-items', function(){
-			$('ul.merchant-menu').empty();
-			let $site = $(this).data('website');
-			$('.website-btn').val('Loading...')
-			$dataOpt.website = $site;
-			globalSite = $site;
-			$target = 'fd-select-merchant';
-			AjaxCall(url, $dataOpt).done(populateMerchant);
-		});
-
-		//search url in datatable
-		$('#test-search').keypress(function(e){
-			if(e.which == 13){
-				$(this).blur();
-			}
-		});
-		//search url in datatable
-		$(document).on('focusout', '#test-search', function(){
-			let $id = $('.select-text').attr('data-id');
-			var $data3 = {
-				action : 'feed-search',
-				link: this.value,
-				website : globalSite,
-				id : $dataGetFeed.id
-			}
-			AjaxCall(url, $data3).done(function(data){
-				console.log(data)
-				$('.search-labells').val(data).trigger("keyup");
-			});
-		});
-
-		$(document).on('click', '.li-store', function(){
-			var $id = $(this).attr('data-merId');
-			$('.header-title-page').text('Loading ...');
-			$('#test-search').hide();
-			$('#test-search').val("");
-			$dataGetFeed.store = $(this).find('.name').attr('data-name');
-			$dataGetFeed.website = $dataOpt.website;
-			$dataGetFeed.id = $id;
-			AjaxCall(url, $dataGetFeed).done(function(data){
-				if(data != 'No merchant found'){
-					var items = []; 
-					var $columnCJS = [
-						{ title : "URL", class: 'data-url'},
-						{ title : "SKU", class: 'data-sku'},
-						{ title : "PRICE", class: 'data-price'},
-						{ title : "STOCK", class: 'data-stock'},
-					];
-					if($id == 67){
-						var $col = 3;
-						var $columnFinal = $columnCJS;
-						for (var i in data){
-							items.push([
-								html_decode(data[i].url),
-								html_decode(data[i].sku),
-								data[i].price,
-								dispo(data[i].stock),
-							]);
-						}
-					}else{
-						var $col = [1,3];
-						var $hideCol = [1];
-						var $columnFinal = $columnCJS;
-						for (var i in data){
-							items.push([
-								html_decode(data[i].url),
-								'',
-								data[i].price,
-								dispo(data[i].stock),
-							]);
-						}
-					}
-		
-					feedTable = $('#display-feed-table').DataTable({
-						destroy: true,
-						responsive: true,
-						pageLength: 25,
-						lengthMenu: [[25, 50, 100, 500, 1000, 5000, 10000, -1],[25, 50, 100, 500, 1000, 5000, 10000, "All"]], // Sets up the amount of records to display
-						scrollX: 420,
-						data: items,
-						search: {
-							"addClass": 'search-bar'
-						},
-						language: {
-							"search": "_INPUT_",            // Removes the 'Search' field label
-						},
-						columns: $columnFinal,
-						columnDefs: [
-							{ searchable: false, targets: $col },
-							{ visible: false   , targets: $hideCol }
-						]
-					});
-					$('.dataTables_filter input[type="search"]').attr('placeholder','Search ...').addClass('search-labells');
-					$('.dataTables_filter input[type="search"]').closest('label').addClass('data-labells')
-				}
-			}).always(function(data){
-				if(data != 'No merchant found'){
-					$('.header-title-page').text($dataGetFeed.store+' '+$id+ ' Feed');
-					$('#display-feed-table_wrapper, #test-search').show();
-				}else{
-					$('.header-title-page').text('No Merchant Found');
-					alertMsg("No Merchant Found");
-				}
-			});
-		});
-	//end
+$(function(){
+	$.when([ getMerchant('aks') ]).then( () => {
+		console.log("Ajax Done")
 	});
-	
-	// function AjaxCall($url, $data, $target){
-	// 	return $.ajax({
-	// 		url: $url,
-	// 		method:'POST',
-	// 		data: $data,
-	// 		beforeSend: function(){	
-	// 			processBeforeSend($target)
-	// 		},
-	// 	})
-	// }
 
-	function processBeforeSend($target, param = false){
-		switch ($target) {
-			case 'fd-select-merchant':
-				$('.select-text').text('Loading...');
-				break;
-
-			case 'fd-display-feed':
-				$('.select-text').text('Loading...');
-				$('.update-mer').text('');
-				$('.loader-feed-display').show();
-				$('#display-feed-table_wrapper').hide();
-				break;
-			default:
-			break;
+	//search filder merchant
+	$(document).on('click input', '.fd-merchant-selinp',function(){
+		$('.dropdown-menu-div').hide();
+		$('.fd-dmd-merchant').show().empty();
+		var matcher = new RegExp( regExpEscape(this.value) , "i");
+		var getOuput = conMerchant.filter(function (items) {
+			return matcher.test(items.search)
+		});
+		for(var i in getOuput){
+			$('.fd-dmd-merchant').append(getOuput[i].toAppend) 
 		}
+	});
+
+	//when selecting website
+	$(document).on('click', '.website-items', function(){
+		$('#test-search').hide();
+		let $website = $(this).attr('data-website');
+		getMerchant($website)
+	});
+
+	$(document).on('click', '.dmds-merchant', function(){
+		var $value = $(this).attr('data-fd-merchant-ni')+' '+$(this).attr('data-merchant-id-ni');
+		$('#test-search').hide();
+		$('#test-search').val("");
+		$('#display-feed-table_wrapper').hide()
+		$('#display-feed-table').empty();
+		$('.fd-merchant-selinp').val($value);
+		$merchant = $(this).attr('data-merchant-id-ni');
+		$website = $(this).parent().attr('data-website');
+		$store = $('.fd-select-input').val();
+
+		$.when([ fetchingFeed($website, $merchant, $store) ]).then( () => {
+			console.log("Ajax Done Remove loading if done")
+		});
+	});
+
+	//select website
+	// $(document).on('click', '.fd-dd-select-site',function(){
+	// 	$('.dropdown-menu-div').hide();
+	// 	$('.dmd-select-site').show();
+	// });
+
+	//search url in datatable
+	$('#test-search').keypress(function(e){
+		if(e.which == 13){
+			$(this).blur();
+		}
+	});
+	//search url in datatable
+	$(document).on('focusout', '#test-search', function(){
+		let $id = $('.select-text').attr('data-id');
+		const $data3 = {
+			action : 'feed-search',
+			link: this.value,
+			website : $('.fd-dmd-merchant').attr('data-website'),
+			id : $merchant
+		}
+		AjaxCall(url, $data3).done(function(data){
+			console.log(data)
+			$('.search-labells').val(data).trigger("keyup");
+		});
+	});
+});
+
+function fetchingFeed($website , $merchant, $store){
+	const dataRequest = {
+		action: 'fd-get-data',
+		website : $website,
+		id :$merchant,
 	}
-	function populateMerchant(data){
+	AjaxCall(url, dataRequest).done(function(data){
+		if(data != 'No merchant found'){
+			var items = []; 
+			var $columnCJS = [
+				{ title : "URL", class: 'data-url'},
+				{ title : "SKU", class: 'data-sku'},
+				{ title : "PRICE", class: 'data-price'},
+				{ title : "STOCK", class: 'data-stock'},
+			];
+			if($merchant == 67){
+				var $col = 3;
+				var $columnFinal = $columnCJS;
+				for (var i in data){
+					items.push([
+						html_decode(data[i].url),
+						html_decode(data[i].sku),
+						data[i].price,
+						dispo(data[i].stock),
+					]);
+				}
+			}else{
+				var $col = [1,3];
+				var $hideCol = [1];
+						var $columnFinal = $columnCJS;
+				for (var i in data){
+					items.push([
+						html_decode(data[i].url),
+						'',
+						data[i].price,
+						dispo(data[i].stock),
+					]);
+				}
+			}
+		
+			feedTable = $('#display-feed-table').DataTable({
+				destroy: true,
+				responsive: true,
+				pageLength: 25,
+				lengthMenu: [[25, 50, 100, 500, 1000, 5000, 10000, -1],[25, 50, 100, 500, 1000, 5000, 10000, "All"]], // Sets up the amount of records to display
+				scrollX: 420,
+				data: items,
+				search: {
+					"addClass": 'search-bar'
+				},
+				language: {
+					"search": "_INPUT_",            // Removes the 'Search' field label
+				},
+				columns: $columnFinal,
+				columnDefs: [
+					{ searchable: false, targets: $col },
+					{ visible: false   , targets: $hideCol }
+				]
+			});
+			$('.dataTables_filter input[type="search"]').attr('placeholder','Search ...').addClass('search-labells');
+			$('.dataTables_filter input[type="search"]').closest('label').addClass('data-labells')
+		}
+	}).always(function(data){
+		if(data != 'No merchant found'){
+			$('.header-title-page').text($store + ' Feed');
+			$('#display-feed-table_wrapper, #test-search').show();
+			merchant = $merchant
+		}else{
+			$('.header-title-page').text('No Merchant Found');
+			alertMsg("No Merchant Found");
+		}
+	});
+}
+
+function getMerchant($website = 'aks'){
+	conMerchant = []
+	const dataRequest =  {
+		action: 'fd-display-merchant',
+		website : $website
+	}
+	AjaxCall(url, dataRequest).done(function(data) {
 		for(var i in data){
-			let $nameText = data[i].name.substr(0,1).toUpperCase()+data[i].name.substr(1).toLowerCase(); 
-			let appendData = addMerchantOption(data[i].merchant_id, $nameText, data[i].merchant_id);
-			$('ul.merchant-menu').append(appendData);
+			var name = data[i].name.substr(0,1).toUpperCase()+data[i].name.substr(1).toLowerCase();
+			conMerchant.push({
+				'id' : data[i].merchant_id,
+				'name' : name,
+				'search': name +' '+ data[i].merchant_id,
+				'toAppend': '<div class="dropdown-menu-div-sub dmds-merchant" data-fd-merchant-ni="'+ name +'" data-merchant-id-ni='+data[i].merchant_id+'><span class="dmds-data-name">'+ name +'</span>  <span class="dmds-data-id"> '+data[i].merchant_id+' </span></div>'
+			});
 		}
-		$('.website-btn').val($dataOpt.website.toUpperCase())
-		$('.input-search-merchant').attr('placeholder',$dataOpt.website.toUpperCase()+' Merchants' )
-	}
-	function addMerchantOption($merchant, $name, $id){
-		var appendData = 	'<li class="li-store" data-merId="'+$merchant+'">';
-			appendData +=		'<span class="name" data-name="'+$name+'">'+$name+' '+$id+' </span>';
-			appendData +=	'</li>';
-		return appendData;
-	}
-	function dispo(dispo){
-		return (dispo == 1) ? '<span class="text-success"><b>In Stock</b></span>' : '<span class="text-danger"><b>Unavailable</b></span>';
-	}
+	}).always(function() {
+		feedTable.destroy();
+		$('#display-feed-table').empty();
+		$('.input-text-span').text($website.toUpperCase() +' '+ 'Merchants');
+		$('.fd-dmd-merchant').attr( 'data-website', $website.toLowerCase() );
+		$('#website-btn').val($website.toUpperCase());
+	});
+}
+
+function dispo(dispo){
+	return (dispo == 1) ? '<span class="text-success"><b>In Stock</b></span>' : '<span class="text-danger"><b>Unavailable</b></span>';
+}
 
 </script>
 <style type="text/css">
@@ -250,6 +236,27 @@
 		color :#212529;
 		top: 8px;
 	}
+	
+	.fd-select-input:focus ~ .fd-si-span {
+		right:  0 !important;
+	}
+	.dropdown-btn {
+		left: 0;
+		border: transparent;
+		/*border-left: solid 1px transparent;*/
+		width: 100%;
+		border-radius: 5px;
+		cursor: pointer;
+		background-color: #007bff;
+		color: #fff;
+		font-size: 18px;
+	}
+	button:focus {
+		outline: none !important;
+	}
+	.dropdown-btn:hover{
+		background-color: #0069d9;
+	}
 </style>
 <?php $this->end(); ?>
 
@@ -258,9 +265,8 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-lg-12 col-md-12 mtop-35px">
-			<div class="card card-style">
-				<div class="card-body no-padding">
-					<!-- HEADER STARTS row-4-card-div-overflow-style-->
+			<div class="card card-style card-normalmode">
+				<div class="card-body no-padding" style=""> 
 					<div class="card-div-overflow-style row-4-card-div-overflow-style-2" style="position:relative; padding-top:20px;">
 						<div class="row" style="color:#fff;margin: 0;">
 							<div class="header-div col-lg-10">
@@ -282,31 +288,32 @@
 							</div>
 						</div>
 					</div>
-					<!-- CONTENT STARTS -->
-					<div>
-						<div class="dropdown-box dbox-hide" style="padding-bottom: 5px;">
-							<div class="dropdown-merchant option-click div-0 col col-md-3 no-padding" data-toggle="Merchant">
-									<div class="selected-merchant row-4-card-div-overflow-style-2" data-content="Merchant" style="padding:1px">
-										<span class="selected-merchant"><input type="text" class="input-search-merchant form-control" data-search="search" placeholder="Merchant"></span>
-										<span class="position-icon-1 cus-icon-style"><i class="fas fa-caret-down" aria-hidden="true"></i></span>
+					<div class="me-content-div" style="">
+						<div class="row" style="padding: 10px 0;">
+							<div class="col-xxl-6 col-xl-3 col-sm-6">
+								<div class="dropdown">
+									<input type="text" name="" class="input-text-class dropdown-inputbox fd-select-input fd-merchant-selinp" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px; border-radius: 5px 0 0 5px;" required>
+									<i class="input-text-i fal fa-angle-down"></i>
+									<span class="input-text-span fd-si-span" style="left: 5px">Select Merchant</span>
+									<span class="input-text-border"></span>
+
+									<div class="dropdown-menu-div fd-dmd-merchant scrollbar-custom" data-dropdown="Merchant">
+										<!-- data from database -->
 									</div>
-									<ul class="merchant-menu option-menu-click searchable-ul scrollbar-custom">
-                                        
-                                        
-									</ul>
 								</div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 no-padding array-display mb-4" style="margin-top: 10px;">
-                            <input type="text" name="" id="test-search" class="form-control" style="width: 100%" placeholder="Search ..." >
-                            <table id="display-feed-table" width="100%" style="font-size: 12px;">
-                            
-                            </table>
-                                
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-12 no-padding array-display mb-4" style="margin-top: 5px;">
+                        <input type="text" name="" id="test-search" class="form-control" style="width: 100%" placeholder="Search ..." >
+                        <table id="display-feed-table" width="100%" style="font-size: 12px;">
+                            <!-- data from ajax -->
+                        </table>     
+                    </div>
+
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <?php $this->end();?>

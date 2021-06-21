@@ -221,7 +221,7 @@
 	<div class="row">
 		<div class="col-lg-12 col-md-12 mtop-35px">
 			<div class="card card-style card-normalmode">
-				<div class="card-body no-padding" style=""   > 
+				<div class="card-body no-padding" style=""> 
 					<div class="card-div-overflow-style row-1-card-div-overflow-style-1" style="padding-bottom: 8px;position: relative;z-index: 2;">
 						<div>
 							<h4 style="position: relative;top: 20px;padding-left: 20px;padding-right: 20px; padding-bottom: 10px; color: #fff;letter-spacing: 1px;">
@@ -241,17 +241,11 @@
 									<div class="dropdown-menu-div-sub dmds-select-site">BREXIT</div>
 								</div>
 							</div>
-							<!-- <button class="btn btn-primary dropdown-toggle col-12 me-website-btn" data-toggle="dropdown" >Select Site</button>
-							<div class="dropdown-menu col-12" aria-labelledby="dropdownMenuButton" style="width: 150px;min-width: unset;">
-								<span class="dropdown-item">AKS</span>
-								<span class="dropdown-item">CDD</span>
-								<span class="dropdown-item">BREX</span>
-							</div> -->
 						</div>
 					</div>
 					<div class="me-content-div" style="">
 						<div class="row" style="padding: 10px 0;">
-							<div class="col-lg-5">
+							<div class="col-xxl-6 col-xl-3 col-sm-6">
 								<div class="dropdown">
 									<input type="text" name="" class="input-text-class dropdown-inputbox me-select-input me-merchant-selinp" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px; border-radius: 5px 0 0 5px;" required>
 									<i class="input-text-i fal fa-angle-down"></i>
@@ -263,7 +257,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-5">
+							<div class="col-xxl-6 col-xl-3 col-sm-6">
 								<div class="dropdown">
 									<input type="text" name="" class="input-text-class dropdown-inputbox me-select-input me-edition-selinp" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px; border-radius: 5px 0 0 5px;" required>
 									<i class="input-text-i fal fa-angle-down"></i>

@@ -215,7 +215,7 @@
 		for (var i in res){
             var n = res[i].merchant_name.toLowerCase();
             var storeName = n.substr(0,1).toUpperCase()+n.substr(1);
-			var app  = 	'<div class="col-md-6 col-lg-6 col-xl-3 store-list-div">';
+            var app = 	'<div class="col-xl-3 col-lg-6 col-sm-12 store-list-div">';
 				app += 		'<div class="merchant-list store-list-card" data-id='+res[i].id+'>';
 				app += 			'<div class="card-body store-list"><p>'+storeName+' '+res[i].merchant_id+'</p></div>';
 				app += 		'</div>';
