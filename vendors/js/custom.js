@@ -271,10 +271,10 @@ $(document).ready(function(){
 
 	$(document).on('click', '.spmc-dm-di', function(){
 		$('.ae-addc-i-on-aks-1, .ae-addc-i-on-aks-0-2, .ae-addc-i-on-cdd-1, .ae-addc-i-on-cdd-0-2, .ae-addc-i-on-brex-1, .ae-addc-i-on-brex-0-2').empty();
-
 		var getSite = ($('.search-product-modal-dd-btn').html() == 'Select Site')? 'AKS' : $('.search-product-modal-dd-btn').html();
 		callEdition();
 		callRegion(getSite)
+		toCreateDataArr = [];
 		
 		var dataRequest =  {
 			action: 'get-product-info',
@@ -482,8 +482,8 @@ function getAvailable($merchantID, $region){
 				if($.inArray(replaceUnderScoreVal, getRarr) != -1) {
 					createSwitchForAvailable(replaceUnderScoreVal, 1, $region, $merchantID);
 					toCreateDataArr.push({
-						'merchantID': index, 
-						'url': value,
+						'merchantID': $merchantID, 
+						'url': $('.ae-url-input').val(),
 						'region': $region,
 						'site' : getOriginalSite(replaceUnderScoreVal)
 					});
