@@ -29,6 +29,7 @@
 			displayReport('menu-disabled', 'Store'),
 			xhr_AjaxCall(url+'dashboard','POST','displayRealDoubleCounts').done(function(data) { displayRealDouble(data); }),
 		)
+		// .then($('.content-loader-div').hide());
 
 		$(window).on('resize',function() { checkWidthFB(); /*take effect when its resize*/ });
 
