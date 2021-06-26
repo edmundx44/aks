@@ -1360,7 +1360,7 @@ class Ajax {
 			case 'main-search-product':
 				$site = self::getSite($getInput->get('site'));
 				if(!is_numeric($getInput->get('toSearch'))){
-					$getWhere = '`buy_url_raw` like "%'.htmlspecialchars_decode($getInput->get('toSearch')).'%"  OR `search_name` like "%'.htmlspecialchars_decode($getInput->get('toSearch')).'%"';
+					$getWhere = '`buy_url` like "%'.htmlspecialchars_decode($getInput->get('toSearch')).'%"  OR `search_name` like "%'.htmlspecialchars_decode($getInput->get('toSearch')).'%"';
 				}else {
 					$getWhere = '`normalised_name` = "'.htmlspecialchars_decode($getInput->get('toSearch')).'"';
 				}
@@ -1432,6 +1432,32 @@ class Ajax {
 					'column' => ['vols_id', 'vols_nom'],
 					'order' => 'vols_nom ASC'
 				]);
+			break;
+			case 'get-visible':
+				$getvisibility = [];
+				$sql = "SELECT `aksV`.ref_id, `aksV`.active, `aksM`.site, `aksM`.value 
+					FROM `test-server`.aks_visibility_meta as `aksM`
+					INNER JOIN `test-server`.aks_visibility as `aksV`
+						ON `aksV`.id = `aksM`.ref_id
+					WHERE `aksM`.site = 'allkeyshop_com' OR `aksM`.site = 'reviewitusa' OR `aksM`.site = 'allkeyshop_com_gbp' 
+					GROUP BY `aksM`.ref_id, `aksM`.site ORDER BY `aksV`.ref_id";
+		        
+		        $results = $db->query($sql)->results();
+				foreach($results as $key){
+					$getvisibility[$key->ref_id][$key->site] = $key->value;
+				}
+
+		        return $getvisibility;
+			break;
+			case 'get-allowed-region':
+				$allowedRegion = [];
+				$results = $db->find('`test-server`.`pt_regions_visibility`');
+				
+				foreach($results as $key){
+        			$allowedRegion[$key->region_id] = unserialize($key->visibility);
+   				}
+
+   				return $allowedRegion;
 			break;
 			case 'ae-create-action':
 			// $data = array();

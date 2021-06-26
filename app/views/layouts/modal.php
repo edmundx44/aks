@@ -1,51 +1,6 @@
 <link rel="stylesheet" href="<?=PROOT?>vendors/css/modal.css" media="screen" title="no title" charset="utf-8">
 
-<div class="modal" id="displayStoreGamesByNormalizedName">
-	<div class="modal-dialog displayStoreGamesByNormalizedNameDialog">
-		<div class="modal-content displayStoreGamesByNormalizedNameContent" style="top: 70px;">
-
-			<!-- Modal Header -->
-			<div class="modal-header">
-				<!-- search name and normalized name -->
-				<div class="modal-title">
-					<div class="sideborder"></div>
-					<span class="productName"></span> 
-					<span class="productNormalizedName"></span> 
-				</div>
-				<button type="button" class="close" data-dismiss="modal">×</button>
-				<br>
-				<br>
-				<br>
-			</div>
-
-			<!-- Modal body -->
-			<div class="modal-body displayStoreGamesByNormalizedNameBody">
-				<div class="nname-modal-thead">
-					<div class="nname-modal-thead-div">
-						<div class="modal-child modal-child-1">Merchant</div>
-						<div class="modal-child modal-child-2">Region</div>
-						<div class="modal-child modal-child-3">Edition</div>
-						<div class="modal-child modal-child-4">Stock</div>
-						<div class="modal-child modal-child-5">Price</div>
-						<div class="modal-child modal-child-6"> &nbsp; </div>
-					</div>
-				</div>
-				<div class="nname-modal-tbody">
-					<!-- dynamic data here -->
-				</div>
-			</div>
-
-			<!-- Modal footer -->
-			<div class="modal-footer">
-				<button type="button" class="btn modal-close-btn" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- 
-search product modal
-// default modal design -->
+<!-- search product modal -->
 <div class="modal fade no-padding" id="search-product-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 	<div class="modal-dialog modal-lg spm-dialog spm-dialog-height" role="document">
 		<div class="modal-content spm-content">
@@ -158,123 +113,27 @@ search product modal
 						</ul>
 						<p class="ae-aadc-description">Auto creation include's.</p>
 						<div class="ae-aadc-includes ae-addc-i-on-aks">
-
-							<!-- available for aks here  -->
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for AKS "<span>FR</span>"
-								</label>
+							<div class="ae-addc-i-on-aks-1">
+								<!-- dynamic data  -->
 							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for AKS "<span>DE</span>"
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for AKS "<span>FR</span>"
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for AKS "<span>DE</span>"
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for AKS "<span>FR</span>"
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for AKS "<span>DE</span>"
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for AKS "<span>FR</span>"
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for AKS "<span>DE</span>"
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for AKS "<span>FR</span>"
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for AKS "<span>DE</span>"
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for AKS "<span>FR</span>"
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for AKS "<span>DE</span>"
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for AKS "<span>FR</span>"
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for AKS "<span>DE</span>"
-								</label>
+							<div class="ae-addc-i-on-aks-0-2">
+								<!-- dynamic data  -->
 							</div>
 						</div>
 						<div class="ae-aadc-includes ae-addc-i-on-cdd">
-
-							<!-- available for CDD here  -->
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for cdd "<span>FR</span>"
-								</label>
+							<div class="ae-addc-i-on-cdd-1">
+								<!-- dynamic data  -->
 							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for cdd "<span>DE</span>"
-								</label>
+							<div class="ae-addc-i-on-cdd-0-2">
+								<!-- dynamic data  -->
 							</div>
 						</div>
 						<div class="ae-aadc-includes ae-addc-i-on-brex">
-
-							<!-- available for brex here  -->
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for brex "<span>FR</span>"
-								</label>
+							<div class="ae-addc-i-on-brex-1">
+								<!-- dynamic data  -->
 							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-									Auto for Brex "<span>DE</span>"
-								</label>
+							<div class="ae-addc-i-on-brex-0-2">
+								<!-- dynamic data  -->
 							</div>
 						</div>
 					</div>
@@ -294,16 +153,18 @@ search product modal
 								<span class="input-text-span">Search name</span>
 								<span class="input-text-border"></span>
 							</div>
-							<div class="dropdown" style="margin: 30px 0 0 0;">
-								<input type="text" name="ae-edition-input" class="input-text-class ae-edition-input dropdown-inputbox" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
-								<i class="input-text-i fal fa-angle-down"></i>
-								<span class="input-text-span" style="left: 5px">Select Edition</span>
-								<span class="input-text-border"></span>
+							<form> <!-- add form disable autocomplete -->
+								<div class="dropdown" style="margin: 30px 0 0 0;">
+									<input type="text" name="ae-edition-input" class="input-text-class ae-edition-input dropdown-inputbox" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
+									<i class="input-text-i fal fa-angle-down"></i>
+									<span class="input-text-span" style="left: 5px">Select Edition</span>
+									<span class="input-text-border"></span>
 
-								<div class="dropdown-menu-div dmd-edition">
-									<!-- data from database -->
+									<div class="dropdown-menu-div dmd-edition">
+										<!-- data from database -->
+									</div>
 								</div>
-							</div>
+							</form>
 						</div>
 						<div class="col-sm-6">
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
@@ -318,15 +179,17 @@ search product modal
 								<span class="input-text-span">Price</span>
 								<span class="input-text-border"></span>
 							</div>
-							<div class="dropdown" style="margin: 30px 0 0 0;">
-								<input type="text" name="ae-region-input" class="input-text-class ae-region-input dropdown-inputbox" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
-								<i class="input-text-i fal fa-angle-down"></i>
-								<span class="input-text-span" style="left: 5px">Select Region</span>
-								<span class="input-text-border"></span>
-								<div class="dropdown-menu-div dmd-region">
-									<!-- display data from database -->
+							<form> <!-- add form disable autocomplete -->
+								<div class="dropdown" style="margin: 30px 0 0 0;">
+									<input type="text" name="ae-region-input" class="input-text-class ae-region-input dropdown-inputbox" style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
+									<i class="input-text-i fal fa-angle-down"></i>
+									<span class="input-text-span" style="left: 5px">Select Region</span>
+									<span class="input-text-border"></span>
+									<div class="dropdown-menu-div dmd-region">
+										<!-- display data from database -->
+									</div>
 								</div>
-							</div>
+							</form>
 						</div>
 
 						<!-- 2nd row -------------------------- -->
@@ -540,6 +403,76 @@ search product modal
 		</div>
 	</div>
 </div>
+
+<!-- display by normalized name 1st try -->
+<div class="modal" id="displayStoreGamesByNormalizedName">
+	<div class="modal-dialog displayStoreGamesByNormalizedNameDialog">
+		<div class="modal-content displayStoreGamesByNormalizedNameContent" style="top: 70px;">
+
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<!-- search name and normalized name -->
+				<div class="modal-title">
+					<div class="sideborder"></div>
+					<span class="productName"></span> 
+					<span class="productNormalizedName"></span> 
+				</div>
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<br>
+				<br>
+				<br>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body displayStoreGamesByNormalizedNameBody">
+				<div class="nname-modal-thead">
+					<div class="nname-modal-thead-div">
+						<div class="modal-child modal-child-1">Merchant</div>
+						<div class="modal-child modal-child-2">Region</div>
+						<div class="modal-child modal-child-3">Edition</div>
+						<div class="modal-child modal-child-4">Stock</div>
+						<div class="modal-child modal-child-5">Price</div>
+						<div class="modal-child modal-child-6"> &nbsp; </div>
+					</div>
+				</div>
+				<div class="nname-modal-tbody">
+					<!-- dynamic data here -->
+				</div>
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn modal-close-btn" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade bd-example-modal-lg displayProductByNormalisedName no-padding" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	<div class="modal-dialog modal-lg modal-xl-override" style="height:  calc(100% - 60px);" role="document">
+		<div class="modal-content" style="height:  100%;border-radius: 0;background-clip: initial; background: rgba(0,123,255, .5);border: none;padding: 10px;">
+			<div class="modal-content-wrapper" style="width: 100%;height: 100%;background-color: #fff;">
+				<div class="modal-content-header" style="height: 100px;background-color: #1e1e2f;">
+					<button type="button" class="close float-right" data-dismiss="modal" style="position: relative;right: 15px;top: 10px;color: #fff;font-size: 15px;">
+						<i class="fas fa-times"></i>
+					</button>
+					<div class="modal-content-header-content" style="padding: 10px 0 15px 15px;">
+						<p class="dpbnm-site" style="margin: 0; padding: 0;color: #fff;letter-spacing: 2px;"></p>
+						<p class="dpbnm-product-name" style="margin: 0; padding: 0;color: #fff;font-size: 12px;"></p>
+						<p class="dpbnm-product-nname" style="margin: 0; padding: 0;color: #fff;font-size: 11px;"></p>
+					</div>
+				</div>
+				<div class="modal-content-body" style="height:  calc(100% - 170px);">
+					asdsad
+				</div>
+				<div class="modal-content-foot" style="height: 70px;border-top: solid 1px rgba(0,123,255, .5); padding: 10px;text-align: right;">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div> -
+
 
 <!-- checksum Modal -->
 <div id="checksum-modal" class="modal fade" role="dialog">
@@ -807,7 +740,7 @@ search product modal
     </div>
 </div>
 
-<!-- report recheck log modal -->
+<!-- confirmation modal modal -->
 <div class="modal fade" id="report-modal-confirmation" role="dialog">
     <div class="modal-dialog modal-md">
         <div class="modal-content" style="background-clip: initial;top: 70px;">
@@ -831,7 +764,6 @@ search product modal
         </div>
     </div>
 </div>
-
 
 <!-- Affiliate Link Check Edit Modal -->
 <div class="modal fade" id="affiliate-link-edit-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -984,7 +916,6 @@ search product modal
         </div>
     </div>
 </div>
-
 
 <!-- add shift modal -->
 <div class="modal fade" id="pc-add-shift-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
@@ -1160,7 +1091,6 @@ search product modal
     </div>
 </div>
 
-
 <!--alert modal -->
 <div class="modal fade" id="alert-modal" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -1219,7 +1149,6 @@ search product modal
         </div>
     </div>
 </div>
-
 
 <!-- report modal -->
 <div class="modal fade" id="feesModal" role="dialog" style="z-index:1041">
@@ -1302,83 +1231,6 @@ search product modal
 </div>
 
 
-<!-- 
-search product modal
-// default modal design -->
-<div class="modal fade no-padding" id="search-product-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-	<div class="modal-dialog modal-lg spm-dialog spm-dialog-height" role="document">
-		<div class="modal-content spm-content">
-			<div class="spm-content-wrapper">
-				<div class="spm-content-header">
-					<div class="dropdown" style="width: 150px;margin-right: 0;display: block;margin-left: auto;">
-						<button class="btn btn-primary dropdown-toggle search-product-modal-dd-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;">Select Site</button>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
-							<span class="dropdown-item search-product-modal-ddi">AKS</span>
-							<span class="dropdown-item search-product-modal-ddi">CDD</span>
-							<span class="dropdown-item search-product-modal-ddi">BREX</span>
-						</div>
-					</div>
-					<div class="input-text-div" style="margin: 15px 0 0 0;">
-						<input type="text" name="" class="input-text-class search-product-modal-txt" required>
-						<i class="input-text-i fas fa-search search-product-modal-i"></i>
-						<span class="input-text-span search-product-modal-span">Search Product</span>
-						<span class="input-text-border"></span>
-                    </div>
-				</div>
-				<div class="text-center spmc-loader-wrapper">
-					<span style="font-weight: 500;font-size: 15px;letter-spacing: 2px;">Processing</span>
-					<div class="boxes box-loader">
-						<div class="box">
-							<div></div>
-							<div></div>
-							<div></div>
-							<div></div>
-						</div>
-						<div class="box">
-							<div></div>
-							<div></div>
-							<div></div>
-							<div></div>
-						</div>
-						<div class="box">
-							<div></div>
-							<div></div>
-							<div></div>
-							<div></div>
-						</div>
-						<div class="box">
-							<div></div>
-							<div></div>
-							<div></div>
-							<div></div>
-						</div>
-					</div>
-				</div>
-				<div class="spm-content-body">
-					<div class="spm-sub-header">
-						<div class="spm-sub-header-tittle" style="margin: 10px 0 0 0;">
-							<span>
-								&nbsp; &nbsp; 
-								<i class="far fa-eye"></i>
-								<span class="spmc-display-header-span-what">Product found in</span>
-								<span class="spmc-span-site">AKS</span>
-							</span>
-						</div>
-						<div class="spm-sub-header-btn">
-							<button class="btn btn-info spmc-btn spmc-create-btn" style="position: relative;"><i class="fas fa-plus-square"></i> &nbsp; Create</button>
-							<button class="btn btn-info spmc-btn spmc-request-id-btn" style="position: relative;display:none;"><i class="fas fa-plus-square"></i> &nbsp; Request</button>
-						</div>
-					</div>
-					<div class="spm-content-display">
-							
-					</div>
-				</div>
-			</div>	
-		</div>
-	</div>
-</div>
-
-
 <style>
 /*search product modal or spm section ---------------------------------------------------------------*/
 	.spm-header-dd {
@@ -1404,6 +1256,9 @@ search product modal
 		position: relative;
 		display:none;
 	}
+	/*.spm-dialog {
+		height:  calc(100% - 60px);
+	}*/
 	.spm-dialog-height-max {
 		margin-top: ;
 		height:  calc(100% - 60px);
@@ -1787,7 +1642,7 @@ search product modal
 	.ae-aadc-includes {
 		height: calc(100% - 40px);
 		padding: 50px 35px 15px 35px;
-		font-size: 15px;
+		font-size: 12px;
 		overflow: auto;
 	}
 	.ae-aadc-includes .form-check {

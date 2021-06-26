@@ -39,6 +39,8 @@ use Core\Session;
 			<?= $this->content('body'); ?>
 		<?php else: ?>
 			<div class="wrapper" id="wrapper">
+				<?php include 'page-loader.php'; ?>
+
 				<!-- <div class="bg-div"></div> -->
 				<div class="sidebar">
 					<?php include 'sidebar.php'; ?>
