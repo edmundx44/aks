@@ -38,11 +38,11 @@ $(function(){
 		getMerchant($website)
 	});
 
-	$(document).on('click', '.dmds-merchant', function(){
+	$(document).on('click', '.fd-dmds-merchant', function(){
 		var $value = $(this).attr('data-fd-merchant-ni')+' '+$(this).attr('data-merchant-id-ni');
 		$('#test-search').hide();
 		$('#test-search').val("");
-		$('#display-feed-table_wrapper').hide()
+		$('#display-feed-table_wrapper').hide();
 		$('#display-feed-table').empty();
 		$('.fd-merchant-selinp').val($value);
 		$merchant = $(this).attr('data-merchant-id-ni');
@@ -169,13 +169,13 @@ function getMerchant($website = 'aks'){
 				'id' : data[i].merchant_id,
 				'name' : name,
 				'search': name +' '+ data[i].merchant_id,
-				'toAppend': '<div class="dropdown-menu-div-sub dmds-merchant" data-fd-merchant-ni="'+ name +'" data-merchant-id-ni='+data[i].merchant_id+'><span class="dmds-data-name">'+ name +'</span>  <span class="dmds-data-id"> '+data[i].merchant_id+' </span></div>'
+				'toAppend': '<div class="dropdown-menu-div-sub fd-dmds-merchant" data-fd-merchant-ni="'+ name +'" data-merchant-id-ni='+data[i].merchant_id+'><span class="dmds-data-name">'+ name +'</span>  <span class="dmds-data-id"> '+data[i].merchant_id+' </span></div>'
 			});
 		}
 	}).always(function() {
 		feedTable.destroy();
 		$('#display-feed-table').empty();
-		$('.input-text-span').text($website.toUpperCase() +' '+ 'Merchants');
+		$('.fd-si-span').text($website.toUpperCase() +' '+ 'Merchants');
 		$('.fd-dmd-merchant').attr( 'data-website', $website.toLowerCase() );
 		$('#website-btn').val($website.toUpperCase());
 	});

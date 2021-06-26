@@ -371,6 +371,15 @@ $(document).ready(function(){
 	$(document).on('click', '.dmds-region', function(){
 		$('.ae-region-input').val($(this).data('nameni'));
 		$('.dmd-region').hide();
+		
+		$data = {
+			action: 'check-region',
+			website: 'aks',
+			region: $(this).attr('data-idni')
+		}
+		AjaxCall(url, $data).done(function(data){
+			console.log(data)
+		})
 	});
 
 	$(document).on('click', '.ae-ratings-input', function(){
