@@ -5,6 +5,7 @@
 			"501",
 			{
 				"merchantName" : "gamersgate",
+				"toReplaceRegex" : "(^.*.com)\\/", 
 				"url": {
 					"5": "https://www.gamersgate.com/", 
 					"501": "https://uk.gamersgate.com/"
@@ -20,6 +21,7 @@
 			"704",
 			{
 				"merchantName" : "gamesplanet",
+				"toReplaceRegex" : "(^.*.com)\\/",
 				"url": {
 					"7" : 	"https://fr.gamesplanet.com/",
 					"700" : "https://de.gamesplanet.com/",
@@ -36,6 +38,7 @@
 			"213",
 			{
 				"merchantName" : "2game",
+				"toReplaceRegex" : "",
 				"url": {
 					"12" : 	"/en/",
 					"212" : "/en-gb/",
@@ -50,6 +53,7 @@
 			"400",
 			{
 				"merchantName" : "mmoga",
+				"toReplaceRegex" : "(^.*.com)\\/",
 				"url": {
 					"40" : "https://www.mmoga.com",
 					"400" : "https://www.mmoga.co.uk"
@@ -63,6 +67,7 @@
 			"61616",
 			{
 				"merchantName" : "g2a",
+				"toReplaceRegex" : "",
 				"url": {
 					"61" : 	"COM_GLOBAL_PB_DIGI_GAM_LISTING_NOR_allkeyshop",
 					"61616" : "COM_GLOBAL_PB_PLUS_GAM_LISTING_NOR_allkeyshopPLUS"
@@ -79,6 +84,7 @@
 			"621",
 			{
 				"merchantName" : "gamesRocket",
+				"toReplaceRegex" : "^(.*com|.*com|.*de|.*fr|.*co\\.uk)\\/",
 				"url": {
 					"62" : 	"https://us.gamesrocket.com/",
 					"100" : "https://www.gamesrocket.de/",
@@ -99,6 +105,7 @@
 			"1255",
 			{
 				"merchantName" : "microsoft",
+				"toReplaceRegex" : "",
 				"url": {
 					"125" : "46128&murl=https://www.microsoft.com/en-gb",
 					"1251" : "24542&murl=https://www.microsoft.com/en-us",
@@ -117,9 +124,10 @@
 			"2180001",
 			{
 				"merchantName" : "win&macgamestore",
+				"toReplaceRegex" : "(^.*.com)\/",
 				"url": {
-					"166" : "wingamestore",
-					"168" : "macgamestore" ,
+					"166" : "https://www.wingamestore.com/",
+					"168" : "https://www.macgamestore.com/" ,
 					"2180001": "unknown for mac and wingamestore"
 				}
 			}
@@ -131,6 +139,7 @@
 			"2180",
 			{
 				"merchantName" : "gamivo",
+				"toReplaceRegex" : "(\\?.*)",
 				"url": {
 					"218" : "?glv=kiwhuamu",
 					"2180" : "?glv=kiwhuamu&utm_campaign=allkeyshop-smart"	
@@ -145,6 +154,7 @@
 			"2223",
 			{
 				"merchantName" : "voidu",
+				"toReplaceRegex" : "(\\?.*)",
 				"url": {
 					"222" : "?affiliate=allkeyshop",
 					"2222" : "?affiliate=allkeyshop&currency=gbp&region=gb",
@@ -162,6 +172,7 @@
 			"234",
 			{
 				"merchantName" : "playstation",
+				"toReplaceRegex" : "\\.com\/(.*)\\/product",
 				"url": {
 					"230" : "/fr-fr/",
 					"231" : "/en-gb/",
@@ -178,6 +189,7 @@
 			"2700",
 			{
 				"merchantName" : "allyouplay",
+				"toReplaceRegex" : "(.*)&dl=",
 				"url": {
 					"270" : "https://lt45.net/c/?si=13256&li=1594938&wi=288216",
 					"2700" : "https://lt45.net/c/?si=13256&li=1581736&wi=288216"
@@ -198,6 +210,7 @@
 			"294",
 			{
 				"merchantName" : "eneba",
+				"toReplaceRegex" : "",
 				"url": {
 					"272" : "",
 					"287" : "",
@@ -219,10 +232,11 @@
 			"312",
 			{
 				"merchantName" : "gamesload",
+				"toReplaceRegex" : "(.*com|.*co.uk)\\/",
 				"url": {
-					"310" : "eu-games.nexway.com",
-					"311" :	"www.gamesload.co.uk",
-					"312" : "us-games.nexway.com"
+					"310" : "eu-games.nexway.com/",
+					"311" :	"www.gamesload.co.uk/",
+					"312" : "us-games.nexway.com/"
 				}
 			}
 		]
@@ -234,10 +248,11 @@
 			"318",
 			{
 				"merchantName" : "livecards",
+				"toReplaceRegex" : "(.*eu|.*co.uk|.*es)\\/",
 				"url": {
-					"315" : "livecards.eu",
-					"316" :	"livecards.co.uk",
-					"318" : "livecards.es"
+					"315" : "livecards.eu/",
+					"316" :	"livecards.co.uk/",
+					"318" : "livecards.es/"
 				}
 			}
 		]
@@ -260,6 +275,7 @@
 			"516",
 			{
 				"merchantName" : "ubisoft",
+				"toReplaceRegex" : "",
 				"url": {
 					"50" : "https://store.ubi.com/eu/",
 					"505" : "https://lt45.net/c/?&si=14378&li=1618570&wi=288216&ws=&dl=de/",

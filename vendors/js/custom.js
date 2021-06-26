@@ -452,50 +452,38 @@ function getAvailable($merchantID, $region){
 			if(getAvailableOutput[0]['merchantID'][i]['url'] !== undefined) {
 				$.each(getAvailableOutput[0]['merchantID'][i]['url'], function( index, value ) {
 					var getVarr = getVisibleArr[index];
-					for(var j in getVarr){
-						var replaceUnderScoreVal = j.replaceAll("_", ".");
-						if(getVarr[j] == 1){
-							if($.inArray(replaceUnderScoreVal, getRarr) != -1) {
-								createSwitchForAvailable(replaceUnderScoreVal, 1, $region, index);
-								toCreateDataArr.push({
-									'merchantID': index, 
-									'url': value,
-									'region': $region,
-									'site' : getOriginalSite(replaceUnderScoreVal)
-								});
-							}else {
-								createSwitchForAvailable(replaceUnderScoreVal, 2, $region, index);
-							}
-						}else{
-							createSwitchForAvailable(replaceUnderScoreVal, 0, $region, index);
-						}
-					}
+					getAvailableToCreate(getVarr, getRarr, $region, index, $('.ae-url-input').val().replace(new RegExp(getAvailableOutput[0]['merchantID'][i]['toReplaceRegex']), value));
 				});
 			}
 		}
 	}else {
 		// no auto create
 		var getVarr = getVisibleArr[$merchantID];
-		for(var i in getVarr){
-			var replaceUnderScoreVal = i.replaceAll("_", ".");
-			if(getVarr[i] == 1){
-				if($.inArray(replaceUnderScoreVal, getRarr) != -1) {
-					createSwitchForAvailable(replaceUnderScoreVal, 1, $region, $merchantID);
-					toCreateDataArr.push({
-						'merchantID': $merchantID, 
-						'url': $('.ae-url-input').val(),
-						'region': $region,
-						'site' : getOriginalSite(replaceUnderScoreVal)
-					});
-				}else {
-					createSwitchForAvailable(replaceUnderScoreVal, 2, $region, $merchantID);
-				}
+		getAvailableToCreate(getVarr, getRarr, $region, $merchantID, $('.ae-url-input').val());
+	}
+}
+
+function getAvailableToCreate($getArr, $getRegionArr, $getRegion, $getMerchantID, $getUrl){
+	for(var i in $getArr) {
+		var replaceUnderScoreVal = i.replaceAll("_", ".");
+		if($getArr[i] == 1) {
+			if($.inArray(replaceUnderScoreVal, $getRegionArr) != -1) {
+				createSwitchForAvailable(replaceUnderScoreVal, 1, $getRegion, $getMerchantID);
+				toCreateDataArr.push({
+					'merchantID': $getMerchantID, 
+					'url': $getUrl,
+					'region': $getRegion,
+					'site' : getOriginalSite(replaceUnderScoreVal)
+				});
 			}else{
-				createSwitchForAvailable(replaceUnderScoreVal, 0, $region, $merchantID);
+				createSwitchForAvailable(replaceUnderScoreVal, 2, $getRegion, $getMerchantID);
 			}
+		}else{
+			createSwitchForAvailable(replaceUnderScoreVal, 0, $getRegion, $getMerchantID);
 		}
 	}
 }
+
 function getOriginalSite($partial){
 	switch($partial){
 		case 'allkeyshop.com':
