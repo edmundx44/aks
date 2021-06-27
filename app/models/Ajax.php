@@ -1460,12 +1460,31 @@ class Ajax {
    				return $allowedRegion;
 			break;
 			case 'ae-create-action':
-			// $data = array();
-			// foreach(explode('&', $_POST['toCreateData']) as $value){
-			// 	return explode('=', $value);			   	
-			// }
-			// parse_str($_GET, $params);
-				
+				$website = [];
+				$product = $_POST['formData'];
+				$options  = $_POST['options'];
+				$product = AffiliateUtility::cleaningUrlRaw($product);
+				$results = AffiliateUtility::getPreparedUrl($product['ae-url-input'], $product['ae-merchant-input'], 'cdd');
+				// foreach($options as $option){
+
+				// 	switch($option['site']){
+				// 		case 'AKS':
+				// 			$product = AffiliateUtility::cleaningUrlRaw($product);
+				// 			$results = AffiliateUtility::getPreparedUrl($product['ae-url-input'], $product['ae-merchant-input'], 'aks');
+				// 			$webiste['AKS'][] = $results;
+				// 		break;
+				// 		case 'CDD':
+				// 			$product = AffiliateUtility::cleaningUrlRaw($product);
+				// 			$results = AffiliateUtility::getPreparedUrl($product['ae-url-input'], $product['ae-merchant-input'], 'aks');
+				// 			$webiste['AKS'][] = $results;
+				// 		break;
+				// 		case 'BREX':
+				// 			$product = AffiliateUtility::cleaningUrlRaw($product);
+				// 			$results = AffiliateUtility::getPreparedUrl($product['ae-url-input'], $product['ae-merchant-input'], 'aks');
+				// 			$webiste['AKS'][] = $results;
+				// 		break;
+				// 	}
+				// }
 			break;
 		}
 	

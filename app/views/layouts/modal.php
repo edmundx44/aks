@@ -181,7 +181,7 @@
 							</div>
 							<form> <!-- add form disable autocomplete -->
 								<div class="dropdown" style="margin: 30px 0 0 0;">
-									<input type="text" name="ae-region-input" class="input-text-class ae-region-input dropdown-inputbox" style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
+									<input type="text" name="ae-region-input" data-regionid="" class="input-text-class ae-region-input dropdown-inputbox" style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
 									<i class="input-text-i fal fa-angle-down"></i>
 									<span class="input-text-span" style="left: 5px">Select Region</span>
 									<span class="input-text-border"></span>

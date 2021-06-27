@@ -11,8 +11,7 @@ class AffiliateUtility{
     public static function isAffiliateUrlExists(string $url, int $merchantId, string $website) {   
         $locale = self::getLocale($website);
         $options = self::getAffiliate($merchantId);
-        $value = $options[$locale]['check_regex'];
-
+        $value = $value = (isset($options[$locale]['check_regex'])) ?? null;
         $regex = ( $value != null ) ? $value : null;
         if (!$regex)
             return false;
@@ -48,7 +47,7 @@ class AffiliateUtility{
 
     public static function addAffiliateToUrl(string $url, int $merchantId, string $website) {
         $locale = self::getLocale($website);
-        $options = self::getAffiliate($merchantId)[$locale];
+        $options = (isset(self::getAffiliate($merchantId)[$locale])) ?? null;
         $options = ($options != null) ? $options : null;
 
         if (!isset($options['search_regex'], $options['replacement_pattern']))
@@ -73,7 +72,7 @@ class AffiliateUtility{
             case 'cdd': 
                 $locale = 'en_US';
             break;
-            case 'brexitgbp': 
+            case 'brex': 
                 $locale = 'en_GB';
             break;
         }
@@ -82,25 +81,25 @@ class AffiliateUtility{
 
     //cleaning url from the feed
     //Special case for the url feed that have conflict for the affiliate in db;
-    public function cleaningUrlRaw(array $product) {	
-    	switch($product['merchant']){
+    public static function cleaningUrlRaw(array $product) {	
+    	switch($product['ae-merchant-input']){
     		case 40:
-    			$product['buy_url'] = str_replace('?ref=615', '', $product['buy_url']);
+    			$product['ae-url-input'] = str_replace('?ref=615', '', $product['ae-url-input']);
     		break;
     		case 47:
-    			$product['buy_url'] = str_replace('?nosalesbooster=currency=EUR&roff=1&noff=1', '', $product['buy_url']);
+    			$product['ae-url-input'] = str_replace('?nosalesbooster=currency=EUR&roff=1&noff=1', '', $product['ae-url-input']);
     		break;
     		case 9:
-    			$product['buy_url'] = str_replace('?__currency=eur', '', $product['buy_url']);
+    			$product['ae-url-input'] = str_replace('?__currency=eur', '', $product['ae-url-input']);
     		break;
     		case 270:
-    			$product['buy_url'] = str_replace('&ws=', '', $product['buy_url']);
-            	$product['buy_url'] = preg_replace('@https://lt45\.net/c/\?si=13256&li=1594938&wi=288216&pid=.*&dl=?@', 'https://lt45.net/c/?si=13256&li=1594938&wi=288216&ws=&dl=en/', $product['buy_url']);
+    			$product['ae-url-input'] = str_replace('&ws=', '', $product['buy_url']);
+            	$product['ae-url-input'] = preg_replace('@https://lt45\.net/c/\?si=13256&li=1594938&wi=288216&pid=.*&dl=?@', 'https://lt45.net/c/?si=13256&li=1594938&wi=288216&ws=&dl=en/', $product['ae-url-input']);
     		break;
     		case 61:
     		case 61616:
-    			$product['buy_url'] = str_replace('/en-gb/', '/en/', $product['buy_url']);
-    			$product['buy_url'] = preg_replace('/\?.*/', '', $product['buy_url']);
+    			$product['ae-url-input'] = str_replace('/en-gb/', '/en/', $product['ae-url-input']);
+    			$product['ae-url-input'] = preg_replace('/\?.*/', '', $product['ae-url-input']);
     		break;
     	}
     	return $product;
