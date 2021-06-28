@@ -470,10 +470,14 @@ function getAvailable($merchantID, $region) {
 		for (var i in getAvailableOutput[0]['merchantID']) {
 			if (getAvailableOutput[0]['merchantID'][i]['url'] !== undefined) {
 				$.each(getAvailableOutput[0]['merchantID'][i]['url'], function (index, value) {
+					console.log(getAvailableOutput[0]['merchantID'][i])
 					var inputUrl = $('.ae-url-input').val();
-					var result = inputUrl.replace(getAvailableOutput[0]['merchantID'][i]['toReplaceRegex'],value);
+					//var result = inputUrl.replace(getAvailableOutput[0]['merchantID'][i]['toReplaceRegex'],value);
 					var getVarr = getVisibleArr[index];
-					getAvailableToCreate(getVarr, getRarr, $region, index, result);
+					//console.log(new RegExp(getAvailableOutput[0]['merchantID'][i]['toReplaceRegex']))
+					//console.log(value)
+					//console.log($('.ae-url-input').val().match(new RegExp(getAvailableOutput[0]['merchantID'][i]['toReplaceRegex']), value))
+					//getAvailableToCreate(getVarr, getRarr, $region, index, $('.ae-url-input').val().replace(new RegExp(getAvailableOutput[0]['merchantID'][i]['toReplaceRegex']), value));
 				});
 			}
 		}

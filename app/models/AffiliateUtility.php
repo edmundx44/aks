@@ -104,5 +104,5 @@ class AffiliateUtility{
     	}
     	return $product;
     }
-
+//=(\d.*.com)\/
 }

@@ -5,7 +5,7 @@
 			"501",
 			{
 				"merchantName" : "gamersgate",
-				"toReplaceRegex" : "/(^.*.com)\//", 
+				"toReplaceRegex" : "(^.*.com)\\/", 
 				"url": {
 					"5": "https://www.gamersgate.com/", 
 					"501": "https://uk.gamersgate.com/"
@@ -21,7 +21,7 @@
 			"704",
 			{
 				"merchantName" : "gamesplanet",
-				"toReplaceRegex" : "/(^.*.com)\//",
+				"toReplaceRegex" : "(^.*.com)\\/",
 				"url": {
 					"7" : 	"https://fr.gamesplanet.com/",
 					"700" : "https://de.gamesplanet.com/",
@@ -38,7 +38,7 @@
 			"213",
 			{
 				"merchantName" : "2game",
-				"toReplaceRegex" : "/(^.*.com)\//",
+				"toReplaceRegex" : "^.+\\.com\\/(.*?)\\/",
 				"url": {
 					"12" : 	"/en/",
 					"212" : "/en-gb/",
@@ -53,7 +53,7 @@
 			"400",
 			{
 				"merchantName" : "mmoga",
-				"toReplaceRegex" : "/(^.*.com)\//",
+				"toReplaceRegex" : "(^.*.com)\\/",
 				"url": {
 					"40" : "https://www.mmoga.com",
 					"400" : "https://www.mmoga.co.uk"
@@ -84,7 +84,7 @@
 			"621",
 			{
 				"merchantName" : "gamesRocket",
-				"toReplaceRegex" : "^(.*com|.*com|.*de|.*fr|.*co\.uk)\/",
+				"toReplaceRegex" : "^(.*com|.*com|.*de|.*fr|.*co\\.uk)\\/",
 				"url": {
 					"62" : 	"https://us.gamesrocket.com/",
 					"100" : "https://www.gamesrocket.de/",
@@ -105,14 +105,14 @@
 			"1255",
 			{
 				"merchantName" : "microsoft",
-				"toReplaceRegex" : "=(\d.*.com)\/",
+				"toReplaceRegex" : "mid=(\\d+&murl.*\\.com\\/\\D+?)\\/",
 				"url": {
-					"125" : "46128&murl=https://www.microsoft.com/en-gb",
-					"1251" : "24542&murl=https://www.microsoft.com/en-us",
-					"1252" : "46131&murl=https://www.microsoft.com/de-de",
-					"1253" : "46134&murl=https://www.microsoft.com/fr-fr",
-					"1254" : "46135&murl=https://www.microsoft.com/it-it",
-					"1255" : "46133&murl=https://www.microsoft.com/es-es"
+					"125" : "46128&murl=https://www.microsoft.com/en-gb/",
+					"1251" : "24542&murl=https://www.microsoft.com/en-us/",
+					"1252" : "46131&murl=https://www.microsoft.com/de-de/",
+					"1253" : "46134&murl=https://www.microsoft.com/fr-fr/",
+					"1254" : "46135&murl=https://www.microsoft.com/it-it/",
+					"1255" : "46133&murl=https://www.microsoft.com/es-es/"
 				}
 			}
 		]
@@ -124,7 +124,7 @@
 			"2180001",
 			{
 				"merchantName" : "win&macgamestore",
-				"toReplaceRegex" : "(^.*.com)\/",
+				"toReplaceRegex" : "(^.*.com)\\/",
 				"url": {
 					"166" : "https://www.wingamestore.com/",
 					"168" : "https://www.macgamestore.com/" ,
@@ -139,7 +139,7 @@
 			"2180",
 			{
 				"merchantName" : "gamivo",
-				"toReplaceRegex" : "(\?.*)",
+				"toReplaceRegex" : "(\\?.*)",
 				"url": {
 					"218" : "?glv=kiwhuamu",
 					"2180" : "?glv=kiwhuamu&utm_campaign=allkeyshop-smart"	
@@ -154,7 +154,7 @@
 			"2223",
 			{
 				"merchantName" : "voidu",
-				"toReplaceRegex" : "/(\?.*)/",
+				"toReplaceRegex" : "(\\?.*)",
 				"url": {
 					"222" : "?affiliate=allkeyshop",
 					"2222" : "?affiliate=allkeyshop&currency=gbp&region=gb",
@@ -172,7 +172,7 @@
 			"234",
 			{
 				"merchantName" : "playstation",
-				"toReplaceRegex" : "/\.com\/(.*)\/product/",
+				"toReplaceRegex" : "\\.com(\\/.*\\/)product",
 				"url": {
 					"230" : "/fr-fr/",
 					"231" : "/en-gb/",
@@ -189,7 +189,7 @@
 			"2700",
 			{
 				"merchantName" : "allyouplay",
-				"toReplaceRegex" : "/(.*)&dl=/",
+				"toReplaceRegex" : "(.*)&dl=",
 				"url": {
 					"270" : "https://lt45.net/c/?si=13256&li=1594938&wi=288216",
 					"2700" : "https://lt45.net/c/?si=13256&li=1581736&wi=288216"
@@ -232,11 +232,11 @@
 			"312",
 			{
 				"merchantName" : "gamesload",
-				"toReplaceRegex" : "/(.*com|.*co.uk)\//",
+				"toReplaceRegex" : "(.*com|.*co.uk)\\/",
 				"url": {
-					"310" : "eu-games.nexway.com",
-					"311" :	"www.gamesload.co.uk",
-					"312" : "us-games.nexway.com"
+					"310" : "eu-games.nexway.com/",
+					"311" :	"www.gamesload.co.uk/",
+					"312" : "us-games.nexway.com/"
 				}
 			}
 		]
@@ -248,11 +248,11 @@
 			"318",
 			{
 				"merchantName" : "livecards",
-				"toReplaceRegex" : "/(.*eu|.*co.uk|.*es)\//",
+				"toReplaceRegex" : "(.*eu|.*co.uk|.*es)\\/",
 				"url": {
-					"315" : "livecards.eu",
-					"316" :	"livecards.co.uk",
-					"318" : "livecards.es"
+					"315" : "livecards.eu/",
+					"316" :	"livecards.co.uk/",
+					"318" : "livecards.es/"
 				}
 			}
 		]
