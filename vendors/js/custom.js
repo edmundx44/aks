@@ -361,7 +361,9 @@ $(document).ready(function () {
 	});
 
 	$(document).on('click', '.dmds-edition', function () {
+		$('.ae-addc-i-on-aks-1, .ae-addc-i-on-aks-0-2, .ae-addc-i-on-cdd-1, .ae-addc-i-on-cdd-0-2, .ae-addc-i-on-brex-1, .ae-addc-i-on-brex-0-2').empty();
 		$('.ae-edition-input').val($(this).data('nameni'));
+		$('.ae-edition-input').attr('data-editionid', $(this).data('idni'));
 		$('.dmd-edition').hide();
 	});
 
@@ -412,6 +414,10 @@ $(document).ready(function () {
 	});
 
 	$(document).on('click', '#ae-btn-add', function () {
+		toCreateDataArr = [];
+		var getRegion = ($('.ae-region-input').val() == '') ? 2 : $('.ae-region-input').data('regionid');
+		getAvailable($('.ae-merchant-input').val(), getRegion);
+
 		var serialize = $('#ae-mcb-row :input').serializeArray();
 		var formValues = {};
 		for (var i in serialize) { formValues[serialize[i].name] = serialize[i].value }
@@ -422,17 +428,13 @@ $(document).ready(function () {
 			source: $('.ae-product-p-title').text(),
 		}
 		console.log(dataRequest)
-		// AjaxCall(url, dataRequest).done(function(data) {
-		// 	console.log(data);
-		// }).always(function() {});
+		AjaxCall(url, dataRequest).done(function (data) {
+			console.log(data);
+		}).always(function () { });
 	});
 
 
 }); // end docuemtn ready
-
-function preparedToInsert() {
-
-}
 
 function getVisible() {
 	var dataRequest = {
@@ -470,14 +472,11 @@ function getAvailable($merchantID, $region) {
 		for (var i in getAvailableOutput[0]['merchantID']) {
 			if (getAvailableOutput[0]['merchantID'][i]['url'] !== undefined) {
 				$.each(getAvailableOutput[0]['merchantID'][i]['url'], function (index, value) {
-					console.log(getAvailableOutput[0]['merchantID'][i])
 					var inputUrl = $('.ae-url-input').val();
-					//var result = inputUrl.replace(getAvailableOutput[0]['merchantID'][i]['toReplaceRegex'],value);
 					var getVarr = getVisibleArr[index];
-					//console.log(new RegExp(getAvailableOutput[0]['merchantID'][i]['toReplaceRegex']))
-					//console.log(value)
-					//console.log($('.ae-url-input').val().match(new RegExp(getAvailableOutput[0]['merchantID'][i]['toReplaceRegex']), value))
-					//getAvailableToCreate(getVarr, getRarr, $region, index, $('.ae-url-input').val().replace(new RegExp(getAvailableOutput[0]['merchantID'][i]['toReplaceRegex']), value));
+					var replacedString = inputUrl.match(new RegExp(getAvailableOutput[0]['merchantID'][i]['toReplaceRegex']), value);
+					var geturl = inputUrl.replace(replacedString[1], value);
+					getAvailableToCreate(getVarr, getRarr, $region, index, geturl);
 				});
 			}
 		}
@@ -496,7 +495,7 @@ function getAvailableToCreate($getArr, $getRegionArr, $getRegion, $getMerchantID
 				createSwitchForAvailable(replaceUnderScoreVal, 1, $getRegion, $getMerchantID);
 				toCreateDataArr.push({
 					'merchantID': $getMerchantID,
-					'url': $getUrl,
+					'url': updateCurrency(replaceUnderScoreVal, $getUrl),
 					'region': $getRegion,
 					'site': getOriginalSite(replaceUnderScoreVal)
 				});
@@ -507,6 +506,36 @@ function getAvailableToCreate($getArr, $getRegionArr, $getRegion, $getMerchantID
 			createSwitchForAvailable(replaceUnderScoreVal, 0, $getRegion, $getMerchantID);
 		}
 	}
+}
+
+function updateCurrency($partial, $partialUrl) {
+	switch ($partial) {
+		case 'allkeyshop.com':
+			var updateUrl = $partialUrl;
+			updateUrl = updateUrl.replace('=USD', '=EUR');
+			updateUrl = updateUrl.replace('=GBP', '=EUR');
+
+			updateUrl = updateUrl.replace('=usd', '=eur');
+			updateUrl = updateUrl.replace('=gbp', '=eur');
+			break;
+		case 'reviewitusa':
+			var updateUrl = $partialUrl;
+			updateUrl = updateUrl.replace('=EUR', '=USD');
+			updateUrl = updateUrl.replace('=GBP', '=USD');
+
+			updateUrl = updateUrl.replace('=eur', '=usd');
+			updateUrl = updateUrl.replace('=gbp', '=usd');
+			break;
+		case 'allkeyshop.com.gbp':
+			var updateUrl = $partialUrl;
+			updateUrl = updateUrl.replace('=EUR', '=GBP');
+			updateUrl = updateUrl.replace('=USD', '=GBP');
+
+			updateUrl = updateUrl.replace('=eur', '=gbp');
+			updateUrl = updateUrl.replace('=usd', '=gbp');
+			break;
+	}
+	return updateUrl;
 }
 
 function getOriginalSite($partial) {

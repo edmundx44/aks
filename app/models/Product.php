@@ -5,26 +5,6 @@ use Core\DB;
 class Product{
 
 
-    
-    public static function isMerchantVisible(int $merchant) {
-        static $merchantVisibility = [];
-        
-        if(in_array($merchant,$merchantVisibility))
-            return true;
-        return false;
-    }
-
-    public static function isRegionVisible(int $region)  {
-
-        static $regionVisibility;
-
-        if(!isset($regionVisibility)){
-            $regionVisibility = [1,2,3,4,5];
-            return $regionVisibility;
-        }
-        return "Have data now no need to set";
-    }
-    
     public static function isProductAlreadyCreated(array $product, string $website) : bool
     {
         $db = DB::getInstance();

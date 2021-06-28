@@ -1463,28 +1463,34 @@ class Ajax {
 				$website = [];
 				$product = $_POST['formData'];
 				$options  = $_POST['options'];
-				$product = AffiliateUtility::cleaningUrlRaw($product);
-				$results = AffiliateUtility::getPreparedUrl($product['ae-url-input'], $product['ae-merchant-input'], 'cdd');
-				// foreach($options as $option){
+				foreach($options as $option){
+					switch($option['site']){
+						case 'AKS':
+							$product['ae-region-input'] = $option['region'];
+							$product['ae-merchant-input'] = $option['merchantID'];
 
-				// 	switch($option['site']){
-				// 		case 'AKS':
-				// 			$product = AffiliateUtility::cleaningUrlRaw($product);
-				// 			$results = AffiliateUtility::getPreparedUrl($product['ae-url-input'], $product['ae-merchant-input'], 'aks');
-				// 			$webiste['AKS'][] = $results;
-				// 		break;
-				// 		case 'CDD':
-				// 			$product = AffiliateUtility::cleaningUrlRaw($product);
-				// 			$results = AffiliateUtility::getPreparedUrl($product['ae-url-input'], $product['ae-merchant-input'], 'aks');
-				// 			$webiste['AKS'][] = $results;
-				// 		break;
-				// 		case 'BREX':
-				// 			$product = AffiliateUtility::cleaningUrlRaw($product);
-				// 			$results = AffiliateUtility::getPreparedUrl($product['ae-url-input'], $product['ae-merchant-input'], 'aks');
-				// 			$webiste['AKS'][] = $results;
-				// 		break;
-				// 	}
-				// }
+							$option = AffiliateUtility::urlFeedRaw($option);
+							$product['ae-url-input'] = AffiliateUtility::getPreparedUrl($option['url'], $product['ae-merchant-input'], $option['site']);
+							$webiste['AKS'][] = $product;
+						break;
+						case 'CDD':
+							$product['ae-region-input'] = $option['region'];
+							$product['ae-merchant-input'] = $option['merchantID'];
+
+							$option = AffiliateUtility::urlFeedRaw($option);
+							$product['ae-url-input'] = AffiliateUtility::getPreparedUrl($option['url'], $product['ae-merchant-input'], $option['site']);
+							$webiste['CDD'][] = $product;
+						break;
+						case 'BREX':
+							$product['ae-region-input'] = $option['region'];
+							$product['ae-merchant-input'] = $option['merchantID'];
+
+							$option = AffiliateUtility::urlFeedRaw($option);
+							$product['ae-url-input'] = AffiliateUtility::getPreparedUrl($option['url'], $product['ae-merchant-input'], $option['site']);
+							$webiste['BREX'][] = $product;
+					}
+				}
+				return $webiste;
 			break;
 		}
 	

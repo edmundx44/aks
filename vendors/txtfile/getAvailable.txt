@@ -38,7 +38,7 @@
 			"213",
 			{
 				"merchantName" : "2game",
-				"toReplaceRegex" : "^.+\\.com\\/(.*?)\\/",
+				"toReplaceRegex" : "^.+\\.com(\\/.*?\\/)",
 				"url": {
 					"12" : 	"/en/",
 					"212" : "/en-gb/",
@@ -67,10 +67,10 @@
 			"61616",
 			{
 				"merchantName" : "g2a",
-				"toReplaceRegex" : "",
+				"toReplaceRegex" : "(\\?.*)",
 				"url": {
-					"61" : 	"COM_GLOBAL_PB_DIGI_GAM_LISTING_NOR_allkeyshop",
-					"61616" : "COM_GLOBAL_PB_PLUS_GAM_LISTING_NOR_allkeyshopPLUS"
+					"61" : 	"?gtag=dccb1b16c9&utm_content=COM_GLOBAL_PB_DIGI_GAM_LISTING_NOR_allkeyshop",
+					"61616" : "?gtag=dccb1b16c9&utm_content=COM_GLOBAL_PB_PLUS_GAM_LISTING_NOR_allkeyshopPLUS"
 				}
 			}
 		]
@@ -86,11 +86,11 @@
 				"merchantName" : "gamesRocket",
 				"toReplaceRegex" : "^(.*com|.*com|.*de|.*fr|.*co\\.uk)\\/",
 				"url": {
-					"62" : 	"https://us.gamesrocket.com/",
-					"100" : "https://www.gamesrocket.de/",
-					"101" : "https://www.gamesrocket.co.uk/",
-					"620" : "https://www.gamesrocket.com/",
-					"621" : "https://www.gamesrocket.fr/"
+					"62" : 	"https://us.gamesrocket.com",
+					"100" : "https://www.gamesrocket.de",
+					"101" : "https://www.gamesrocket.co.uk",
+					"620" : "https://www.gamesrocket.com",
+					"621" : "https://www.gamesrocket.fr"
 				}
 			}
 		]
@@ -105,7 +105,7 @@
 			"1255",
 			{
 				"merchantName" : "microsoft",
-				"toReplaceRegex" : "mid=(\\d+&murl.*\\.com\\/\\D+?)\\/",
+				"toReplaceRegex" : "mid=(\\d+&murl.*\\.com\\/\\D+?\\/)",
 				"url": {
 					"125" : "46128&murl=https://www.microsoft.com/en-gb/",
 					"1251" : "24542&murl=https://www.microsoft.com/en-us/",
@@ -126,8 +126,8 @@
 				"merchantName" : "win&macgamestore",
 				"toReplaceRegex" : "(^.*.com)\\/",
 				"url": {
-					"166" : "https://www.wingamestore.com/",
-					"168" : "https://www.macgamestore.com/" ,
+					"166" : "https://www.wingamestore.com",
+					"168" : "https://www.macgamestore.com" ,
 					"2180001": "unknown for mac and wingamestore"
 				}
 			}
@@ -234,9 +234,9 @@
 				"merchantName" : "gamesload",
 				"toReplaceRegex" : "(.*com|.*co.uk)\\/",
 				"url": {
-					"310" : "eu-games.nexway.com/",
-					"311" :	"www.gamesload.co.uk/",
-					"312" : "us-games.nexway.com/"
+					"310" : "eu-games.nexway.com",
+					"311" :	"www.gamesload.co.uk",
+					"312" : "us-games.nexway.com"
 				}
 			}
 		]
@@ -248,11 +248,11 @@
 			"318",
 			{
 				"merchantName" : "livecards",
-				"toReplaceRegex" : "(.*eu|.*co.uk|.*es)\\/",
+				"toReplaceRegex" : "\\/\\/(.*eu|.*co.uk|.*es)\\/",
 				"url": {
-					"315" : "livecards.eu/",
-					"316" :	"livecards.co.uk/",
-					"318" : "livecards.es/"
+					"315" : "livecards.eu",
+					"316" :	"livecards.co.uk",
+					"318" : "livecards.es"
 				}
 			}
 		]
