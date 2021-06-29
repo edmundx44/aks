@@ -414,6 +414,7 @@ $(document).ready(function () {
 	});
 
 	$(document).on('click', '#ae-btn-add', function () {
+		$('.ae-addc-i-on-aks-1, .ae-addc-i-on-aks-0-2, .ae-addc-i-on-cdd-1, .ae-addc-i-on-cdd-0-2, .ae-addc-i-on-brex-1, .ae-addc-i-on-brex-0-2').empty();
 		toCreateDataArr = [];
 		var getRegion = ($('.ae-region-input').val() == '') ? 2 : $('.ae-region-input').data('regionid');
 		getAvailable($('.ae-merchant-input').val(), getRegion);
@@ -475,7 +476,7 @@ function getAvailable($merchantID, $region) {
 					var inputUrl = $('.ae-url-input').val();
 					var getVarr = getVisibleArr[index];
 					var replacedString = inputUrl.match(new RegExp(getAvailableOutput[0]['merchantID'][i]['toReplaceRegex']), value);
-					var geturl = inputUrl.replace(replacedString[1], value);
+					var geturl = (replacedString != null) ? inputUrl.replace(replacedString[1], value) : inputUrl;
 					getAvailableToCreate(getVarr, getRarr, $region, index, geturl);
 				});
 			}

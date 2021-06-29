@@ -53,7 +53,7 @@
 			"400",
 			{
 				"merchantName" : "mmoga",
-				"toReplaceRegex" : "(^.*.com)\\/",
+				"toReplaceRegex" : "(^.*.com|.*co\\.uk)\\/",
 				"url": {
 					"40" : "https://www.mmoga.com",
 					"400" : "https://www.mmoga.co.uk"
