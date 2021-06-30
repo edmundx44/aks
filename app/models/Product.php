@@ -16,21 +16,18 @@ class Product{
         return (!$results) ? false : true ;
     }
 
-    private static function getTable($site){
-		switch ($site) {
-			case 'aks':
-			case 'AKS': 
-                $site = '`test-server`';
+    private static function getTable($website){
+		switch ($website) {
+			case 'AKS':
+                $website = '`test-server`';
 			break;
-			case 'cdd':
 			case 'CDD': 
-                $site = '`compareprices`';
+                $website = '`compareprices`';
 			break;
-			case 'brexitgbp':
-			case 'BREXITGBP': 
-                $site = '`brexitgbp`';
+			case 'BREX': 
+                $website = '`brexitgbp`';
 			break;
 		}
-		return $site;
+		return $website;
 	}
 }

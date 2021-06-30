@@ -2,104 +2,121 @@
 namespace App\Models;
 use Core\DB;
 
-class AffiliateUtility{
+class AffiliateUtility {
     
-    public static $affiliate; //caching
+    private int $merchant;
+    private string $initial_url;
+    private string $buy_url;
+    private string $buy_url_raw;
 
-    public static function getPreparedUrl(string $url, int $merchantId, string $website) {
-        
-        if(self::isAffiliateUrlExists($url, $merchantId, $website))
-            return $url;
-        $url = self::removedAffiliate($url, $merchantId);
-        return $url = self::addAffiliateToUrl($url, $merchantId, $website);
+    public string $locale;
+    public static $locales = ['en_EU', 'en_US', 'en_GB'];
+    public static $affiliateData; //caching
+
+    public function __construct(array $options){
+
+        $options = self::urlFeedRaw($options);
+
+        $this->initial_url = $options['url'];
+        $this->buy_url = $options['url'];
+        $this->buy_url_raw = ''; //empty for now comment line 70
+        $this->merchant = $options['merchantID'];
+        $this->locale = self::getLocale($options['site']);
+
+        //$this->buy_url_raw = $options['url'];
     }
 
-    public static function isAffiliateUrlExists(string $url, int $merchantId, string $website) {   
-        $locale = self::getLocale($website);
-        $options = static::$affiliate;
-        $value = (isset($options[$locale][$merchantId]['check_regex'])) ? $options[$locale][$merchantId]['check_regex'] : null;
-        $regex = ( $value != null ) ? $value : null;
-        if (!$regex)
-            return false;
-        return preg_match($regex, $url);
+    public function getPreparedAffiliate() {
+        if($this->isAffiliateUrlExists()){
+            $this->removedAffiliate(); //put this to remove the affiliate from the buy_url to use for buy_url_raw for now buy_url_raw is set to ''
+            return $this->returnData($this->initial_url);
+        }
+        $this->removedAffiliate();
+        $this->addAffiliateToUrl();
+        return $this->returnData();
+    }
+
+    private function isAffiliateUrlExists() {
+        $options = static::$affiliateData;
+        $regex = (isset($options[$this->locale][$this->merchant]['check_regex'])) ? $options[$this->locale][$this->merchant]['check_regex'] : null;
+        return (!$regex) ? false : preg_match($regex, $this->buy_url);
+    }
+
+    private function addAffiliateToUrl() {
+        $options = static::$affiliateData[$this->locale][$this->merchant] ?? null;
+        if (!isset($options['search_regex'], $options['replacement_pattern']) || empty($options['search_regex']) AND empty($options['replacement_pattern']))
+            return $this;
+        
+        preg_match($options['search_regex'], $this->buy_url, $matches); //capture link with this pattern  ~(?<url>.+)~
+        $this->buy_url = $options['replacement_pattern']; //sample {url}?tracking=allkeyshop
+
+        if(array_key_exists('url',$matches))
+            $this->buy_url = str_replace('{url}', $matches['url'], $this->buy_url);
+        return $this;
+    }
+
+    private function removedAffiliate() {
+        $options = static::$affiliateData;
+        if(!isset($options))
+            return $this;
+
+        foreach(static::$locales as $locale){
+            $check_regex = $options[$locale][$this->merchant]['check_regex'] ?? null;
+            $replacement_pattern = $options[$locale][$this->merchant]['replacement_pattern'] ?? null;
+
+            if (!isset($replacement_pattern, $check_regex))
+                continue;
+
+            if(preg_match($check_regex, $this->buy_url)){
+                $pattern = str_replace('{url}','', $replacement_pattern);
+                $this->buy_url = str_replace($pattern,'', $this->buy_url);
+                //$this->buy_url_raw = str_replace($pattern,'', $this->buy_url_raw); //line 70
+                break;
+            }
+    
+        }
+        return $this;
+    }
+
+    private function returnData($initial_url = false) {
+        return (!$initial_url) ? $returnOption = [ 'buy_url' => $this->buy_url, 'buy_url_raw' => $this->buy_url_raw, 'merchant' => $this->merchant ] : $returnOption = [ 'buy_url' => $initial_url, 'buy_url_raw' => $this->buy_url_raw, 'merchant' => $this->merchant ];
     }
 
     public static function getAffiliate(string $merchantId) {
 
-        if(!isset(static::$affiliate)){
+        if(!isset(static::$affiliateData)){
             $temp = [];
             $db = DB::getInstance();
             $sql = "SELECT * FROM `test-server`.`affiliate_urls` WHERE merchant_id IN($merchantId)";
             $results = $db->query( $sql, [ $merchantId ])->results();
             foreach($results as $key => $value){
-            	if(!array_key_exists($value->locale, $temp))
-            		$locale = $value->locale;
-            	if(isset($locale))
-            		$temp[$locale][$value->merchant_id] = [
-            			'id' => $value->id,
-            			'merchant_id' => $value->merchant_id,
-            			'merchant_name' => $value->merchant_name,
-            			'locale' => $value->locale,
-            			'search_regex' => $value->search_regex,
-            			'replacement_pattern' => $value->replacement_pattern,
-            			'check_regex' => $value->check_regex
-            		];
+                if(!array_key_exists($value->locale, $temp))
+                    $locale = $value->locale;
+                if(isset($locale))
+                    $temp[$locale][$value->merchant_id] = [
+                        'id' => $value->id,
+                        'merchant_id' => $value->merchant_id,
+                        'merchant_name' => $value->merchant_name,
+                        'locale' => $value->locale,
+                        'search_regex' => $value->search_regex,
+                        'replacement_pattern' => $value->replacement_pattern,
+                        'check_regex' => $value->check_regex
+                    ];
             }
-            static::$affiliate = $temp;
+            static::$affiliateData = $temp;
         }
-        return (isset(static::$affiliate)) ? static::$affiliate : null;
+        return (isset(static::$affiliateData)) ? static::$affiliateData : null;
     }
 
-    public static function removedAffiliate(string $url, int $merchantId){
-        $locales = ['en_EU', 'en_US', 'en_GB'];
-        $options = static::$affiliate;
-        if(!isset($options))
-            return $url;
-
-        foreach($locales as $locale){
-            $check_regex = $options[$locale][$merchantId]['check_regex'] ?? null;
-            $replacement_pattern = $options[$locale][$merchantId]['replacement_pattern'] ?? null;
-
-            if (!isset($replacement_pattern, $check_regex))
-                return $url;
-
-            if(preg_match($check_regex, $url)){
-                $pattern = str_replace('{url}','', $replacement_pattern);
-                $url = str_replace($pattern,'', $url);
-                break;
-            }
-    
-        }
-        return $url;
-    }
-
-    public static function addAffiliateToUrl(string $url, int $merchantId, string $website) {
-        $locale = self::getLocale($website);
-        $options = static::$affiliate[$locale][$merchantId] ?? null;
-
-        if (!isset($options['search_regex'], $options['replacement_pattern']) || empty($options['search_regex']) AND empty($options['replacement_pattern']))
-            return $url;
-    
-        preg_match($options['search_regex'], $url, $matches);
-
-        $url = $options['replacement_pattern'];
-
-        if(array_key_exists('url',$matches))
-        	$url = str_replace('{url}', $matches['url'], $url);
-
-        return $url;
-    }
-
-    public static function getLocale($website): string {	
-    	$website = strtolower($website);
+    public static function getLocale($website): string {
         switch ($website) {
-            case 'aks': 
+            case 'AKS': 
                 $locale = 'en_EU';
             break;
-            case 'cdd': 
+            case 'CDD': 
                 $locale = 'en_US';
             break;
-            case 'brex': 
+            case 'BREX': 
                 $locale = 'en_GB';
             break;
         }
