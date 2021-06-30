@@ -1481,34 +1481,40 @@ class Ajax {
 		foreach($options as $option){
 			switch($option['site']){
 				case 'AKS':
-					$product['ae-region-input'] = $option['region'];
-					$product['ae-merchant-input'] = $option['merchantID'];
-
 					$affiliate = new AffiliateUtility($option);
 					$preparedData = $affiliate->getPreparedAffiliate();
-					$website['AKS'][] = $preparedData;
 
-					//$webiste['AKS'][] = $product;
+					$product['ae-region-input'] = $option['region'];
+					$product['ae-merchant-input'] = $preparedData['merchant'];
+					$product['ae-url-input'] = $preparedData['buy_url'];
+					$product['ae-url_raw-input'] = $preparedData['buy_url_raw'];
+
+					$website['AKS'][] = $preparedData;
+					//$website['AKS'][] = $product;
 				break;
 				case 'CDD':
-					$product['ae-region-input'] = $option['region'];
-					$product['ae-merchant-input'] = $option['merchantID'];
-					
 					$affiliate = new AffiliateUtility($option);
 					$preparedData = $affiliate->getPreparedAffiliate();
-					$website['CDD'][] = $preparedData;
 
-					// $webiste['CDD'][] = $product;
+					$product['ae-region-input'] = $option['region'];
+					$product['ae-merchant-input'] = $preparedData['merchant'];
+					$product['ae-url-input'] = $preparedData['buy_url'];
+					$product['ae-url_raw-input'] = $preparedData['buy_url_raw'];
+					
+					$website['CDD'][] = $preparedData;
+					//$website['CDD'][] = $product;
 				break;
 				case 'BREX':
-					$product['ae-region-input'] = $option['region'];
-					$product['ae-merchant-input'] = $option['merchantID'];
-
 					$affiliate = new AffiliateUtility($option);
 					$preparedData = $affiliate->getPreparedAffiliate();
-					$website['BREX'][] = $preparedData;
 
-					// $webiste['BREX'][] = $product;
+					$product['ae-region-input'] = $option['region'];
+					$product['ae-merchant-input'] = $preparedData['merchant'];
+					$product['ae-url-input'] = $preparedData['buy_url'];
+					$product['ae-url_raw-input'] = $preparedData['buy_url_raw'];
+
+					$website['BREX'][] = $preparedData;
+					//$website['BREX'][] = $product;
 				break;
 			}
 		}
