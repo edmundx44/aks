@@ -27,6 +27,7 @@ class AffiliateUtility {
     }
 
     public function getPreparedAffiliate() {
+
         if($this->isAffiliateUrlExists()){
             $this->removedAffiliate(); //put this to remove the affiliate from the buy_url to use for buy_url_raw for now buy_url_raw is set to ''
             return $this->returnData($this->initial_url);
@@ -60,6 +61,7 @@ class AffiliateUtility {
         if(!isset($options))
             return $this;
 
+        //To remove affiliate for each LOCALES affiliate
         foreach(static::$locales as $locale){
             $check_regex = $options[$locale][$this->merchant]['check_regex'] ?? null;
             $replacement_pattern = $options[$locale][$this->merchant]['replacement_pattern'] ?? null;
@@ -125,35 +127,48 @@ class AffiliateUtility {
 
     //cleaning url from the feed
     //Special case for the url feed that have conflict for the affiliate in db;
-    public static function urlFeedRaw(array $product) {	
+    public static function urlFeedRaw(array $product) {
+        $option = static::$affiliateData;
+
     	switch($product['merchantID']){
     		case 40:
             case 400:
             case 2223:
+            case 49:
+            case 490:
+            case 9:
+            case 47:
     			$product['url'] = preg_replace('/\?.*/', '', $product['url']);
                 if($product['merchantID'] == 400) //dont have 400 in affiliate url table 
                     $product['url'] .= '?ref=615&currency=GBP';
                 if($product['merchantID'] == 2223) //dont have 2223 in affiliate url table 
                     $product['url'] .= '?affiliate=allkeyshop';
     		break;
-            case 9:
-    			$product['url'] = str_replace('?__currency=eur', '', $product['url']);
-    		break;
-    		case 47:
-    			$product['url'] = str_replace('?nosalesbooster=currency=EUR&roff=1&noff=1', '', $product['url']);
-    		break;
+
     		case 270:
+            case 2700:
     			$product['url'] = str_replace('&ws=', '', $product['url']);
-            	$product['url'] = preg_replace('@https://lt45\.net/c/\?si=13256&li=1594938&wi=288216&pid=.*&dl=?@', 'https://lt45.net/c/?si=13256&li=1594938&wi=288216&ws=&dl=en/', $product['url']);
+                $product['url'] = str_replace('en/','', $product['url']); //if url input have en/ remove it first
+
+                //have 270 but empty search_regex and replacement_pattern in affiliate url table
+                //if theres some changes in affiliate url change it here and also for txtfile/getAvailable.txt
+            	$product['url'] = preg_replace('@https://lt45.net/c/\?si=13256&li=1594938.*288216.*&dl=?@', 'https://lt45.net/c/?si=13256&li=1594938&wi=288216&ws=&dl=en/', $product['url']); //for 270 merchant
+                
+                if($product['merchantID'] == 2700){
+                    //$product['url'] = preg_replace('@https://lt45.net/c/\?si=13256&li=1581736.*288216.*&dl=?@', 'https://lt45.net/c/?si=13256&li=1581736&wi=288216&ws=&dl=en/', $product['url']); //for 2700 merchant
+                    $replacement = str_replace('{path}', '', $option['en_EU'][2700]['replacement_pattern']); //en-EU & en-GB is the same in db
+                    $product['url'] = preg_replace('@https://lt45.net/c/\?si=13256&li=1581736.*288216.*&dl=?@', $replacement."en/", $product['url']); //for 2700 merchant
+                }
     		break;
-    		case 61:
-    			$product['url'] = str_replace('/en-gb/', '/en/', $product['url']);
+
+    		case 61: $product['url'] = str_replace('/en-gb/', '/en/', $product['url']);
     		break;
-            case 63:
-                //$product['url'] = preg_replace('/^.*?\?url=/', '', $product['url']);
-            break;
+
+            // case 9: $product['url'] = str_replace('?__currency=eur', '', $product['url']);
+    		// break;
+            // case 47: $product['url'] = str_replace('?nosalesbooster=currency=EUR&roff=1&noff=1', '', $product['url']);
+    		// break;
     	}
     	return $product;
     }
-//=(\d.*.com)\/
 }

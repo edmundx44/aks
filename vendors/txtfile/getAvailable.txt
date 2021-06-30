@@ -191,8 +191,8 @@
 				"merchantName" : "allyouplay",
 				"toReplaceRegex" : "(.*)&dl=",
 				"url": {
-					"270" : "https://lt45.net/c/?si=13256&li=1594938&wi=288216",
-					"2700" : "https://lt45.net/c/?si=13256&li=1581736&wi=288216"
+					"270" : "https://lt45.net/c/?si=13256&li=1594938&wi=288216&ws=",
+					"2700" : "https://lt45.net/c/?si=13256&li=1581736&wi=288216&ws="
 				}
 			}
 		]
