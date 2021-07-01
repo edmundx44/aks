@@ -144,12 +144,15 @@ class AffiliateUtility {
                 $product['url'] = preg_replace('/\?.*/', '', $product['url']);
                 $product['url'] .= '?ars=cdd';
             break;
+            case 66: //Empty replacement_pattern & check_regex ... replacement_pattern = {url}?tag=wwwcheapdig06-20, check_regex =  ~tag=wwwcheapdig06-20~ where Locale = en_US
+                $product['url'] = preg_replace('/\?.*/', '', $product['url']);
+                $product['url'] .= '?tag=wwwcheapdig06-20';
+            break;
 
-    		case 40:
-            case 49:
-            case 490:   
             case 9:
             case 47:
+            case 49:
+            case 490:   
     			$product['url'] = preg_replace('/\?.*/', '', $product['url']);
     		break;
 
