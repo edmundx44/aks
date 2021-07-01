@@ -71,6 +71,7 @@ class AffiliateUtility {
 
             if(preg_match($check_regex, $this->buy_url)){
                 $pattern = str_replace('{url}','', $replacement_pattern);
+                $pattern = str_replace('{path}','', $replacement_pattern); //some merchant used path
                 $this->buy_url = str_replace($pattern,'', $this->buy_url);
                 //$this->buy_url_raw = str_replace($pattern,'', $this->buy_url_raw); //line 70
                 break;
@@ -156,7 +157,7 @@ class AffiliateUtility {
                 
                 if($product['merchantID'] == 2700){
                     //$product['url'] = preg_replace('@https://lt45.net/c/\?si=13256&li=1581736.*288216.*&dl=?@', 'https://lt45.net/c/?si=13256&li=1581736&wi=288216&ws=&dl=en/', $product['url']); //for 2700 merchant
-                    $replacement = str_replace('{path}', '', $option['en_EU'][2700]['replacement_pattern']); //en-EU & en-GB is the same in db
+                    $replacement = str_replace('{path}', '', $option['en_GB'][2700]['replacement_pattern']); //en-EU & en-GB data is the same in db
                     $product['url'] = preg_replace('@https://lt45.net/c/\?si=13256&li=1581736.*288216.*&dl=?@', $replacement."en/", $product['url']); //for 2700 merchant
                 }
     		break;

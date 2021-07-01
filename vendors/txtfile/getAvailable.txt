@@ -142,7 +142,7 @@
 				"toReplaceRegex" : "(\\?.*)",
 				"url": {
 					"218" : "?glv=kiwhuamu",
-					"2180" : "?glv=kiwhuamu&utm_campaign=allkeyshop-smart"	
+					"2180" : "?glv=kiwhuamu"	
 				}
 			}
 		]

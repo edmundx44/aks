@@ -336,7 +336,7 @@ $(document).ready(function () {
 	$(document).on('change', '.ae-merchant-input', function () {
 		$('.ae-addc-i-on-aks-1, .ae-addc-i-on-aks-0-2, .ae-addc-i-on-cdd-1, .ae-addc-i-on-cdd-0-2, .ae-addc-i-on-brex-1, .ae-addc-i-on-brex-0-2').empty();
 		toCreateDataArr = [];
-		var getRegion = ($('.ae-region-input').val() == '') ? 2 : $('.ae-region-input').data('regionid');
+		var getRegion = ($('.ae-region-input').val() == '') ? 2 : $('.ae-region-input').attr('data-regionid');
 		getAvailable($(this).val(), getRegion)
 	});
 
@@ -416,7 +416,7 @@ $(document).ready(function () {
 	$(document).on('click', '#ae-btn-add', function () {
 		$('.ae-addc-i-on-aks-1, .ae-addc-i-on-aks-0-2, .ae-addc-i-on-cdd-1, .ae-addc-i-on-cdd-0-2, .ae-addc-i-on-brex-1, .ae-addc-i-on-brex-0-2').empty();
 		toCreateDataArr = [];
-		var getRegion = ($('.ae-region-input').val() == '') ? 2 : $('.ae-region-input').data('regionid');
+		var getRegion = ($('.ae-region-input').val() == '') ? 2 : $('.ae-region-input').attr('data-regionid');
 		getAvailable($('.ae-merchant-input').val(), getRegion);
 
 		var serialize = $('#ae-mcb-row :input').serializeArray();
