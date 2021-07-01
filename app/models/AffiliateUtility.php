@@ -132,18 +132,25 @@ class AffiliateUtility {
         $option = static::$affiliateData;
 
     	switch($product['merchantID']){
+            case 400:  //dont have 400 in affiliate url table 
+                $product['url'] = preg_replace('/\?.*/', '', $product['url']);
+                $product['url'] .= '?ref=615&currency=GBP';
+            break;
+            case 2232: //dont have 2223 in affiliate url table
+                $product['url'] = preg_replace('/\?.*/', '', $product['url']);
+                $product['url'] .= '?affiliate=allkeyshop';
+            break;
+            case 168:  //dont have 168 in affiliate url table
+                $product['url'] = preg_replace('/\?.*/', '', $product['url']);
+                $product['url'] .= '?ars=cdd';
+            break;
+
     		case 40:
-            case 400:
-            case 2223:
             case 49:
-            case 490:
+            case 490:   
             case 9:
             case 47:
     			$product['url'] = preg_replace('/\?.*/', '', $product['url']);
-                if($product['merchantID'] == 400) //dont have 400 in affiliate url table 
-                    $product['url'] .= '?ref=615&currency=GBP';
-                if($product['merchantID'] == 2223) //dont have 2223 in affiliate url table 
-                    $product['url'] .= '?affiliate=allkeyshop';
     		break;
 
     		case 270:
