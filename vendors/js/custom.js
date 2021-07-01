@@ -582,20 +582,27 @@ function createCheckbox($available, $checkboxName, $checkboxRegion, $whatSite, $
 	// 	0 = not available merchant
 	// 	1 = available merchant
 	// 	2 = not available region
+	switch ($available) {
+		case 0:
+			var toAppend = '<span class="text-danger">Merchant <b>' + $merchantID + '</b> is not Visible on <b>' + $whatSite + '</b></span><br>';
+			break;
 
-	if ($available == 1) {
-		var toAppend = '<div class="form-check text-primary" data-getid="' + $merchantID + '">';
-		toAppend += '	<input class="form-check-input" name="' + $checkboxName + '" type="checkbox" value="" id="' + $checkboxName + $checkboxRegion + '">';
-		toAppend += '	<label class="form-check-label" for="' + $checkboxName + $checkboxRegion + '">';
-		toAppend += '		Merchant <b>' + $merchantID + '</b> is Visible on <b class="text-primary">' + $whatSite + '</b> and region <b>' + $checkboxRegion + '</b>  is allowed';
-		toAppend += '	</label>';
-		toAppend += '</div>';
-	} else if ($available == 2) {
-		var toAppend = '<span class="text-danger">Merchant <b>' + $merchantID + '</b> is Visible on <b>' + $whatSite + '</b> but Region <b>' + $checkboxRegion + '</b> is not allowed</span><br>';
-	} else {
-		var toAppend = '<span class="text-danger">Merchant <b>' + $merchantID + '</b> is not Visible on <b>' + $whatSite + '</b></span><br>';
+		case 1:
+			var toAppend = '<div class="form-check text-primary" data-getid="' + $merchantID + '">';
+			toAppend += '	<input class="form-check-input" name="' + $checkboxName + '" type="checkbox" value="" id="' + $checkboxName + $checkboxRegion + '">';
+			toAppend += '	<label class="form-check-label" for="' + $checkboxName + $checkboxRegion + '">';
+			toAppend += '		Merchant <b>' + $merchantID + '</b> is Visible on <b class="text-primary">' + $whatSite + '</b> and region <b>' + $checkboxRegion + '</b>  is allowed';
+			toAppend += '	</label>';
+			toAppend += '</div>';
+			break;
+
+		case 2:
+			var toAppend = '<span class="text-danger">Merchant <b>' + $merchantID + '</b> is Visible on <b>' + $whatSite + '</b> but Region <b>' + $checkboxRegion + '</b> is not allowed</span><br>';
+			break;
+
+		default: var toAppend = '<span> <b>Somthing went wrong!!</b> </span>';
+			break;
 	}
-
 	return toAppend;
 }
 
