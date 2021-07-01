@@ -1471,13 +1471,15 @@ class Ajax {
 		
 		$website = [];
 		$product = $_POST['formData'];
-		$options  = $_POST['options'];
+		$options  = (!empty($_POST['options'])) ? $_POST['options'] : [] ;
 				
 		$merchants = [];
 		foreach($options as $option){ $merchants[$option['merchantID']] = $option['merchantID']; }
 		$queryMerchants = implode(',', $merchants);
+		if(empty($queryMerchants))
+			return Array( "message" => 'Cant create this offer because of its merchant', 'url' => $product['ae-url-input'], 'merchant' => $product['ae-merchant-input']);
+
 		AffiliateUtility::getAffiliate($queryMerchants);
-				
 		foreach($options as $option){
 			switch($option['site']){
 				case 'AKS':
