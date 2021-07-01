@@ -587,13 +587,13 @@ function createCheckbox($available, $checkboxName, $checkboxRegion, $whatSite, $
 		var toAppend = '<div class="form-check text-primary" data-getid="' + $merchantID + '">';
 		toAppend += '	<input class="form-check-input" name="' + $checkboxName + '" type="checkbox" value="" id="' + $checkboxName + $checkboxRegion + '">';
 		toAppend += '	<label class="form-check-label" for="' + $checkboxName + $checkboxRegion + '">';
-		toAppend += '		Creating merchant <b>' + $merchantID + '</b> on <b class="text-primary">' + $whatSite + '</b> and region is <b>' + $checkboxRegion + '</b>';
+		toAppend += '		Merchant <b>' + $merchantID + '</b> is Visible on <b class="text-primary">' + $whatSite + '</b> and region <b>' + $checkboxRegion + '</b>  is allowed';
 		toAppend += '	</label>';
 		toAppend += '</div>';
 	} else if ($available == 2) {
-		var toAppend = '<span class="text-danger">Region <b>' + $checkboxRegion + '</b> is not allowed on <b>' + $whatSite + '</b></span><br>';
+		var toAppend = '<span class="text-danger">Merchant <b>' + $merchantID + '</b> is Visible on <b>' + $whatSite + '</b> but Region <b>' + $checkboxRegion + '</b> is not allowed on <b>' + $whatSite + '</b></span><br>';
 	} else {
-		var toAppend = '<span class="text-danger">Merchant <b>' + $merchantID + '</b> is not allowed on <b>' + $whatSite + '</b></span><br>';
+		var toAppend = '<span class="text-danger">Merchant <b>' + $merchantID + '</b> is not Visible on <b>' + $whatSite + '</b></span><br>';
 	}
 
 	return toAppend;
