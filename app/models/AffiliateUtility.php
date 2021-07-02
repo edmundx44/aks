@@ -135,11 +135,11 @@ class AffiliateUtility {
             case 400:  //dont have 400 in affiliate url table 
                 $product['url'] = preg_replace('/\?.*/', '', $product['url']);
                 $product['url'] .= '?ref=615&currency=GBP';
-            break;
+                break;
             case 2232: //dont have 2223 in affiliate url table
                 $product['url'] = preg_replace('/\?.*/', '', $product['url']);
                 $product['url'] .= '?affiliate=allkeyshop';
-            break;
+                break;
             case 168:  //dont have 168 in affiliate url table
                 $product['url'] = preg_replace('/\?.*/', '', $product['url']);
                 $product['url'] .= '?ars=cdd';
@@ -147,33 +147,36 @@ class AffiliateUtility {
             case 66: //Empty replacement_pattern & check_regex ... replacement_pattern = {url}?tag=wwwcheapdig06-20, check_regex =  ~tag=wwwcheapdig06-20~ where Locale = en_US
                 $product['url'] = preg_replace('/\?.*/', '', $product['url']);
                 $product['url'] .= '?tag=wwwcheapdig06-20';
-            break;
-
+                break;
             case 9:
             case 47:
             case 49:
             case 490:   
     			$product['url'] = preg_replace('/\?.*/', '', $product['url']);
-    		break;
+    		    break;
+            case 228: //Empty replacement_pattern in affiliate url table
+                $product['url'] = str_replace('&ws=', '', $product['url']);
+                $product['url'] = preg_replace('@/en/|en%2F@','', $product['url']);
 
-    		case 270:
-            case 2700:
+                $product['url'] = preg_replace('@https://lt45.net/c/.+dl=@', 'https://lt45.net/c/?si=13482&li=1594900&wi=288216&ws=&dl=/en/', $product['url']);
+                break;
+    		case 270: //for 270 merchant
+            case 2700://for 2700 merchant
     			$product['url'] = str_replace('&ws=', '', $product['url']);
                 $product['url'] = str_replace('en/','', $product['url']); //if url input have en/ remove it first
 
                 //have 270 but empty search_regex and replacement_pattern in affiliate url table
                 //if theres some changes in affiliate url change it here and also for txtfile/getAvailable.txt
-            	$product['url'] = preg_replace('@https://lt45.net/c/\?si=13256&li=1594938.*288216.*&dl=?@', 'https://lt45.net/c/?si=13256&li=1594938&wi=288216&ws=&dl=en/', $product['url']); //for 270 merchant
+            	$product['url'] = preg_replace('@https://lt45.net/c/\?si=13256&li=1594938.*288216.*&dl=?@', 'https://lt45.net/c/?si=13256&li=1594938&wi=288216&ws=&dl=en/', $product['url']);
                 
                 if($product['merchantID'] == 2700){
                     //$product['url'] = preg_replace('@https://lt45.net/c/\?si=13256&li=1581736.*288216.*&dl=?@', 'https://lt45.net/c/?si=13256&li=1581736&wi=288216&ws=&dl=en/', $product['url']); //for 2700 merchant
                     $replacement = str_replace('{path}', '', $option['en_GB'][2700]['replacement_pattern']); //en-EU & en-GB data is the same in db
-                    $product['url'] = preg_replace('@https://lt45.net/c/\?si=13256&li=1581736.*288216.*&dl=?@', $replacement."en/", $product['url']); //for 2700 merchant
+                    $product['url'] = preg_replace('@https://lt45.net/c/\?si=13256&li=1581736.*288216.*&dl=?@', $replacement."en/", $product['url']);
                 }
-    		break;
-
+    		    break;
     		case 61: $product['url'] = str_replace('/en-gb/', '/en/', $product['url']);
-    		break;
+    		    break;
 
             // case 9: $product['url'] = str_replace('?__currency=eur', '', $product['url']);
     		// break;
