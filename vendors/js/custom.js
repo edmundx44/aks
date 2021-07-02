@@ -31,7 +31,7 @@ $div.css({
 var queryString = window.location.search;
 var uri = window.location.pathname;
 //ESCAPE SPECIAL CHARACTERS
-var entityMap = {
+const entityMap = {
 	'&': '&amp;',
 	'<': '&lt;',
 	'>': '&gt;',
@@ -47,6 +47,7 @@ const inputsSite = {
 	1: { site: "cdd" },
 	2: { site: "brexitgbp" },
 }
+const merchantsHolder = getMerchantsData();
 
 $(document).ready(function () {
 	removeEmptyTitle();
@@ -437,6 +438,15 @@ $(document).ready(function () {
 
 }); // end docuemtn ready
 
+
+function getMerchantsData() {
+	let results = $.ajax({
+		type: "GET", url: url + "app/getStores.json",
+		async: false
+	});
+	return results.responseJSON;
+}
+
 function getVisible() {
 	var dataRequest = {
 		action: 'get-visible',
@@ -579,25 +589,26 @@ function createSwitchForAvailable($getVisible, $available, $region, $merchantID)
 
 function createCheckbox($available, $checkboxName, $checkboxRegion, $whatSite, $merchantID) {
 	// NOTE :
-	// 	0 = not available merchant
-	// 	1 = available merchant
-	// 	2 = not available region
+	// 	0 = Merchant is not visible for creation
+	// 	1 = Merchant is visible and Region is Allowed
+	// 	2 = Merchant is visible but region is not allowed
+	merchantName = (merchantsHolder[$merchantID] !== undefined) ? merchantsHolder[$merchantID]['name1'] : 'Name Not Found';
 	switch ($available) {
 		case 0:
-			var toAppend = '<span class="text-danger">Merchant <b>' + $merchantID + '</b> is not Visible on <b>' + $whatSite + '</b></span><br>';
+			var toAppend = '<span class="text-danger">Merchant <b>' + merchantName +' '+$merchantID+ '</b> is not Visible on <b>' + $whatSite + '</b></span><br>';
 			break;
 
 		case 1:
 			var toAppend = '<div class="form-check text-primary" data-getid="' + $merchantID + '">';
 			toAppend += '	<input class="form-check-input" name="' + $checkboxName + '" type="checkbox" value="" id="' + $checkboxName + $checkboxRegion + '">';
 			toAppend += '	<label class="form-check-label" for="' + $checkboxName + $checkboxRegion + '">';
-			toAppend += '		Merchant <b>' + $merchantID + '</b> is Visible on <b class="text-primary">' + $whatSite + '</b> and region <b>' + $checkboxRegion + '</b>  is allowed';
+			toAppend += '		Merchant <b>' + merchantName + ' ' + $merchantID + '</b> is Visible on <b class="text-primary">' + $whatSite + '</b> and region <b>' + $checkboxRegion + '</b>  is allowed';
 			toAppend += '	</label>';
 			toAppend += '</div>';
 			break;
 
 		case 2:
-			var toAppend = '<span class="text-danger">Merchant <b>' + $merchantID + '</b> is Visible on <b>' + $whatSite + '</b> but Region <b>' + $checkboxRegion + '</b> is not allowed</span><br>';
+			var toAppend = '<span class="text-danger">Merchant <b>' + merchantName + ' ' + $merchantID + '</b> is Visible on <b>' + $whatSite + '</b> but Region <b>' + $checkboxRegion + '</b> is not allowed</span><br>';
 			break;
 
 		default: var toAppend = '<span> <b>Somthing went wrong!!</b> </span>';

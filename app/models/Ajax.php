@@ -301,7 +301,7 @@ class Ajax {
 							'dataID' => $key->dataID,
 							'lastupdate' => strtotime($key->lastupdate),
 							'merchant_id' => $key->merchant_id,
-							'merchant_name' => $getStores[$key->merchant_id]
+							'merchant_name' => $getStores[$key->merchant_id]['name2']
 						);
 					}
 				}
