@@ -592,7 +592,7 @@ function createCheckbox($available, $checkboxName, $checkboxRegion, $whatSite, $
 	// 	0 = Merchant is not visible for creation
 	// 	1 = Merchant is visible and Region is Allowed
 	// 	2 = Merchant is visible but region is not allowed
-	merchantName = (merchantsHolder[$merchantID] !== undefined) ? merchantsHolder[$merchantID]['name1'] : 'Name Not Found';
+	var merchantName = (merchantsHolder[$merchantID] !== undefined) ? merchantsHolder[$merchantID]['name1'] : 'Name Not Found';
 	switch ($available) {
 		case 0:
 			var toAppend = '<span class="text-danger">Merchant <b>' + merchantName +' '+$merchantID+ '</b> is not Visible on <b>' + $whatSite + '</b></span><br>';
