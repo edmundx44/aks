@@ -30,6 +30,14 @@ $div.css({
 
 var queryString = window.location.search;
 var uri = window.location.pathname;
+
+
+//Autocreation Excluded Special Case
+/*----------------------------------------------------*/
+
+const merchantExc = ["125", "1252", "1253", "1254"];
+
+/*---------------------------------------------------*/
 //ESCAPE SPECIAL CHARACTERS
 const entityMap = {
 	'&': '&amp;',
@@ -503,6 +511,12 @@ function getAvailableToCreate($getArr, $getRegionArr, $getRegion, $getMerchantID
 		var replaceUnderScoreVal = i.replaceAll("_", ".");
 		if ($getArr[i] == 1) {
 			if ($.inArray(replaceUnderScoreVal, $getRegionArr) != -1) {
+
+				if (merchantExc.indexOf($getMerchantID) != -1 && getOriginalSite(replaceUnderScoreVal) == "CDD"){
+					createSwitchForAvailable(replaceUnderScoreVal, 3, $getRegion, $getMerchantID);
+					continue;
+				}
+						
 				createSwitchForAvailable(replaceUnderScoreVal, 1, $getRegion, $getMerchantID);
 				toCreateDataArr.push({
 					'merchantID': $getMerchantID,
@@ -510,6 +524,7 @@ function getAvailableToCreate($getArr, $getRegionArr, $getRegion, $getMerchantID
 					'region': $getRegion,
 					'site': getOriginalSite(replaceUnderScoreVal)
 				});
+
 			} else {
 				createSwitchForAvailable(replaceUnderScoreVal, 2, $getRegion, $getMerchantID);
 			}
@@ -610,7 +625,9 @@ function createCheckbox($available, $checkboxName, $checkboxRegion, $whatSite, $
 		case 2:
 			var toAppend = '<span class="text-danger">Merchant <b>' + merchantName + ' ' + $merchantID + '</b> is Visible on <b>' + $whatSite + '</b> but Region <b>' + $checkboxRegion + '</b> is not allowed</span><br>';
 			break;
-
+		case 3:
+			var toAppend = '<span class="text-danger">Merchant <b>' + merchantName + ' ' + $merchantID + '</b> is Visible on <b>' + $whatSite + '</b> but because of special case, not included</span><br>';
+			break;
 		default: var toAppend = '<span> <b>Somthing went wrong!!</b> </span>';
 			break;
 	}
