@@ -1,7 +1,7 @@
 {
     "5": {
-        "name1":"Gamersgate",
-        "name2":"Gamers Gate"
+        "name1": "Gamersgate",
+        "name2": "Gamers Gate"
     },
     "7": {
         "name1": "Gamesplanet FR",
@@ -670,6 +670,10 @@
     "2180": {
         "name1": "Gamivo Smart",
         "name2": "Gamivo Smart"
+    },
+    "311": {
+        "name1": "GamesLoad UK",
+        "name2": "GamesLoad UK"
     },
     "312": {
         "name1": "GamesLoad US",

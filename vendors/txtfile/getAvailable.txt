@@ -234,9 +234,9 @@
 				"merchantName" : "gamesload",
 				"toReplaceRegex" : "(.*com|.*co.uk)\\/",
 				"url": {
-					"310" : "eu-games.nexway.com",
-					"311" :	"www.gamesload.co.uk",
-					"312" : "us-games.nexway.com"
+					"310" : "https://eu-games.nexway.com",
+					"311" :	"https://www.gamesload.co.uk",
+					"312" : "https://us-games.nexway.com"
 				}
 			}
 		]

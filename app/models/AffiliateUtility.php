@@ -149,6 +149,7 @@ class AffiliateUtility {
                 $product['url'] .= '?tag=wwwcheapdig06-20';
                 break;
             case 9:
+            case 38:
             case 47:
             case 49:
             case 490:   
