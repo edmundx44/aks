@@ -507,6 +507,8 @@ function getAvailable($merchantID, $region) {
 }
 
 function getAvailableToCreate($getArr, $getRegionArr, $getRegion, $getMerchantID, $getUrl) {
+	//1st Check if merchant is Visible
+	//2nd if merchant is Visible then Check Input Region is also visible otherwise it will not be created.
 	for (var i in $getArr) {
 		var replaceUnderScoreVal = i.replaceAll("_", ".");
 		if ($getArr[i] == 1) {
