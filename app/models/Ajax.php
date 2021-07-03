@@ -1460,13 +1460,15 @@ class Ajax {
    				return $allowedRegion;
 			break;
 			case 'ae-create-action':
-				return self::preparingProducts();
+
+				$datas = self::preparingProducts();
+				$websites = ['AKS', 'CDD', 'BREX'];
 
 			break;
 		}
 	
 	}//END OF FUNCTION AJAXDATA
-	
+
 	public static function preparingProducts(){
 		
 		$website = [];
@@ -1477,7 +1479,7 @@ class Ajax {
 		foreach($options as $option){ $merchants[$option['merchantID']] = $option['merchantID']; }
 		$queryMerchants = implode(',', $merchants);
 		if(empty($queryMerchants))
-			return Array( "message" => 'Cant create this offer because of its merchant', 'url' => $product['ae-url-input'], 'merchant' => $product['ae-merchant-input']);
+			return Array( "message" => 'No Available creation for this offer', 'url' => $product['ae-url-input'], 'merchant' => $product['ae-merchant-input']);
 
 		AffiliateUtility::getAffiliate($queryMerchants);
 		foreach($options as $option){
@@ -1491,8 +1493,8 @@ class Ajax {
 					$product['ae-url-input'] = $preparedData['buy_url'];
 					$product['ae-url_raw-input'] = $preparedData['buy_url_raw'];
 
-					$website['AKS'][] = $preparedData;
-					//$website['AKS'][] = $product;
+					//$website['AKS']['product'][] = $preparedData;
+					$website['AKS'][] = $product;
 				break;
 				case 'CDD':
 					$affiliate = new AffiliateUtility($option);
@@ -1503,7 +1505,7 @@ class Ajax {
 					$product['ae-url-input'] = $preparedData['buy_url'];
 					$product['ae-url_raw-input'] = $preparedData['buy_url_raw'];
 					
-					$website['CDD'][] = $preparedData;
+					$website['CDD'][] = $product;
 					//$website['CDD'][] = $product;
 				break;
 				case 'BREX':
@@ -1515,7 +1517,7 @@ class Ajax {
 					$product['ae-url-input'] = $preparedData['buy_url'];
 					$product['ae-url_raw-input'] = $preparedData['buy_url_raw'];
 
-					$website['BREX'][] = $preparedData;
+					$website['BREX'][] = $product;
 					//$website['BREX'][] = $product;
 				break;
 			}
