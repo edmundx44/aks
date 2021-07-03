@@ -1412,7 +1412,7 @@ class Ajax {
 					FROM `$site`.`pt_products` 
 					WHERE `id` = $toGet";
 
-				return array( 'data' => $db->query($sql)->results());
+				return $db->query($sql)->results();
 			break;
 			case 'get-region':
 				return $db->find('`test-server`.`pt_regions_amaurer`',[
@@ -1461,7 +1461,7 @@ class Ajax {
 			break;
 			case 'ae-create-action':
 
-				$datas = self::preparingProducts();
+				return $datas = self::preparingProducts();
 				$websites = ['AKS', 'CDD', 'BREX'];
 
 			break;

@@ -221,7 +221,6 @@ $(document).ready(function () {
 			break;
 	}
 
-
 	$('#search-product-modal').on('hidden.bs.modal', function () {
 		var getUrl = window.location.href;
 		var getMatch = getUrl.match(/(\?|\&)([^=]+)\=([^&]+)/gm);
@@ -236,8 +235,14 @@ $(document).ready(function () {
 		window.history.pushState({ path: newurl }, '', newurl);
 	});
 
-	$(document).on('click', '.header-search-btn', function () {
-		var getUrl = window.location.href;
+
+
+	$(document).on('click', '.spmc-display-content-wrapper', function(){
+		displayOnAddEditModal($(this).data('productid'));
+	});
+
+	$(document).on('click', '.header-search-btn', function(){
+		var getUrl  = window.location.href;  
 		var getMatch = getUrl.match(/(\?|\&)([^=]+)\=([^&]+)/gm);
 
 		if (getMatch) {
@@ -278,64 +283,12 @@ $(document).ready(function () {
 		}
 	});
 
-	$(document).on('click', '.spmc-dm-di', function () {
-		$('.ae-addc-i-on-aks-1, .ae-addc-i-on-aks-0-2, .ae-addc-i-on-cdd-1, .ae-addc-i-on-cdd-0-2, .ae-addc-i-on-brex-1, .ae-addc-i-on-brex-0-2').empty();
-		var getSite = ($('.search-product-modal-dd-btn').html() == 'Select Site') ? 'AKS' : $('.search-product-modal-dd-btn').html();
-		callEdition();
-		callRegion(getSite)
-		toCreateDataArr = [];
-
-		var dataRequest = {
-			action: 'get-product-info',
-			toGet: $(this).data('productid'),
-			site: getSite
-		}
-		AjaxCall(url, dataRequest).done(function (data) {
-			var data = data.data;
-
-			$('.ae-product-p-title').html(getSite);
-			$('.ae-merchant-input').val(data[0].merchant);
-			$('.ae-search-name-input').val(data[0].search_name);
-			// $('.ae-edition-input').val(data[0].edition);
-			$('.ae-gameid-input').val(data[0].normalised_name);
-			$('.ae-price-input').val(data[0].price);
-			// $('.ae-region-input').val(data[0].region);
-			$('.ae-ratings-input').val(data[0].rating);
-			$('.ae-url-input').val(data[0].buy_url);
-			$('.ae-keyword-input').val(data[0].keyword);
-			$('.ae-category-input').val(data[0].category);
-			$('.ae-buy-url-bis-input').val(data[0].buy_url_bis);
-			$('.ae-buy-url-tier-input').val(data[0].buy_url_tier);
-			$('.ae-release-date-input').val(data[0].releasedate);
-			$('.ae-metacritic-score-input').val(data[0].metacritic_score);
-			$('.ae-metacritic-critic-score-input').val(data[0].metacritic_critic_score);
-			$('.ae-metacritic-user-score-input').val(data[0].metacritic_user_score);
-			$('.ae-buy-url-4-input').val(data[0].buy_url_4);
-			$('.ae-release-year-input').val(data[0].releaseyear);
-			$('.ae-metacritic-count-input').val(data[0].metacritic_count);
-			$('.ae-metacritic-critic-count-input').val(data[0].metacritic_critic_count);
-			$('.ae-metacritic-user-count-input').val(data[0].metacritic_user_count);
-
-			$('.ae-image-url-input').val(data[0].image_url);
-			$('.ae-description-input').val(data[0].description);
-			$('.ae-description-usa-or-eu-input').val(data[0].descriptionEuUsa);
-			$('.ae-description-ru-input').val(data[0].descriptionRu);
-			$('.ae-description-fr-input').val(data[0].descriptionFr);
-			$('.ae-description-de-input').val(data[0].descriptionDe);
-			$('.ae-description-es-input').val(data[0].descriptionEs);
-			$('.ae-description-it-input').val(data[0].descriptionIt);
-			$('.ae-description-pt-input').val(data[0].descriptionPt);
-			$('.ae-description-nl-input').val(data[0].descriptionNl);
-
-			getAvailable(data[0].merchant, '2') // default 2 for steam gloabl
-		}).always(function () {
-			$('.ae-to-what').html('create');
-			$('.ae-modal-footer').empty().append('<button class="btn btn-primary mt-1" id="ae-btn-add">Create</button>')
-			$('.add-edit-store-game-modal').modal('show');
-		});
+	$(document).on('click', '.spmc-dm-di', function(){
+		displayOnAddEditModal($(this).data('productid'));
 	});
 
-	$(document).on('click', '.spmc-open-list-btn', function () {
+	$(document).on('click', '.spmc-open-list-btn', function(event){
+		event.stopPropagation();
 		$('.displayProductByNormalisedName').modal('show');
 		// alert($(this).data('normalisednameni'))
 	});
@@ -455,8 +408,63 @@ function getMerchantsData() {
 	return results.responseJSON;
 }
 
-function getVisible() {
-	var dataRequest = {
+function displayOnAddEditModal($productid){
+	$('.ae-addc-i-on-aks-1, .ae-addc-i-on-aks-0-2, .ae-addc-i-on-cdd-1, .ae-addc-i-on-cdd-0-2, .ae-addc-i-on-brex-1, .ae-addc-i-on-brex-0-2').empty();
+		var getSite = ($('.search-product-modal-dd-btn').html() == 'Select Site')? 'AKS' : $('.search-product-modal-dd-btn').html();
+		callEdition();
+		callRegion(getSite)
+		toCreateDataArr = [];
+		
+		var dataRequest =  {
+			action: 'get-product-info',
+			toGet: $productid,
+			site: getSite
+		}
+		AjaxCall(url, dataRequest).done(function(data) {
+				$('.ae-product-p-title').html(getSite);
+				$('.ae-merchant-input').val(data[0].merchant);
+				$('.ae-search-name-input').val(data[0].search_name);
+				// $('.ae-edition-input').val(data[0].edition);
+				$('.ae-gameid-input').val(data[0].normalised_name);
+				$('.ae-price-input').val(data[0].price);
+				// $('.ae-region-input').val(data[0].region);
+				$('.ae-ratings-input').val(data[0].rating);
+				$('.ae-url-input').val(data[0].buy_url);
+				$('.ae-keyword-input').val(data[0].keyword);
+				$('.ae-category-input').val(data[0].category);
+				$('.ae-buy-url-bis-input').val(data[0].buy_url_bis);
+				$('.ae-buy-url-tier-input').val(data[0].buy_url_tier);
+				$('.ae-release-date-input').val(data[0].releasedate);
+				$('.ae-metacritic-score-input').val(data[0].metacritic_score);
+				$('.ae-metacritic-critic-score-input').val(data[0].metacritic_critic_score);
+				$('.ae-metacritic-user-score-input').val(data[0].metacritic_user_score);
+				$('.ae-buy-url-4-input').val(data[0].buy_url_4);
+				$('.ae-release-year-input').val(data[0].releaseyear);
+				$('.ae-metacritic-count-input').val(data[0].metacritic_count);
+				$('.ae-metacritic-critic-count-input').val(data[0].metacritic_critic_count);
+				$('.ae-metacritic-user-count-input').val(data[0].metacritic_user_count);
+
+				$('.ae-image-url-input').val(data[0].image_url);
+				$('.ae-description-input').val(data[0].description);
+				$('.ae-description-usa-or-eu-input').val(data[0].descriptionEuUsa);
+				$('.ae-description-ru-input').val(data[0].descriptionRu);
+				$('.ae-description-fr-input').val(data[0].descriptionFr);
+				$('.ae-description-de-input').val(data[0].descriptionDe);
+				$('.ae-description-es-input').val(data[0].descriptionEs);
+				$('.ae-description-it-input').val(data[0].descriptionIt);
+				$('.ae-description-pt-input').val(data[0].descriptionPt);
+				$('.ae-description-nl-input').val(data[0].descriptionNl);
+			
+				getAvailable(data[0].merchant, '2') // default 2 for steam gloabl
+		}).always(function() {
+			$('.ae-to-what').html('create');
+			$('.ae-modal-footer').empty().append('<button class="btn btn-primary mt-1" id="ae-btn-add">Create</button>')
+			$('.add-edit-store-game-modal').modal('show');
+		});
+}
+
+function getVisible(){
+	var dataRequest =  {
 		action: 'get-visible',
 	}
 	AjaxCall(url, dataRequest).done(function (data) {
@@ -712,12 +720,12 @@ function mainSearchProduct($site, $toSearch) {
 
 	AjaxCall(url, dataRequest).done(function (data) {
 		var checkUnique = [];
-		for (var i in data) {
-			var append = '<div class="spmc-display-content-wrapper">';
-			append += '<div class="spmc-dcw-btn-div"><button class="btn btn-info spmc-open-list-btn" data-normalisednameni=' + data[i].normalised_name + '>Open list</button></div>';
-			append += '<div class="spmc-dcw-merchant-div">' + data[i].vols_nom + '</div>';
-			append += '<div class="spmc-dcw-url-div">' + data[i].buy_url + '</div>';
-			append += '</div>';
+		for(var i in data){
+			var append = '<div class="spmc-display-content-wrapper" data-merchantni='+data[i].merchant+' data-productid='+data[i].id+' data-productnormalisename='+data[i].normalised_name+'>';
+				append += '<div class="spmc-dcw-btn-div"><button class="btn btn-info spmc-open-list-btn" data-normalisednameni='+data[i].normalised_name+'>Open list</button></div>';
+				append += '<div class="spmc-dcw-merchant-div">'+data[i].vols_nom+'</div>';
+				append += '<div class="spmc-dcw-url-div">'+data[i].buy_url+'</div>';
+				append += '</div>';
 
 			if ($.inArray(data[i].vols_nom, checkUnique) == -1) {
 				checkUnique.push(data[i].vols_nom);
