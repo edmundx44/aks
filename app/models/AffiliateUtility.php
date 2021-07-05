@@ -4,10 +4,10 @@ use Core\DB;
 
 class AffiliateUtility {
     
-    public int $merchant;
-    public string $initial_url;
-    public string $buy_url;
-    public string $buy_url_raw;
+    private int $merchant;
+    private string $initial_url;
+    private string $buy_url;
+    private string $buy_url_raw;
 
     public string $locale;
     public static $locales = ['en_EU', 'en_US', 'en_GB'];
