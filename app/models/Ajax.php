@@ -1461,17 +1461,23 @@ class Ajax {
 			break;
 			case 'ae-create-action':
 
-				return $datas = self::preparingProducts();
-				$websites = ['AKS', 'CDD', 'BREX'];
-
+				$product = self::getProductsAffiliate();
+				$productToInsert = Product::productValues($product);
+				foreach($productToInsert as $website => $productArray){
+					$product = new Product($website);
+					foreach($productArray as $data){
+						$product->insert($data);
+					}
+				}
+				
 			break;
 		}
 	
 	}//END OF FUNCTION AJAXDATA
 
-	public static function preparingProducts(){
+	public static function getProductsAffiliate(){
 		
-		$website = [];
+		$productPerWebsite = [];
 		$product = $_POST['formData'];
 		$options  = (!empty($_POST['options'])) ? $_POST['options'] : [] ;
 				
@@ -1487,42 +1493,27 @@ class Ajax {
 				case 'AKS':
 					$affiliate = new AffiliateUtility($option);
 					$preparedData = $affiliate->getPreparedAffiliate();
+					$product = self::updateArrayProduct($product, $preparedData, $option);
 
-					$product['ae-region-input'] = $option['region'];
-					$product['ae-merchant-input'] = $preparedData['merchant'];
-					$product['ae-url-input'] = $preparedData['buy_url'];
-					$product['ae-url_raw-input'] = $preparedData['buy_url_raw'];
-
-					//$website['AKS']['product'][] = $preparedData;
-					$website['AKS'][] = $product;
+					$productPerWebsite['AKS'][] = $product;
 				break;
 				case 'CDD':
 					$affiliate = new AffiliateUtility($option);
 					$preparedData = $affiliate->getPreparedAffiliate();
-
-					$product['ae-region-input'] = $option['region'];
-					$product['ae-merchant-input'] = $preparedData['merchant'];
-					$product['ae-url-input'] = $preparedData['buy_url'];
-					$product['ae-url_raw-input'] = $preparedData['buy_url_raw'];
+					$product = self::updateArrayProduct($product, $preparedData, $option);
 					
-					$website['CDD'][] = $product;
-					//$website['CDD'][] = $product;
+					$productPerWebsite['CDD'][] = $product;
 				break;
 				case 'BREX':
 					$affiliate = new AffiliateUtility($option);
 					$preparedData = $affiliate->getPreparedAffiliate();
+					$product = self::updateArrayProduct($product, $preparedData, $option);
 
-					$product['ae-region-input'] = $option['region'];
-					$product['ae-merchant-input'] = $preparedData['merchant'];
-					$product['ae-url-input'] = $preparedData['buy_url'];
-					$product['ae-url_raw-input'] = $preparedData['buy_url_raw'];
-
-					$website['BREX'][] = $product;
-					//$website['BREX'][] = $product;
+					$productPerWebsite['BREX'][] = $product;
 				break;
 			}
 		}
-		return $website;
+		return $productPerWebsite;
 	}
 
 	public static function getSite($site){
@@ -1545,5 +1536,14 @@ class Ajax {
 		return $site;
 	}
 
-	
+	public static function updateArrayProduct($baseProduct, $preparedFromAffiliate ,$option){
+		$baseProduct['ae-region-input'] = $option['region'];
+		$baseProduct['ae-edition-input'] = $option['edition'];
+		$baseProduct['ae-merchant-input'] = $preparedFromAffiliate['merchant'];
+		$baseProduct['ae-url-input'] = $preparedFromAffiliate['buy_url'];
+		$baseProduct['ae-url_raw-input'] = $preparedFromAffiliate['buy_url_raw'];
+		return $baseProduct;
+	}
+
+
 }

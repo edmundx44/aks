@@ -4,10 +4,10 @@ use Core\DB;
 
 class AffiliateUtility {
     
-    private int $merchant;
-    private string $initial_url;
-    private string $buy_url;
-    private string $buy_url_raw;
+    public int $merchant;
+    public string $initial_url;
+    public string $buy_url;
+    public string $buy_url_raw;
 
     public string $locale;
     public static $locales = ['en_EU', 'en_US', 'en_GB'];
@@ -27,7 +27,6 @@ class AffiliateUtility {
     }
 
     public function getPreparedAffiliate() {
-
         if($this->isAffiliateUrlExists()){
             $this->removedAffiliate(); //put this to remove the affiliate from the buy_url to use for buy_url_raw for now buy_url_raw is set to ''
             return $this->returnData($this->initial_url);
@@ -70,8 +69,7 @@ class AffiliateUtility {
                 continue;
 
             if(preg_match($check_regex, $this->buy_url)){
-                $pattern = str_replace('{url}','', $replacement_pattern);
-                $pattern = str_replace('{path}','', $replacement_pattern); //some merchant used path
+                $pattern = ( strpos($replacement_pattern ,'{url}') ) ? str_replace('{url}','', $replacement_pattern) : str_replace('{path}','', $replacement_pattern) ;
                 $this->buy_url = str_replace($pattern,'', $this->buy_url);
                 //$this->buy_url_raw = str_replace($pattern,'', $this->buy_url_raw); //line 70
                 break;

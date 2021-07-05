@@ -471,7 +471,7 @@
 			</div>
 		</div>
 	</div>
-</div> -
+</div>
 
 
 <!-- checksum Modal -->
