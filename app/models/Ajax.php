@@ -1460,16 +1460,31 @@ class Ajax {
    				return $allowedRegion;
 			break;
 			case 'ae-create-action':
+				$successMsg = array();
+				$failedMsg = array();
 
 				$product = self::getProductsAffiliate();
 				$productToInsert = Product::productValues($product);
 				foreach($productToInsert as $website => $productArray){
 					$product = new Product($website);
 					foreach($productArray as $data){
-						$product->insert($data);
+						$bool = $product->insert($data);
+						if($bool){
+							$successMsg[$website][] = [
+								'merchant' => $data['merchant'],
+								'buy_url' => $data['buy_url'],
+								'region' => $data['region']
+							];
+						}else{
+							$failedMsg[$website][] = [
+								'merchant' => $data['merchant'],
+								'buy_url' => $data['buy_url'],
+								'region' => $data['region']
+							];
+						}
 					}
 				}
-				
+				return array('success' => $successMsg, 'failed' => $failedMsg);
 			break;
 		}
 	
@@ -1515,7 +1530,7 @@ class Ajax {
 		}
 		return $productPerWebsite;
 	}
-
+	
 	public static function getSite($site){
 		switch ($site) {
 			case 'AKS':
@@ -1534,6 +1549,10 @@ class Ajax {
 			break;
 		}
 		return $site;
+	}
+
+	public static function productMessage(){
+
 	}
 
 	public static function updateArrayProduct($baseProduct, $preparedFromAffiliate ,$option){

@@ -174,7 +174,8 @@ class AffiliateUtility {
                     $product['url'] = preg_replace('@https://lt45.net/c/\?si=13256&li=1581736.*288216.*&dl=?@', $replacement."en/", $product['url']);
                 }
     		    break;
-    		case 61: $product['url'] = str_replace('/en-gb/', '/en/', $product['url']);
+    		case 61: 
+                $product['url'] = str_replace('/en-gb/', '/en/', $product['url']);
     		    break;
 
             // case 9: $product['url'] = str_replace('?__currency=eur', '', $product['url']);
