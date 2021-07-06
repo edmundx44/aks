@@ -1462,7 +1462,21 @@ class Ajax {
 			// 	return explode('=', $value);			   	
 			// }
 			// parse_str($_GET, $params);
-				
+			break;
+			case 'ae-check-existing-data':
+				$site = self::getSite($getInput->get('getSite'));
+				$getMerchant = $getInput->get('getMerchant');
+				$getEdition = $getInput->get('getEdition');
+				$getRegion = $getInput->get('getRegion');
+				$getnname = $getInput->get('getNname');
+
+				$sql = "SELECT count(*) as getcount FROM `$site`.`pt_products` where 
+					merchant = '".$getInput->get('getMerchant')."' and 
+					edition = '".$getInput->get('getEdition')."' and 
+					region = '".$getInput->get('getRegion')."' and 
+					normalised_name = ".$getInput->get('getNname')."";
+
+				return $db->query($sql)->results()[0]->getcount;
 			break;
 		}
 	
