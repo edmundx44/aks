@@ -36,8 +36,15 @@ class DB {
       $x = 1;
       if(count($params)) {
         foreach($params as $param) {
-          $this->_query->bindValue($x, $param);
-          $x++;
+          if(is_array($param)){
+            foreach ($param as $dataValue) {
+             $this->_query->bindValue($x, $dataValue);
+             $x++;
+            }
+          } else {
+            $this->_query->bindValue($x, $param);
+            $x++;
+          }
         }
       }
       if($this->_query->execute()) {
@@ -147,6 +154,30 @@ class DB {
     }
     return false;
   }
+
+  public function insertMultiple($table, $fields = [], $arrayTypeValues = 'multidimensional') {
+		
+		$fieldsString = '';
+		$dataValues = [];
+		
+		foreach($fields as $field => $values) {
+			$fieldsString = '`'.implode("`,`", array_keys($values)). '`';
+			$valueString[] = "(".rtrim(str_repeat("?,", count($values)), ',').")";
+			switch ($arrayTypeValues) {
+				case 'multidimensional':
+					$dataValues[] = $values;
+					break;
+				default: //one-dimensional
+					foreach ($values as $data) { $dataValues[] = $data; }
+					break;
+			}
+		}
+		$sql = "INSERT INTO {$table} ({$fieldsString}) VALUES ".implode(",", $valueString)."";
+		if(!$this->query($sql, $dataValues)->error()) {
+			return true;
+		}
+		return false;
+	}
 
   public function update($table, $id, $fields = []) {
     $fieldString = '';

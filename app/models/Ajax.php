@@ -1467,24 +1467,58 @@ class Ajax {
 				$productToInsert = Product::productValues($product);
 				foreach($productToInsert as $website => $productArray){
 					$product = new Product($website);
-					foreach($productArray as $data){
-						$bool = $product->insert($data);
-						if($bool){
+					$bool = $product->insertMultiple($productArray , 'multidimensional');
+					if($bool){
+						foreach($productArray as $data){
 							$successMsg[$website][] = [
 								'merchant' => $data['merchant'],
 								'buy_url' => $data['buy_url'],
 								'region' => $data['region']
 							];
-						}else{
-							$failedMsg[$website][] = [
-								'merchant' => $data['merchant'],
-								'buy_url' => $data['buy_url'],
-								'region' => $data['region']
-							];
 						}
+					} else {
+						$failedMsg[$website][] = "Something went wrong for inserting in $website !!";
 					}
 				}
 				return array('success' => $successMsg, 'failed' => $failedMsg);
+				//return $test;
+
+				// $successMsg = array();
+				// $failedMsg = array();
+
+				// $product = self::getProductsAffiliate();
+				// $productToInsert = Product::productValues($product);
+				// foreach($productToInsert as $website => $productArray){
+				// 	$product = new Product($website);
+				// 	foreach($productArray as $data){
+				// 		$bool[] = $product->insertTest1($data);
+				// 	}
+				// }
+				// return $bool;
+
+
+				// $product = self::getProductsAffiliate();
+				// $productToInsert = Product::productValues($product);
+				// foreach($productToInsert as $website => $productArray){
+				// 	$product = new Product($website);
+				// 	foreach($productArray as $data){
+				// 		$bool = $product->insert($data);
+				// 		if($bool){
+				// 			$successMsg[$website][] = [
+				// 				'merchant' => $data['merchant'],
+				// 				'buy_url' => $data['buy_url'],
+				// 				'region' => $data['region']
+				// 			];
+				// 		}else{
+				// 			$failedMsg[$website][] = [
+				// 				'merchant' => $data['merchant'],
+				// 				'buy_url' => $data['buy_url'],
+				// 				'region' => $data['region']
+				// 			];
+				// 		}
+				// 	}
+				// }
+				// return array('success' => $successMsg, 'failed' => $failedMsg);
 			break;
 		}
 	

@@ -7,8 +7,8 @@
 				"merchantName" : "gamersgate",
 				"toReplaceRegex" : "(^.*.com)\\/", 
 				"url": {
-					"5": "https://www.gamersgate.com/", 
-					"501": "https://uk.gamersgate.com/"
+					"5": "https://www.gamersgate.com", 
+					"501": "https://uk.gamersgate.com"
 				}
 			}
 		]
@@ -23,10 +23,10 @@
 				"merchantName" : "gamesplanet",
 				"toReplaceRegex" : "(^.*.com)\\/",
 				"url": {
-					"7" : 	"https://fr.gamesplanet.com/",
-					"700" : "https://de.gamesplanet.com/",
-					"701" : "https://uk.gamesplanet.com/",
-					"704" : "https://us.gamesplanet.com/"
+					"7" : 	"https://fr.gamesplanet.com",
+					"700" : "https://de.gamesplanet.com",
+					"701" : "https://uk.gamesplanet.com",
+					"704" : "https://us.gamesplanet.com"
 				}
 			}
 		]

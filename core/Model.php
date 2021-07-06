@@ -71,6 +71,15 @@ class Model {
     if(array_key_exists('id', $fields)) unset($fields['id']);
     return $this->_db->insert($this->_table, $fields);
   }
+  
+  //multidimensional || onedimensional for $arrayTypeValues
+  public function insertMultiple($fields, $arrayTypeValues) {
+    if(empty($fields)) return false;
+    foreach ($fields as $key => $value) {
+      if(array_key_exists('id', $value)) unset($value['id']);
+    }
+    return $this->_db->insertMultiple($this->_table, $fields, $arrayTypeValues);
+  }
 
   public function update($id, $fields) {
     if(empty($fields) || $id == '') return false;

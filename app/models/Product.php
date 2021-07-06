@@ -83,11 +83,46 @@ class Product extends Model{
 		return $sqlData;
 	}
 
+	public function queryTestingInsert($fields = [], $arrayType = 'multidimensional') {
+		$fieldsString = '';
+		$dataValues = [];
+		$table = '`test-server`.`pt_products`'; //static
+		foreach($fields as $field => $values) {
+			$fieldsString = '`'.implode("`,`", array_keys($values)). '`';
+			$valueString[] = "(".rtrim(str_repeat("?,", count($values)), ',').")";
+			switch ($arrayType) {
+				case 'multidimensional':
+					$dataValues[] = $values;
+					break;
+				default: //one-dimensional
+					foreach ($values as $data) { $dataValues[] = $data; }
+					break;
+			}
+		}
+		$sql = "INSERT INTO {$table} ({$fieldsString}) VALUES ".implode(",", $valueString)."";
+		return $sql;
+	}
+
 	public function tableCheck(){
 		return $this->_table;
     }
 
-    // public static function isProductAlreadyCreated(array $product, string $website) : bool
+    private static function getTable($website){
+		switch ($website) {
+			case 'AKS':
+                $website = '`test-server`.`pt_products`';
+			break;
+			case 'CDD': 
+                $website = '`compareprices`.`pt_products`';
+			break;
+			case 'BREX': 
+                $website = '`brexitgbp`.`pt_products`';
+			break;
+		}
+		return $website;
+	}
+
+	// public static function isProductAlreadyCreated(array $product, string $website) : bool
     // {
     //     $db = DB::getInstance();
     //     $params = [ $product['buy_url'], $product['merchant'], $product['region'], $product['edition'] ];
@@ -114,19 +149,4 @@ class Product extends Model{
     //        }
     //     }
     // }
-
-    private static function getTable($website){
-		switch ($website) {
-			case 'AKS':
-                $website = '`test-server`.`pt_products`';
-			break;
-			case 'CDD': 
-                $website = '`compareprices`.`pt_products`';
-			break;
-			case 'BREX': 
-                $website = '`brexitgbp`.`pt_products`';
-			break;
-		}
-		return $website;
-	}
 }
