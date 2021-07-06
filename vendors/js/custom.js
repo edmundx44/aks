@@ -537,7 +537,7 @@ function getAvailableToCreate($getArr, $getRegionArr, $getRegion, $getMerchantID
 					$getRegion,
 					getNormalizedName,
 					getOriginalSite(replaceUnderScoreVal),
-					$getUrl,
+					updateCurrency(replaceUnderScoreVal, $getUrl),
 					replaceUnderScoreVal
 				);
 
