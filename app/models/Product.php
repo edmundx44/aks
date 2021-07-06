@@ -74,6 +74,7 @@ class Product extends Model{
 						'metacritic_critic_count' => $value["ae-metacritic-critic-count-input"], 
 						'metacritic_user_score'   => $value["ae-metacritic-user-score-input"], 
 						'metacritic_user_count'   => $value["ae-metacritic-user-count-input"], 
+						'flag'           => 0, 
 						'is_console'     => 0, 
 						'created_by'     => ucfirst(Users::currentUser()->fname), 
 					];
