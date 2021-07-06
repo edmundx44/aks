@@ -1465,19 +1465,25 @@ class Ajax {
 
 				$product = self::getProductsAffiliate();
 				$productToInsert = Product::productValues($product);
-				foreach($productToInsert as $website => $productArray){
-					$product = new Product($website);
-					$bool = $product->insertMultiple($productArray , 'multidimensional');
-					if($bool){
-						foreach($productArray as $data){
-							$successMsg[$website][] = [
-								'merchant' => $data['merchant'],
-								'buy_url' => $data['buy_url'],
-								'region' => $data['region']
-							];
+				
+				if(isset($product['message']))
+					$failedMsg[] = Array( "message" => 'No Available creation for this offer', 'url' => $product['url'], 'merchant' => $product['merchant']);
+					
+				if(!empty($productToInsert)){
+					foreach($productToInsert as $website => $productArray){
+						$product = new Product($website);
+						$bool = $product->insertMultiple($productArray , 'multidimensional');
+						if($bool){
+							foreach($productArray as $data){
+								$successMsg[$website][] = [
+									'merchant' => $data['merchant'],
+									'buy_url' => $data['buy_url'],
+									'region' => $data['region']
+								];
+							}
+						} else {
+							$failedMsg[$website][] = "Something went wrong for inserting in $website !!";
 						}
-					} else {
-						$failedMsg[$website][] = "Something went wrong for inserting in $website !!";
 					}
 				}
 				return array('success' => $successMsg, 'failed' => $failedMsg);

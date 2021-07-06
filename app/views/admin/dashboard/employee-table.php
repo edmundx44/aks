@@ -51,7 +51,7 @@
 			var modified = (data[i].modified != null ) ? data[i].modified : 0 ;
 			var changedPrice = (data[i].changed_price != null ) ? data[i].changed_price : 0 ;
 			var opens = (data[i].opens != null ) ? data[i].opens : 0 ;
-			var total = Number(modified) + Number(changedPrice) + Number(opens); 
+			var total = Number(created) + Number(modified) + Number(changedPrice) + Number(opens); 
 			var toPush = [ employee, created, modified , changedPrice , opens, total]
 			items.push(toPush);
 		}
