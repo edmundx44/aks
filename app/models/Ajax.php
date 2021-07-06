@@ -1487,54 +1487,33 @@ class Ajax {
 					}
 				}
 				return array('success' => $successMsg, 'failed' => $failedMsg);
-				//return $test;
-
-				// $successMsg = array();
-				// $failedMsg = array();
-
-				// $product = self::getProductsAffiliate();
-				// $productToInsert = Product::productValues($product);
-				// foreach($productToInsert as $website => $productArray){
-				// 	$product = new Product($website);
-				// 	foreach($productArray as $data){
-				// 		$bool[] = $product->insertTest1($data);
-				// 	}
-				// }
-				// return $bool;
-
-
-				// $product = self::getProductsAffiliate();
-				// $productToInsert = Product::productValues($product);
-				// foreach($productToInsert as $website => $productArray){
-				// 	$product = new Product($website);
-				// 	foreach($productArray as $data){
-				// 		$bool = $product->insert($data);
-				// 		if($bool){
-				// 			$successMsg[$website][] = [
-				// 				'merchant' => $data['merchant'],
-				// 				'buy_url' => $data['buy_url'],
-				// 				'region' => $data['region']
-				// 			];
-				// 		}else{
-				// 			$failedMsg[$website][] = [
-				// 				'merchant' => $data['merchant'],
-				// 				'buy_url' => $data['buy_url'],
-				// 				'region' => $data['region']
-				// 			];
-				// 		}
-				// 	}
-				// }
-				// return array('success' => $successMsg, 'failed' => $failedMsg);
 			break;
-		}
+			
+			case 'ae-check-existing-data':
+                $site = self::getSite($getInput->get('getSite'));
+                $getMerchant = $getInput->get('getMerchant');
+                $getEdition = $getInput->get('getEdition');
+                $getRegion = $getInput->get('getRegion');
+                $getnname = $getInput->get('getNname');
+
+                $sql = "SELECT count(*) as getcount FROM `$site`.`pt_products` where 
+                    merchant = '".$getInput->get('getMerchant')."' and 
+                    edition = '".$getInput->get('getEdition')."' and 
+                    region = '".$getInput->get('getRegion')."' and 
+                    normalised_name = ".$getInput->get('getNname')."";
+
+                return $db->query($sql)->results()[0]->getcount;
+            break;
+
+		} //END OF SWITCH CASE
 	
 	}//END OF FUNCTION AJAXDATA
 
 	public static function getProductsAffiliate(){
 		
 		$productPerWebsite = [];
-		$product = $_POST['formData'];
-		$options  = (!empty($_POST['options'])) ? $_POST['options'] : [] ;
+		$product = $_POST['productformData'];
+		$options  = (!empty($_POST['productOptions'])) ? $_POST['productOptions'] : [] ;
 				
 		$merchants = [];
 		foreach($options as $option){ $merchants[$option['merchantID']] = $option['merchantID']; }

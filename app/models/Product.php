@@ -123,31 +123,4 @@ class Product extends Model{
 		return $website;
 	}
 
-	// public static function isProductAlreadyCreated(array $product, string $website) : bool
-    // {
-    //     $db = DB::getInstance();
-    //     $params = [ $product['buy_url'], $product['merchant'], $product['region'], $product['edition'] ];
-    //     $sql = "SELECT `buy_url`,`merchant`,`region`,`edition` 
-    //             FROM `pt_products` 
-    //             WHERE `buy_url` = ? AND `merchant`  = ? AND `region` = ? AND `edition` = ? ";
-    //     $results = $db->query( $sql, $params )->count();
-    //     return (!$results) ? false : true ;
-    // }
-
-    // public function generateTest($merchants,$website,$product) {
-    //     $sql = "SELECT `id`,`merchant`,`buy_url`, `region`, `edition`, `normalised_name` FROM `test-server`.`pt_products` 
-    //             WHERE merchant IN (12,212)
-    //             AND `region` = '2'
-    //             AND `edition` = '1'
-    //             AND `normalised_name` = '281'
-    //             OR `buy_url` = 'https://2game.com/en/grand-theft-auto-v?ref=allkeyshop'
-    //             OR `buy_url` = 'https://2game.com/en-gb/grand-theft-auto-v?ref=allkeyshop'
-    //             LIMIT 25";
-
-    //     foreach(static::$websites as $website){
-    //        if(array_key_exists($website, $product)){
-
-    //        }
-    //     }
-    // }
 }

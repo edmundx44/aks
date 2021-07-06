@@ -324,9 +324,13 @@ $(document).ready(function () {
 
 	$(document).on('click', '.dmds-edition', function () {
 		$('.ae-addc-i-on-aks-1, .ae-addc-i-on-aks-0-2, .ae-addc-i-on-cdd-1, .ae-addc-i-on-cdd-0-2, .ae-addc-i-on-brex-1, .ae-addc-i-on-brex-0-2').empty();
-		$('.ae-edition-input').val($(this).data('nameni'));
-		$('.ae-edition-input').attr('data-editionid', $(this).data('idni'));
+		$('.ae-edition-input').val($(this).data('idni'));
 		$('.dmd-edition').hide();
+		toCreateDataArr = [];
+		var getRegion = ($('.ae-region-input').val() == '') ? '2' : $('.ae-region-input').attr('data-regionid');
+
+
+		getAvailable($('.ae-merchant-input').val(), getRegion)
 	});
 
 	$(document).on('click input', '.ae-region-input', function () {
@@ -376,18 +380,14 @@ $(document).ready(function () {
 	});
 
 	$(document).on('click', '#ae-btn-add', function () {
-		$('.ae-addc-i-on-aks-1, .ae-addc-i-on-aks-0-2, .ae-addc-i-on-cdd-1, .ae-addc-i-on-cdd-0-2, .ae-addc-i-on-brex-1, .ae-addc-i-on-brex-0-2').empty();
-		toCreateDataArr = [];
-		var getRegion = ($('.ae-region-input').val() == '') ? 2 : $('.ae-region-input').attr('data-regionid');
-		getAvailable($('.ae-merchant-input').val(), getRegion);
 
 		var serialize = $('#ae-mcb-row :input').serializeArray();
 		var formValues = {};
 		for (var i in serialize) { formValues[serialize[i].name] = serialize[i].value }
 		var dataRequest = {
 			action: 'ae-create-action',
-			formData: formValues,
-			options: toCreateDataArr,
+			productformData: formValues,
+			productOptions: toCreateDataArr,
 			source: $('.ae-product-p-title').text(),
 		}
 		console.log(dataRequest)
@@ -517,24 +517,29 @@ function getAvailable($merchantID, $region) {
 function getAvailableToCreate($getArr, $getRegionArr, $getRegion, $getMerchantID, $getUrl) {
 	//1st Check if merchant is Visible
 	//2nd if merchant is Visible then Check Input Region is also visible otherwise it will not be created.
+
+	var getEditionVal = ($('.ae-edition-input').val() == '') ? '1' : $('.ae-edition-input').val();
+	var getNormalizedName = $('.ae-gameid-input').val();
+
 	for (var i in $getArr) {
 		var replaceUnderScoreVal = i.replaceAll("_", ".");
 		if ($getArr[i] == 1) {
 			if ($.inArray(replaceUnderScoreVal, $getRegionArr) != -1) {
 
 				if (merchantExc.indexOf($getMerchantID) != -1 && getOriginalSite(replaceUnderScoreVal) == "CDD") {
-					createSwitchForAvailable(replaceUnderScoreVal, 3, $getRegion, $getMerchantID);
+					createSwitchForAvailable(replaceUnderScoreVal, 0, $getRegion, $getMerchantID);
 					continue;
 				}
 
-				createSwitchForAvailable(replaceUnderScoreVal, 1, $getRegion, $getMerchantID);
-				toCreateDataArr.push({
-					'merchantID': $getMerchantID,
-					'url': updateCurrency(replaceUnderScoreVal, $getUrl),
-					'region': $getRegion,
-					'edition': $('.ae-edition-input').attr('data-editionid'),
-					'site': getOriginalSite(replaceUnderScoreVal)
-				});
+				var getCheckExistingData = checkExistingData(
+					$getMerchantID,
+					getEditionVal,
+					$getRegion,
+					getNormalizedName,
+					getOriginalSite(replaceUnderScoreVal),
+					$getUrl,
+					replaceUnderScoreVal
+				);
 
 			} else {
 				createSwitchForAvailable(replaceUnderScoreVal, 2, $getRegion, $getMerchantID);
@@ -543,6 +548,36 @@ function getAvailableToCreate($getArr, $getRegionArr, $getRegion, $getMerchantID
 			createSwitchForAvailable(replaceUnderScoreVal, 0, $getRegion, $getMerchantID);
 		}
 	}
+
+
+}
+
+function checkExistingData($merchant, $edition, $region, $normalisedName, $site, $url, $unconvertedSite) {
+
+	var dataRequest = {
+		action: 'ae-check-existing-data',
+		getMerchant: $merchant,
+		getEdition: $edition,
+		getRegion: $region,
+		getNname: $normalisedName,
+		getSite: $site
+	}
+
+	AjaxCall(url, dataRequest).done(function (data) {
+		if (data == 0) {
+			createSwitchForAvailable($unconvertedSite, 1, $region, $merchant, $edition);
+			toCreateDataArr.push({
+				'merchantID': $merchant,
+				'url': $url,
+				'region': $region,
+				'edition': $edition,
+				'site': $site
+			});
+		} else {
+			createSwitchForAvailable($unconvertedSite, 4, $region, $merchant, $edition);
+		}
+
+	});
 }
 
 function updateCurrency($partial, $partialUrl) {
@@ -590,22 +625,23 @@ function getOriginalSite($partial) {
 
 	return $site;
 }
-function createSwitchForAvailable($getVisible, $available, $region, $merchantID) {
+function createSwitchForAvailable($getVisible, $available, $region, $merchantID, $edition) {
+
 	switch ($getVisible) {
 		case 'allkeyshop.com':
 			var whatBox = 'ae-addc-i-on-aks-1';
 			var whatNotAvail = 'ae-addc-i-on-aks-0-2';
-			var toAppend = createCheckbox($available, 'forAKS', $region, 'AKS', $merchantID);
+			var toAppend = createCheckbox($available, 'forAKS', $region, 'AKS', $merchantID, $edition);
 			break;
 		case 'reviewitusa':
 			var whatBox = 'ae-addc-i-on-cdd-1';
 			var whatNotAvail = 'ae-addc-i-on-cdd-0-2';
-			var toAppend = createCheckbox($available, 'forCDD', $region, 'CDD', $merchantID);
+			var toAppend = createCheckbox($available, 'forCDD', $region, 'CDD', $merchantID, $edition);
 			break;
 		case 'allkeyshop.com.gbp':
 			var whatBox = 'ae-addc-i-on-brex-1';
 			var whatNotAvail = 'ae-addc-i-on-brex-0-2';
-			var toAppend = createCheckbox($available, 'forBrex', $region, 'BREXIT', $merchantID);
+			var toAppend = createCheckbox($available, 'forBrex', $region, 'BREXIT', $merchantID, $edition);
 			break;
 	}
 
@@ -613,34 +649,32 @@ function createSwitchForAvailable($getVisible, $available, $region, $merchantID)
 	else $('.' + whatNotAvail).append(toAppend);
 }
 
-function createCheckbox($available, $checkboxName, $checkboxRegion, $whatSite, $merchantID) {
+function createCheckbox($available, $checkboxName, $checkboxRegion, $whatSite, $merchantID, $edition) {
 	// NOTE :
 	// 	0 = Merchant is not visible for creation
 	// 	1 = Merchant is visible and Region is Allowed
 	// 	2 = Merchant is visible but region is not allowed
 	var merchantName = (merchantsHolder[$merchantID] !== undefined) ? merchantsHolder[$merchantID]['name1'] : 'Name Not Found';
 	switch ($available) {
-		case 0:
-			var toAppend = '<span class="text-danger">Merchant <b>' + merchantName + ' ' + $merchantID + '</b> is not Visible on <b>' + $whatSite + '</b></span><br>';
-			break;
-
 		case 1:
 			var toAppend = '<div class="form-check text-primary" data-getid="' + $merchantID + '">';
 			toAppend += '	<input class="form-check-input" name="' + $checkboxName + '" type="checkbox" value="" id="' + $checkboxName + $checkboxRegion + '">';
 			toAppend += '	<label class="form-check-label" for="' + $checkboxName + $checkboxRegion + '">';
-			toAppend += '		Merchant <b>' + merchantName + ' ' + $merchantID + '</b> is Visible on <b class="text-primary">' + $whatSite + '</b> and region <b>' + $checkboxRegion + '</b>  is allowed';
+			toAppend += '		Creating merchant <b>' + merchantName + ' ' + $merchantID + '</b> on <b class="text-primary">' + $whatSite + '</b> with edition <b>' + $edition + '</b> and region is <b>' + $checkboxRegion + '</b>';
 			toAppend += '	</label>';
 			toAppend += '</div>';
 			break;
-
 		case 2:
-			var toAppend = '<span class="text-danger">Merchant <b>' + merchantName + ' ' + $merchantID + '</b> is Visible on <b>' + $whatSite + '</b> but Region <b>' + $checkboxRegion + '</b> is not allowed</span><br>';
+			var toAppend = '<i class="fas fa-circle" style="font-size: 10px;"></i> <span class="text-danger">Region <b>' + $checkboxRegion + '</b> is not allowed on <b>' + $whatSite + '</b></span><br>';
 			break;
 		case 3:
-			var toAppend = '<span class="text-danger">Merchant <b>' + merchantName + ' ' + $merchantID + '</b> is Visible on <b>' + $whatSite + '</b> but because of special case, not included</span><br>';
 			break;
-		default: var toAppend = '<span> <b>Somthing went wrong!!</b> </span>';
+		case 4:
+			var toAppend = '<i class="fas fa-circle" style="font-size: 10px;"></i> <span class="text-danger">Merchant <b>' + merchantName + ' ' + $merchantID + '</b> with edition <b>' + $edition + '</b> and region <b>' + $checkboxRegion + '</b> is already on <b>' + $whatSite + '</b></span><br>';
 			break;
+		default:
+			var toAppend = '<i class="fas fa-circle" style="font-size: 10px;"></i> <span class="text-danger">Merchant <b>' + merchantName + ' ' + $merchantID + '</b> is not allowed on <b>' + $whatSite + '</b></span><br>';
+			break
 	}
 	return toAppend;
 }
