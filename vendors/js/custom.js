@@ -9,7 +9,8 @@ var toggleVal = 0,
 	heightMax = 800 - divHeight,
 	widthMax = docWidth - divWidth,
 	scroll = '',
-	pageSwitch = 0;
+	pageSwitch = 0,
+	toClose = '';
 
 	var d = new Date();
 	var month = d.getMonth()+1;
@@ -55,6 +56,18 @@ $(document).ready(function(){
 	getAllowedRegion();
 	getVisible();
 
+	// active parameter -----------------------------------------------------------------
+	var activeSearchParam = (getUrlParameter('search') == 'true')? $('#search-product-modal').modal('show') : '';
+	if(getUrlParameter('normalisedname')) {
+		var getNormalizedName = (getUrlParameter('normalisedname') == 'true')? "" : getUrlParameter('normalisedname');
+
+		$('.dpbnm-product-nname').val(getNormalizedName)
+		$('.display-product-by-normalised-input').val('AKS')
+		$('.displayProductByNormalisedName').modal('show')
+		getByNormalisedName(getUrlParameter('normalisedname'), $('.display-product-by-normalised-input').val())
+	}
+	// end active parameter -------------------------------------------------------------
+
 	$('.modal-dialog').draggable({
 		handle: ".modal-content",
 		cancel: 'span, input, .nfof-feedback, .pc-asb-modal*, .modal-content-body*, .spm-content-body*'
@@ -69,23 +82,31 @@ $(document).ready(function(){
 	
 	$(document).keydown(function(event){
 		
-
 		if(event.which === 27) {
 			// $('.modal').modal('hide');
-		}else if((event.which === 65 && event.shiftKey)) {
+		}else if((event.which === 65 && event.altKey && event.ctrlKey)) {
 			$('.modal').modal('hide');
 			$('.add-edit-store-game-modal').modal('show');
-		}else if((event.which === 68 && event.shiftKey)){
+		}else if((event.which === 68 && event.altKey)){
 			$('.switch-checkbox').trigger('click');
-		}else if((event.which === 81 && event.shiftKey)){
+		}else if((event.which === 81 && event.altKey && event.ctrlKey)){
 			window.location.href = "/aks/dashboard/activities";
-		}else if((event.which === 82 && event.shiftKey)) {
+		}else if((event.which === 82 && event.altKey && event.ctrlKey)) {
 			crProblemArr = [];
 			$('.modal').modal('hide');
 			$('#createReportModal').modal('show');
-		}else if((event.which === 83 && event.shiftKey)) {
+		}else if((event.which === 83 && event.altKey && event.ctrlKey)) {
 			$('.modal').modal('hide');
 			$('.header-search-btn').trigger('click');
+		}
+		else if((event.which === 78 && event.altKey && event.ctrlKey)) {
+			$('.modal').modal('hide');
+
+			setUrlParam('normalisedname', '');
+			$('.display-product-by-normalised-input').val('AKS')
+			$('.dpbnm-product-nname').val('');
+			$('.dpbnm-table-body').empty();
+			$('.displayProductByNormalisedName').modal('show');
 		}
 				
 	}); 
@@ -190,6 +211,9 @@ $(document).ready(function(){
 		if(!$(event.target).is('.ae-autocreation-available-btn, .ae-aad-icon, .ae-autocreation-available-div-content *')) {
 			$('.ae-autocreation-available-div-content').fadeOut();
 		}
+		if(!$(event.target).is('.dpbnm-product-action, .dpbnm-product-action-div *')) {
+			$('.dpbnm-product-action-div').hide();
+		}
 		
 		// if(!$(event.target).is('.ae-region-input, .dmd-region *')) {
 		// 	$('.dmd-region').hide();
@@ -200,49 +224,21 @@ $(document).ready(function(){
 		// if(!$(event.target).is('.ae-ratings-input, .dmd-ratings *')) {
 		// 	$('.dmd-ratings').hide();
 		// }
-		
-		
 	});
 
 // search modal section -----------------------------------------------------------
 	
-	switch(getUrlParameter('search')){
-		case 'true':
-			$('#search-product-modal').modal('show');
-		break;
-	}
 
-	$('#search-product-modal').on('hidden.bs.modal', function () {
-		var getUrl  = window.location.href;  
-		var getMatch = getUrl.match(/(\?|\&)([^=]+)\=([^&]+)/gm);
-
-		if(getMatch == '?search=true') {
-			var notCleanUrl = removeURLParameter(getUrl, 'search');
-			var getClean = notCleanUrl.substr(notCleanUrl.length - 1); 
-			if(getClean == '?') getClean = notCleanUrl.substring(0,notCleanUrl.length - 1);
-			var newurl = getClean;
-		}else var newurl = removeURLParameter(getUrl, 'search');
-		
-		window.history.pushState({ path: newurl }, '', newurl);
-	});
-
-
+	$('#search-product-modal').on('hidden.bs.modal', function () { unsetUrlParam('search') });
+	$('.displayProductByNormalisedName').on('hidden.bs.modal', function () { unsetUrlParam('normalisedname') });
 
 	$(document).on('click', '.spmc-display-content-wrapper', function(){
-		displayOnAddEditModal($(this).data('productid'));
+		var getSite = ($('.search-product-modal-dd-btn').html() == 'Select Site')? 'AKS' : $('.search-product-modal-dd-btn').html();
+		displayOnAddEditModal($(this).data('productid'), getSite, 'create');
 	});
 
 	$(document).on('click', '.header-search-btn', function(){
-		var getUrl  = window.location.href;  
-		var getMatch = getUrl.match(/(\?|\&)([^=]+)\=([^&]+)/gm);
-
-		if(getMatch){
-			if(!getUrlParameter('search')){
-				var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + getMatch + "&search=true";
-			}
-		}else var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + "?search=true";
-
-		window.history.pushState({ path: newurl }, '', newurl);
+		setUrlParam('search', '');
 		$('#search-product-modal').modal('show');
 	});
 
@@ -275,13 +271,20 @@ $(document).ready(function(){
 	});
 
 	$(document).on('click', '.spmc-dm-di', function(){
-		displayOnAddEditModal($(this).data('productid'));
+		var getSite = ($('.search-product-modal-dd-btn').html() == 'Select Site')? 'AKS' : $('.search-product-modal-dd-btn').html();
+		displayOnAddEditModal($(this).data('productid'), getSite, 'create');
 	});
 
 	$(document).on('click', '.spmc-open-list-btn', function(event){
 		event.stopPropagation();
+		var getSite = ($('.search-product-modal-dd-btn').html() == 'Select Site')? 'AKS' : $('.search-product-modal-dd-btn').html();
+		setUrlParam('normalisedname', $(this).data('normalisednameni'));
+		getByNormalisedName($(this).data('normalisednameni'), getSite);
+
+		$('.dpbnm-product-nname').val($(this).data('normalisednameni'));
+		$('.display-product-by-normalised-input').val(getSite)
 		$('.displayProductByNormalisedName').modal('show');
-		// alert($(this).data('normalisednameni'))
+
 	});
 	
 
@@ -291,7 +294,6 @@ $(document).ready(function(){
 		$('.dmd-edition').show().empty();
 		var getVal = $(this).val();
 		
-
 		var getOuput = saveEdition.filter(function (items) {
 		  return items.id.includes(getVal) || items.name.includes(getVal);
 		});
@@ -312,7 +314,6 @@ $(document).ready(function(){
 		$('.dmd-edition').hide();
 		toCreateDataArr = [];
 		var getRegion = ($('.ae-region-input').val() == '')? '2' : $('.ae-region-input').val();
-
 
 		getAvailable($('.ae-merchant-input').val(), getRegion)
 	});
@@ -373,23 +374,159 @@ $(document).ready(function(){
 		// }).always(function() {});
 	});
 
+//display by normalised name section ---------------------------------
+	
+	$(document).on('click', '.display-product-by-normalised-input', function(){
+		$('.dropdown-menu-div').hide();
+		$('.dmd-dpbn').show();
+	});
 
+	$(document).on('click', '.dmds-dpbn', function(){
+		$('.display-product-by-normalised-input').val($(this).html());
+		$('.dmd-dpbn').hide();
+		getByNormalisedName($('.dpbnm-product-nname').val(), $(this).html())
+	});
+
+	$(document).on('input', '.dpbnm-product-nname', function(){
+		setUrlParam('normalisedname', $(this).val())
+		getByNormalisedName($(this).val(), $('.display-product-by-normalised-input').val())
+	});
+
+	$(document).on('click', '.dpbnm-product-action', function(){
+		$('.dpbnm-product-action-div').hide()
+
+		if ($(this).attr('id') == toClose) {
+			$('#dpbnmpad-div-'+$(this).attr('id')).hide();
+			toClose = '';
+		}else {
+			$('#dpbnmpad-div-'+$(this).attr('id')).show();
+			toClose = $(this).attr('id');
+		}
+	});
+	
+	$(document).on('click', '.dpbnm-update-stock', function(){
+		// var setValue = ($(this).html() == 'Out Of Stock')? 'In Stock': 'Out Of Stock';
+		// var getSite = $('.display-product-by-normalised-input').val();
+		// alert($(this).data('dpbnm-id'))
+		// alert(setValue)
+	});
+
+	$(document).on('click', '.dpbnm-li-toedit', function(){
+		var getSite = $('.display-product-by-normalised-input').val();
+		displayOnAddEditModal($(this).data('dpbnm-id-toedit'), getSite, 'edit');
+	});
 }); // end docuemtn ready
 
-function displayOnAddEditModal($productid){
+
+function getByNormalisedName($normalisedName, $site){
+	$('.dpbnm-table-body').empty();
+	$('.dpbnm-loader-wrapper').show();
+	var dataRequest =  {
+		action: 'displayStoreGamesByNormalizedName',
+		nnameID: $normalisedName,
+		site: $site
+	}
+	AjaxCall(url, dataRequest).done(function(data) {
+		var counter = 1;
+		for(var i in data){
+
+			displayProductBynormalised(data[i].merchant, data[i].region, data[i].edition, data[i].status, data[i].price, data[i].buy_url, counter, data[i].id)
+			counter++;
+		}
+	}).always(function() {
+		$('.dpbnm-loader-wrapper').hide();
+	});
+
+}
+
+function displayProductBynormalised($merchant, $region, $edition, $stock, $price, $url, $number, $id){
+	var backColor = ($number % 2 == 0)? 'table-body-even-number-background' : '';
+	var	toAppend =	'<tr class="'+backColor+'">';
+		toAppend +=	'	<td class="" style="padding: 10px 10px;">'+ $merchant +'</td>';
+		toAppend +=	'	<td class="" style="padding: 10px 10px;">'+ $region +'</td>';
+		toAppend +=	'	<td class="" style="padding: 10px 10px;">'+ $edition +'</td>';
+		toAppend +=	'	<td class="hide-on-smmd" style="padding: 10px 10px;"><span class="dpbnm-update-stock" title="Click to update stock." alt="Click to update stock." data-dpbnm-id="'+$id+'">'+ $stock +'</span></td>';
+		toAppend +=	'	<td class="hide-on-smmd" style="padding: 10px 10px;">'+ $price +'</td>';	
+		toAppend +=	'</tr>';
+		toAppend +=	'<tr class="'+backColor+'">';
+		toAppend +=	'	<td colspan="5">';		
+		toAppend +=	'		<div style="padding: 0 10px;word-break: break-all;position: relative;">';
+		toAppend +=	'			<i class="fas fa-edit dpbnm-product-action" id="'+ $id +'"></i>';
+		toAppend +=	'			<div class="dpbnm-product-action-div" id="dpbnmpad-div-'+$id+'">';
+		toAppend +=	'				<ul class="dpbnm-product-action-ul">';
+		toAppend +=	'					<li class="dpbnm-product-action-li dpbnm-li-toedit" data-dpbnm-id-toedit="'+$id+'"><i class="fas fa-circle fa-xs"></i> <span class="dpbnm-product-action-li-span">Edit</span></li>';
+		toAppend +=	'					<li class="dpbnm-product-action-li"><i class="fas fa-circle fa-xs"></i> <span class="dpbnm-product-action-li-span">Delete</span></li>';
+		toAppend +=	'				</ul>';
+		toAppend +=	'			</div>';
+		toAppend +=	'			<p class="hide-on-lgxl show-on-smmd">Price : <span>'+ $price +'</span></p>';		
+		toAppend +=	'			<p class="hide-on-lgxl show-on-smmd"><button class="btn btn-primary col-12">'+ $stock +'</button></p>';
+		toAppend +=	'			<p><a href="'+ $url +'" target="_blank" style="color: #6b6d70;">'+ $url +'</a></p>';		
+		toAppend +=	'		</div>';	
+		toAppend +=	'	</td>';
+		toAppend +=	'</tr>';
+
+	$(".dpbnm-table-body").append(toAppend);
+}
+
+function unsetUrlParam($param){
+	var getUrl  = window.location.href;  
+	var getMatch = getUrl.match(/(\?|\&)([^=]+)\=([^&]+)/gm);
+
+	if(getMatch == '?'+$param+'=true') {
+		var notCleanUrl = removeURLParameter(getUrl, $param);
+		var getClean = notCleanUrl.substr(notCleanUrl.length - 1); 
+		if(getClean == '?') getClean = notCleanUrl.substring(0,notCleanUrl.length - 1);
+		var newurl = getClean;
+	}else var newurl = removeURLParameter(getUrl, $param);
+	
+	pushtoNewUrl(newurl)
+}
+
+function setUrlParam($param, $paramVal){
+
+	var getUrl  = window.location.href;  
+	var getMatch = getUrl.match(/(\?|\&)([^=]+)\=([^&]+)/gm);
+	var getParamVal = ($paramVal == '')? 'true': $paramVal;
+
+	if(getMatch){
+		if(!getUrlParameter($param)){
+			var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + getMatch + "&"+$param+"="+getParamVal+"";
+		}else{
+			if($param == 'normalisedname') {
+				var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + "?"+$param+"="+getParamVal+"";
+			}else{
+				var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + getMatch[0] + "&"+$param+"="+getParamVal+"";
+			}
+		}
+	}else {
+		var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + "?"+$param+"="+getParamVal+"";
+	}
+
+
+	pushtoNewUrl(newurl)
+}
+
+
+function pushtoNewUrl($newUrl) {
+	
+	// console.log(window.history.pushState({ path: $newUrl }, '', $newUrl))
+	window.history.pushState({ path: $newUrl }, '', $newUrl);
+}
+
+
+function displayOnAddEditModal($productid, $site, $mode){
 	$('.ae-addc-i-on-aks-1, .ae-addc-i-on-aks-0-2, .ae-addc-i-on-cdd-1, .ae-addc-i-on-cdd-0-2, .ae-addc-i-on-brex-1, .ae-addc-i-on-brex-0-2').empty();
-		var getSite = ($('.search-product-modal-dd-btn').html() == 'Select Site')? 'AKS' : $('.search-product-modal-dd-btn').html();
 		callEdition();
-		callRegion(getSite)
+		callRegion($site)
 		toCreateDataArr = [];
 		
 		var dataRequest =  {
 			action: 'get-product-info',
 			toGet: $productid,
-			site: getSite
+			site: $site
 		}
 		AjaxCall(url, dataRequest).done(function(data) {
-				$('.ae-product-p-title').html(getSite);
+				$('.ae-product-p-title').html($site);
 				$('.ae-merchant-input').val(data[0].merchant);
 				$('.ae-search-name-input').val(data[0].search_name);
 				// $('.ae-edition-input').val(data[0].edition);
@@ -425,8 +562,11 @@ function displayOnAddEditModal($productid){
 			
 				getAvailable(data[0].merchant, '2') // default 2 for steam gloabl
 		}).always(function() {
-			$('.ae-to-what').html('create');
-			$('.ae-modal-footer').empty().append('<button class="btn btn-primary mt-1" id="ae-btn-add">Create</button>')
+			var getRealBtnName = ($mode == 'create')? 'Create' : 'Update';
+			var getRealBtnID = ($mode == 'create')? 'add' : 'edit';
+			
+			$('.ae-to-what').html($mode);
+			$('.ae-modal-footer').empty().append('<button class="btn btn-primary mt-1" id="ae-btn-'+getRealBtnID+'">'+getRealBtnName+'</button>')
 			$('.add-edit-store-game-modal').modal('show');
 		});
 }
@@ -505,8 +645,6 @@ function getAvailableToCreate($getArr, $getRegionArr, $getRegion, $getMerchantID
 			createSwitchForAvailable(replaceUnderScoreVal, 0, $getRegion, $getMerchantID, '');
 		}
 	}
-
-
 }
 
 function checkExistingData($merchant, $edition, $region, $normalisedName, $site, $url, $unconvertedSite){
@@ -1176,7 +1314,7 @@ function displayStoreGamesByNormalizedName($normalised_name,$site) {
 				append +=	'<div class="modal-child-tbody-1">'+data[i].merchant+'</div>';
 				append +=	'<div class="modal-child-tbody-2">'+data[i].region+'</div>';
 				append +=	'<div class="modal-child-tbody-3">'+data[i].edition+'</div>';
-				append +=	'<div class="modal-child-tbody-sub modal-child-tbody-4"><input class="modal-val-btn" type="button" 	data-prodId="'+data[i].id+'" 	value="'+data[i].status+'"></div>';
+				append +=	'<div class="modal-child-tbody-sub modal-child-tbody-4"><input class="modal-val-btn" type="button" 	data-prodId="'+data[i].id+'" value="'+data[i].status+'"></div>';
 				append +=	'<div class="modal-child-tbody-sub modal-child-tbody-5"><input id="price-update" class="modal-val-txt" type="number" 	data-prodId="'+data[i].id+'"	value="'+data[i].price+'"></div>';
 				append +=	'<div class="modal-child-tbody-sub modal-child-tbody-6">';
 				append += 	'<div class="show-menu" id="'+data[i].id+'">';

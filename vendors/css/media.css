@@ -48,6 +48,9 @@
 	.hide-act-data {
 		display: table-row !important;
 	}
+	.show-on-smmd {
+		display: block !important;;
+	}
 }
 
 /* medium devices (desktops, 992px)*/

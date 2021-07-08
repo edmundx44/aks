@@ -135,63 +135,8 @@ class Ajax {
 
 				return $resultArray;
 			break;
-			case 'displayStoreGamesByNormalizedName':
-				$site = self::getSite($getInput->get('site'));
-
-				$getNname = $getInput->get('nnameID');
-
-				$getProductArr = array();
-				$getMerchantArr = array();
-				$getEditionArr = array();
-				$getRegionsArr = array();
-
-				$getMerchant = $db->find('`allkeyshops`.`sale_page`',['order' => "vols_nom ASC"]);
-				// $getEdition = $db->find('`'.$site.'`.`pt_editions_eu`');
-				// $getRegions = $db->find('`'.$site.'`.`pt_regions_amaurer`');
-
-				$getEdition = $db->find('`test-server`.`pt_editions_eu`'); // in test-server only
-				$getRegions = $db->find('`test-server`.`pt_regions_amaurer`'); // in test-server only
-
-				$getProductByNormalisedName =  $db->find('`'.$site.'`.`pt_products`',[
-					'conditions' => ['normalised_name = ?'],
-					'bind' => [$getNname],
-					'order' => "price ASC",
-				]);
-
-				foreach($getMerchant as $key => $value) if(!array_key_exists($value->vols_id, $getMerchantArr)) $getMerchantArr[$value->vols_id]=$value->vols_nom;
-				foreach($getEdition as $key => $value) if(!array_key_exists($value->id, $getEditionArr)) $getEditionArr[$value->id]=$value->name;
-				foreach($getRegions as $key => $value) {
-					if(!array_key_exists($value->id, $getRegionsArr)) $getRegionsArr[$value->id] = $value->name;
-					$retrieveRegions[6]='Gog';
-					$retrieveRegions[23]='Xbox 360 Game Code';
-					$retrieveRegions[24]='Xbox ONE Game Code';
-				}
-
-				foreach($getProductByNormalisedName as $key => $value) {
-					$getMerchantArr[$value->merchant] = (!empty($getMerchantArr[$value->merchant])) ? $getMerchantArr[$value->merchant] : '';
-					$getRegionsArr[$value->region]    = (!empty($getRegionsArr[$value->region])) ? $getRegionsArr[$value->region] : '';
-					$getEditionArr[$value->edition]   = (!empty($getEditionArr[$value->edition])) ? $getEditionArr[$value->edition] : '';
-
-					array_push($getProductArr, array(
-						'id' 		=> $value->id, 
-						'nname' 	=> $value->normalised_name, 
-						'merchantID'=> $value->merchant,
-						'searchName'=> $value->search_name,
-						'merchant'	=> $getMerchantArr[$value->merchant],
-						'region'	=> $getRegionsArr[$value->region],
-						'edition'	=> $getEditionArr[$value->edition],
-						'status'	=> ($value->dispo == 1)? 'In Stock' : 'Out Of Stock',
-						'price'		=> $value->price,
-						'buy_url'	=> $value->buy_url,
-						'site'		=> $getInput->get('site')
-					));
-				}
-				//var_dump($getProductArr);
-				return $getProductArr;
-			break;
 			case 'storeUpdateProduct':
 				$site = self::getSite($getInput->get('site'));
-
 				switch ($getInput->get('toWhat')) {
 					case 'stock':
 						$stock = ($getInput->get('dataTo') == 'Out Of Stock')? 1 : 0; 
@@ -204,7 +149,6 @@ class Ajax {
 							'price' => $getInput->get('dataTo'),
 						];
 					break;
-					
 				}
 
 				return $db->update('`'.$site.'`.`pt_products`', $getInput->get('id'), $fields);
@@ -1477,6 +1421,60 @@ class Ajax {
 					normalised_name = ".$getInput->get('getNname')."";
 
 				return $db->query($sql)->results()[0]->getcount;
+			break;
+			case 'displayStoreGamesByNormalizedName':
+				$site = self::getSite($getInput->get('site'));
+
+				$getNname = $getInput->get('nnameID');
+
+				$getProductArr = array();
+				$getMerchantArr = array();
+				$getEditionArr = array();
+				$getRegionsArr = array();
+
+				$getMerchant = $db->find('`allkeyshops`.`sale_page`',['order' => "vols_nom ASC"]);
+				// $getEdition = $db->find('`'.$site.'`.`pt_editions_eu`');
+				// $getRegions = $db->find('`'.$site.'`.`pt_regions_amaurer`');
+
+				$getEdition = $db->find('`test-server`.`pt_editions_eu`'); // in test-server only
+				$getRegions = $db->find('`test-server`.`pt_regions_amaurer`'); // in test-server only
+
+				$getProductByNormalisedName =  $db->find('`'.$site.'`.`pt_products`',[
+					'conditions' => ['normalised_name = ?'],
+					'bind' => [$getNname],
+					'order' => "price ASC",
+				]);
+
+				foreach($getMerchant as $key => $value) if(!array_key_exists($value->vols_id, $getMerchantArr)) $getMerchantArr[$value->vols_id]=$value->vols_nom;
+				foreach($getEdition as $key => $value) if(!array_key_exists($value->id, $getEditionArr)) $getEditionArr[$value->id]=$value->name;
+				foreach($getRegions as $key => $value) {
+					if(!array_key_exists($value->id, $getRegionsArr)) $getRegionsArr[$value->id] = $value->name;
+					$retrieveRegions[6]='Gog';
+					$retrieveRegions[23]='Xbox 360 Game Code';
+					$retrieveRegions[24]='Xbox ONE Game Code';
+				}
+
+				foreach($getProductByNormalisedName as $key => $value) {
+					$getMerchantArr[$value->merchant] = (!empty($getMerchantArr[$value->merchant])) ? $getMerchantArr[$value->merchant] : '';
+					$getRegionsArr[$value->region]    = (!empty($getRegionsArr[$value->region])) ? $getRegionsArr[$value->region] : '';
+					$getEditionArr[$value->edition]   = (!empty($getEditionArr[$value->edition])) ? $getEditionArr[$value->edition] : '';
+
+					array_push($getProductArr, array(
+						'id' 		=> $value->id, 
+						'nname' 	=> $value->normalised_name, 
+						'merchantID'=> $value->merchant,
+						'searchName'=> $value->search_name,
+						'merchant'	=> $getMerchantArr[$value->merchant],
+						'region'	=> $getRegionsArr[$value->region],
+						'edition'	=> $getEditionArr[$value->edition],
+						'status'	=> ($value->dispo == 1)? 'In Stock' : 'Out Of Stock',
+						'price'		=> $value->price,
+						'buy_url'	=> $value->buy_url,
+						'site'		=> $getInput->get('site')
+					));
+				}
+				//var_dump($getProductArr);
+				return $getProductArr;
 			break;
 		}
 	
