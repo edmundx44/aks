@@ -174,10 +174,9 @@ class AffiliateUtility {
             $sql = "SELECT * FROM `test-server`.`affiliate_urls` WHERE merchant_id IN($merchantId)";
             $results = $db->query( $sql, [ $merchantId ])->results();
             foreach($results as $key => $value){
-                if(!array_key_exists($value->locale, $temp))
-                    $locale = $value->locale;
+                $locale = $value->locale;
                 if(isset($locale))
-                    $temp[$locale][$value->merchant_id] = [
+                    $temp[$value->locale][$value->merchant_id] = [
                         'id' => $value->id,
                         'merchant_id' => $value->merchant_id,
                         'merchant_name' => $value->merchant_name,
@@ -274,10 +273,10 @@ class AffiliateUtility {
                 $product['url'] = preg_replace('/\?.*/', '', $product['url']);
                 $product['url'] .= '?affiliate=allkeyshop';
             break;
-            case 168:  //dont have 168 in affiliate url table
-                $product['url'] = preg_replace('/\?.*/', '', $product['url']);
-                $product['url'] .= '?ars=cdd';
-            break;
+            // case 168:  //dont have 168 in affiliate url table
+            //     $product['url'] = preg_replace('/\?.*/', '', $product['url']);
+            //     $product['url'] .= '?ars=cdd';
+            // break;
             case 66: //Empty replacement_pattern & check_regex ... replacement_pattern = {url}?tag=wwwcheapdig06-20, check_regex =  ~tag=wwwcheapdig06-20~ where Locale = en_US
                 $product['url'] = preg_replace('/\?.*/', '', $product['url']);
                 $product['url'] .= '?tag=wwwcheapdig06-20';
