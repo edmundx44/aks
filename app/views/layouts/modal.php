@@ -84,6 +84,80 @@
 	</div>
 </div>
 
+<!-- display-product-by-normalised-input -->
+<div class="modal fade bd-example-modal-lg displayProductByNormalisedName no-padding" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	<div class="modal-dialog modal-lg modal-xl-override" style="height:  calc(100% - 60px);" role="document">
+		<div class="modal-content" style="height:  100%;border-radius: 0;background-clip: initial; background: rgba(0,123,255, .5);border: none;padding: 10px;">
+			<div class="modal-content-wrapper" style="width: 100%;height: 100%;background-color: #fff;">
+				<div class="modal-content-header" style="height: 100px;margin-top: 10px;">
+					<button type="button" class="close float-right" data-dismiss="modal" style="position: relative;right: 15px;top: 3px;font-size: 15px;">
+						<i class="fas fa-times"></i>
+					</button>
+					<div class="modal-content-header-content" style="padding: 10px 0 15px 15px;">
+						<div class="dropdown col-4 no-padding" style="">
+								<input type="text" name="" class="input-text-class dropdown-inputbox display-product-by-normalised-input" autocomplete='off' style="height: 20px;left: 0;padding: 0;margin: 0 !important;border: none;font-weight: 700;" required>
+								<span class="input-text-border"></span>
+								<div class="dropdown-menu-div dmd-dpbn" style="overflow:hidden !important;">
+									<div class="dropdown-menu-div-sub dmds-dpbn" >AKS</div>
+									<div class="dropdown-menu-div-sub dmds-dpbn" >CDD</div>
+									<div class="dropdown-menu-div-sub dmds-dpbn" >BREX</div>
+								</div>
+							</div>
+						<p class="dpbnm-product-name" style="margin: 0; padding: 0;font-size: 12px;">Borderlands 3 Moxxi's Heist of the Handsome Jackpot 31472 Borderlands 3 Moxxi's Heist of the Handsome Jackpot 31472</p>
+						<input type="text" class="dpbnm-product-nname" name="" placeholder="Enter normalised name here." style="margin: 0; padding: 0;font-size: 12px;border: none;outline: none;">	
+					</div>
+				</div>
+				<div class="modal-content-body" style="height:  calc(100% - 120px);padding: 0 10px;overflow: auto;">
+					<table class="col-12">
+						<thead style="color: #fff;font-size: 13px;letter-spacing: 1px;">
+							<tr class="" style="position:relative;z-index: 1;">
+								<th class="" style="background: rgba(0,123,255, 1);position: sticky;padding: 5px 10px;width: 20%;top: 0;">MERCHANT</th>
+								<th class="" style="background: rgba(0,123,255, 1);position: sticky;padding: 5px 10px;width: 20%;top: 0">REGION</th>
+								<th class="" style="background: rgba(0,123,255, 1);position: sticky;padding: 5px 10px;width: 20%;top: 0">EDITION</th>
+								<th class="hide-on-smmd" style="background: rgba(0,123,255, 1);position: sticky;padding: 5px 10px;width: 20%;top: 0">STOCK</th>
+								<th class="hide-on-smmd" style="background: rgba(0,123,255, 1);position: sticky;padding: 5px 10px;width: 20%;top: 0">PRICE</th>
+							</tr> 
+						</thead>
+						<tbody class="dpbnm-table-body">
+							<!-- data from data base -->
+						</tbody>
+					</table>
+					<div class="dpbnm-loader-wrapper text-center" style="display: none;">
+						<span class="span-txt">Processing</span>
+						<div class="boxes box-loader">
+							<div class="box">
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+							</div>
+							<div class="box">
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+							</div>
+							<div class="box">
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+							</div>
+							<div class="box">
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div> 
+
 <!-- add edit modal -->
 <div class="modal fade bd-example-modal-lg add-edit-store-game-modal no-padding" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 	<div class="modal-dialog modal-lg modal-xl-override ae-modal-dialog" role="document">
@@ -443,31 +517,6 @@
 			<!-- Modal footer -->
 			<div class="modal-footer">
 				<button type="button" class="btn modal-close-btn" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade bd-example-modal-lg displayProductByNormalisedName no-padding" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-	<div class="modal-dialog modal-lg modal-xl-override" style="height:  calc(100% - 60px);" role="document">
-		<div class="modal-content" style="height:  100%;border-radius: 0;background-clip: initial; background: rgba(0,123,255, .5);border: none;padding: 10px;">
-			<div class="modal-content-wrapper" style="width: 100%;height: 100%;background-color: #fff;">
-				<div class="modal-content-header" style="height: 100px;background-color: #1e1e2f;">
-					<button type="button" class="close float-right" data-dismiss="modal" style="position: relative;right: 15px;top: 10px;color: #fff;font-size: 15px;">
-						<i class="fas fa-times"></i>
-					</button>
-					<div class="modal-content-header-content" style="padding: 10px 0 15px 15px;">
-						<p class="dpbnm-site" style="margin: 0; padding: 0;color: #fff;letter-spacing: 2px;"></p>
-						<p class="dpbnm-product-name" style="margin: 0; padding: 0;color: #fff;font-size: 12px;"></p>
-						<p class="dpbnm-product-nname" style="margin: 0; padding: 0;color: #fff;font-size: 11px;"></p>
-					</div>
-				</div>
-				<div class="modal-content-body" style="height:  calc(100% - 170px);">
-					asdsad
-				</div>
-				<div class="modal-content-foot" style="height: 70px;border-top: solid 1px rgba(0,123,255, .5); padding: 10px;text-align: right;">
-					
-				</div>
 			</div>
 		</div>
 	</div>
@@ -1654,6 +1703,58 @@
 	}
 	.ae-mcb-row {
 		padding: 10px 25px 40px 25px;
+	}
+
+	/*table css section ---------------------------------------------------------------*/
+	.hide-on-lgxl {
+		display: none;
+	}
+	.table-body-even-number-background {
+		background-color: #cccccc;
+	}
+
+	/*display by normalised name css section --------------------------------------------*/
+	.dpbnm-product-action {
+		position: absolute; 
+		top: -35px; 
+		right: 10px;
+		cursor: pointer;
+	}
+	.dpbnm-product-action-div {
+		width: 120px;
+		height: 85px;
+		box-shadow: 0 1px 5px 0 rgb(0 0 0 / 56%);
+		border-radius: 3px;
+		position: absolute;
+		top: -18px;
+		right: 30px;
+		z-index: 1;
+		background-color: #fff;
+		display: none;
+	}
+	.dpbnm-product-action-ul {
+		list-style-type: none; 
+		padding: 10px 0 0 0;
+		margin: 0;
+		font-size: 14px;
+	}
+	.dpbnm-product-action-li {
+		padding: 5px 10px 0 10px;
+		cursor: pointer;
+	}
+	.dpbnm-product-action-li i{
+		top: -1.5px;
+		position: relative;
+	}
+	.dpbnm-product-action-li:hover > .dpbnm-product-action-li-span {
+		text-decoration: underline;
+	}
+	
+	.dpbnm-update-stock {
+		cursor: pointer;
+	}
+	.dpbnm-update-stock:hover {
+		text-decoration: underline;
 	}
 </style>
 
