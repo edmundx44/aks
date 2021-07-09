@@ -295,6 +295,13 @@ $(document).ready(function () {
 
 
 	// add edit modal section -----------------------------------------------------------
+	$(document).on('change keyup', '.ae-url-input', function () {
+		$('.ae-addc-i-on-aks-1, .ae-addc-i-on-aks-0-2, .ae-addc-i-on-cdd-1, .ae-addc-i-on-cdd-0-2, .ae-addc-i-on-brex-1, .ae-addc-i-on-brex-0-2').empty();
+		toCreateDataArr = [];
+		var getRegion = ($('.ae-region-input').val() == '') ? 2 : $('.ae-region-input').attr('data-regionid');
+		getAvailable($('.ae-merchant-input').val(), getRegion)
+	});
+
 	$(document).on('change', '.ae-merchant-input', function () {
 		$('.ae-addc-i-on-aks-1, .ae-addc-i-on-aks-0-2, .ae-addc-i-on-cdd-1, .ae-addc-i-on-cdd-0-2, .ae-addc-i-on-brex-1, .ae-addc-i-on-brex-0-2').empty();
 		toCreateDataArr = [];
@@ -390,7 +397,7 @@ $(document).ready(function () {
 			productOptions: toCreateDataArr,
 			source: $('.ae-product-p-title').text(),
 		}
-		console.log(dataRequest)
+		console.log(toCreateDataArr)
 		AjaxCall(url, dataRequest).done(function (data) {
 			console.log(data);
 		}).always(function () { });

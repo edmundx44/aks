@@ -20,7 +20,7 @@ class Product extends Model{
         parent::__construct($table);
     }
     
-	public static function productValues($product) {
+	public static function prepareProductValues($product) {
 		$sqlData = [];
 		foreach($product as $website => $data){
 			if(in_array($website, static::$websites)){

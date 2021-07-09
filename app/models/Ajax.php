@@ -1463,8 +1463,8 @@ class Ajax {
 				$successMsg = array();
 				$failedMsg = array();
 
-				$product = self::getProductsAffiliate();
-				$productToInsert = Product::productValues($product);
+				return $product = self::getProductsAffiliate();
+				$productToInsert = Product::prepareProductValues($product);
 				
 				if(isset($product['message']))
 					$failedMsg[] = Array( "message" => 'No Available creation for this offer', 'url' => $product['url'], 'merchant' => $product['merchant']);
@@ -1525,26 +1525,29 @@ class Ajax {
 		foreach($options as $option){
 			switch($option['site']){
 				case 'AKS':
-					$affiliate = new AffiliateUtility($option);
-					$preparedData = $affiliate->getPreparedAffiliate();
-					$product = self::updateArrayProduct($product, $preparedData, $option);
-
-					$productPerWebsite['AKS'][] = $product;
-				break;
 				case 'CDD':
-					$affiliate = new AffiliateUtility($option);
-					$preparedData = $affiliate->getPreparedAffiliate();
-					$product = self::updateArrayProduct($product, $preparedData, $option);
-					
-					$productPerWebsite['CDD'][] = $product;
-				break;
 				case 'BREX':
 					$affiliate = new AffiliateUtility($option);
 					$preparedData = $affiliate->getPreparedAffiliate();
-					$product = self::updateArrayProduct($product, $preparedData, $option);
-
-					$productPerWebsite['BREX'][] = $product;
+					//$product = self::updateArrayProduct($product, $preparedData, $option);
+					
+					$productPerWebsite[$option['site']] = $preparedData;
+					//$productPerWebsite[$option['site']][] = $preparedData;
 				break;
+				// case 'CDD':
+				// 	$affiliate = new AffiliateUtility($option);
+				// 	$preparedData = $affiliate->getPreparedAffiliate();
+				// 	//$product = self::updateArrayProduct($product, $preparedData, $option);
+					
+				// 	$productPerWebsite['CDD'][] = $product;
+				// break;
+				// case 'BREX':
+				// 	$affiliate = new AffiliateUtility($option);
+				// 	$preparedData = $affiliate->getPreparedAffiliate();
+				// 	//$product = self::updateArrayProduct($product, $preparedData, $option);
+
+				// 	$productPerWebsite['BREX'][] = $product;
+				// break;
 			}
 		}
 		return $productPerWebsite;
