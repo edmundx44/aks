@@ -1529,7 +1529,7 @@ class Ajax {
 					$preparedData = $affiliate->getPreparedAffiliate();
 					//$product = self::updateArrayProduct($product, $preparedData, $option);
 					
-					$productPerWebsite[$option['site']] = $preparedData;
+					$productPerWebsite[$option['site']][] = $preparedData;
 					//$productPerWebsite[$option['site']][] = $preparedData;
 				break;
 				// case 'CDD':
