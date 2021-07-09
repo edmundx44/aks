@@ -100,8 +100,10 @@ class AffiliateUtility {
         $options = static::$affiliateData[$this->locale][$this->merchant] ?? null;
         $options['search_regex'] = (empty($options['search_regex']) || !isset($options['search_regex'])) ? '/empty in db/' : $options['search_regex'] ;
 
-        if (!isset($options['replacement_pattern_raw']) AND empty($options['replacement_pattern_raw']))
+        if (!isset($options['replacement_pattern_raw']) AND empty($options['replacement_pattern_raw'])){
+            $this->special_case_for_adding_buy_url_raw($options);
             return $this;
+        }
 
         if(preg_match($options['search_regex'], $this->buy_url_raw, $matches)){
             $buy_url_raw = $options['replacement_pattern_raw'];
@@ -207,6 +209,7 @@ class AffiliateUtility {
                     if(array_key_exists('url',$matches))
                         $this->buy_url_raw = str_replace('{path}', $matches['url'], $buy_url_raw);
                 }
+            break;
             case 228:
                 $options['search_regex'] = '~&dl=(?<url>.+)~'; 
                 if(preg_match($options['search_regex'], $this->buy_url_raw, $matches)){
@@ -214,6 +217,11 @@ class AffiliateUtility {
                     if(array_key_exists('url',$matches))
                         $this->buy_url_raw = str_replace('{url}', $matches['url'], $buy_url_raw);
                 }
+            break;
+            case 660:
+                $this->buy_url_raw = preg_replace('/\?.*/', '', $this->buy_url_raw);
+            break;
+
             default:
             break;
         }
