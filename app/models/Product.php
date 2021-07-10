@@ -84,6 +84,25 @@ class Product extends Model{
 		return $sqlData;
 	}
 
+	public function prepareInsertProduct($product){
+		$sqlData = [];
+		$sqlData = [
+			'merchant'       => $product["ae-merchant-input"], 
+			'buy_url'        => $product["ae-url-input"], 
+			'buy_url_raw'    => $product["ae-url-raw-input"], 
+			'category'       => $product["ae-category-input"], 
+			'rating'         => $product["ae-ratings-input"],  
+			'normalised_name'=> $product["ae-gameid-input"],
+			'edition'        => $product["ae-edition-input"], 
+			'region'         => $product["ae-region-input"],
+			'search_name'    => $product["ae-search-name-input"],
+			'buy_url_bis'    => $product["ae-buy-url-bis-input"], 
+			'buy_url_tier'   => $product["ae-buy-url-tier-input"], 
+			'buy_url_4'      => $product["ae-buy-url-4-input"],
+		];
+		return $sqlData;
+	}
+
 	public function queryTestingInsert($fields = [], $arrayType = 'multidimensional') {
 		$fieldsString = '';
 		$dataValues = [];

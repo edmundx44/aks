@@ -1333,6 +1333,7 @@ class Ajax {
 				$getEuUsaDisc = ($getInput->get('site') == 'CDD')? 'description-eu' : 'description-usa';
 
 				$sql = "SELECT 
+						`id`,
 						`merchant`, 
 						`search_name`,
 						`edition`,
@@ -1343,6 +1344,7 @@ class Ajax {
 						`buy_url`,
 						`keyword`,
 						`category`,
+						`buy_url_raw`,
 						`buy_url_bis`,
 						`buy_url_tier`,
 						`releasedate`,
@@ -1418,7 +1420,7 @@ class Ajax {
 				$successMsg = array();
 				$failedMsg = array();
 
-				return $product = self::getProductsAffiliate();
+				$product = self::getProductsAffiliate();
 				$productToInsert = Product::prepareProductValues($product);
 				
 				if(isset($product['message']))
@@ -1443,7 +1445,12 @@ class Ajax {
 				}
 				return array('success' => $successMsg, 'failed' => $failedMsg);
 			break;
-			
+			case 'ae-edit-action':
+				$product = new Product($getInput->get('source'));
+				$productValues = $product->prepareInsertProduct($_POST['productformData']);
+				$bool = $product->update($getInput->get('productId'), $productValues);
+				return $bool;
+			break;
 			case 'ae-check-existing-data':
                 $site = self::getSite($getInput->get('getSite'));
                 $getMerchant = $getInput->get('getMerchant');
@@ -1539,10 +1546,10 @@ class Ajax {
 				case 'BREX':
 					$affiliate = new AffiliateUtility($option);
 					$preparedData = $affiliate->getPreparedAffiliate();
-					//$product = self::updateArrayProduct($product, $preparedData, $option);
+					$product = self::updateArrayProduct($product, $preparedData, $option);
 					
-					$productPerWebsite[$option['site']][] = $preparedData;
 					//$productPerWebsite[$option['site']][] = $preparedData;
+					$productPerWebsite[$option['site']][] = $product;
 				break;
 				// case 'CDD':
 				// 	$affiliate = new AffiliateUtility($option);

@@ -174,6 +174,7 @@
 						<p class="text-warning text-center ae-ppt-span">LATAM, US, RUSSIA , ACCOUNT, APAC and ASIAN regions</p>
 						<p class="text-warning text-center ae-ppt-span">About consoles all regions are autorised</p>
 					</div>
+					<input type="hidden" class="ae-hidden-productid">
 				</div>
 				<div class="modal-content-body scrollbar-custom ae-modal-content-body">
 					<div class="ae-autocreation-available-btn">
@@ -247,7 +248,7 @@
 								<span class="input-text-span">Game ID</span>
 								<span class="input-text-border"></span>
 							</div>
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div input-text-price" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-money-check-alt"></i>
 								<input type="text" name="ae-price-input" class="input-text-class ae-price-input" required>
 								<span class="input-text-span">Price</span>
@@ -287,6 +288,12 @@
 								<i class="input-text-i fas fa-external-link-alt"></i>
 								<input type="text" name="ae-url-input" class="input-text-class ae-url-input" required> <!-- url = buy url -->
 								<span class="input-text-span">Url</span>
+								<span class="input-text-border"></span>
+							</div>
+							<div class="input-text-div input-text-raw" style="margin: 30px 0 0 0; display:none;">
+								<i class="input-text-i fas fa-external-link-alt"></i>
+								<input type="text" name="ae-url-raw-input" class="input-text-class ae-url-raw-input" required> <!-- url = buy url -->
+								<span class="input-text-span">Buy url raw</span>
 								<span class="input-text-border"></span>
 							</div>
 						</div>
