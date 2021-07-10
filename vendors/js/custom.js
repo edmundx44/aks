@@ -1419,7 +1419,6 @@ function displayStoreGamesByNormalizedName($normalised_name, $site) {
 		$('.nname-modal-tbody').empty();
 
 		for (var i in data) {
-<<<<<<< HEAD
 			var $stock = (data[i].status == 'In Stock') ? 1 : 0;
 			var append = '<div class="nname-modal-tbody-div ' + data[i].id + '">';
 			append += '<div class="modal-child-tbody-1">' + data[i].merchant + '</div>';
@@ -1440,27 +1439,6 @@ function displayStoreGamesByNormalizedName($normalised_name, $site) {
 			append += '<div><p class="nname-modal-tfoot"><a href="' + data[i].buy_url + '" target="_blank">' + html_decode(data[i].buy_url) + '</a></p></div>';
 			append += '</div>';
 			$(".nname-modal-tbody").append(append);
-=======
-			var toAppend = '<div class="nname-modal-tbody-div ' + data[i].id + '">';
-				toAppend += '<div class="modal-child-tbody-1">' + data[i].merchant + '</div>';
-				toAppend += '<div class="modal-child-tbody-2">' + data[i].region + '</div>';
-				toAppend += '<div class="modal-child-tbody-3">' + data[i].edition + '</div>';
-				toAppend += '<div class="modal-child-tbody-sub modal-child-tbody-4"><input class="modal-val-btn" type="button" 	data-prodId="' + data[i].id + '" value="' + data[i].status + '"></div>';
-				toAppend += '<div class="modal-child-tbody-sub modal-child-tbody-5"><input id="price-update" class="modal-val-txt" type="number" 	data-prodId="' + data[i].id + '"	value="' + data[i].price + '"></div>';
-				toAppend += '<div class="modal-child-tbody-sub modal-child-tbody-6">';
-				toAppend += '<div class="show-menu" id="' + data[i].id + '">';
-				toAppend += '<ul class="modal-setting-ul">';
-				toAppend += '<li class="modal-setting-ul-li"><i class="fa fa-pencil" aria-hidden="true"></i><span class="msulspan add-edit-from-display" data-toeditid="' + data[i].id + '">Edit</span></li>';
-				toAppend += '<li class="modal-setting-ul-li"><i class="fa fa-times" aria-hidden="true"></i><span class="msulspan">Delete</span></li>';
-				toAppend += '<li class="modal-setting-ul-li"><i class="fa fa-dot-circle-o" aria-hidden="true"></i><span class="msulspan">Others</span></li>';
-				toAppend += '</ul>';
-				toAppend += '</div>';
-				toAppend += '<button class="btn action-btn ' + data[i].site + '-btn" id="' + data[i].id + '"> <i class="fa fa-cogs btn-icon-acb" aria-hidden="true"></i></button>';
-				toAppend += '</div>';
-				toAppend += '<div><p class="nname-modal-tfoot"><a href="' + data[i].buy_url + '" target="_blank">' + html_decode(data[i].buy_url) + '</a></p></div>';
-				toAppend += '</div>';
-			$(".nname-modal-tbody").append(toAppend);
->>>>>>> 18e8d9531bd5d3483d662d0213cf6f257ef28405
 		}
 	});
 }
