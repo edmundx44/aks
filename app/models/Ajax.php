@@ -147,6 +147,12 @@ class Ajax {
 				}
 				return $boolean;
 			break;
+			case 'productUpdatePrice':
+				$site = self::getSite($getInput->get('site'));
+				$price = (float)$getInput->get('price');
+				$fields = [ 'price' => $price ];
+				return $db->update('`'.$site.'`.`pt_products`', $getInput->get('id'), $fields);
+			break;
 			case 'storeUpdateProduct':
 				$site = self::getSite($getInput->get('site'));
 				switch ($getInput->get('toWhat')) {

@@ -473,7 +473,30 @@ $(document).ready(function () {
 		}
 	});
 
+	//Product Price Manual Update
+	$(document).on('keyup change', '.dpbnm-update-price', function (e) {
+		var valid = /^\d+\.\d*$|^[\d]*$/;
+		var number = /\d+\.\d*|[\d]*|[\d]+\.[\d]*|[\d]+/;
+
+		if (!valid.test(this.value)) {
+			var n = this.value.match(number);
+			this.value = n ? n[0] : '';
+		} else {
+			if (e.which == 13) {
+				var $this = $(this)
+				this.value = addZeroesInPrice(this.value)
+				productUpdatePrice($(this).attr('data-dpbnm-id'), this.value, $('.display-product-by-normalised-input').attr('data-product-website'), $this)
+			}
+		}
+	})
+
+
 }); // end docuemtn ready
+function addZeroesInPrice(num) {
+	const dec = num.split('.')[1]
+	const len = dec && dec.length > 2 ? dec.length : 2
+	return Number(num).toFixed(len)
+}
 
 function aeProduct($form, $mode) {
 	let formValues = {};
@@ -547,7 +570,9 @@ function displayProductBynormalised($merchant, $region, $edition, $stock, $price
 	toAppend += '	<td class="" style="padding: 10px 10px;">' + $region + '</td>';
 	toAppend += '	<td class="" style="padding: 10px 10px;">' + $edition + '</td>';
 	toAppend += '	<td class="hide-on-smmd data-stock" style="padding: 10px 10px;"><span class="dpbnm-update-stock" data-stock="product-game-modal" data-stockvalue="' + $stockValue + '" title="Click to update stock." alt="Click to update stock." data-dpbnm-id="' + $id + '">' + $stock + '</span></td>';
-	toAppend += '	<td class="hide-on-smmd data-price" style="padding: 10px 10px;">' + $price + '</td>';
+	toAppend += '	<td class="hide-on-smmd data-price" style="padding: 10px 10px;">';//' + $price + '
+	toAppend += '<input type="text" data-dpbnm-id="' + $id + '" class="dpbnm-update-price" value="' + $price + '">';
+	toAppend += '</td>';
 	toAppend += '</tr>';
 	toAppend += '<tr class="' + backColor + '">';
 	toAppend += '	<td colspan="5">';
@@ -659,11 +684,15 @@ function displayOnAddEditModal($productid, $site, $mode) {
 
 		if ($mode == 'create') {
 			getAvailable(data[0].merchant, '2'); // default 2 for steam gloabl
-			$('.ae-price-input').removeAttr('readonly');
+			$('.ae-price-input').val(data[0].price).css({ "pointer-events": "auto" });
+
 			$('.input-text-raw').hide();
 		} else if ($mode == 'edit') {
 			$('.input-text-raw').show();
-			$('.ae-price-input').val('').attr('readonly', 'readonly');
+			//$('.ae-price-input').val(data[0].price).attr('readonly', 'readonly');
+			$('.ae-price-input').val(data[0].price);
+			$('.ae-price-input').css({ "pointer-events": "none" });
+
 			$('.ae-url-raw-input').val(data[0].buy_url_raw);
 			$('.ae-edition-input').val(data[0].edition);
 			$('.ae-region-input').val(data[0].region);
@@ -1541,6 +1570,17 @@ function productUpdateStock($productID, $stock, $site, $this) {
 		}
 	});
 }
-function productUpdatePrice() {
-
+function productUpdatePrice($productID, $price, $site, $this) {
+	var req = {
+		action: 'productUpdatePrice',
+		id: $productID,
+		price: $price,
+		site: $site
+	}
+	AjaxCall(url, req).done(function (data) {
+		if (data) {
+			$($this).val($price);
+			alertMsg("Successfully update the price to " + $price + "")
+		}
+	});
 }
