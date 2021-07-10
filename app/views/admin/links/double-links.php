@@ -7,8 +7,6 @@
 
 		$(function() {
 			setActiveTab(getUrlParameter('tab'));
-			
-
 
 // Suspicious Double link section ----------------------------------------------
 
