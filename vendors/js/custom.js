@@ -571,7 +571,7 @@ function displayProductBynormalised($merchant, $region, $edition, $stock, $price
 	toAppend += '	<td class="" style="padding: 10px 10px;">' + $edition + '</td>';
 	toAppend += '	<td class="hide-on-smmd data-stock" style="padding: 10px 10px;"><span class="dpbnm-update-stock" data-stock="product-game-modal" data-stockvalue="' + $stockValue + '" title="Click to update stock." alt="Click to update stock." data-dpbnm-id="' + $id + '">' + $stock + '</span></td>';
 	toAppend += '	<td class="hide-on-smmd data-price" style="padding: 10px 10px;">';//' + $price + '
-	toAppend += '<input type="text" data-dpbnm-id="' + $id + '" class="dpbnm-update-price" value="' + $price + '">';
+	toAppend += '<input type="text" data-dpbnm-id="' + $id + '" title="Press Enter to update the PRICE." class="dpbnm-update-price" value="' + $price + '">';
 	toAppend += '</td>';
 	toAppend += '</tr>';
 	toAppend += '<tr class="' + backColor + '">';
