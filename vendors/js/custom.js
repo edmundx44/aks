@@ -113,22 +113,35 @@ $(document).ready(function () {
 
 	$(document).keydown(function (event) {
 		if (event.which === 27) {
+			// esc
 			//$('.modal').modal('hide');
-		} else if ((event.which === 65 && event.altKey && event.ctrlKey)) {
+		} else if ((event.which === 51 && event.altKey)) {
+			//show add edit modal
+			// alt + 3
 			$('.modal').modal('hide');
 			$('.add-edit-store-game-modal').modal('show');
-		} else if ((event.which === 68 && event.altKey)) {
+		} else if ((event.which === 53 && event.altKey)) {
+			// change mode dark or normal
+			// alt + 5
 			$('.switch-checkbox').trigger('click');
-		} else if ((event.which === 81 && event.altKey && event.ctrlKey)) {
-			window.location.href = "/aks/dashboard/activities";
-		} else if ((event.which === 82 && event.altKey && event.ctrlKey)) {
+		} else if ((event.which === 65 && event.altKey)) {
+			// redirect to activity logs
+			// alt + a
+			window.location.href = ""+url+"dashboard/activities";
+		} else if ((event.which === 82 && event.altKey)) {
+			// show create report modal
+			// alt + r
 			crProblemArr = [];
 			$('.modal').modal('hide');
 			$('#createReportModal').modal('show');
-		} else if ((event.which === 83 && event.altKey && event.ctrlKey)) {
+		} else if ((event.which === 49 && event.altKey)) {
+			// show search product modal
+			// alt + 1
 			$('.modal').modal('hide');
 			$('.header-search-btn').trigger('click');
-		} else if ((event.which === 78 && event.altKey && event.ctrlKey)) {
+		} else if ((event.which === 50 && event.altKey)) {
+			// show search by normalised name modal
+			// alt + 2
 			$('.modal').modal('hide');
 			setUrlParam('normalisedname', '');
 			$('.display-product-by-normalised-input').val('AKS');
@@ -589,7 +602,7 @@ function displayOnAddEditModal($productid, $site, $mode) {
 		$('.ae-description-nl-input').val(data[0].descriptionNl);
 
 		if($mode == 'create') getAvailable(data[0].merchant, '2'); // default 2 for steam gloabl
-		
+
 	}).always(function () {
 		var getRealBtnName = ($mode == 'create') ? 'Create' : 'Update';
 		var getRealBtnID = ($mode == 'create') ? 'add' : 'edit';
