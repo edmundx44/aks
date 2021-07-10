@@ -316,6 +316,7 @@ class AffiliateUtility {
 
                 if($product['merchantID'] == 270){ //IF input url has allyouplay.com
                     if(preg_match('~allyouplay.com/(?<path>.+?)/?$~', $product['url'], $matches))
+                        //Change here if theres a new update affiliate for 270 and also for getAvailable.txt
                         $product['url'] = 'https://lt45.net/c/?si=13482&li=1594900&wi=288216&ws=&dl='.$matches['path'];
                 }
     		break;

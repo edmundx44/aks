@@ -272,32 +272,3 @@ function breadCrumbs($name){
 }
 
 
-function storeUpdateProduct($productID,$toWhat,$dataTo,$site){
-	var dataRequest = { 
-		action: 'storeUpdateProduct',
-		id: $productID,
-		toWhat: $toWhat,
-		dataTo: $dataTo,
-		site: $site
-	};
-	switch($toWhat){
-		case 'price':
-			var $checkedPrice = $dataTo.match(/(\d+\.[\d+]{1,2}|\d+)/);
-			var $checkedWords = $dataTo.match(/([^.\d])/);
-			if($checkedWords)
-				flag = true; //theres an error
-			else{
-				if($checkedPrice){
-					flag = false;
-					dataRequest.dataTo = $checkedPrice[1]
-				}
-				else
-					flag = true; //theres an error
-			}
-			return (flag) ? true : dataRequest ;
-		break;
-		case 'stock': return dataRequest;
-		break;
-	}
-}
-

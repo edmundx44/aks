@@ -136,6 +136,17 @@ class Ajax {
 
 				return $resultArray;
 			break;
+			case 'productUpdateStock':
+				$site = self::getSite($getInput->get('site'));
+				$acceptValue = [0,1];
+				$boolean = false;
+				if(in_array((int)$getInput->get('stock'), $acceptValue) || isset($site)){
+					$stock = ((int)$getInput->get('stock') === 1)? 0 : 1; 
+					$fields = [ 'dispo' => $stock ];
+					$boolean = $db->update('`'.$site.'`.`pt_products`', $getInput->get('id'), $fields);
+				}
+				return $boolean;
+			break;
 			case 'storeUpdateProduct':
 				$site = self::getSite($getInput->get('site'));
 				switch ($getInput->get('toWhat')) {
@@ -1471,6 +1482,7 @@ class Ajax {
 					'bind' => [$getNname],
 					'order' => "price ASC",
 				]);
+				if(empty($getProductByNormalisedName)) return [];
 
 				foreach($getMerchant as $key => $value) if(!array_key_exists($value->vols_id, $getMerchantArr)) $getMerchantArr[$value->vols_id]=$value->vols_nom;
 				foreach($getEdition as $key => $value) if(!array_key_exists($value->id, $getEditionArr)) $getEditionArr[$value->id]=$value->name;

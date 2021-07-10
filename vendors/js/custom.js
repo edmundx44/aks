@@ -75,6 +75,7 @@ $(document).ready(function () {
 
 		$('.dpbnm-product-nname').val(getNormalizedName)
 		$('.display-product-by-normalised-input').val('AKS')
+		$('.display-product-by-normalised-input').attr('data-product-website','AKS')
 		$('.displayProductByNormalisedName').modal('show')
 		getByNormalisedName(getUrlParameter('normalisedname'), $('.display-product-by-normalised-input').val())
 	}
@@ -415,6 +416,7 @@ $(document).ready(function () {
 
 	$(document).on('click', '.dmds-dpbn', function () {
 		$('.display-product-by-normalised-input').val($(this).html());
+		$('.display-product-by-normalised-input').attr('data-product-website',$(this).html());
 		$('.dmd-dpbn').hide();
 		getByNormalisedName($('.dpbnm-product-nname').val(), $(this).html())
 	});
@@ -436,16 +438,37 @@ $(document).ready(function () {
 		}
 	});
 
-	$(document).on('click', '.dpbnm-update-stock', function () {
-		// var setValue = ($(this).html() == 'Out Of Stock')? 'In Stock': 'Out Of Stock';
-		// var getSite = $('.display-product-by-normalised-input').val();
-		// alert($(this).data('dpbnm-id'))
-		// alert(setValue)
-	});
+	// $(document).on('click', '.dpbnm-update-stock', function () {
+	// 	// var setValue = ($(this).html() == 'Out Of Stock')? 'In Stock': 'Out Of Stock';
+	// 	// var getSite = $('.display-product-by-normalised-input').val();
+	// 	// alert($(this).data('dpbnm-id'))
+	// 	// alert(setValue)
+	// });
 
 	$(document).on('click', '.dpbnm-li-toedit', function () {
 		var getSite = $('.display-product-by-normalised-input').val();
 		displayOnAddEditModal($(this).data('dpbnm-id-toedit'), getSite, 'edit');
+	});
+
+	//Product Stock Manual Update
+	$(document).on('click', '.dpbnm-update-stock', function () {
+		var $initialStock = parseInt($(this).attr('data-stockvalue'));
+		var $this = $(this);
+		const expected = [0,1];
+		if (expected.includes($initialStock)){
+			switch ($(this).attr('data-stock')) {
+				case 'product-game-modal':
+					productUpdateStock($(this).attr('data-dpbnm-id'), $initialStock, $('.display-product-by-normalised-input').attr('data-product-website'), $this);
+					break;
+				case 'product-store-page':
+					productUpdateStock($(this).attr('data-prodId'), $initialStock, $('.dropdown-menu-btn').text(), $this);
+					break;
+				default: alertMsg("Something Went wrong !!");
+				break;
+			}
+		} else {
+			alertMsg("Please reload the page somethings broken");
+		}
 	});
 
 }); // end docuemtn ready
@@ -482,11 +505,12 @@ function getByNormalisedName($normalisedName, $site) {
 function displayProductBynormalised($merchant, $region, $edition, $stock, $price, $url, $number, $id) {
 	var backColor = ($number % 2 == 0) ? 'table-body-even-number-background' : '';
 	var toAppend = '<tr class="' + backColor + '">';
+	var $stockValue = ($stock == 'In Stock') ? 1 : 0;
 	toAppend += '	<td class="" style="padding: 10px 10px;">' + $merchant + '</td>';
 	toAppend += '	<td class="" style="padding: 10px 10px;">' + $region + '</td>';
 	toAppend += '	<td class="" style="padding: 10px 10px;">' + $edition + '</td>';
-	toAppend += '	<td class="hide-on-smmd" style="padding: 10px 10px;"><span class="dpbnm-update-stock" title="Click to update stock." alt="Click to update stock." data-dpbnm-id="' + $id + '">' + $stock + '</span></td>';
-	toAppend += '	<td class="hide-on-smmd" style="padding: 10px 10px;">' + $price + '</td>';
+	toAppend += '	<td class="hide-on-smmd data-stock" style="padding: 10px 10px;"><span class="dpbnm-update-stock" data-stock="product-game-modal" data-stockvalue="' + $stockValue + '" title="Click to update stock." alt="Click to update stock." data-dpbnm-id="' + $id + '">' + $stock + '</span></td>';
+	toAppend += '	<td class="hide-on-smmd data-price" style="padding: 10px 10px;">' + $price + '</td>';
 	toAppend += '</tr>';
 	toAppend += '<tr class="' + backColor + '">';
 	toAppend += '	<td colspan="5">';
@@ -1390,11 +1414,12 @@ function displayStoreGamesByNormalizedName($normalised_name, $site) {
 		$('.nname-modal-tbody').empty();
 		//console.log(data);
 		for (var i in data) {
+			var $stock = (data[i].status == 'In Stock') ? 1 : 0;
 			var append = '<div class="nname-modal-tbody-div ' + data[i].id + '">';
 			append += '<div class="modal-child-tbody-1">' + data[i].merchant + '</div>';
 			append += '<div class="modal-child-tbody-2">' + data[i].region + '</div>';
 			append += '<div class="modal-child-tbody-3">' + data[i].edition + '</div>';
-			append += '<div class="modal-child-tbody-sub modal-child-tbody-4"><input class="modal-val-btn" type="button" 	data-prodId="' + data[i].id + '" value="' + data[i].status + '"></div>';
+			append += '<div class="modal-child-tbody-sub modal-child-tbody-4"><input class="dpbnm-update-stock" type="button" data-stock="product-store-page" data-stockvalue="'+$stock+'"data-prodId="' + data[i].id + '" value="' + data[i].status + '"></div>';
 			append += '<div class="modal-child-tbody-sub modal-child-tbody-5"><input id="price-update" class="modal-val-txt" type="number" 	data-prodId="' + data[i].id + '"	value="' + data[i].price + '"></div>';
 			append += '<div class="modal-child-tbody-sub modal-child-tbody-6">';
 			append += '<div class="show-menu" id="' + data[i].id + '">';
@@ -1411,4 +1436,64 @@ function displayStoreGamesByNormalizedName($normalised_name, $site) {
 			$(".nname-modal-tbody").append(append);
 		}
 	});
+}
+
+function storeUpdateProduct($productID, $toWhat, $dataTo, $site) {
+	var dataRequest = {
+		action: 'storeUpdateProduct',
+		id: $productID,
+		toWhat: $toWhat,
+		dataTo: $dataTo,
+		site: $site
+	};
+	switch ($toWhat) {
+		case 'price':
+			var $checkedPrice = $dataTo.match(/(\d+\.[\d+]{1,2}|\d+)/);
+			var $checkedWords = $dataTo.match(/([^.\d])/);
+			if ($checkedWords)
+				flag = true; //theres an error
+			else {
+				if ($checkedPrice) {
+					flag = false;
+					dataRequest.dataTo = $checkedPrice[1]
+				}
+				else
+					flag = true; //theres an error
+			}
+			(flag) ? true : dataRequest;
+			break;
+		case 'stock':
+			dataRequest;
+			break;
+	}
+
+}
+function productUpdateStock($productID, $stock, $site, $this) {
+	var req = {
+		action: 'productUpdateStock',
+		id: $productID,
+		stock: $stock,
+		site: $site
+	}
+	AjaxCall(url, req).done(function (data) {
+		if (data) {
+			switch ($stock) {
+				case 0:
+					$($this).html('In Stock');
+					$($this).attr('data-stockvalue', 1);
+					alertMsg("Successfully update to In Stock")
+				break;
+				case 1:
+					$($this).html('Out Of Stock');
+					$($this).attr('data-stockvalue', 0);
+					alertMsg("Successfully update to Out of Stock")
+				break;
+			}
+		} else {
+			alertMsg("Stock value didnt Update")
+		}
+	});
+}
+function productUpdatePrice() {
+
 }
