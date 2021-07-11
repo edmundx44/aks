@@ -151,7 +151,7 @@ function fetchingFeed($website , $merchant, $store){
 			merchant = $merchant
 		}else{
 			$('.header-title-page').text('No Merchant Found');
-			alertMsg("No Merchant Found");
+			alertMsg("No Merchant Found", "bg-danger");
 		}
 	});
 }

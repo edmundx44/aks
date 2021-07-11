@@ -96,7 +96,7 @@
 		
 		$(document).on('click', '#fire', function(data){
 			if($dataReq.merchant == '0' && $dataReq.edition != '0' || $dataReq.merchant != '0' && $dataReq.edition == '0' )
-				alertMsg("One of input is empty")
+				alertMsg("One of input is empty", "bg-danger")
 			else if ($('.me-select-input').val() == ''){
 				$dataReq.merchant = '0';
 				$dataReq.edition  = '0';

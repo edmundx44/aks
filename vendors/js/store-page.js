@@ -101,14 +101,14 @@ $(function (){
 		var $this = $(this);
 		//FOR Mozilla because type number not working
 		if(dataReturn == true){
-			alertMsg("Check your input price...")	
+			alertMsg("Check your input price...", "bg-danger")	
 		}else{
 			if($this.attr("type") == "number" && dataReturn.dataTo != '')
 				AjaxCall(url, dataReturn).done(function(data) {
 					if(data) alertMsg("SUCCESS")
 				});
 			else
-				alertMsg("Check your input price...")	
+				alertMsg("Check your input price...", "bg-success")	
 		}
 	});
 	// STOCK CHANGE UPDATE
@@ -116,10 +116,10 @@ $(function (){
 		var dataReturn = storeUpdateProduct($(this).attr('data-prodId'), 'stock', $(this).val(), $('.dropdown-menu-btn').text());
 		var $this = $(this);
 		if($this.attr('type') == 'button'){
-			AjaxCall(url, dataReturn).done(function(data) { console.log(data); alertMsg("SUCCESS" )});
+			AjaxCall(url, dataReturn).done(function(data) { console.log(data); alertMsg("SUCCESS", "bg-success")});
 			$stock = ($(this).val() == 'Out Of Stock')? $(this).val('In stock'): $(this).val('Out Of Stock');
 		}else
-			alertMsg("Theres something wrong please try again");
+			alertMsg("Theres something wrong please try again", "bg-danger");
 	});
 
 	$(document).on('click', '.dall-function', function(){

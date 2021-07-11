@@ -444,7 +444,7 @@ $(document).on('click', '.open-info', function(){
 						crProblemList($( "#datepickerReport" ).val());
 					});
 				}else{
-					alertMsg('Invalid entry, Please check it carefully.');
+					alertMsg('Invalid entry, Please check it carefully.', "bg-danger");
 				}
 			});
 
@@ -460,7 +460,7 @@ $(document).on('click', '.open-info', function(){
 					AjaxCall(url, dataRequest).done(function(data) {
 						if((data[0].data).length == 0) {
 							$('#'+data[0].site).attr('checked', false); // Unchecks it
-							alertMsg('NO DATA FOUND IN ' + data[0].site);
+							alertMsg('NO DATA FOUND IN ' + data[0].site, "bg-danger");
 						}else{
 							var appendTo = '<section class="sec-'+data[0].site+'">'
 								appendTo +=	'<p style="position: relative;">Data found on '+data[0].site+'</p>'

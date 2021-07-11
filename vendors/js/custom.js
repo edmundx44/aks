@@ -397,7 +397,9 @@ $(document).ready(function () {
 		var dataRequest = aeProduct(serialize, 'create');
 		//console.log(dataRequest)
 		AjaxCall(url, dataRequest).done(function (data) {
-			console.log(data);
+			for(var i in data.success){
+				createNotification(data.success[i][0].id, 'Created', data.success[i][0].site, data.success[i][0].user);
+			}
 		}).always(function () { });
 	});
 
@@ -405,7 +407,7 @@ $(document).ready(function () {
 		var serialize = $('#ae-mcb-row :input').serializeArray();
 		var dataRequest = aeProduct(serialize, 'edit');
 		AjaxCall(url, dataRequest).done(function (data) {
-			console.log(data);
+			createNotification(data[0].id, 'Edited', data[0].site, data[0].user);
 		}).always(function () { });
 	});
 
@@ -461,15 +463,15 @@ $(document).ready(function () {
 			switch ($(this).attr('data-stock')) {
 				case 'product-game-modal':
 					productUpdateStock($(this).attr('data-dpbnm-id'), $initialStock, $('.display-product-by-normalised-input').attr('data-product-website'), $this);
-					break;
+				break;
 				case 'product-store-page':
 					productUpdateStock($(this).attr('data-prodId'), $initialStock, $('.dropdown-menu-btn').text(), $this);
-					break;
-				default: alertMsg("Something Went wrong !!");
-					break;
+				break;
+				default: alertMsg("Something Went wrong !!", "bg-danger");
+				break;
 			}
 		} else {
-			alertMsg("Please reload the page somethings broken");
+			alertMsg("Please reload the page somethings broken", "bg-danger");
 		}
 	});
 
@@ -492,6 +494,17 @@ $(document).ready(function () {
 
 
 }); // end docuemtn ready
+function createNotification($id, $what, $site, $employee){
+	var dataRequest = {
+		action: 'insert-to-notifiction',
+		getID: $id,
+		getWhat: $what,
+		getSite: $site,
+		getEmployee: $employee
+	}
+	AjaxCall(url, dataRequest).done(function(){}).always(function(){});
+}
+
 function addZeroesInPrice(num) {
 	const dec = num.split('.')[1]
 	const len = dec && dec.length > 2 ? dec.length : 2
@@ -516,8 +529,7 @@ function aeProduct($form, $mode) {
 				productOptions: toCreateDataArr,
 				source: $('.ae-product-p-title').text(),
 			}
-			break;
-
+		break;
 		case 'edit':
 			request = {
 				action: 'ae-edit-action',
@@ -525,10 +537,9 @@ function aeProduct($form, $mode) {
 				productId: parseInt($('.ae-hidden-productid').val()),
 				source: $('.ae-product-p-title').text(),
 			}
-			break;
-
+		break;
 		default:
-			break;
+		break;
 	}
 	return request;
 }
@@ -1440,9 +1451,15 @@ function confirmationModal($appendtoheader, $appendtobody, $appendtofooter) {
 	$('.confirmation-modal-footer').empty().append($appendtofooter)
 }
 
-function alertMsg($msg) {
+function alertMsg($msg, $bgColor) {
+	// NOTE :
+	// 	bg-daner is for error
+	// 	bg-success if or success
+
 	$('#alert-modal').modal('show');
+	$('.alert-modal-bg').removeClass('bg-danger bg-success').addClass($bgColor);
 	$('.alert-modal-msg').empty().append($msg);
+
 	setTimeout(function () {
 		$('#alert-modal').modal('hide');
 	}, 2000);
@@ -1557,16 +1574,16 @@ function productUpdateStock($productID, $stock, $site, $this) {
 				case 0:
 					$($this).html('In Stock');
 					$($this).attr('data-stockvalue', 1);
-					alertMsg("Successfully update to In Stock")
-					break;
+					alertMsg("Successfully update to In Stock", "bg-success");
+				break;
 				case 1:
 					$($this).html('Out Of Stock');
 					$($this).attr('data-stockvalue', 0);
-					alertMsg("Successfully update to Out of Stock")
-					break;
+					alertMsg("Successfully update to Out of Stock", "bg-success");
+				break;
 			}
 		} else {
-			alertMsg("Stock value didnt Update")
+			alertMsg("Stock value didnt Update", "bg-danger");
 		}
 	});
 }
@@ -1580,7 +1597,7 @@ function productUpdatePrice($productID, $price, $site, $this) {
 	AjaxCall(url, req).done(function (data) {
 		if (data) {
 			$($this).val($price);
-			alertMsg("Successfully update the price to " + $price + "")
+			alertMsg("Successfully update the price to " + $price + "", "bg-success");
 		}
 	});
 }

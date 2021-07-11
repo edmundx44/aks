@@ -71,7 +71,7 @@
 					})
 
 				}else
-					alertMsg("Invalid Status Please reload the page")	
+					alertMsg("Invalid Status Please reload the page", "bg-danger")	
 			});
 		}); // end document ready function
 		
@@ -151,9 +151,9 @@
 						$('#input-'+$_query.id).val('ON');
 					}
 					$('.btn-status').removeAttr("disabled");
-					alertMsg("Successfully update the id "+$_query.id+" ");
+					alertMsg("Successfully update the id "+$_query.id+" ", "bg-success");
 				}else
-					alertMsg("There's something wrong please try again")
+					alertMsg("There's something wrong please try again", "bg-danger")
 			});
 		}
 		function storeList(data){

@@ -1150,7 +1150,7 @@
 <!--alert modal -->
 <div class="modal fade" id="alert-modal" role="dialog">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content bg-danger" style="background-clip: initial;">
+        <div class="modal-content alert-modal-bg" style="background-clip: initial;">
             <div class="modal-body">
                 <div class="modal-content-header">
                     <div class="alert-modal-msg text-center text-white">

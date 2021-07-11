@@ -131,7 +131,7 @@ use Core\Session;
 							data.forEach((element,i) => {
 								task = task
 								.finally(() => {
-									toastr.info("<span> " + element.fname + "</span> <span>" + element.action + "<span> on " + element.vols_nom + ".");
+									toastr.info("<span> " + element.fname + "</span> <span>" + element.action + "<span> on " + element.vols_nom + " " + element.site +".");
 									counter = counter + 1
 
 									var dataRequest =  {
