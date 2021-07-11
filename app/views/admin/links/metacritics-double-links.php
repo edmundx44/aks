@@ -23,7 +23,7 @@
 
 	function ajaxSuccess(data){
 		if(data == "Invalid Information"){
-			alertMsg('Invalid Critic Store')
+			alertMsg('Invalid Critic Store', "bg-danger")
 		}else{
 			var ajaxMetacriticResponse = [];
 			$('#table-metacritics-double-link').show();

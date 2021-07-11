@@ -29,10 +29,10 @@
 			let dateEnd   = $('#date-end').val();
 			var $_query = { action: "user-activities", dateStart: dateStart, dateEnd: dateEnd };
 			if( (dateStart || dateEnd) == '' ){
-				alertMsg("Please input a correct date")
+				alertMsg("Please input a correct date", "bg-danger")
 			}else{
 				if(dateValidLen(dateStart) && dateValidLen(dateEnd)) startAjax($_query)
-				else alertMsg("Please input a correct date")
+				else alertMsg("Please input a correct date", "bg-danger")
 			}
 		});
 	//END 

@@ -40,7 +40,7 @@
         
         $(document).on('click', '#activities-submit-filter', function(){
             if($('.select-btn-employee').html() == 'Employee' || $(".select-btn-site").html() == 'Site' || $('.select-btn-site').attr('data-getSite') == '')
-                alertMsg('Invalid Entry, Cindly check it carefully.')
+                alertMsg('Invalid Entry, Cindly check it carefully.', "bg-danger")
             else{
                 $priceTeam = $('.select-btn-employee').attr('data-getEmployee');
                 $_query = { action : 'rhyn-tool-display', site:  $('.select-btn-site').attr('data-getSite') , priceTeam: $priceTeam }

@@ -24,11 +24,11 @@
         if( initSite && returnSite(initSite) != null){
             request.website = initSite;
             var $initData = checkRequest(request.rating, '', request.website);
-            ($initData != null) ?  displayRequest($initData) : alertMsg('Please Reload the page..');
+            ($initData != null) ?  displayRequest($initData) : alertMsg('Please Reload the page..', "bg-danger");
 		}else{ 
             removedKeyNormal('sessionStorage','website')
             var $initData = checkRequest(request.rating, '', 'aks');
-            ($initData != null) ?  displayRequest($initData) : alertMsg('Please Reload the page..');
+            ($initData != null) ?  displayRequest($initData) : alertMsg('Please Reload the page..', "bg-danger");
 		}
         
         //select website
@@ -44,7 +44,7 @@
 				request.website = (indexInput == 0 ) ? inputsSite[0].site : (indexInput == 1 ) ? inputsSite[1].site : (indexInput == 2 ) ? inputsSite[2].site : '';
                 setStorage('sessionStorage','website',JSON.stringify(request.website))
                 var $data = checkRequest(request.rating, '', request.website);
-                ($data != null) ? displayRequest($data) : alertMsg('Please Reload the page..');
+                ($data != null) ? displayRequest($data) : alertMsg('Please Reload the page..', "bg-danger");
             }
             
         });
@@ -59,14 +59,14 @@
             request.merchant = $(this).attr('data-merchant');
 
             var $data = checkRequest(request.rating, request.merchant, request.website);
-            ($data != null) ? displayRequest($data) : alertMsg('Please Reload the page..');
+            ($data != null) ? displayRequest($data) : alertMsg('Please Reload the page..', "bg-danger");
         });
 
         //laod more
         $(document).on('click', '.lmore-function', function lmore(data) {
             var $datalmore = checkRequest(request.rating, request.merchant, request.website, request.currentDisplay);
             if(request.currentDisplay != request.totalRatings && request.currentDisplay < request.totalRatings)
-                ($datalmore != null) ? displayRequest($datalmore) : alertMsg('Please Reload the page..');
+                ($datalmore != null) ? displayRequest($datalmore) : alertMsg('Please Reload the page..', "bg-danger");
         });
 
         //search merchant in input text
@@ -89,7 +89,7 @@
                 $('#rating-list-display').empty();  
                 AjaxCall(url, $data).done(appendResultDiv) 
             }else
-                alertMsg("Atleast 5 characters") ;            
+                alertMsg("Atleast 5 characters", "bg-danger") ;            
         });
         //search url in datatable
         $('#search-rating').keypress(function(e){

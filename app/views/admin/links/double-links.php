@@ -61,7 +61,7 @@
 					id[i] = $(this).data('cproductid');
 				});
 
-				if(id.length === 0) alertMsg('kindly select atleast one data.');
+				if(id.length === 0) alertMsg('kindly select atleast one data.', "bg-danger");
 				else deleteRealDoubleLinks(id, 'bySelected');
 			});
 

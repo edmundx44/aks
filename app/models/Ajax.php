@@ -424,12 +424,12 @@ class Ajax {
 				$updateOnSite = $db->update('`'.self::getSite($getInput->get('getSite')).'`.`pt_products`', $getInput->get('getID'), $fields);
 				$updateOnProblem = $db->delete('`aks`.`tblReports`', $getInput->get('idToUpdateReport'));
 
-				$logFields = [
-					'productID' => $getInput->get('getID'),
-					'action' => 'Fixed problem',
-					'employeeID' => Users::currentUser()->id
-				];
-				$insertToLogs = $db->insert('`aks`.`tblLogs`', $logFields);
+				// $logFields = [
+				// 	'productID' => $getInput->get('getID'),
+				// 	'action' => 'Fixed problem',
+				// 	'employeeID' => Users::currentUser()->id
+				// ];
+				// $insertToLogs = $db->insert('`aks`.`tblLogs`', $logFields);
 			break;
 			case 'cr-recheck':
 				switch ($getInput->get('toWhat')) {
@@ -470,12 +470,12 @@ class Ajax {
 				$updateOnComplete = $db->delete('`aks`.`tblReportsComplete`', $getInput->get('getcid'));
 				$insertOnReport = $db->insert('`aks`.`tblReports`', $fields);
 
-				$logFields = [
-					'productID' => $getInput->get('getccmysqlid'),
-					'action' => 'Reopen reports',
-					'employeeID' => Users::currentUser()->id
-				];
-				$insertToLogs = $db->insert('`aks`.`tblLogs`', $logFields);
+				// $logFields = [
+				// 	'productID' => $getInput->get('getccmysqlid'),
+				// 	'action' => 'Reopen reports',
+				// 	'employeeID' => Users::currentUser()->id
+				// ];
+				// $insertToLogs = $db->insert('`aks`.`tblLogs`', $logFields);
 			break;
 			case 'ajaxAffiliateLinkCheck':
 				//$getInput = $getInput->get(); //get all data sent
@@ -790,8 +790,8 @@ class Ajax {
 				// 	'bind' => [0]
 				// ]);
 				// return $getlogs;
-				$sql = "SELECT `s`.`id`,`s`.`productID`,`s`.`action`, `u`.`fname`, `t`.`merchant`, `p`.`vols_nom` 
-							FROM `aks`.`tbllogs` `s`
+				$sql = "SELECT `s`.`id`,`s`.`productID`,`s`.`action`, `s`.`site`, `u`.`fname`, `t`.`merchant`, `p`.`vols_nom` 
+							FROM `aks`.`tblNotification` `s`
 								INNER JOIN `aks`.`users` `u` ON `s`.`employeeID` = `u`.`id`
 								INNER JOIN `test-server`.`pt_products` `t` ON `s`.`productID`  = `t`.`id`
 								inner join `allkeyshops`.`sale_page` `p` ON `t`.`merchant` = `p`.`vols_id`  
@@ -802,7 +802,7 @@ class Ajax {
 				$fields = [
 					'status' => 1,
 				];
-				$logUpdate = $db->update('`aks`.`tblLogs`', $getInput->get('id'), $fields);
+				$notificationUpdate = $db->update('`aks`.`tblNotification`', $getInput->get('id'), $fields);
 			break;
 			case 'merchant_edition_price_tool':
 				$postSite = ($getInput->get('website') != null ) ? $getInput->get('website') : null ;
@@ -1436,12 +1436,25 @@ class Ajax {
 					foreach($productToInsert as $website => $productArray){
 						$product = new Product($website);
 						$bool = $product->insertMultiple($productArray , 'multidimensional');
+
 						if($bool){
 							foreach($productArray as $data){
+								$getSite = self::getSite($website);
+								$getId = $db->find('`'.$getSite.'`.`pt_products`',[
+									'column' => ['id'],
+									'conditions' => ['merchant = ?', 'normalised_name = ?', 'edition = ?', 'region = ?'],
+									'bind' => [$data['merchant'], $data['normalised_name'], $data['edition'], $data['region']]
+								]);
+								
 								$successMsg[$website][] = [
 									'merchant' => $data['merchant'],
 									'buy_url' => $data['buy_url'],
-									'region' => $data['region']
+									'region' => $data['region'],
+									'edition' => $data['edition'],
+									'normalised_name' => $data['normalised_name'],
+									'id' => $getId[0]->id,
+									'site' => $website,
+									'user' => Users::currentUser()->id
 								];
 							}
 						} else {
@@ -1449,13 +1462,23 @@ class Ajax {
 						}
 					}
 				}
+
 				return array('success' => $successMsg, 'failed' => $failedMsg);
 			break;
 			case 'ae-edit-action':
 				$product = new Product($getInput->get('source'));
 				$productValues = $product->prepareInsertProduct($_POST['productformData']);
 				$bool = $product->update($getInput->get('productId'), $productValues);
-				return $bool;
+
+				$successArr = array();
+				if($bool == true){
+					$successArr[] = [
+						'id' => $getInput->get('productId'),
+						'site' => $getInput->get('source'),
+						'user' => Users::currentUser()->id
+					];
+				}
+				return $successArr;
 			break;
 			case 'ae-check-existing-data':
                 $site = self::getSite($getInput->get('getSite'));
@@ -1472,7 +1495,6 @@ class Ajax {
 
                 return $db->query($sql)->results()[0]->getcount;
             break;
-
 			case 'displayStoreGamesByNormalizedName':
 				$site = self::getSite($getInput->get('site'));
 
@@ -1527,6 +1549,17 @@ class Ajax {
 				}
 				//var_dump($getProductArr);
 				return $getProductArr;
+			break;
+			case "insert-to-notifiction":
+				$notiFields = [
+					'productID' => $getInput->get('getID'),
+					'action' => $getInput->get('getWhat'),
+					'site' => $getInput->get('getSite'),
+					'employeeID' => $getInput->get('getEmployee')
+				];
+
+				// $insertToLogs old name
+				$insertToNotification = $db->insert('`aks`.`tblNotification`', $notiFields);
 			break;
 		} //END OF SWITCH CASE
 	

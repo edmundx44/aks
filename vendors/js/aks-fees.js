@@ -68,7 +68,7 @@
                         AjaxCall($url , $_query).done(function(data){
                             console.log(data)
                             if(data) {
-                                alertMsg("Success");
+                                alertMsg("Success", "bg-success");
                                 $('#feesModal').modal('hide');
                                 setTimeout(() => {
                                     window.location.reload();
@@ -110,7 +110,7 @@
             var cc_fees = getFeesData('#append-cc-fees-body');
             console.log(isNaN($('#merchant-id').val()));
             if (pp_fees == false || cc_fees == false || isNaN($('#merchant-id').val()) || ($('#merchant-name').val() && $('#merchant-id').val() ) == '' || !(['AKS','CDD','BREXITGBP'].includes($('#website-btn').val())) ){
-                alertMsg("This is not a number or empty field")
+                alertMsg("This is not a number or empty field", "bg-danger")
             } else {
                 $final = [{'pp_fees':JSON.stringify(pp_fees),'cc_fees':JSON.stringify(cc_fees)}]; //Contert Text then Send to Ajax
                 if($id_to_update == null){
@@ -126,14 +126,14 @@
                         AjaxCall($url, $_query).done(function(data){
                             console.log(data);
                             if(data){
-                                alertMsg("Success");
+                                alertMsg("Success", "bg-success");
                                 $('#feesModal').modal('hide');
                                 setTimeout(() => {
                                     window.location.reload();
                                 }, 1500);
                             }
                             else{
-                                alertMsg("Data didnt save check input ID... ");
+                                alertMsg("Data didnt save check input ID... ", "bg-danger");
                             }
                         })
                     })
@@ -149,19 +149,19 @@
                     $_query = { action: 'removedStore', id: $id_to_update }
                     AjaxCall($url, $_query).done(function(data){
                         if(data){
-                            alertMsg("Success");
+                            alertMsg("Success", "bg-success");
                             $('#feesModal').modal('hide');
                             setTimeout(() => {
                                 window.location.reload();
                             }, 1500);
                         }
                         else{
-                            alertMsg("Data didnt save check input ID... ");
+                            alertMsg("Data didnt save check input ID... ", "bg-danger");
                         }
                     })
                 })
             }else{
-                alertMsg("Didnt delete the merchant");
+                alertMsg("Didnt delete the merchant", "bg-danger");
             }
         });
 

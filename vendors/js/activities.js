@@ -4,7 +4,7 @@ $(function() {
         // filter section -------------------------------------------------------------------
         $(document).on('click', '#activities-submit-filter', function(){
             if($('.select-btn-employee').html() == 'Employee' || $('.select-btn-action').html() == 'Action' || $('.select-btn-site').html() == 'Site') {
-                alertMsg('Invalid Entry, Cindly check it carefully.')
+                alertMsg('Invalid Entry, Cindly check it carefully.', "bg-danger")
             }else{
                toRequestEmployee = ($('.select-btn-employee').attr('data-getEmployee') != null ) ? $('.select-btn-employee').attr('data-getEmployee') : null ;
                toRequestAction =$('.select-btn-action').attr('data-getAction');
@@ -106,7 +106,7 @@ $(function() {
                 counter++;
             }
         }else{
-            alertMsg("No Data Found")
+            alertMsg("No Data Found", "bg-danger")
         }
     }
 

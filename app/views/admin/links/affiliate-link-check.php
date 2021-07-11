@@ -117,18 +117,18 @@
 	// 					if(resultData.match(/^Successfully/))
 	// 					{
 	// 						$dataReq.site = resultsite;
-	// 						alertMsg(resultData + ' in ' + resultsite.toUpperCase())
+	// 						alertMsg(resultData + ' in ' + resultsite.toUpperCase(), "bg-success")
 	// 						$('#affiliate-link-edit-modal').modal('hide');
 	// 						AjaxCall($url, $dataReq).done(function(data){ affiliateLinkCheck(data) });
 	// 					}else{
 	// 						$dataReq.site = resultsite;
-	// 						alertMsg(resultData + ' in ' + resultsite.toUpperCase())
+	// 						alertMsg(resultData + ' in ' + resultsite.toUpperCase(), "bg-success")
 	// 						$('#affiliate-link-edit-modal').modal('hide');
 	// 						AjaxCall($url, $dataReq).done(function(data){ affiliateLinkCheck(data) });
 	// 					}
 	// 			});
 	// 		}else{
-	// 			alertMsg("DISABLED FOR NOW");
+	// 			alertMsg("DISABLED FOR NOW", "bg-danger");
 	// 		}
 	// 	});
 
@@ -162,7 +162,7 @@
 	// 	            	}
 	// 			});
 	//    		}else 
-	//    			alertMsg("DISABLED FOR NOW");
+	//    			alertMsg("DISABLED FOR NOW", "bg-danger");
 	//     });	
 
 	// 	//toggle url check

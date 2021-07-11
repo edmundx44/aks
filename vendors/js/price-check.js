@@ -66,7 +66,7 @@ $(function() {
 				$('#add-wrong-aff-link-modal').modal('hide');
 			});
 
-		} else alertMsg('Already Added Today.');
+		} else alertMsg('Already Added Today.', "bg-danger");
 	});
 
 // add daily listing function ---------------------------------------------------------------
@@ -200,7 +200,7 @@ $(function() {
 
 		// error trapping -------------------------------------
 		if ($('.s-start-time-h').val() == null || $('.s-start-time-min').val() == null || $('.s-end-time-h').val() == null || $('.s-end-time-min').val() == null){
-			alertMsg("Week Day's schedule is incorrect, Kindly set the time properly.")
+			alertMsg("Week Day's schedule is incorrect, Kindly set the time properly.", "bg-danger")
 			weekdaySchedule = '';
 		} else weekdaySchedule = $('.s-start-time-h').val() + ":" + $('.s-start-time-min').val() + " " + $('.s-start-ampm').val() + " - " + $('.s-end-time-h').val() + ":" + $('.s-end-time-min').val() + " " + $('.s-end-ampm').val();
 			
@@ -208,7 +208,7 @@ $(function() {
 			if ($('.s-start-time-h-sunday').val() != null && $('.s-start-time-min-sunday').val() != null && $('.s-end-time-h-sunday').val() != null && $('.s-end-time-min-sunday').val() != null){
 					sundaySchedule = $('.s-start-time-h-sunday').val() + ":" + $('.s-start-time-min-sunday').val() + " " + $('.s-start-ampm-sunday').val() + " - " + $('.s-end-time-h-sunday').val() + ":" + $('.s-end-time-min-sunday').val() + " " + $('.s-end-ampm-sunday').val();
 			} else{
-				alertMsg("Sunday schedule is incorrect, Kindly set the time properly.")
+				alertMsg("Sunday schedule is incorrect, Kindly set the time properly.", "bg-danger")
 				$('.s-start-time-h-sunday, .s-start-time-min-sunday, .s-end-time-h-sunday, .s-end-time-min-sunday').prop('selectedIndex',0);
 				sundaySchedule = '';
 			}
@@ -231,7 +231,7 @@ $(function() {
 				}).always(function(){
 					$('#pc-add-shift-modal').modal('hide');
 				});
-			} else alertMsg('Assign worker is invalid.');
+			} else alertMsg('Assign worker is invalid.', "bg-danger");
 		}
 	});
 
