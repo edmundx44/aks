@@ -1441,6 +1441,7 @@ class Ajax {
 								$successMsg[$website][] = [
 									'merchant' => $data['merchant'],
 									'buy_url' => $data['buy_url'],
+									'buy_url_raw' => $data['buy_url_raw'],
 									'region' => $data['region']
 								];
 							}
