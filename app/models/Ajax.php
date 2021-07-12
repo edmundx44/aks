@@ -1437,14 +1437,19 @@ class Ajax {
 						$product = new Product($website);
 						$bool = $product->insertMultiple($productArray , 'multidimensional');
 
+						$count = count($productArray);
+						$inc = 0;
 						if($bool){
 							foreach($productArray as $data){
-								$getSite = self::getSite($website);
-								$getId = $db->find('`'.$getSite.'`.`pt_products`',[
-									'column' => ['id'],
-									'conditions' => ['merchant = ?', 'normalised_name = ?', 'edition = ?', 'region = ?'],
-									'bind' => [$data['merchant'], $data['normalised_name'], $data['edition'], $data['region']]
-								]);
+								// $getSite = self::getSite($website);
+								// $getId = $db->find('`'.$getSite.'`.`pt_products`',[
+								// 	'column' => ['id'],
+								// 	'conditions' => ['merchant = ?', 'normalised_name = ?', 'edition = ?', 'region = ?'],
+								// 	'bind' => [$data['merchant'], $data['normalised_name'], $data['edition'], $data['region']]
+								// ]);
+								$productId = (int)$db->lastID(); //initial last id
+								if($count > 1 && $inc != 0) //it means we are not now in the first loop
+									$productId += $inc;
 								
 								$successMsg[$website][] = [
 									'merchant' => $data['merchant'],
@@ -1453,10 +1458,12 @@ class Ajax {
 									'region' => $data['region'],
 									'edition' => $data['edition'],
 									'normalised_name' => $data['normalised_name'],
-									'id' => $getId[0]->id,
+									//'id' => $getId[0]->id,
+									'id' => $productId,
 									'site' => $website,
 									'user' => Users::currentUser()->id
 								];
+								$inc++;
 							}
 						} else {
 							$failedMsg[$website][] = "Something went wrong for inserting in $website !!";
@@ -1587,24 +1594,9 @@ class Ajax {
 					$affiliate = new AffiliateUtility($option);
 					$preparedData = $affiliate->getPreparedAffiliate();
 					$product = self::updateArrayProduct($product, $preparedData, $option);
-					
 					//$productPerWebsite[$option['site']][] = $preparedData;
 					$productPerWebsite[$option['site']][] = $product;
 				break;
-				// case 'CDD':
-				// 	$affiliate = new AffiliateUtility($option);
-				// 	$preparedData = $affiliate->getPreparedAffiliate();
-				// 	//$product = self::updateArrayProduct($product, $preparedData, $option);
-					
-				// 	$productPerWebsite['CDD'][] = $product;
-				// break;
-				// case 'BREX':
-				// 	$affiliate = new AffiliateUtility($option);
-				// 	$preparedData = $affiliate->getPreparedAffiliate();
-				// 	//$product = self::updateArrayProduct($product, $preparedData, $option);
-
-				// 	$productPerWebsite['BREX'][] = $product;
-				// break;
 			}
 		}
 		return $productPerWebsite;
