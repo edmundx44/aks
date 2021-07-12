@@ -492,6 +492,7 @@ $(document).ready(function () {
 		}
 	})
 
+	//Product Manual Delete
 	$(document).on('click', '.dpbnm-delete-product', function () {
 		var getId = $(this).closest("div").attr("id").split("-");
 		var $this = $(this);

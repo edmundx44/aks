@@ -15,13 +15,15 @@ class Product extends Model{
     ]; 
     public static $websites = ['AKS', 'CDD', 'BREX'];
 
+
     public function __construct($website = 'AKS'){
 		$table = self::getTable($website);
         parent::__construct($table);
     }
     
-	public static function prepareProductValues($product) {
+	public function createProductByWebsite($product) {
 		$sqlData = [];
+
 		foreach($product as $website => $data){
 			if(in_array($website, static::$websites)){
 				$getColumn = ($website == 'CDD') ? 'description-eu' : 'description-usa';
@@ -75,13 +77,58 @@ class Product extends Model{
 						'metacritic_user_score'   => $value["ae-metacritic-user-score-input"], 
 						'metacritic_user_count'   => $value["ae-metacritic-user-count-input"], 
 						'flag'           => 0, 
-						'is_console'     => 0, 
+						'is_console'     => $value["is_console"], 
 						'created_by'     => ucfirst(Users::currentUser()->fname), 
 					];
 				}
 			}
 		}
 		return $sqlData;
+	}
+
+	public function insertProductByWebsite($productToInsert){
+		$successMsg = array();
+		$failedMsg = array();
+
+		if(!empty($productToInsert)){
+			foreach($productToInsert as $website => $productArray){
+				$product = new Self($website);
+				$bool = $product->insertMultiple($productArray , 'multidimensional');
+
+				$count = count($productArray);
+				$inc = 0;
+				if($bool){
+					foreach($productArray as $data){
+						// $getSite = self::getSite($website);
+						// $getId = $db->find('`'.$getSite.'`.`pt_products`',[
+						// 	'column' => ['id'],
+						// 	'conditions' => ['merchant = ?', 'normalised_name = ?', 'edition = ?', 'region = ?'],
+						// 	'bind' => [$data['merchant'], $data['normalised_name'], $data['edition'], $data['region']]
+						// ]);
+						$productId = (int)$this->_db->lastID(); //initial last id
+						if($count > 1 && $inc != 0){ //it means we are not now in the first loop
+							$productId += $inc;	
+						}	
+							$successMsg[$website][] = [
+								'merchant' => $data['merchant'],
+								'buy_url' => $data['buy_url'],
+								'buy_url_raw' => $data['buy_url_raw'],
+								'region' => $data['region'],
+								'edition' => $data['edition'],
+								'normalised_name' => $data['normalised_name'],
+								//'id' => $getId[0]->id,
+								'id' => $productId,
+								'site' => $website,
+								'user' => Users::currentUser()->id
+							];
+							$inc++;
+					}
+				} else {
+						$failedMsg[$website][] = "Something went wrong for inserting in $website !!";
+				}
+			}
+		}
+		return array('success' => $successMsg, 'failed' => $failedMsg);
 	}
 
 	public function prepareInsertProduct($product){
@@ -126,6 +173,22 @@ class Product extends Model{
 	public function tableCheck(){
 		return $this->_table;
     }
+
+	public static function is_console($game_id){
+		$db = DB::getInstance();
+
+		$sql ="SELECT `description` FROM `test-server`.`pt_products` WHERE `normalised_name` = ? AND `merchant` = '424242' LIMIT 1";
+		$result = $db->query($sql, [ $game_id ])->results()[0];
+		$consoles_name = ['ps4','-3ds-','playstation','nintendo','xbox','wii-u'];
+		if(!empty($result)){
+			foreach ($consoles_name as $console_name) {
+				if (strpos($result->description, $console_name) !== FALSE) { 
+					return $is_console = 1;
+				}
+			}
+		}
+		return $is_console = 0;
+	}
 
     private static function getTable($website){
 		switch ($website) {

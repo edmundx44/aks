@@ -1423,55 +1423,10 @@ class Ajax {
    				return $allowedRegion;
 			break;
 			case 'ae-create-action':
-				$successMsg = array();
-				$failedMsg = array();
-
-				$product = self::getProductsAffiliate();
-				$productToInsert = Product::prepareProductValues($product);
-				
-				if(isset($product['message']))
-					$failedMsg[] = Array( "message" => 'No Available creation for this offer', 'url' => $product['url'], 'merchant' => $product['merchant']);
-					
-				if(!empty($productToInsert)){
-					foreach($productToInsert as $website => $productArray){
-						$product = new Product($website);
-						$bool = $product->insertMultiple($productArray , 'multidimensional');
-
-						$count = count($productArray);
-						$inc = 0;
-						if($bool){
-							foreach($productArray as $data){
-								// $getSite = self::getSite($website);
-								// $getId = $db->find('`'.$getSite.'`.`pt_products`',[
-								// 	'column' => ['id'],
-								// 	'conditions' => ['merchant = ?', 'normalised_name = ?', 'edition = ?', 'region = ?'],
-								// 	'bind' => [$data['merchant'], $data['normalised_name'], $data['edition'], $data['region']]
-								// ]);
-								$productId = (int)$db->lastID(); //initial last id
-								if($count > 1 && $inc != 0) //it means we are not now in the first loop
-									$productId += $inc;
-								
-								$successMsg[$website][] = [
-									'merchant' => $data['merchant'],
-									'buy_url' => $data['buy_url'],
-									'buy_url_raw' => $data['buy_url_raw'],
-									'region' => $data['region'],
-									'edition' => $data['edition'],
-									'normalised_name' => $data['normalised_name'],
-									//'id' => $getId[0]->id,
-									'id' => $productId,
-									'site' => $website,
-									'user' => Users::currentUser()->id
-								];
-								$inc++;
-							}
-						} else {
-							$failedMsg[$website][] = "Something went wrong for inserting in $website !!";
-						}
-					}
-				}
-
-				return array('success' => $successMsg, 'failed' => $failedMsg);
+				$product = new Product();
+				$productData = self::getProductsAffiliate();
+				$toInsert = $product->createProductByWebsite($productData);
+				return $response = $product->insertProductByWebsite($toInsert);
 			break;
 			case 'ae-edit-action':
 				$product = new Product($getInput->get('source'));
@@ -1593,7 +1548,7 @@ class Ajax {
 	public static function getProductsAffiliate(){
 		
 		$productPerWebsite = [];
-		$product = $_POST['productformData'];
+		$product = $_POST['productformData']; //BASE PRODUCT
 		$options  = (!empty($_POST['productOptions'])) ? $_POST['productOptions'] : [] ;
 				
 		$merchants = [];
@@ -1603,6 +1558,7 @@ class Ajax {
 			return Array( "message" => 'No Available creation for this offer', 'url' => $product['ae-url-input'], 'merchant' => $product['ae-merchant-input']);
 
 		AffiliateUtility::getAffiliate($queryMerchants);
+		$product["is_console"] = Product::is_console((int)$product["ae-gameid-input"]);
 		foreach($options as $option){
 			switch($option['site']){
 				case 'AKS':
