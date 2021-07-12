@@ -1558,7 +1558,7 @@ class Ajax {
 			return Array( "message" => 'No Available creation for this offer', 'url' => $product['ae-url-input'], 'merchant' => $product['ae-merchant-input']);
 
 		AffiliateUtility::getAffiliate($queryMerchants);
-		$product["is_console"] = Product::is_console((int)$product["ae-gameid-input"]);
+		$product["is_console"] = Product::is_console($product["ae-gameid-input"]);
 		foreach($options as $option){
 			switch($option['site']){
 				case 'AKS':

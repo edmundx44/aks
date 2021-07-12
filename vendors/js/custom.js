@@ -74,7 +74,7 @@ $(document).ready(function () {
 
 		$('.dpbnm-product-nname').val(getNormalizedName)
 		$('.display-product-by-normalised-input').val('AKS')
-		$('.display-product-by-normalised-input').attr('data-product-website', 'AKS')
+		$('.display-product-by-normalised-input').attr('data-product-website', 'AKS') //used for delete
 		$('.displayProductByNormalisedName').modal('show')
 		getByNormalisedName(getUrlParameter('normalisedname'), $('.display-product-by-normalised-input').val())
 	}
@@ -146,6 +146,7 @@ $(document).ready(function () {
 			$('.modal').modal('hide');
 			setUrlParam('normalisedname', '');
 			$('.display-product-by-normalised-input').val('AKS');
+			$('.display-product-by-normalised-input').attr('data-product-website', 'AKS')//used for delete
 			$('.dpbnm-product-nname').val('');
 			$('.dpbnm-table-body').empty();
 			$('.displayProductByNormalisedName').modal('show');

@@ -174,15 +174,15 @@ class Product extends Model{
 		return $this->_table;
     }
 
-	public static function is_console($game_id){
+	public static function is_console(int $game_id){
 		$db = DB::getInstance();
 
 		$sql ="SELECT `description` FROM `test-server`.`pt_products` WHERE `normalised_name` = ? AND `merchant` = '424242' LIMIT 1";
-		$result = $db->query($sql, [ $game_id ])->results()[0];
+		$result = $db->query($sql, [ $game_id ])->results();
 		$consoles_name = ['ps4','-3ds-','playstation','nintendo','xbox','wii-u'];
 		if(!empty($result)){
 			foreach ($consoles_name as $console_name) {
-				if (strpos($result->description, $console_name) !== FALSE) { 
+				if (strpos($result[0]->description, $console_name) !== FALSE) { 
 					return $is_console = 1;
 				}
 			}
