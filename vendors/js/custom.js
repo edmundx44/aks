@@ -501,10 +501,12 @@ $(document).ready(function () {
 				productId: getId[2],
 				source: $('.display-product-by-normalised-input').attr("data-product-website"),
 			}
-			AjaxCall(url, request).done(function(data){
-				$this.closest('tr').prev().remove();//remove first the prev
-				$this.closest('tr').remove();
-				console.log(data)
+			confirmationDialog(confirmationText("delete"), function (e) {
+				AjaxCall(url, request).done(function (data) {
+					$this.closest('tr').prev().remove();//remove first the prev
+					$this.closest('tr').remove();
+					console.log(data)
+				})
 			})
 		}
 	});
@@ -1616,4 +1618,36 @@ function productUpdatePrice($productID, $price, $site, $this) {
 			alertMsg("Successfully update the price to " + $price + "", "bg-success");
 		}
 	});
+}
+
+function confirmationDialog($display, onConfirm) {
+	var fClose = function () {
+		modal.modal("hide");
+	};
+	var modal = $("#report-modal-confirmation");
+	modal.modal('show');
+	$('#confirmation-header-tittle').empty().html($display.header);
+	$('#confirmation-body-div').empty().append($display.body);
+	$('#confirmation-footer-div').empty().append($display.footer);
+	$("#confirmation-footer-btn").unbind().one('click', onConfirm).one('click', fClose);
+}
+
+function confirmationText($mode){
+	var $modalContent = {};
+	switch ($mode) {
+		case 'create':
+		break;
+		case 'update':
+		break;
+		case 'delete':
+			$modalContent = {
+				header: '<div id="confimation-div-header-style">Are you sure?</div>',
+				body: '<div id="confimation-div-body-style">Do you really want to delete this OFFER? </div>',
+				footer: '<input id="confirmation-footer-btn" class="col-6 button-on" style="margin:0 auto; border-radius:5px;" type="button" value="YES">'
+			}
+		break;
+		default:
+		break;
+	}
+	return $modalContent;
 }

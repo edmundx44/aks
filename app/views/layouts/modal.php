@@ -803,18 +803,18 @@
             <div class="modal-body">
                 <div class="modal-content-header row">
                     <div class="col-12">
-                        <h6 class="float-left confirmation-tittle"></h6>
+                        <h6 id="confirmation-header-tittle" class="float-left confirmation-tittle"></h6>
                         <button type="button" class="close float-right" data-dismiss="modal" style="opacity: 1;outline:none;left: 30px;top: -32px;border-radius: 20px; position: relative;background-color: #fff; width: 20px;height: 20px;padding: 0;"><span style="position: relative;top: -3px;">&times;</span></button>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 modal-content-body">
+                    <div id="confirmation-body-div" class="col-12 modal-content-body">
                         
                     </div>
                 </div>
                 
             </div>
-            <div class="modal-footer confirmation-modal-footer">
+            <div id="confirmation-footer-div" class="modal-footer confirmation-modal-footer">
               
             </div>
         </div>
