@@ -1488,6 +1488,23 @@ class Ajax {
 				}
 				return $successArr;
 			break;
+			case 'ae-delete-action':
+				$product = new Product($getInput->get('source'));
+				$productId = (int)$getInput->get("productId");
+				$bool = false;
+				$successArr = array();
+				if(is_numeric($productId)){
+					$bool = $product->delete($productId);
+					if($bool){
+							$successArr[] = [
+							'id' => $getInput->get('productId'),
+							'site' => $getInput->get('source'),
+							'user' => Users::currentUser()->id
+						];
+					}
+				}
+				return $successArr;
+			break;
 			case 'ae-check-existing-data':
                 $site = self::getSite($getInput->get('getSite'));
                 $getMerchant = $getInput->get('getMerchant');

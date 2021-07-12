@@ -397,7 +397,7 @@ $(document).ready(function () {
 		var dataRequest = aeProduct(serialize, 'create');
 		//console.log(dataRequest)
 		AjaxCall(url, dataRequest).done(function (data) {
-			for(var i in data.success){
+			for (var i in data.success) {
 				createNotification(data.success[i][0].id, 'Created', data.success[i][0].site, data.success[i][0].user);
 			}
 		}).always(function () { });
@@ -492,9 +492,25 @@ $(document).ready(function () {
 		}
 	})
 
+	$(document).on('click', '.dpbnm-delete-product', function () {
+		var getId = $(this).closest("div").attr("id").split("-");
+		var $this = $(this);
+		if(getId.length === 3){
+			var request = {
+				action: "ae-delete-action",
+				productId: getId[2],
+				source: $('.display-product-by-normalised-input').attr("data-product-website"),
+			}
+			AjaxCall(url, request).done(function(data){
+				$this.closest('tr').prev().remove();//remove first the prev
+				$this.closest('tr').remove();
+				console.log(data)
+			})
+		}
+	});
 
 }); // end docuemtn ready
-function createNotification($id, $what, $site, $employee){
+function createNotification($id, $what, $site, $employee) {
 	var dataRequest = {
 		action: 'insert-to-notifiction',
 		getID: $id,
@@ -502,7 +518,7 @@ function createNotification($id, $what, $site, $employee){
 		getSite: $site,
 		getEmployee: $employee
 	}
-	AjaxCall(url, dataRequest).done(function(){}).always(function(){});
+	AjaxCall(url, dataRequest).done(function () { }).always(function () { });
 }
 
 function addZeroesInPrice(num) {
@@ -529,7 +545,7 @@ function aeProduct($form, $mode) {
 				productOptions: toCreateDataArr,
 				source: $('.ae-product-p-title').text(),
 			}
-		break;
+			break;
 		case 'edit':
 			request = {
 				action: 'ae-edit-action',
@@ -537,9 +553,9 @@ function aeProduct($form, $mode) {
 				productId: parseInt($('.ae-hidden-productid').val()),
 				source: $('.ae-product-p-title').text(),
 			}
-		break;
+			break;
 		default:
-		break;
+			break;
 	}
 	return request;
 }
@@ -592,7 +608,7 @@ function displayProductBynormalised($merchant, $region, $edition, $stock, $price
 	toAppend += '			<div class="dpbnm-product-action-div" id="dpbnmpad-div-' + $id + '">';
 	toAppend += '				<ul class="dpbnm-product-action-ul">';
 	toAppend += '					<li class="dpbnm-product-action-li dpbnm-li-toedit" data-dpbnm-id-toedit="' + $id + '"><i class="fas fa-circle fa-xs"></i> <span class="dpbnm-product-action-li-span">Edit</span></li>';
-	toAppend += '					<li class="dpbnm-product-action-li"><i class="fas fa-circle fa-xs"></i> <span class="dpbnm-product-action-li-span">Delete</span></li>';
+	toAppend += '					<li class="dpbnm-product-action-li"><i class="fas fa-circle fa-xs"></i> <span class="dpbnm-delete-product dpbnm-product-action-li-span">Delete</span></li>';
 	toAppend += '				</ul>';
 	toAppend += '			</div>';
 	toAppend += '			<p class="hide-on-lgxl show-on-smmd">Price : <span>' + $price + '</span></p>';
@@ -1575,12 +1591,12 @@ function productUpdateStock($productID, $stock, $site, $this) {
 					$($this).html('In Stock');
 					$($this).attr('data-stockvalue', 1);
 					alertMsg("Successfully update to In Stock", "bg-success");
-				break;
+					break;
 				case 1:
 					$($this).html('Out Of Stock');
 					$($this).attr('data-stockvalue', 0);
 					alertMsg("Successfully update to Out of Stock", "bg-success");
-				break;
+					break;
 			}
 		} else {
 			alertMsg("Stock value didnt Update", "bg-danger");
