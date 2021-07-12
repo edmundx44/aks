@@ -91,68 +91,68 @@ use Core\Session;
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<script src="<?=PROOT?>vendors/js/custom.js"></script>
 		<script type="text/javascript">
-			// toastr.options = {
-			// 	"closeButton": true,
-			// 	"newestOnTop": false,
-			// 	// "progressBar": true,
-			// 	"positionClass": "toast-bottom-right",
-			// 	"preventDuplicates": false,
-			// 	"onclick": null,
-			// 	"showDuration": "300",
-			// 	"hideDuration": "1000",
-			// 	"timeOut": "5000",
-			// 	"extendedTimeOut": "1000",
-			// 	"showEasing": "swing",
-			// 	"hideEasing": "linear",
-			// 	"showMethod": "fadeIn",
-			// 	"hideMethod": "fadeOut"
-			// }
+			toastr.options = {
+				"closeButton": true,
+				"newestOnTop": false,
+				// "progressBar": true,
+				"positionClass": "toast-bottom-right",
+				"preventDuplicates": false,
+				"onclick": null,
+				"showDuration": "300",
+				"hideDuration": "1000",
+				"timeOut": "5000",
+				"extendedTimeOut": "1000",
+				"showEasing": "swing",
+				"hideEasing": "linear",
+				"showMethod": "fadeIn",
+				"hideMethod": "fadeOut"
+			}
 
-			// const delay = (ms) => {
-			// 	return new Promise((resolve) => {
-			// 		setTimeout(() => resolve(), ms);
-			// 	}, ms);
-			// };
+			const delay = (ms) => {
+				return new Promise((resolve) => {
+					setTimeout(() => resolve(), ms);
+				}, ms);
+			};
 
-			// $(function() {
-			// 	logsNotification()
+			$(function() {
+				logsNotification()
 
-			// 	function logsNotification(){
-			// 		var idToUpdate = '';
-			// 		var dataRequest =  {
-			// 			action: 'display-notification'
-			// 		}
+				function logsNotification(){
+					var idToUpdate = '';
+					var dataRequest =  {
+						action: 'display-notification'
+					}
 	
-			// 		AjaxCall(url, dataRequest).done(function(data) {
-			// 			if(data != false){
-			// 				let task = delay(2000);
+					AjaxCall(url, dataRequest).done(function(data) {
+						if(data != false){
+							let task = delay(2000);
 
-			// 				var counter = 0
-			// 				data.forEach((element,i) => {
-			// 					task = task
-			// 					.finally(() => {
-			// 						toastr.info("<span> " + element.fname + "</span> <span>" + element.action + "<span> on " + element.vols_nom + " " + element.site +".");
-			// 						counter = counter + 1
+							var counter = 0
+							data.forEach((element,i) => {
+								task = task
+								.finally(() => {
+									toastr.info("<span> " + element.fname + "</span> <span>" + element.action + "<span> on " + element.vols_nom + " " + element.site +".");
+									counter = counter + 1
 
-			// 						var dataRequest =  {
-			// 							action: 'update-notifiction',
-			// 							id: element.id
-			// 						}
-			// 						AjaxCall(url, dataRequest).done(function(data) {})
-			// 						if(data.length == counter) logsNotification();
+									var dataRequest =  {
+										action: 'update-notifiction',
+										id: element.id
+									}
+									AjaxCall(url, dataRequest).done(function(data) {})
+									if(data.length == counter) logsNotification();
 			
-			// 					})
-			// 					.then(() =>  delay(2000))
-			// 				})
-			// 			}else{
-			// 				// console.log(data)
-			// 				setTimeout( function(){ 
-			// 					logsNotification()
-			// 				}, 2000 );
-			// 			}
-			// 		});
-			// 	}
-			// });
+								})
+								.then(() =>  delay(2000))
+							})
+						}else{
+							// console.log(data)
+							setTimeout( function(){ 
+								logsNotification()
+							}, 2000 );
+						}
+					});
+				}
+			});
 		</script>
 	</body>
 </html>
