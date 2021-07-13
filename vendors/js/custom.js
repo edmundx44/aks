@@ -397,11 +397,7 @@ $(document).ready(function () {
 		var serialize = $('#ae-mcb-row :input').serializeArray();
 		var dataRequest = aeProduct(serialize, 'create');
 		//console.log(dataRequest)
-		AjaxCall(url, dataRequest).done(function (data) {
-			for (var i in data.success) {
-				createNotification(data.success[i][0].id, 'Created', data.success[i][0].site, data.success[i][0].user);
-			}
-		}).always(function () { });
+		AjaxCall(url, dataRequest).done( aeAddSuccess ).always(function () { });
 	});
 
 	$(document).on('click', '#ae-btn-edit', function () {
@@ -503,7 +499,7 @@ $(document).ready(function () {
 				productId: getId[2],
 				source: $('.display-product-by-normalised-input').attr("data-product-website"),
 			}
-			confirmationDialog(confirmationText("delete"), function (e) {
+			confirmationDialog("delete", function (e) {
 				AjaxCall(url, request).done(function (data) {
 					$this.closest('tr').prev().remove();//remove first the prev
 					$this.closest('tr').remove();
@@ -514,6 +510,23 @@ $(document).ready(function () {
 	});
 
 }); // end docuemtn ready
+
+function aeAddSuccess(data){
+	console.log(data.success)
+	if (data.success != ''){
+		$('.ae-addc-i-on-aks-1, .ae-addc-i-on-aks-0-2, .ae-addc-i-on-cdd-1, .ae-addc-i-on-cdd-0-2, .ae-addc-i-on-brex-1, .ae-addc-i-on-brex-0-2').empty();
+		$('.ae-edition-input, .ae-region-input').val('');
+		$('.ae-region-input').attr('data-regionid','');
+		$('.ae-edition-input').attr('data-editionid','');
+		toCreateDataArr = [];
+		for (var i in data.success) {
+			createNotification(data.success[i][0].id, 'Created', data.success[i][0].site, data.success[i][0].user);
+		}
+	} else {
+		alertMsg("Failed Message Here", "bg-danger")
+	}
+}
+
 function createNotification($id, $what, $site, $employee) {
 	var dataRequest = {
 		action: 'insert-to-notifiction',
@@ -715,14 +728,15 @@ function displayOnAddEditModal($productid, $site, $mode) {
 
 		if ($mode == 'create') {
 			getAvailable(data[0].merchant, '2'); // default 2 for steam gloabl
-			$('.ae-price-input').val(data[0].price).css({ "pointer-events": "auto" });
+			$('.ae-gameid-input').css({ "pointer-events": "none", "background-color": "#ededed" });
+			$('.ae-price-input').val(data[0].price).css({ "pointer-events": "auto", "background-color": "#ffffff" });
 
 			$('.input-text-raw').hide();
 		} else if ($mode == 'edit') {
 			$('.input-text-raw').show();
 			//$('.ae-price-input').val(data[0].price).attr('readonly', 'readonly');
 			$('.ae-price-input').val(data[0].price);
-			$('.ae-price-input').css({ "pointer-events": "none" });
+			$('.ae-price-input').css({ "pointer-events": "none", "background-color": "#ededed" });
 
 			$('.ae-url-raw-input').val(data[0].buy_url_raw);
 			$('.ae-edition-input').val(data[0].edition);
@@ -1622,7 +1636,8 @@ function productUpdatePrice($productID, $price, $site, $this) {
 	});
 }
 
-function confirmationDialog($display, onConfirm) {
+function confirmationDialog($mode, onConfirm) {
+	$display = confirmationText($mode);
 	var fClose = function () {
 		modal.modal("hide");
 	};

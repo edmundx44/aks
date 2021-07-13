@@ -338,28 +338,28 @@
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i far fa-calendar-alt"></i>
-								<input type="text" name="ae-release-date-input" class="input-text-class ae-release-date-input" required>
+								<input type="text" name="ae-release-date-input" class="input-text-class ae-release-date-input" style="background-color: #ededed;pointer-events: none;" required>
 								<span class="input-text-span">Release date</span>
 								<span class="input-text-border"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-plus-circle"></i>
-								<input type="text" name="ae-metacritic-score-input" class="input-text-class ae-metacritic-score-input" required>
+								<input type="text" name="ae-metacritic-score-input" class="input-text-class ae-metacritic-score-input" style="background-color: #ededed;pointer-events: none;" required>
 								<span class="input-text-span">Metacritic score</span>
 								<span class="input-text-border"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-plus-circle"></i>
-								<input type="text" name="ae-metacritic-critic-score-input" class="input-text-class ae-metacritic-critic-score-input" required>
+								<input type="text" name="ae-metacritic-critic-score-input" class="input-text-class ae-metacritic-critic-score-input" style="background-color: #ededed;pointer-events: none;" required>
 								<span class="input-text-span">Metacritic critic score</span>
 								<span class="input-text-border"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-plus-circle"></i>
-								<input type="text" name="ae-metacritic-user-score-input" class="input-text-class ae-metacritic-user-score-input" required>
+								<input type="text" name="ae-metacritic-user-score-input" class="input-text-class ae-metacritic-user-score-input" style="background-color: #ededed;pointer-events: none;" required>
 								<span class="input-text-span">Metacritic user score</span>
 								<span class="input-text-border"></span>
 							</div>
@@ -375,28 +375,28 @@
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-calendar"></i>
-								<input type="text" name="ae-release-year-input" class="input-text-class ae-release-year-input" required>
+								<input type="text" name="ae-release-year-input" class="input-text-class ae-release-year-input" style="background-color: #ededed;pointer-events: none;" required>
 								<span class="input-text-span">Release year</span>
 								<span class="input-text-border"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-adjust"></i>
-								<input type="text" name="ae-metacritic-count-input" class="input-text-class ae-metacritic-count-input" required>
+								<input type="text" name="ae-metacritic-count-input" class="input-text-class ae-metacritic-count-input" style="background-color: #ededed;pointer-events: none;" required>
 								<span class="input-text-span">Metacritic count</span>
 								<span class="input-text-border"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-adjust"></i>
-								<input type="text" name="ae-metacritic-critic-count-input" class="input-text-class ae-metacritic-critic-count-input" required>
+								<input type="text" name="ae-metacritic-critic-count-input" class="input-text-class ae-metacritic-critic-count-input" style="background-color: #ededed;pointer-events: none;" required>
 								<span class="input-text-span">Metacritic critic count</span>
 								<span class="input-text-border"></span>
 							</div>
 
 							<div class="input-text-div" style="margin: 30px 0 0 0;">
 								<i class="input-text-i fas fa-adjust"></i>
-								<input type="text" name="ae-metacritic-user-count-input" class="input-text-class ae-metacritic-user-count-input" required>
+								<input type="text" name="ae-metacritic-user-count-input" class="input-text-class ae-metacritic-user-count-input" style="background-color: #ededed;pointer-events: none;" required>
 								<span class="input-text-span">Metacritic user count</span>
 								<span class="input-text-border"></span>
 							</div>
