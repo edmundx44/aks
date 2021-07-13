@@ -126,13 +126,13 @@ use Core\Session;
 					AjaxCall(url, dataRequest).done(function(data) {
 						//console.log(data)
 						if(data != false){
-							let task = delay(2000);
+							let task = delay(3000);
 
 							var counter = 0
 							data.forEach((element,i) => {
 								task = task
 								.finally(() => {
-									toastr.info("<span> " + element.employee + "</span> <span>" + element.action + "<span> on " + element.merchant + " " + element.site +".");
+									toastr.info("<span> " + element.employee + "</span> <span> " + element.action + " </span> " + element.merchant + " on " + element.site +".");
 									counter = counter + 1
 
 									var dataRequest =  {
@@ -143,13 +143,13 @@ use Core\Session;
 									if(data.length == counter) logsNotification();
 			
 								})
-								.then(() =>  delay(2000))
+								.then(() =>  delay(3000))
 							})
 						}else{
 							// console.log(data)
 							setTimeout( function(){ 
 								logsNotification()
-							}, 2000 );
+							}, 3000 );
 						}
 					});
 				}

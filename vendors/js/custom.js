@@ -305,6 +305,33 @@ $(document).ready(function () {
 
 
 	// add edit modal section -----------------------------------------------------------
+	$(document).on('click', '.ae-autocreation-checkbox', function () {
+		var getMerchant = $(this).data('getmerchant')
+		var getEdition = $(this).data('getedition')
+		var getRegion = $(this).data('getregion')
+		var getsite = $(this).data('getsite')
+		var getUrl = $(this).data('aeurl')
+
+		if ($(this).prop('checked')) {
+			toCreateDataArr.push({
+				'merchantID': ""+getMerchant+"",
+				'url': getUrl,
+				'region': getRegion,
+				'edition': getEdition,
+				'site': getUrl
+			});
+		}else {
+			var getIndex;
+			toCreateDataArr.findIndex(function (item, i) {
+			    if (item.merchantID == getMerchant && item.edition == getEdition && item.region == getRegion && item.site == getsite) {
+			    	getIndex = i;
+			    	return true;
+			    }
+			});
+			toCreateDataArr.splice(getIndex, 1);
+		}
+	});
+
 	$(document).on('change keyup', '.ae-url-input', function () {
 		$('.ae-addc-i-on-aks-1, .ae-addc-i-on-aks-0-2, .ae-addc-i-on-cdd-1, .ae-addc-i-on-cdd-0-2, .ae-addc-i-on-brex-1, .ae-addc-i-on-brex-0-2').empty();
 		toCreateDataArr = [];
@@ -394,18 +421,26 @@ $(document).ready(function () {
 	});
 
 	$(document).on('click', '#ae-btn-add', function () {
-		var serialize = $('#ae-mcb-row :input').serializeArray();
-		var dataRequest = aeProduct(serialize, 'create');
-		//console.log(dataRequest)
-		AjaxCall(url, dataRequest).done( aeAddSuccess ).always(function () { 
-			$(".add-edit-store-game-modal").hide();
-			setUrlParam('normalisedname', $(".ae-gameid-input").val());
-			$('.dpbnm-product-nname').val($(".ae-gameid-input").val())
-			$('.display-product-by-normalised-input').val($('.ae-product-p-title').html())
-			$('.display-product-by-normalised-input').attr('data-product-website', $('.ae-product-p-title').html()) //used for delete
-			$('.displayProductByNormalisedName').modal('show')
-			getByNormalisedName( $(".ae-gameid-input").val(), $('.ae-product-p-title').html() );
-		});
+		// console.log(toCreateDataArr.length);
+
+		if(toCreateDataArr.length == 0){
+			alertMsg("Invalid data, kindly check it carefully", "bg-danger")
+		}else{
+			var serialize = $('#ae-mcb-row :input').serializeArray();
+			var dataRequest = aeProduct(serialize, 'create');
+			//console.log(dataRequest)
+			AjaxCall(url, dataRequest).done( aeAddSuccess ).always(function () { 
+				$(".add-edit-store-game-modal").modal('hide');
+				setUrlParam('normalisedname', $(".ae-gameid-input").val());
+				$('.dpbnm-product-nname').val($(".ae-gameid-input").val())
+				$('.display-product-by-normalised-input').val($('.ae-product-p-title').html())
+				$('.display-product-by-normalised-input').attr('data-product-website', $('.ae-product-p-title').html()) //used for delete
+				$('.displayProductByNormalisedName').modal('show')
+				getByNormalisedName( $(".ae-gameid-input").val(), $('.ae-product-p-title').html() );
+				alertMsg("Successfully created", "bg-success")
+			});
+		}
+		
 	});
 
 	$(document).on('click', '#ae-btn-edit', function () {
@@ -580,7 +615,7 @@ function aeProduct($form, $mode) {
 				productOptions: toCreateDataArr,
 				source: $('.ae-product-p-title').text(),
 			}
-			break;
+		break;
 		case 'edit':
 			request = {
 				action: 'ae-edit-action',
@@ -588,9 +623,9 @@ function aeProduct($form, $mode) {
 				productId: parseInt($('.ae-hidden-productid').val()),
 				source: $('.ae-product-p-title').text(),
 			}
-			break;
+		break;
 		default:
-			break;
+		break;
 	}
 	return request;
 }
@@ -612,13 +647,16 @@ function getByNormalisedName($normalisedName, $site) {
 		site: $site
 	}
 	AjaxCall(url, dataRequest).done(function (data) {
+		$('.dpbnm-product-name').html(data[0].searchName)
+
 		var counter = 1;
 		for (var i in data) {
 
 			displayProductBynormalised(data[i].merchant, data[i].region, data[i].edition, data[i].status, data[i].price, data[i].buy_url, counter, data[i].id)
 			counter++;
 		}
-	}).always(function () {
+	}).always(function (data) {
+		
 		$('.dpbnm-loader-wrapper').hide();
 	});
 
@@ -868,7 +906,7 @@ function checkExistingData($merchant, $edition, $region, $normalisedName, $site,
 
 	AjaxCall(url, dataRequest).done(function (data) {
 		if (data == 0) {
-			createSwitchForAvailable($unconvertedSite, 1, $region, $merchant, $edition);
+			createSwitchForAvailable($unconvertedSite, 1, $region, $merchant, $edition, $url);
 			toCreateDataArr.push({
 				'merchantID': $merchant,
 				'url': $url,
@@ -877,7 +915,7 @@ function checkExistingData($merchant, $edition, $region, $normalisedName, $site,
 				'site': $site
 			});
 		} else {
-			createSwitchForAvailable($unconvertedSite, 4, $region, $merchant, $edition);
+			createSwitchForAvailable($unconvertedSite, 4, $region, $merchant, $edition, $url);
 		}
 	});
 }
@@ -924,22 +962,23 @@ function getOriginalSite($partial) {
 	return $site;
 }
 
-function createSwitchForAvailable($getVisible, $available, $region, $merchantID, $edition) {
+function createSwitchForAvailable($getVisible, $available, $region, $merchantID, $edition, $aeurl) {
+	
 	switch ($getVisible) {
 		case 'allkeyshop.com':
 			var whatBox = 'ae-addc-i-on-aks-1';
 			var whatNotAvail = 'ae-addc-i-on-aks-0-2';
-			var toAppend = createCheckbox($available, 'forAKS', $region, 'AKS', $merchantID, $edition);
+			var toAppend = createCheckbox($available, 'forAKS', $region, 'AKS', $merchantID, $edition, $aeurl);
 			break;
 		case 'reviewitusa':
 			var whatBox = 'ae-addc-i-on-cdd-1';
 			var whatNotAvail = 'ae-addc-i-on-cdd-0-2';
-			var toAppend = createCheckbox($available, 'forCDD', $region, 'CDD', $merchantID, $edition);
+			var toAppend = createCheckbox($available, 'forCDD', $region, 'CDD', $merchantID, $edition, $aeurl);
 			break;
 		case 'allkeyshop.com.gbp':
 			var whatBox = 'ae-addc-i-on-brex-1';
 			var whatNotAvail = 'ae-addc-i-on-brex-0-2';
-			var toAppend = createCheckbox($available, 'forBrex', $region, 'BREXIT', $merchantID, $edition);
+			var toAppend = createCheckbox($available, 'forBrex', $region, 'BREXIT', $merchantID, $edition, $aeurl);
 			break;
 	}
 
@@ -947,7 +986,7 @@ function createSwitchForAvailable($getVisible, $available, $region, $merchantID,
 	else $('.' + whatNotAvail).append(toAppend);
 }
 
-function createCheckbox($available, $checkboxName, $checkboxRegion, $whatSite, $merchantID, $edition) {
+function createCheckbox($available, $checkboxName, $checkboxRegion, $whatSite, $merchantID, $edition, $aeurl) {
 	// NOTE :
 	// 	0 = Merchant is not visible for creation
 	// 	1 = Merchant is visible and Region is Allowed
@@ -957,7 +996,7 @@ function createCheckbox($available, $checkboxName, $checkboxRegion, $whatSite, $
 	switch ($available) {
 		case 1:
 			var toAppend = '<div class="form-check text-primary" data-getid="' + $merchantID + '">';
-			toAppend += '	<input class="form-check-input" name="' + $checkboxName + '" type="checkbox" value="" id="' + $checkboxName + $checkboxRegion + '">';
+			toAppend += '	<input class="form-check-input ae-autocreation-checkbox" name="' + $checkboxName + '" type="checkbox" value="" id="' + $checkboxName + $checkboxRegion + '" data-getmerchant="'+ $merchantID +'" data-getedition="'+ $edition +'" data-getregion="'+ $checkboxRegion +'" data-getsite="'+ $whatSite +'" data-aeurl="'+ $aeurl +'" checked>';
 			toAppend += '	<label class="form-check-label" for="' + $checkboxName + $checkboxRegion + '">';
 			toAppend += '		Creating merchant <b>' + merchantName + ' ' + $merchantID + '</b> on <b class="text-primary">' + $whatSite + '</b> with edition <b>' + $edition + '</b> and region is <b>' + $checkboxRegion + '</b>';
 			toAppend += '	</label>';
@@ -1071,7 +1110,7 @@ function mainSearchProduct($site, $toSearch) {
 			$('.spm-content-display').append(append);
 		}
 	}).always(function (data) {
-		$('.spmc-loader-wrapper').hide();
+		
 		$('.spm-content-body').show();
 		$('.spmc-span-site').html($site)
 
@@ -1080,15 +1119,16 @@ function mainSearchProduct($site, $toSearch) {
 			$('.spmc-btn').hide();
 			$('.spmc-request-id-btn').show();
 		} else {
-			if (data.length > 1 && data.length < 4) $('.spm-dialog').removeClass('spm-dialog-height spm-dialog-height-min spm-dialog-height-mid spm-dialog-height-max').addClass('spm-dialog-height-min');
-			if (data.length > 4 && data.length < 7) $('.spm-dialog').removeClass('spm-dialog-height spm-dialog-height-min spm-dialog-height-mid spm-dialog-height-max').addClass('spm-dialog-height-mid');
-			if (data.length >= 7) $('.spm-dialog').removeClass('spm-dialog-height spm-dialog-height-min spm-dialog-height-mid spm-dialog-height-max').addClass('spm-dialog-height-max');
-
+			// if (data.length > 1 && data.length < 4) $('.spm-dialog').removeClass('spm-dialog-height spm-dialog-height-min spm-dialog-height-mid spm-dialog-height-max').addClass('spm-dialog-height-min');
+			// if (data.length > 4 && data.length < 7) $('.spm-dialog').removeClass('spm-dialog-height spm-dialog-height-min spm-dialog-height-mid spm-dialog-height-max').addClass('spm-dialog-height-mid');
+			// if (data.length >= 7) $('.spm-dialog').removeClass('spm-dialog-height spm-dialog-height-min spm-dialog-height-mid spm-dialog-height-max').addClass('spm-dialog-height-max');
+			$('.spm-dialog').removeClass('spm-dialog-height spm-dialog-height-min spm-dialog-height-mid spm-dialog-height-max').addClass('spm-dialog-height-max')
 			// console.log(data.length)
 			$('.spmc-display-header-span-what').html("Product found in ");
 			$('.spmc-btn').hide();
 			$('.spmc-btn-merchant-create').show();
 		}
+		$('.spmc-loader-wrapper').hide();
 	});
 }
 

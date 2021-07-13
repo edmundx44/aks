@@ -60,13 +60,14 @@ create table tblReportsComplete (
 );
 
 create table tblNotification(
-	id int primary key auto_increment,
-	productID int(150) default null,
-	action varchar(255) default null,
-	employeeID varchar(255) default null,
-	status int(1) default 0,
-	site varchar(15) default null,
-	date timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    id int primary key auto_increment,
+    productID int(150) default null,
+    merchant varchar(100) default null,
+    action varchar(255) default null,
+    employeeID varchar(255) default null,
+    status int(1) default 0,
+    site varchar(15) default null,
+    date timestamp not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 

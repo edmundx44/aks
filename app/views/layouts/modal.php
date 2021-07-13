@@ -86,43 +86,43 @@
 
 <!-- display-product-by-normalised-input -->
 <div class="modal fade bd-example-modal-lg displayProductByNormalisedName no-padding" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-	<div class="modal-dialog modal-lg modal-xl-override" style="height:  calc(100% - 60px);" role="document">
-		<div class="modal-content" style="height:  100%;border-radius: 0;background-clip: initial; background: rgba(0,123,255, .5);border: none;padding: 10px;">
-			<div class="modal-content-wrapper" style="width: 100%;height: 100%;background-color: #fff;">
-				<div class="modal-content-header" style="height: 100px;margin-top: 10px;">
-					<button type="button" class="close float-right" data-dismiss="modal" style="position: relative;right: 15px;top: 3px;font-size: 15px;">
+	<div class="modal-dialog modal-lg modal-xl-override dpbn-modal-dialog" role="document">
+		<div class="modal-content dpbn-modal-content">
+			<div class="modal-content-wrapper dpbn-mcw">
+				<div class="modal-content-header dpbn-mch">
+					<button type="button" class="close float-right dpbn-btn-dismis" data-dismiss="modal">
 						<i class="fas fa-times"></i>
 					</button>
-					<div class="modal-content-header-content" style="padding: 10px 0 15px 15px;">
-						<div class="dropdown col-4 no-padding" style="">
-								<input type="text" name="" class="input-text-class dropdown-inputbox display-product-by-normalised-input" autocomplete='off' style="height: 20px;left: 0;padding: 0;margin: 0 !important;border: none;font-weight: 700;" required>
+					<div class="modal-content-header-content dpbn-mchc">
+						<div class="dropdown col-4 no-padding">
+								<input type="text" name="" class="input-text-class dropdown-inputbox display-product-by-normalised-input" autocomplete='off' required>
 								<span class="input-text-border"></span>
-								<div class="dropdown-menu-div dmd-dpbn" style="overflow:hidden !important;">
+								<div class="dropdown-menu-div dmd-dpbn">
 									<div class="dropdown-menu-div-sub dmds-dpbn" >AKS</div>
 									<div class="dropdown-menu-div-sub dmds-dpbn" >CDD</div>
 									<div class="dropdown-menu-div-sub dmds-dpbn" >BREX</div>
 								</div>
 							</div>
-						<p class="dpbnm-product-name" style="margin: 0; padding: 0;font-size: 12px;">Borderlands 3 Moxxi's Heist of the Handsome Jackpot 31472 Borderlands 3 Moxxi's Heist of the Handsome Jackpot 31472</p>
-						<input type="text" class="dpbnm-product-nname" name="" placeholder="Enter normalised name here." style="margin: 0; padding: 0;font-size: 12px;border: none;outline: none;">	
+						<p class="dpbnm-product-name"></p>
+						<input type="text" class="dpbnm-product-nname" name="" placeholder="Enter normalised name here.">	
 					</div>
 				</div>
-				<div class="modal-content-body" style="height:  calc(100% - 120px);padding: 0 10px;overflow: auto;">
+				<div class="modal-content-body dpbn-mcb">
 					<table class="col-12">
-						<thead style="color: #fff;font-size: 13px;letter-spacing: 1px;">
-							<tr class="" style="position:relative;z-index: 1;">
-								<th class="" style="background: rgba(0,123,255, 1);position: sticky;padding: 5px 10px;width: 20%;top: 0;">MERCHANT</th>
-								<th class="" style="background: rgba(0,123,255, 1);position: sticky;padding: 5px 10px;width: 20%;top: 0">REGION</th>
-								<th class="" style="background: rgba(0,123,255, 1);position: sticky;padding: 5px 10px;width: 20%;top: 0">EDITION</th>
-								<th class="hide-on-smmd" style="background: rgba(0,123,255, 1);position: sticky;padding: 5px 10px;width: 20%;top: 0">STOCK</th>
-								<th class="hide-on-smmd" style="background: rgba(0,123,255, 1);position: sticky;padding: 5px 10px;width: 20%;top: 0">PRICE</th>
+						<thead class="dpbn-thead">
+							<tr class="dpbn-thead-tr">
+								<th class="dpbn-thead-th">MERCHANT</th>
+								<th class="dpbn-thead-th">REGION</th>
+								<th class="dpbn-thead-th">EDITION</th>
+								<th class="dpbn-thead-th hide-on-smmd">STOCK</th>
+								<th class="dpbn-thead-th hide-on-smmd">PRICE</th>
 							</tr> 
 						</thead>
 						<tbody class="dpbnm-table-body">
 							<!-- data from data base -->
 						</tbody>
 					</table>
-					<div class="dpbnm-loader-wrapper text-center" style="display: none;">
+					<div class="dpbnm-loader-wrapper text-center">
 						<span class="span-txt">Processing</span>
 						<div class="boxes box-loader">
 							<div class="box">
@@ -152,7 +152,6 @@
 						</div>
 					</div>
 				</div>
-				
 			</div>
 		</div>
 	</div>
@@ -1331,10 +1330,10 @@
 		margin-top: 20%;
 	}
 	.spm-dialog {
-		-webkit-transition: .2s ease-in-out !important;
+		/*-webkit-transition: .2s ease-in-out !important;
 		-moz-transition: .2s ease-in-out !important;
 		-o-transition: .2s ease-in-out !important;
-		transition: .2s ease-in-out !important;
+		transition: .2s ease-in-out !important;*/
 	}
 
 	.spm-content {
@@ -1721,6 +1720,79 @@
 	}
 
 	/*display by normalised name css section --------------------------------------------*/
+	.dpbn-modal-dialog {
+		height:  calc(100% - 60px);
+	}
+	.dpbn-modal-content {
+		height:  100%;
+		border-radius: 0;
+		background-clip: initial; 
+		background: rgba(0,123,255, .5);
+		border: none;padding: 10px;
+	}
+	.dpbn-mcw {
+		width: 100%;
+		height: 100%;
+		background-color: #fff;
+	}
+	.dpbn-mch {
+		height: 100px;
+		margin-top: 10px;
+	}
+	.dpbn-btn-dismis {
+		position: relative;
+		right: 15px;top: 3px;
+		font-size: 15px;
+	}
+	.dpbn-mchc {
+		padding: 10px 0 15px 15px;
+	}
+	.display-product-by-normalised-input {
+		height: 20px;
+		left: 0;
+		padding: 0;
+		margin: 0 !important;
+		border: none;
+		font-weight: 700;
+	}
+	.dmd-dpbn {
+		overflow: hidden !important;
+	}
+	.dpbnm-product-name {
+		margin: 0; padding: 0;font-size: 12px;
+	}
+	.dpbnm-product-nname {
+		margin: 0; 
+		padding: 0;
+		font-size: 12px;
+		border: none;
+		outline: none;
+	}
+	.dpbn-mcb {
+		height:  calc(100% - 120px);
+		padding: 0 10px;
+		overflow: auto;
+	}
+	.dpbn-thead {
+		color: #fff;
+		font-size: 13px;
+		letter-spacing: 1px;
+	}
+	.dpbn-thead-tr {
+		position: relative;
+		z-index: 1;
+	}
+	.dpbn-thead-th {
+		background: rgba(0,123,255, 1);
+		position: sticky;
+		padding: 5px 10px;
+		width: 20%;
+		top: 0;
+	}
+	.dpbnm-loader-wrapper {
+		display: none;
+	}
+
 	.dpbnm-product-action {
 		position: absolute; 
 		top: -35px; 
