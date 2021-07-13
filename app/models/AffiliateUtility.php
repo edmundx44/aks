@@ -5,6 +5,7 @@ use Core\DB;
 class AffiliateUtility {
     
     private int $merchant;
+    private int $initial_merchant;
     private string $initial_url;
     private string $buy_url;
     private string $buy_url_raw = '';
@@ -12,15 +13,17 @@ class AffiliateUtility {
     public string $locale;
     public static $affiliateData; //caching
 
-    public function __construct(array $options){
+    public function __construct(array $options) {
         $options = self::urlFeedRaw($options);
         $this->initial_url = $options['url'];
         $this->buy_url = $options['url'];
         $this->merchant = $options['merchantID'];
+        $this->initial_merchant = $options['merchantID'];
         $this->locale = self::getLocale($options['site']);
     }
 
     public function getPreparedAffiliate() {
+        //$this->alter_initial_merchant();
         if($this->isAffiliateUrlExists()){
             $affiliate = true;
             $this->removedAffiliate($affiliate); // <-- if this function have parameter then it means link has affiliate 
@@ -38,6 +41,7 @@ class AffiliateUtility {
      * @return array
      */ 
     private function returnData() {
+        //$this->alter_return_merchant();
         return $returnOption = [ 'buy_url' => $this->buy_url, 'buy_url_raw' => $this->buy_url_raw, 'merchant' => $this->merchant ];
     }
 
@@ -96,7 +100,7 @@ class AffiliateUtility {
      * https://www.mmoga.com/Steam-Games/The-Ascent.html?currency=EUR
      * @return object
      */ 
-    private function addReplacementRawToUrl(){
+    private function addReplacementRawToUrl() {
         $options = static::$affiliateData[$this->locale][$this->merchant] ?? null;
         $options['search_regex'] = (empty($options['search_regex']) || !isset($options['search_regex'])) ? '/empty in db/' : $options['search_regex'] ;
 
@@ -199,7 +203,7 @@ class AffiliateUtility {
      * @param array $options
      * @return void
      */
-    public function special_case_for_adding_buy_url_raw($options){
+    public function special_case_for_adding_buy_url_raw($options) {
         switch ($this->merchant) {
             case 270:
             case 2700:
@@ -226,17 +230,12 @@ class AffiliateUtility {
             break;
         }
     }
-
-    public function special_case_for_removing_affiliate(){
-        echo "Test";
-    }
-
     /**
      * Alter $matches results
      * @param string $matches
      * @return string
      */
-    public function alter_match_result_case($matches){
+    public function alter_match_result_case($matches) {
         switch ($this->merchant) {
             case 62: case 100: case 101: case 620: case 621:
                 $matches = str_replace('?ref=147', '', $matches);
@@ -246,7 +245,6 @@ class AffiliateUtility {
         }
         return $matches;
     }
-
     /**
      * get Locale value using $website sample 'AKS' return locale 'en_EU
      * @param string $website
@@ -273,23 +271,7 @@ class AffiliateUtility {
         $option = static::$affiliateData;
 
     	switch($product['merchantID']){
-            case 400:  //dont have 400 in affiliate url table 
-                $product['url'] = preg_replace('/\?.*/', '', $product['url']);
-                $product['url'] .= '?ref=615&currency=GBP';
-            break;
-            case 2232: //dont have 2223 in affiliate url table
-                $product['url'] = preg_replace('/\?.*/', '', $product['url']);
-                $product['url'] .= '?affiliate=allkeyshop';
-            break;
-            // case 168:  //dont have 168 in affiliate url table
-            //     $product['url'] = preg_replace('/\?.*/', '', $product['url']);
-            //     $product['url'] .= '?ars=cdd';
-            // break;
-            case 66: //Empty replacement_pattern & check_regex ... replacement_pattern = {url}?tag=wwwcheapdig06-20, check_regex =  ~tag=wwwcheapdig06-20~ where Locale = en_US
-                $product['url'] = preg_replace('/\?.*/', '', $product['url']);
-                $product['url'] .= '?tag=wwwcheapdig06-20';
-            break;
-            case 9: case 38: case 47: case 49: case 490:   
+            case 9: case 38: case 47: case 49: case 490: case 222: case 2223:
     			$product['url'] = preg_replace('/\?.*/', '', $product['url']);
     		break;
     		case 61: 
@@ -323,4 +305,31 @@ class AffiliateUtility {
     	}
     	return $product;
     }
+    // public function special_case_for_removing_affiliate() {
+    //     echo "Test";
+    // }
+    // /**
+    //  * IF SAME AFFILIATE AND NOT FOUND YET DATA IN DATABASE remove case if already have data in DB
+    //  * @return void
+    //  */
+    // public function alter_initial_merchant() {
+    //     switch ($this->initial_merchant) {
+    //         case 168 : $this->merchant = 166;
+    //         break;
+    //         case 2223: $this->merchant = 222;
+    //         break;
+    //     }
+    // }
+    // /**
+    //  * IF SAME AFFILIATE AND NOT FOUND YET DATA IN DATABASE remove case if already have data in DB
+    //  * @return void
+    //  */
+    // public function alter_return_merchant() {
+    //     switch ($this->initial_merchant) {
+    //         case 168 : $this->merchant = 168;
+    //         break;
+    //         case 2223: $this->merchant = 2223;
+    //         break;
+    //     }
+    // }
 }

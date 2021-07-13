@@ -639,7 +639,7 @@ function displayProductBynormalised($merchant, $region, $edition, $stock, $price
 	toAppend += '			</div>';
 	toAppend += '			<p class="hide-on-lgxl show-on-smmd">Price : <span>' + $price + '</span></p>';
 	toAppend += '			<p class="hide-on-lgxl show-on-smmd"><button class="btn btn-primary col-12">' + $stock + '</button></p>';
-	toAppend += '			<p><a href="' + $url + '" target="_blank" style="color: #6b6d70;">' + $url + '</a></p>';
+	toAppend += '			<p><a href="' + $url + '" target="_blank" style="color: #6b6d70;">' + html_decode($url) + '</a></p>';
 	toAppend += '		</div>';
 	toAppend += '	</td>';
 	toAppend += '</tr>';
