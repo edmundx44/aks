@@ -397,14 +397,22 @@ $(document).ready(function () {
 		var serialize = $('#ae-mcb-row :input').serializeArray();
 		var dataRequest = aeProduct(serialize, 'create');
 		//console.log(dataRequest)
-		AjaxCall(url, dataRequest).done( aeAddSuccess ).always(function () { });
+		AjaxCall(url, dataRequest).done( aeAddSuccess ).always(function () { 
+			$(".add-edit-store-game-modal").hide();
+			setUrlParam('normalisedname', $(".ae-gameid-input").val());
+			$('.dpbnm-product-nname').val($(".ae-gameid-input").val())
+			$('.display-product-by-normalised-input').val($('.ae-product-p-title').html())
+			$('.display-product-by-normalised-input').attr('data-product-website', $('.ae-product-p-title').html()) //used for delete
+			$('.displayProductByNormalisedName').modal('show')
+			getByNormalisedName( $(".ae-gameid-input").val(), $('.ae-product-p-title').html() );
+		});
 	});
 
 	$(document).on('click', '#ae-btn-edit', function () {
 		var serialize = $('#ae-mcb-row :input').serializeArray();
 		var dataRequest = aeProduct(serialize, 'edit');
 		AjaxCall(url, dataRequest).done(function (data) {
-			createNotification(data[0].id, 'Edited', data[0].site, data[0].user);
+			createNotification(data[0].id, data[0].merchant,'Edited', data[0].site, data[0].user);
 		}).always(function () { });
 	});
 
@@ -512,7 +520,6 @@ $(document).ready(function () {
 				AjaxCall(url, request).done(function (data) {
 					$this.closest('tr').prev().remove();//remove first the prev
 					$this.closest('tr').remove();
-					console.log(data)
 				})
 			})
 		}
@@ -521,25 +528,27 @@ $(document).ready(function () {
 }); // end docuemtn ready
 
 function aeAddSuccess(data){
-	console.log(data.success)
 	if (data.success != ''){
 		$('.ae-addc-i-on-aks-1, .ae-addc-i-on-aks-0-2, .ae-addc-i-on-cdd-1, .ae-addc-i-on-cdd-0-2, .ae-addc-i-on-brex-1, .ae-addc-i-on-brex-0-2').empty();
 		$('.ae-edition-input, .ae-region-input').val('');
 		$('.ae-region-input').attr('data-regionid','');
 		$('.ae-edition-input').attr('data-editionid','');
 		toCreateDataArr = [];
-		for (var i in data.success) {
-			createNotification(data.success[i][0].id, 'Created', data.success[i][0].site, data.success[i][0].user);
+		for (var i in data.success) { //Loop Per Website
+			for (var j in data.success[i]){
+				createNotification(data.success[i][j].id, data.success[i][j].merchant, 'Created', data.success[i][j].site, data.success[i][j].user);
+			}
 		}
 	} else {
 		alertMsg("Failed Message Here", "bg-danger")
 	}
 }
 
-function createNotification($id, $what, $site, $employee) {
+function createNotification($id, $merchantID, $what, $site, $employee) {
 	var dataRequest = {
 		action: 'insert-to-notifiction',
 		getID: $id,
+		getMerchantID: $merchantID,
 		getWhat: $what,
 		getSite: $site,
 		getEmployee: $employee

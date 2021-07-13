@@ -785,20 +785,35 @@ class Ajax {
 				$updateOnProblem = $db->delete('`aks`.`tblReports`', $getInput->get('idToRemove'));
 			break;
 			case 'display-notification':
-				// $getlogs =  $db->find('`aks`.`tblLogs`', [
-				// 	'conditions' => ['status = ?'], 
-				// 	'bind' => [0]
-				// ]);
-				// return $getlogs;
-				$sql = "SELECT `s`.`id`,`s`.`productID`,`s`.`action`, `s`.`site`, `u`.`fname`, `t`.`merchant`, `p`.`vols_nom` 
-							FROM `aks`.`tblNotification` `s`
-								INNER JOIN `aks`.`users` `u` ON `s`.`employeeID` = `u`.`id`
-								INNER JOIN `test-server`.`pt_products` `t` ON `s`.`productID`  = `t`.`id`
-								inner join `allkeyshops`.`sale_page` `p` ON `t`.`merchant` = `p`.`vols_id`  
-								where `s`.`status` = 0";
-				return $db->query($sql)->results();
+				$getlogs =  $db->find('`aks`.`tblNotification`', 
+					[
+						'conditions' => ['status = ?'], 
+						'bind' => [0]
+					]
+				);
+				$newArray = array();
+				if(!empty($getlogs)){
+					foreach($getlogs as $getlog){
+						$username = $db->find('`aks`.`users`', [
+						'column' => [ "username" ],
+						'conditions' => ['id = ?'],
+						'bind' => [ $getlog->employeeID ]
+						]);
+						$username = ( !empty($username) ) ? $username[0]->username : 'Not in adminpage3';
+						$newArray[] = [
+							"id" => $getlog->id,
+							"user_id" => $getlog->employeeID,
+							"employee" => $username,
+							"productid" => $getlog->productID,
+							"merchant" => $getlog->merchant,
+							"action" => $getlog->action,
+							"site" => $getlog->site
+						];
+					}
+				}
+				return $newArray;
 			break;
-			case 'update-notifiction':
+			case 'update-notification':
 				$fields = [
 					'status' => 1,
 				];
@@ -1432,11 +1447,11 @@ class Ajax {
 				$product = new Product($getInput->get('source'));
 				$productValues = $product->prepareInsertProduct($_POST['productformData']);
 				$bool = $product->update($getInput->get('productId'), $productValues);
-
 				$successArr = array();
 				if($bool == true){
 					$successArr[] = [
 						'id' => $getInput->get('productId'),
+						'merchant' => $_POST['productformData']['ae-merchant-input'],
 						'site' => $getInput->get('source'),
 						'user' => Users::currentUser()->id
 					];
@@ -1531,16 +1546,23 @@ class Ajax {
 				return $getProductArr;
 			break;
 			case "insert-to-notifiction":
-				$notiFields = [
-					'productID' => $getInput->get('getID'),
-					'action' => $getInput->get('getWhat'),
-					'site' => $getInput->get('getSite'),
-					'employeeID' => $getInput->get('getEmployee')
-				];
-
-				// $insertToLogs old name
-				$insertToNotification = $db->insert('`aks`.`tblNotification`', $notiFields);
-			break;
+				$arr = file_get_contents( ROOT . DS . 'app' . DS .'getStores.json');
+				$getStores = json_decode($arr, true);
+				$getMerchantId = $getInput->get('getMerchantID');
+				$merchantName = "Unknown Merchant";
+				if(array_key_exists($getMerchantId, $getStores))
+					$merchantName = $getStores[$getMerchantId]['name1'];
+				
+                $notiFields = [
+                    'productID' => $getInput->get('getID'),
+                    'merchant' => $merchantName,
+                    'action' => $getInput->get('getWhat'),
+                    'site' => $getInput->get('getSite'),
+                    'employeeID' => $getInput->get('getEmployee')
+                ];
+                // $insertToLogs old name
+                $insertToNotification = $db->insert('`aks`.`tblNotification`', $notiFields);
+            break;
 		} //END OF SWITCH CASE
 	
 	}//END OF FUNCTION AJAXDATA

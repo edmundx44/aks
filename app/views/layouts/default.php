@@ -124,6 +124,7 @@ use Core\Session;
 					}
 	
 					AjaxCall(url, dataRequest).done(function(data) {
+						//console.log(data)
 						if(data != false){
 							let task = delay(2000);
 
@@ -131,11 +132,11 @@ use Core\Session;
 							data.forEach((element,i) => {
 								task = task
 								.finally(() => {
-									toastr.info("<span> " + element.fname + "</span> <span>" + element.action + "<span> on " + element.vols_nom + " " + element.site +".");
+									toastr.info("<span> " + element.employee + "</span> <span>" + element.action + "<span> on " + element.merchant + " " + element.site +".");
 									counter = counter + 1
 
 									var dataRequest =  {
-										action: 'update-notifiction',
+										action: 'update-notification',
 										id: element.id
 									}
 									AjaxCall(url, dataRequest).done(function(data) {})
