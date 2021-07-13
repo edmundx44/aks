@@ -15,6 +15,7 @@ $(function (){
 	$(document).on('click', '.store-games-data-table-tbody-data', function(){
 		var selection = window.getSelection();
 		if(selection.type != "Range") {
+			$(".productNormalizedName").attr("data-product-website", $(".dropdown-menu-btn").html())
 			displayStoreGamesByNormalizedName($(this).data('nname'),$('.dropdown-menu-btn').text());
 		}
 	});

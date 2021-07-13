@@ -484,7 +484,16 @@ $(document).ready(function () {
 			if (e.which == 13) {
 				var $this = $(this)
 				this.value = addZeroesInPrice(this.value)
-				productUpdatePrice($(this).attr('data-dpbnm-id'), this.value, $('.display-product-by-normalised-input').attr('data-product-website'), $this)
+				switch ($(this).attr('data-price')) {
+					case 'product-game-modal':
+						productUpdatePrice($(this).attr('data-dpbnm-id'), this.value, $('.display-product-by-normalised-input').attr('data-product-website'), $this)
+					break;
+					case 'product-store-page':
+						productUpdatePrice($(this).attr('data-dpbnm-id'), this.value, $('.productNormalizedName').attr('data-product-website'), $this)
+					break;
+					default: alertMsg("Something Went wrong !!", "bg-danger");
+					break;
+				}
 			}
 		}
 	})
@@ -615,7 +624,7 @@ function displayProductBynormalised($merchant, $region, $edition, $stock, $price
 	toAppend += '	<td class="" style="padding: 10px 10px;">' + $edition + '</td>';
 	toAppend += '	<td class="hide-on-smmd data-stock" style="padding: 10px 10px;"><span class="dpbnm-update-stock" data-stock="product-game-modal" data-stockvalue="' + $stockValue + '" title="Click to update stock." alt="Click to update stock." data-dpbnm-id="' + $id + '">' + $stock + '</span></td>';
 	toAppend += '	<td class="hide-on-smmd data-price" style="padding: 10px 10px;">';//' + $price + '
-	toAppend += '<input type="text" data-dpbnm-id="' + $id + '" title="Press Enter to update the PRICE." class="dpbnm-update-price" value="' + $price + '">';
+	toAppend += '<input type="text" data-dpbnm-id="' + $id + '" title="Press Enter to update the PRICE." class="dpbnm-update-price" value="' + $price + '" data-price="product-game-modal">';
 	toAppend += '</td>';
 	toAppend += '</tr>';
 	toAppend += '<tr class="' + backColor + '">';
@@ -1547,7 +1556,7 @@ function displayStoreGamesByNormalizedName($normalised_name, $site) {
 			append += '<div class="modal-child-tbody-2">' + data[i].region + '</div>';
 			append += '<div class="modal-child-tbody-3">' + data[i].edition + '</div>';
 			append += '<div class="modal-child-tbody-sub modal-child-tbody-4"><input class="dpbnm-update-stock" type="button" data-stock="product-store-page" data-stockvalue="' + $stock + '"data-prodId="' + data[i].id + '" value="' + data[i].status + '"></div>';
-			append += '<div class="modal-child-tbody-sub modal-child-tbody-5"><input id="price-update" class="modal-val-txt" type="number" 	data-prodId="' + data[i].id + '"	value="' + data[i].price + '"></div>';
+			append += '<div class="modal-child-tbody-sub modal-child-tbody-5"><input type="text" data-dpbnm-id="' + data[i].id + '" title="Press Enter to update the PRICE." class="dpbnm-update-price" data-price="product-store-page" value="' + data[i].price + '"></div>';
 			append += '<div class="modal-child-tbody-sub modal-child-tbody-6">';
 			append += '<div class="show-menu" id="' + data[i].id + '">';
 			append += '<ul class="modal-setting-ul">';
@@ -1606,12 +1615,12 @@ function productUpdateStock($productID, $stock, $site, $this) {
 		if (data) {
 			switch ($stock) {
 				case 0:
-					$($this).html('In Stock');
+					($this.attr("type") == "button") ? $($this).val('In Stock') : $($this).html('In Stock');
 					$($this).attr('data-stockvalue', 1);
 					alertMsg("Successfully update to In Stock", "bg-success");
 					break;
 				case 1:
-					$($this).html('Out Of Stock');
+					($this.attr("type") == "button") ? $($this).val('Out Of Stock') : $($this).html('Out Of Stock');
 					$($this).attr('data-stockvalue', 0);
 					alertMsg("Successfully update to Out of Stock", "bg-success");
 					break;
