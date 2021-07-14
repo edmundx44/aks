@@ -168,7 +168,7 @@
 					</button>
 					<div class="modal-content-header-content ae-modal-content-header-content">
 						<p class="ae-product-p-title"></p>
-						<p style="position:absolute;font-size: 9px;color: #fff;text-transform: uppercase;letter-spacing: 2px;">Mode : <span class="ae-to-what"></span></p>
+						<p class="ae-product-to-what">Mode : <span class="ae-to-what"></span></p>
 						<p class="text-warning text-center ae-ppt-span">*** Do not add region on AKS PC games ***</p>
 						<p class="text-warning text-center ae-ppt-span">LATAM, US, RUSSIA , ACCOUNT, APAC and ASIAN regions</p>
 						<p class="text-warning text-center ae-ppt-span">About consoles all regions are autorised</p>
@@ -215,23 +215,23 @@
 
 						<!-- 1st row -------------------------- -->
 						<div class="col-sm-6">
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fas fa-store-alt"></i>
 								<input type="text" name="ae-merchant-input" class="input-text-class ae-merchant-input" required>
 								<span class="input-text-span">Merchant</span>
 								<span class="input-text-border"></span>
 							</div>
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fas fa-search"></i>
 								<input type="text" name="ae-search-name-input" class="input-text-class ae-search-name-input" required>
 								<span class="input-text-span">Search name</span>
 								<span class="input-text-border"></span>
 							</div>
 							<form> <!-- add form disable autocomplete -->
-								<div class="dropdown" style="margin: 30px 0 0 0;">
-									<input type="text" name="ae-edition-input" data-editionid="" class="input-text-class ae-edition-input dropdown-inputbox" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
+								<div class="dropdown ae-col-div-sub">
+									<input type="text" name="ae-edition-input" data-editionid="" class="input-text-class ae-edition-input dropdown-inputbox" autocomplete='off' required>
 									<i class="input-text-i fal fa-angle-down"></i>
-									<span class="input-text-span" style="left: 5px">Select Edition</span>
+									<span class="input-text-span ae-edition-span-text">Select Edition</span>
 									<span class="input-text-border"></span>
 
 									<div class="dropdown-menu-div dmd-edition">
@@ -241,23 +241,23 @@
 							</form>
 						</div>
 						<div class="col-sm-6">
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fas fa-key"></i>
 								<input type="text" name="ae-gameid-input" class="input-text-class ae-gameid-input" required> <!-- game id = normalise name -->
 								<span class="input-text-span">Game ID</span>
 								<span class="input-text-border"></span>
 							</div>
-							<div class="input-text-div input-text-price" style="margin: 30px 0 0 0;">
+							<div class="input-text-div input-text-price ae-col-div-sub">
 								<i class="input-text-i fas fa-money-check-alt"></i>
 								<input type="text" name="ae-price-input" class="input-text-class ae-price-input" required>
 								<span class="input-text-span">Price</span>
 								<span class="input-text-border"></span>
 							</div>
 							<form> <!-- add form disable autocomplete -->
-								<div class="dropdown" style="margin: 30px 0 0 0;">
-									<input type="text" name="ae-region-input" data-regionid="" class="input-text-class ae-region-input dropdown-inputbox" style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
+								<div class="dropdown ae-col-div-sub">
+									<input type="text" name="ae-region-input" data-regionid="" class="input-text-class ae-region-input dropdown-inputbox" required>
 									<i class="input-text-i fal fa-angle-down"></i>
-									<span class="input-text-span" style="left: 5px">Select Region</span>
+									<span class="input-text-span ae-region-span-text">Select Region</span>
 									<span class="input-text-border"></span>
 									<div class="dropdown-menu-div dmd-region">
 										<!-- display data from database -->
@@ -268,13 +268,13 @@
 
 						<!-- 2nd row -------------------------- -->
 						<div class="col-sm-12">
-							<div class="dropdown" style="margin: 30px 0 0 0;">
-								<input type="text" name="ae-ratings-input" class="input-text-class ae-ratings-input dropdown-inputbox" autocomplete='off' style="left: 0;border-left: solid 2px #ccc;border-right: none;padding: 0 5px;" required>
+							<div class="dropdown ae-col-div-sub">
+								<input type="text" name="ae-ratings-input" class="input-text-class ae-ratings-input dropdown-inputbox" autocomplete='off' required>
 								<i class="input-text-i fal fa-angle-down"></i>
-								<span class="input-text-span" style="left: 5px">Select RATINGS</span>
+								<span class="input-text-span ae-ratings-span-text">Select RATINGS</span>
 								<span class="input-text-border"></span>
 
-								<div class="dropdown-menu-div dmd-ratings" style="overflow:hidden !important;">
+								<div class="dropdown-menu-div dmd-ratings">
 									<div class="dropdown-menu-div-sub dmds-ratings" >0</div>
 									<div class="dropdown-menu-div-sub dmds-ratings" >101</div>
 									<div class="dropdown-menu-div-sub dmds-ratings" >102</div>
@@ -283,13 +283,13 @@
 									<div class="dropdown-menu-div-sub dmds-ratings" >404</div>
 								</div>
 							</div>
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fas fa-external-link-alt"></i>
 								<input type="text" name="ae-url-input" class="input-text-class ae-url-input" required> <!-- url = buy url -->
 								<span class="input-text-span">Url</span>
 								<span class="input-text-border"></span>
 							</div>
-							<div class="input-text-div input-text-raw" style="margin: 30px 0 0 0; display:none;">
+							<div class="input-text-div input-text-raw ae-col-div-sub">
 								<i class="input-text-i fas fa-external-link-alt"></i>
 								<input type="text" name="ae-url-raw-input" class="input-text-class ae-url-raw-input" required> <!-- url = buy url -->
 								<span class="input-text-span">Buy url raw</span>
@@ -299,7 +299,7 @@
 
 						<!-- 3rd row -------------------------- -->
 						<div class="col-sm-6">
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fas fa-braille"></i>
 								<input type="text" name="ae-keyword-input" class="input-text-class ae-keyword-input" required>
 								<span class="input-text-span">Keyword</span>
@@ -308,7 +308,7 @@
 						</div>
 
 						<div class="col-sm-6">
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fas fa-external-link-square-alt"></i>
 								<input type="text" name="ae-category-input" class="input-text-class ae-category-input" required>
 								<span class="input-text-span">Category</span>
@@ -318,7 +318,7 @@
 
 						<!-- 4th row -------------------------- -->
 						<div class="col-sm-12">
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fas fa-external-link-square-alt"></i>
 								<input type="text" name="ae-buy-url-bis-input" class="input-text-class ae-buy-url-bis-input" required>
 								<span class="input-text-span">Buy url bis</span>
@@ -328,74 +328,74 @@
 
 						<!-- 5th row -------------------------- -->
 						<div class="col-sm-6">
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fab fa-staylinked"></i>
 								<input type="text" name="ae-buy-url-tier-input" class="input-text-class ae-buy-url-tier-input" required>
 								<span class="input-text-span">Buy url tier</span>
 								<span class="input-text-border"></span>
 							</div>
 
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i far fa-calendar-alt"></i>
-								<input type="text" name="ae-release-date-input" class="input-text-class ae-release-date-input" style="background-color: #ededed;pointer-events: none;" required>
+								<input type="text" name="ae-release-date-input" class="input-text-class ae-release-date-input" required>
 								<span class="input-text-span">Release date</span>
 								<span class="input-text-border"></span>
 							</div>
 
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fas fa-plus-circle"></i>
-								<input type="text" name="ae-metacritic-score-input" class="input-text-class ae-metacritic-score-input" style="background-color: #ededed;pointer-events: none;" required>
+								<input type="text" name="ae-metacritic-score-input" class="input-text-class ae-metacritic-score-input" required>
 								<span class="input-text-span">Metacritic score</span>
 								<span class="input-text-border"></span>
 							</div>
 
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fas fa-plus-circle"></i>
-								<input type="text" name="ae-metacritic-critic-score-input" class="input-text-class ae-metacritic-critic-score-input" style="background-color: #ededed;pointer-events: none;" required>
+								<input type="text" name="ae-metacritic-critic-score-input" class="input-text-class ae-metacritic-critic-score-input" required>
 								<span class="input-text-span">Metacritic critic score</span>
 								<span class="input-text-border"></span>
 							</div>
 
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fas fa-plus-circle"></i>
-								<input type="text" name="ae-metacritic-user-score-input" class="input-text-class ae-metacritic-user-score-input" style="background-color: #ededed;pointer-events: none;" required>
+								<input type="text" name="ae-metacritic-user-score-input" class="input-text-class ae-metacritic-user-score-input" required>
 								<span class="input-text-span">Metacritic user score</span>
 								<span class="input-text-border"></span>
 							</div>
 						</div>
 
 						<div class="col-sm-6">
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fab fa-staylinked"></i>
 								<input type="text" name="ae-buy-url-4-input" class="input-text-class ae-buy-url-4-input" required>
 								<span class="input-text-span">Buy url 4</span>
 								<span class="input-text-border"></span>
 							</div>
 
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fas fa-calendar"></i>
-								<input type="text" name="ae-release-year-input" class="input-text-class ae-release-year-input" style="background-color: #ededed;pointer-events: none;" required>
+								<input type="text" name="ae-release-year-input" class="input-text-class ae-release-year-input" required>
 								<span class="input-text-span">Release year</span>
 								<span class="input-text-border"></span>
 							</div>
 
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fas fa-adjust"></i>
-								<input type="text" name="ae-metacritic-count-input" class="input-text-class ae-metacritic-count-input" style="background-color: #ededed;pointer-events: none;" required>
+								<input type="text" name="ae-metacritic-count-input" class="input-text-class ae-metacritic-count-input" required>
 								<span class="input-text-span">Metacritic count</span>
 								<span class="input-text-border"></span>
 							</div>
 
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fas fa-adjust"></i>
-								<input type="text" name="ae-metacritic-critic-count-input" class="input-text-class ae-metacritic-critic-count-input" style="background-color: #ededed;pointer-events: none;" required>
+								<input type="text" name="ae-metacritic-critic-count-input" class="input-text-class ae-metacritic-critic-count-input" required>
 								<span class="input-text-span">Metacritic critic count</span>
 								<span class="input-text-border"></span>
 							</div>
 
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fas fa-adjust"></i>
-								<input type="text" name="ae-metacritic-user-count-input" class="input-text-class ae-metacritic-user-count-input" style="background-color: #ededed;pointer-events: none;" required>
+								<input type="text" name="ae-metacritic-user-count-input" class="input-text-class ae-metacritic-user-count-input" required>
 								<span class="input-text-span">Metacritic user count</span>
 								<span class="input-text-border"></span>
 							</div>
@@ -403,72 +403,72 @@
 
 						<!-- 6th row -------------------------- -->
 						<div class="col-sm-12">
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="ae-image-url-input" class="input-text-class ae-image-url-input" style="background-color: #ededed;pointer-events: none;">
+								<input type="text" name="ae-image-url-input" class="input-text-class ae-image-url-input">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="ae-description-input" class="input-text-class ae-description-input" style="background-color: #ededed;pointer-events: none;">
+								<input type="text" name="ae-description-input" class="input-text-class ae-description-input">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="ae-description-usa-or-eu-input" class="input-text-class ae-description-usa-or-eu-input" style="background-color: #ededed;pointer-events: none;">
+								<input type="text" name="ae-description-usa-or-eu-input" class="input-text-class ae-description-usa-or-eu-input">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="ae-description-ru-input" class="input-text-class ae-description-ru-input" style="background-color: #ededed;pointer-events: none;">
+								<input type="text" name="ae-description-ru-input" class="input-text-class ae-description-ru-input">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="ae-description-fr-input" class="input-text-class ae-description-fr-input" style="background-color: #ededed;pointer-events: none;">
+								<input type="text" name="ae-description-fr-input" class="input-text-class ae-description-fr-input">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="ae-description-de-input" class="input-text-class ae-description-de-input" style="background-color: #ededed;pointer-events: none;">
+								<input type="text" name="ae-description-de-input" class="input-text-class ae-description-de-input">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="ae-description-es-input" class="input-text-class ae-description-es-input" style="background-color: #ededed;pointer-events: none;">
+								<input type="text" name="ae-description-es-input" class="input-text-class ae-description-es-input">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="ae-description-it-input" class="input-text-class ae-description-it-input" style="background-color: #ededed;pointer-events: none;">
+								<input type="text" name="ae-description-it-input" class="input-text-class ae-description-it-input">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="ae-description-pt-input" class="input-text-class ae-description-pt-input" style="background-color: #ededed;pointer-events: none;">
+								<input type="text" name="ae-description-pt-input" class="input-text-class ae-description-pt-input">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
 
-							<div class="input-text-div" style="margin: 30px 0 0 0;">
+							<div class="input-text-div ae-col-div-sub">
 								<i class="input-text-i fab fa-accusoft"></i>
-								<input type="text" name="ae-description-nl-input" class="input-text-class ae-description-nl-input" style="background-color: #ededed;pointer-events: none;">
+								<input type="text" name="ae-description-nl-input" class="input-text-class ae-description-nl-input">
 								<span class="input-text-span"></span>
 								<span class="input-text-border border border-warning"></span>
 							</div>
@@ -476,7 +476,7 @@
 
 					</div> <!-- end row -->
 				</div>
-				<div class="modal-content-foot ae-modal-footer" style="height: 70px;border-top: solid 1px rgba(0,123,255, .5); padding: 10px;text-align: right;">
+				<div class="modal-content-foot ae-modal-footer">
 					<!-- append button create of edit dynamic -->
 				</div>
 			</div>
@@ -484,100 +484,53 @@
 	</div>
 </div>
 
-<!-- display by normalized name 1st try -->
-<div class="modal" id="displayStoreGamesByNormalizedName">
-	<div class="modal-dialog displayStoreGamesByNormalizedNameDialog">
-		<div class="modal-content displayStoreGamesByNormalizedNameContent" style="top: 70px;">
-
-			<!-- Modal Header -->
-			<div class="modal-header">
-				<!-- search name and normalized name -->
-				<div class="modal-title">
-					<div class="sideborder"></div>
-					<span class="productName"></span> 
-					<span class="productNormalizedName"></span> 
-				</div>
-				<button type="button" class="close" data-dismiss="modal">×</button>
-				<br>
-				<br>
-				<br>
-			</div>
-
-			<!-- Modal body -->
-			<div class="modal-body displayStoreGamesByNormalizedNameBody">
-				<div class="nname-modal-thead">
-					<div class="nname-modal-thead-div">
-						<div class="modal-child modal-child-1">Merchant</div>
-						<div class="modal-child modal-child-2">Region</div>
-						<div class="modal-child modal-child-3">Edition</div>
-						<div class="modal-child modal-child-4">Stock</div>
-						<div class="modal-child modal-child-5">Price</div>
-						<div class="modal-child modal-child-6"> &nbsp; </div>
-					</div>
-				</div>
-				<div class="nname-modal-tbody">
-					<!-- dynamic data here -->
-				</div>
-			</div>
-
-			<!-- Modal footer -->
-			<div class="modal-footer">
-				<button type="button" class="btn modal-close-btn" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-
 <!-- checksum Modal -->
 <div id="checksum-modal" class="modal fade" role="dialog">
 	<div class="modal-dialog checksum-dialog">
 		<!-- Modal content-->
-		<div class="modal-content modal-con-override" style="top: 70px; border-radius: .5rem">
-			<div class="modal-header" style="background: linear-gradient(60deg, #004ea3, #0062cc);color: #fff;letter-spacing: 1px;">
+		<div class="modal-content modal-con-override cm-modal-content">
+			<div class="modal-header cm-modal-header">
 				<h5 class="modal-title dateChange">CHECKSUM 
- 					<?php 
-						echo "(PH:". $today = date('M d',strtotime(date('M d'))).")";
-					?>
+ 					<?php echo "(PH:". $today = date('M d',strtotime(date('M d'))).")";?>
 				</h5>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
-			<div class="col-sm-12 modal-checksum-site" data-modal-checksumsite="aks" style="margin-bottom: 5px;margin-top: 5px;">
+			<div class="col-sm-12 modal-checksum-site" data-modal-checksumsite="aks">
 				<div class="dropdown-box dbox-hide">
-                    <div class="dropdown-div" style="width: 150px;">
-                        <div class="select custom-bkgd">
-                            <span class="selected-data change-site">Website</span>
-                            <span class="float-right"><i class="fas fa-caret-down"></i></span>
-                        </div>
-                        <ul class="dropdown-menu cos-dropdown-menu">
-                            <li class='opt-site-chk' data-website="aks">AKS</li>
-                            <li class='opt-site-chk' data-website="cdd">CDD</li>
-                            <li class='opt-site-chk' data-website="brexitgbp">BREXITGBP</li>
-                        </ul>
-                    </div>
-                    <div class="float-right custom-bkgd chkTable-total" style="padding: 8px;width: 120px;color: #fff;text-align: center;">TOTAL</div>
+					<div class="dropdown-div cm-dd-div">
+						<div class="select custom-bkgd">
+							<span class="selected-data change-site">Website</span>
+							<span class="float-right"><i class="fas fa-caret-down"></i></span>
+						</div>
+						<ul class="dropdown-menu cos-dropdown-menu">
+							<li class='opt-site-chk' data-website="aks">AKS</li>
+							<li class='opt-site-chk' data-website="cdd">CDD</li>
+							<li class='opt-site-chk' data-website="brexitgbp">BREXITGBP</li>
+						</ul>
+					</div>
+					<div class="float-right custom-bkgd chkTable-total">TOTAL</div>
 				</div>
-            </div>
-                <div class="modal-checksum-data col-sm-12">
-                    <table class="table table-checksum">
-                        <thead>
-                            <tr>
-                                <th>Merchant</th>
-                                <th>Checksum Data</th>
-                                <th>Last Update</th>
-                                <th>Status(Today)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="checksum-body">
+			</div>
+				<div class="modal-checksum-data col-sm-12">
+					<table class="table table-checksum">
+						<thead>
+							<tr>
+								<th>Merchant</th>
+								<th>Checksum Data</th>
+								<th>Last Update</th>
+								<th>Status(Today)</th>
+							</tr>
+						</thead>
+						<tbody class="checksum-body">
 
-                        </tbody>
-                    </table>
-                    <div class="loader-checksum-mdata col-sm-12" style="display: none; height: 500px;"><?php //$this->loader('layouts','loader'); ?></div>
-                </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-                <!-- <button type="button" class="btn btn-success addChangeLog">Submit</button> -->
-            </div>
+						</tbody>
+					</table>
+					<div class="loader-checksum-mdata col-sm-12"><?php //$this->loader('layouts','loader'); ?></div>
+				</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+				<!-- <button type="button" class="btn btn-success addChangeLog">Submit</button> -->
+			</div>
 		</div>
 	</div>
 </div>
@@ -602,10 +555,10 @@
     </div>
 </div>
 
-<!-- Create reports reports modal -->
+<!-- Create reports modal -->
 <div class="modal fade" id="createReportModal" role="dialog">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content" style="top: 70px;">
+        <div class="modal-content crm-modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Create reports</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -618,39 +571,39 @@
                             <input type="text" value='' class="inputText cr-url-txtbox-class" id="cr-url-txtbox" onkeyup="this.setAttribute('value', this.value);" />
                             <span class="floating-label">URL</span>
                         </div>
-                        <div style="padding: 10px;margin-left: 15px;font-size: 12px;letter-spacing: 1px;" class="url-msg"></div>
+                        <div class="url-msg"></div>
                     </div>
                     <br/> 
                     <br/> 
                     <br/>
                     <div class="col-12">
-                        <div style="border:solid 2px #777;padding: 15px;">
-                            <span style="position: absolute;top: -10px;right: 30px;background-color: #777;color: #fff;font-size: 13px;padding: 0 15px 0 15px;">SELECT SITE</span>
+                        <div class="crm-modal-body-content">
+                            <span class="crm-mbc-span-title">SELECT SITE</span>
 
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input checkbox-site" type="checkbox" id="AKS" value="option1" style="margin-top: -1px;cursor: pointer;" disabled/>
-                                <label class="form-check-label" for="AKS" style="cursor: pointer;font-size: 15px;">AKS</label>
+                                <input class="form-check-input checkbox-site crm-mbc-checbox" type="checkbox" id="AKS" value="option1" disabled/>
+                                <label class="form-check-label crm-mbc-checbox-label" for="AKS">AKS</label>
                             </div>
 
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input checkbox-site" type="checkbox" id="CDD" value="option2" style="margin-top: -1px;cursor: pointer;" disabled/>
-                                <label class="form-check-label" for="CDD" style="cursor: pointer;font-size: 15px;">CDD</label>
+                                <input class="form-check-input checkbox-site crm-mbc-checbox" type="checkbox" id="CDD" value="option2" disabled/>
+                                <label class="form-check-label crm-mbc-checbox-label" for="CDD">CDD</label>
                             </div>
 
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input checkbox-site" type="checkbox" id="BREX" value="option2" style="margin-top: -1px;cursor: pointer;" disabled/>
-                                <label class="form-check-label" for="BREX" style="cursor: pointer;font-size: 15px;">BREXIT</label>
+                                <input class="form-check-input checkbox-site crm-mbc-checbox" type="checkbox" id="BREX" value="option2" disabled/>
+                                <label class="form-check-label crm-mbc-checbox-label" for="BREX">BREXIT</label>
                             </div>
                         </div>
-                        <div class="display-found-url" style="padding: 15px;">
-                           
+                        <div class="display-found-url">
+                           <!-- data from database -->
                         </div>
                     </div>
 
                     <div class="col-12">
                         <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle cr-select-problem-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;text-align: left;">Select Problem</button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
+                            <button class="btn btn-primary dropdown-toggle cr-select-problem-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Problem</button>
+                            <div class="dropdown-menu col-12" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item cr-select-problem-btn-dd" href="#">Wrong price</a>
                                 <a class="dropdown-item cr-select-problem-btn-dd" href="#">Wrong stock</a>
                                 <a class="dropdown-item cr-select-problem-btn-dd" href="#">Price to zero</a>
@@ -680,18 +633,17 @@
     </div>
 </div>
 
-
-<!-- Create check and compare reports modal -->
+<!-- check and compare reports modal -->
 <div class="modal fade" id="crcac" role="dialog">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content" style="top: 70px;">
+        <div class="modal-content cacrm-modal-content">
             <div class="modal-header">
-                <p class="modal-title" style="font-weight: 500;">
+                <p class="modal-title cacrm-modal-title">
                     <span>CHECK AND COMPARE</span>
                     <br>
-                    <span class="" style="font-size: 13px;position: relative;">ID: <span class="span-what-id"></span></span>
+                    <span class="cacrm-mt-id">ID: <span class="span-what-id"></span></span>
                     <br> 
-                    <span class="span-what-problem" style="font-size: 13px;position: relative;"></span>
+                    <span class="span-what-problem"></span>
                     <span class="span-what-rating d-none"></span>
                     <span class="span-what-reported d-none"></span>
                     <span class="span-what-tblid d-none"></span>
@@ -704,7 +656,7 @@
                     <span class="span-what-site-stock d-none"></span>
                     
                 </p>
-                <button type="button" class="close" data-dismiss="modal" style="opacity: 1;outline: 0;position: absolute; right: 0; top: 0;background-color: #fff;padding: 10px;border-radius: 50px;width: 20px;height: 20px;"> <span style="position: relative;top: -13px;left: -5.5px;">&times;</span></button>
+                <button type="button" class="close cacrm-modal-close" data-dismiss="modal"> <span class="cacrm-mc-span-close">&times;</span></button>
                 <span class="float-right">By: <span class="checker-span"></span></span>
             </div>
             <div class="modal-body">
@@ -757,7 +709,7 @@
                             <li class="cr-cac-list-btn" id="cr-ptz"><i class="fas fa-caret-right"></i> <span>Price to zero</span></li>
                         </ul>
                     </div>
-                    <i class="fas fa-users-cog cr-modal-show-list" style="font-size: 30px;color: #0062cc;margin-top: 8px; cursor: pointer;"></i>
+                    <i class="fas fa-users-cog cr-modal-show-list"></i>
                 </div>
             </div>
         </div>
@@ -1285,557 +1237,6 @@
     </div>
 </div>
 
-
-<style>
-/*search product modal or spm section ---------------------------------------------------------------*/
-	.spm-header-dd {
-		width: 150px;
-		margin-right: 0;
-		display: block;
-		margin-left: auto;
-	}
-	.spm-header-search-box {
-		margin: 15px 0 0 0;
-	}	
-	.spm-sub-header-tittle {
-		margin: 10px 0 0 0;
-	}
-	.spmc-content-dd {
-		display: inline-block;
-		position: relative;
-	}
-	.dropdown-toggle {
-		box-shadow: none !important;
-	}
-	.spmc-request-id-btn {
-		position: relative;
-		display:none;
-	}
-	/*.spm-dialog {
-		height:  calc(100% - 60px);
-	}*/
-	.spm-dialog-height-max {
-		margin-top: ;
-		height:  calc(100% - 60px);
-	}
-	.spm-dialog-height-mid {
-		margin-top: 10%;
-		height:  calc(100% - 300px);
-	}
-	.spm-dialog-height-min {
-		margin-top: 15%;
-		height:  calc(100% - 480px);
-	}
-	.spm-dialog-height {
-		margin-top: 20%;
-	}
-	.spm-dialog {
-		/*-webkit-transition: .2s ease-in-out !important;
-		-moz-transition: .2s ease-in-out !important;
-		-o-transition: .2s ease-in-out !important;
-		transition: .2s ease-in-out !important;*/
-	}
-
-	.spm-content {
-		height: 100%;
-		border-radius: 0;
-		background-clip: initial;
-		background: rgba(0,123,255, .5);
-		border: none;
-		padding: 10px;
-	}
-	.spm-content-wrapper {
-		height: 100%;
-		padding: 10px;
-		width: 100%;
-		background-color: #fff;
-		position: relative;
-	}
-	.search-product-modal-txt {
-		left: 0;
-		border-right: none;
-		padding-left: 5px;
-		border-left: solid 2px #ccc;
-	}
-	.search-product-modal-i {
-		cursor: pointer;
-	}
-	.search-product-modal-span {
-		left: 5px;
-	}
-	.spm-content-body {
-		margin: 10px 0 0 0;
-		height: calc(100% - 100px);
-		overflow: hidden;
-		display: none;
-	}
-	.spm-sub-header {
-		display: flex;
-		justify-content: space-between;
-	}
-	.spm-content-display {
-		margin: 10px 0 0 0;
-		height: calc(100% - 50px);
-		overflow-x: scroll;
-	}
-	.spmc-display-content-wrapper {
-		margin: 0 0 10px 0;
-		box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%);
-		cursor: pointer;
-		word-break: break-all;
-		position: relative;
-	}
-	.spmc-display-content-wrapper:hover {
-		background-color: #ededed;
-	}
-	.spmc-btn {
-		display: none;
-	}
-	.spmc-open-list-btn {
-		position: absolute;
-		top: 50%;
-		-ms-transform: translateY(-50%);
-		transform: translateY(-50%);
-		margin-left: auto;
-		margin-right: auto;
-		left: 0;
-		right: 0;
-	}
-	.spmc-dcw-btn-div {
-		width: 150px;
-		right: 0;
-		position: absolute;
-		height: 100%;
-	}
-	.spmc-dcw-merchant-div {
-		width: calc(100% - 150px);
-		font-weight: 500;
-		padding: 15px 15px 0 15px;
-	}
-	.spmc-dcw-url-div {
-		width: calc(100% - 150px);
-		padding: 0 15px 15px 15px;
-	}
-	.spmc-dm-di {
-		cursor: pointer;
-	}
-	.spmc-dm-di:hover {
-		color: #fff;
-		background-color: #138496;
-	}
-	.dropdown-menu-div {
-		display: none;
-		width: 100%;
-		height: auto;
-		max-height: 400px;
-		background-color: #fff;
-		border: solid 1px #ccc;
-		position: absolute;
-		z-index: 2;
-		overflow: auto;
-		overflow-x: hidden;
-	}
-	.dropdown-menu-div-sub {
-		padding: 10px 25px;
-		cursor: pointer;
-	}
-	
-	.dropdown-menu-div-sub:hover {
-		color: #fff;
-		background-color: #0069d9;
-	}
-
-	/*loader div -------------------------------------------*/
-	.spmc-loader-wrapper {
-		margin: 10px 0 0 0;
-		padding-bottom: 35px;
-		display: none;
-	}
-	.span-txt {
-		font-weight: 500;
-		font-size: 15px;
-		letter-spacing: 2px;
-	}
-	.boxes {
-		margin-top: 10px;
-		margin-left: auto;
-		margin-right: auto;
-		 --size: 12px;
-		 --duration: 800ms;
-		 height: calc(var(--size) * 2);
-		 width: calc(var(--size) * 3);
-		 position: relative;
-		 transform-style: preserve-3d;
-		 transform-origin: 50% 50%;
-		 transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
-	}
-	.boxes .box {
-		 width: var(--size);
-		 height: var(--size);
-		 top: 0;
-		 left: 0;
-		 position: absolute;
-		 transform-style: preserve-3d;
-	}
-	 .boxes .box:nth-child(1) {
-		 transform: translate(100%, 0);
-		 animation: box1 var(--duration) linear infinite;
-	}
-	 .boxes .box:nth-child(2) {
-		 transform: translate(0, 100%);
-		 animation: box2 var(--duration) linear infinite;
-	}
-	 .boxes .box:nth-child(3) {
-		 transform: translate(100%, 100%);
-		 animation: box3 var(--duration) linear infinite;
-	}
-	 .boxes .box:nth-child(4) {
-		 transform: translate(200%, 0);
-		 animation: box4 var(--duration) linear infinite;
-	}
-	.boxes .box > div {
-		 --background: #5c8df6;
-		 --top: auto;
-		 --right: auto;
-		 --bottom: auto;
-		 --left: auto;
-		 --translateZ: calc(var(--size) / 2);
-		 --rotateY: 0deg;
-		 --rotateX: 0deg;
-		 position: absolute;
-		 width: 100%;
-		 height: 100%;
-		 background: var(--background);
-		 top: var(--top);
-		 right: var(--right);
-		 bottom: var(--bottom);
-		 left: var(--left);
-		 transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));
-	}
-	 .boxes .box > div:nth-child(1) {
-		 --top: 0;
-		 --left: 0;
-	}
-	 .boxes .box > div:nth-child(2) {
-		 --background: #145af2;
-		 --right: 0;
-		 --rotateY: 90deg;
-	}
-	 .boxes .box > div:nth-child(3) {
-		 --background: #447cf5;
-		 --rotateX: -90deg;
-	}
-	 .boxes .box > div:nth-child(4) {
-		 --background: #dbe3f4;
-		 --top: 0;
-		 --left: 0;
-		 --translateZ: calc(var(--size) * 3 * -1);
-	}
-	 @keyframes box1 {
-		 0%, 50% {
-			 transform: translate(100%, 0);
-		}
-		 100% {
-			 transform: translate(200%, 0);
-		}
-	}
-	 @keyframes box2 {
-		 0% {
-			 transform: translate(0, 100%);
-		}
-		 50% {
-			 transform: translate(0, 0);
-		}
-		 100% {
-			 transform: translate(100%, 0);
-		}
-	}
-	 @keyframes box3 {
-		 0%, 50% {
-			 transform: translate(100%, 100%);
-		}
-		 100% {
-			 transform: translate(0, 100%);
-		}
-	}
-	 @keyframes box4 {
-		 0% {
-			 transform: translate(200%, 0);
-		}
-		 50% {
-			 transform: translate(200%, 100%);
-		}
-		 100% {
-			 transform: translate(100%, 100%);
-		}
-	}
-
-/*add edit modal section ------------------------------------------*/
-	.ae-modal-dialog {
-		height:  calc(100% - 60px);
-	}
-	.ae-modal-content {
-		height:  100%;
-		border-radius: 0;
-		background-clip: initial; 
-		background: rgba(0,123,255, .5);
-		border: none;
-		padding: 10px;
-	}
-	.ae-modal-conten-wrapper {
-		width: 100%;
-		height: 100%;
-		background-color: #fff;
-	}
-	.ae-modal-content-header {
-		height: 100px;
-		background-color: #1e1e2f;
-	}
-	.ae-modal-dismiss {
-		position: relative;
-		right: 15px;
-		top: 10px;
-		color: #fff;
-		font-size: 15px;
-	}
-	.ae-modal-content-header-content {
-		padding: 10px 0 15px 15px;
-	}
-	.ae-product-p-title {
-		margin: 0; 
-		padding: 0;
-		color: #fff;
-		letter-spacing: 2px;
-	}
-	.ae-ppt-span {
-		margin: 0; 
-		padding: 0;
-		color: #fff;
-		font-size: 12px;
-	}
-	.ae-modal-content-body {
-		height:  calc(100% - 170px);
-		overflow-y: auto;
-		overflow-x: hidden;
-	}
-	.ae-autocreation-available-btn {
-		position: fixed;
-		top: 50%;
-		left: -10px;
-		transform: translate(-50%, -50%);
-		width: 40px;
-		height: 40px;
-		background-color: #fff;
-		border-radius: 5px 0 0 5px;
-		cursor: pointer;
-		text-align: center;
-		color: #007bff;
-		z-index: 4;
-
-	}
-	.ae-aad-icon {
-		font-size: 16px;
-		position: fixed;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		-webkit-transition: .1s ease-in-out !important;
-		-moz-transition: .1s ease-in-out !important;
-		-o-transition: .1s ease-in-out !important;
-		transition: .1s ease-in-out !important;
-	}
-	.ae-aad-icon:hover {
-		margin: 1px 0 0 1px;
-		font-size: 20px;
-	}
-	.ae-autocreation-available-div-content {
-		position: fixed;
-		top: 50%;
-		left: 0;
-		transform: translate(10px, -50%);
-		width: calc(40% - 28px);
-		height: 400px;
-		border: solid 2px #007bff;
-		border-left: none;
-		z-index: 3;
-		background-color: #fff;
-		border-radius: 0 5px 5px 0;
-		overflow: hidden;
-		display: none;
-	}
-	.ae-aadc-ul {
-		list-style-type: none;
-		padding: 0px;
-		margin: 2px;
-		display: flex;
-		background-color: #007bff;
-		color: #fff;
-		border-top-right-radius: 3px;
-	}
-	.ae-aadc-li {
-		display: inline-block;
-		width: 33.33%;
-		text-align: center;
-		padding: 10px;
-		cursor: pointer;
-		letter-spacing: 2px;
-		font-size: 15px;
-	}
-	.ae-aadc-li:hover {
-		color: #6b6d70;
-		background-color: #fff;
-	}
-	.ae-aadc-description {
-		background-color: #fff;
-		position: absolute;
-		margin: 0 0 0 0;
-		padding: 15px 15px;
-		font-size: 13px;
-		width: calc(100% - 10px);
-		z-index: 1;
-	}
-	.ae-aadc-includes {
-		height: calc(100% - 40px);
-		padding: 50px 35px 15px 35px;
-		font-size: 12px;
-		overflow: auto;
-	}
-	.ae-aadc-includes .form-check {
-		margin-bottom: 5px;
-	}
-	.ae-addc-i-on-cdd
-	.ae-addc-i-on-brex {
-		display: none;
-	}
-	.ae-mcb-row {
-		padding: 10px 25px 40px 25px;
-	}
-
-	/*table css section ---------------------------------------------------------------*/
-	.hide-on-lgxl {
-		display: none;
-	}
-	.table-body-even-number-background {
-		background-color: #cccccc;
-	}
-
-	/*display by normalised name css section --------------------------------------------*/
-	.dpbn-modal-dialog {
-		height:  calc(100% - 60px);
-	}
-	.dpbn-modal-content {
-		height:  100%;
-		border-radius: 0;
-		background-clip: initial; 
-		background: rgba(0,123,255, .5);
-		border: none;padding: 10px;
-	}
-	.dpbn-mcw {
-		width: 100%;
-		height: 100%;
-		background-color: #fff;
-	}
-	.dpbn-mch {
-		height: 100px;
-		margin-top: 10px;
-	}
-	.dpbn-btn-dismis {
-		position: relative;
-		right: 15px;top: 3px;
-		font-size: 15px;
-	}
-	.dpbn-mchc {
-		padding: 10px 0 15px 15px;
-	}
-	.display-product-by-normalised-input {
-		height: 20px;
-		left: 0;
-		padding: 0;
-		margin: 0 !important;
-		border: none;
-		font-weight: 700;
-	}
-	.dmd-dpbn {
-		overflow: hidden !important;
-	}
-	.dpbnm-product-name {
-		margin: 0; padding: 0;font-size: 12px;
-	}
-	.dpbnm-product-nname {
-		margin: 0; 
-		padding: 0;
-		font-size: 12px;
-		border: none;
-		outline: none;
-	}
-	.dpbn-mcb {
-		height:  calc(100% - 120px);
-		padding: 0 10px;
-		overflow: auto;
-	}
-	.dpbn-thead {
-		color: #fff;
-		font-size: 13px;
-		letter-spacing: 1px;
-	}
-	.dpbn-thead-tr {
-		position: relative;
-		z-index: 1;
-	}
-	.dpbn-thead-th {
-		background: rgba(0,123,255, 1);
-		position: sticky;
-		padding: 5px 10px;
-		width: 20%;
-		top: 0;
-	}
-	.dpbnm-loader-wrapper {
-		display: none;
-	}
-
-	.dpbnm-product-action {
-		position: absolute; 
-		top: -35px; 
-		right: 10px;
-		cursor: pointer;
-	}
-	.dpbnm-product-action-div {
-		width: 120px;
-		height: 85px;
-		box-shadow: 0 1px 5px 0 rgb(0 0 0 / 56%);
-		border-radius: 3px;
-		position: absolute;
-		top: -18px;
-		right: 30px;
-		z-index: 1;
-		background-color: #fff;
-		display: none;
-	}
-	.dpbnm-product-action-ul {
-		list-style-type: none; 
-		padding: 10px 0 0 0;
-		margin: 0;
-		font-size: 14px;
-	}
-	.dpbnm-product-action-li {
-		padding: 5px 10px 0 10px;
-		cursor: pointer;
-	}
-	.dpbnm-product-action-li i{
-		top: -1.5px;
-		position: relative;
-	}
-	.dpbnm-product-action-li:hover > .dpbnm-product-action-li-span {
-		text-decoration: underline;
-	}
-	
-	.dpbnm-update-stock {
-		cursor: pointer;
-	}
-	.dpbnm-update-stock:hover {
-		text-decoration: underline;
-	}
-</style>
 
 <!-- // default modal design
 <div class="modal fade bd-example-modal-lg add-edit-store-game-modal no-padding" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">

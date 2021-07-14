@@ -657,6 +657,7 @@ function getMerchantsData() {
 }
 
 function getByNormalisedName($normalisedName, $site) {
+	$('.dpbnm-product-name').html('')
 	$('.dpbnm-table-body').empty();
 	$('.dpbnm-loader-wrapper').show();
 	var dataRequest = {
