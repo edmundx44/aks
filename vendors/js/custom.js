@@ -316,17 +316,17 @@ $(document).ready(function () {
 			toCreateDataArr.push({
 				'merchantID': ""+getMerchant+"",
 				'url': getUrl,
-				'region': getRegion,
-				'edition': getEdition,
-				'site': getUrl
+				'region': ""+getRegion+"",
+				'edition': ""+getEdition+"",
+				'site': getsite
 			});
 		}else {
 			var getIndex;
 			toCreateDataArr.findIndex(function (item, i) {
-			    if (item.merchantID == getMerchant && item.edition == getEdition && item.region == getRegion && item.site == getsite) {
-			    	getIndex = i;
-			    	return true;
-			    }
+				if (item.merchantID == getMerchant && item.edition == getEdition && item.region == getRegion && item.site == getsite) {
+					getIndex = i;
+					return true;
+				}
 			});
 			toCreateDataArr.splice(getIndex, 1);
 		}
@@ -421,25 +421,25 @@ $(document).ready(function () {
 	});
 
 	$(document).on('click', '#ae-btn-add', function () {
-		// console.log(toCreateDataArr.length);
+		console.log(toCreateDataArr);
 
-		if(toCreateDataArr.length == 0){
-			alertMsg("Invalid data, kindly check it carefully", "bg-danger")
-		}else{
-			var serialize = $('#ae-mcb-row :input').serializeArray();
-			var dataRequest = aeProduct(serialize, 'create');
-			//console.log(dataRequest)
-			AjaxCall(url, dataRequest).done( aeAddSuccess ).always(function () { 
-				$(".add-edit-store-game-modal").modal('hide');
-				setUrlParam('normalisedname', $(".ae-gameid-input").val());
-				$('.dpbnm-product-nname').val($(".ae-gameid-input").val())
-				$('.display-product-by-normalised-input').val($('.ae-product-p-title').html())
-				$('.display-product-by-normalised-input').attr('data-product-website', $('.ae-product-p-title').html()) //used for delete
-				$('.displayProductByNormalisedName').modal('show')
-				getByNormalisedName( $(".ae-gameid-input").val(), $('.ae-product-p-title').html() );
-				alertMsg("Successfully created", "bg-success")
-			});
-		}
+		// if(toCreateDataArr.length == 0){
+		// 	alertMsg("Invalid data, kindly check it carefully", "bg-danger")
+		// }else{
+		// 	var serialize = $('#ae-mcb-row :input').serializeArray();
+		// 	var dataRequest = aeProduct(serialize, 'create');
+		// 	//console.log(dataRequest)
+		// 	AjaxCall(url, dataRequest).done( aeAddSuccess ).always(function () { 
+		// 		$(".add-edit-store-game-modal").modal('hide');
+		// 		setUrlParam('normalisedname', $(".ae-gameid-input").val());
+		// 		$('.dpbnm-product-nname').val($(".ae-gameid-input").val())
+		// 		$('.display-product-by-normalised-input').val($('.ae-product-p-title').html())
+		// 		$('.display-product-by-normalised-input').attr('data-product-website', $('.ae-product-p-title').html()) //used for delete
+		// 		$('.displayProductByNormalisedName').modal('show')
+		// 		getByNormalisedName( $(".ae-gameid-input").val(), $('.ae-product-p-title').html() );
+		// 		alertMsg("Successfully created", "bg-success")
+		// 	});
+		// }
 		
 	});
 
@@ -646,6 +646,7 @@ function getMerchantsData() {
 }
 
 function getByNormalisedName($normalisedName, $site) {
+	$('.dpbnm-product-name').html('')
 	$('.dpbnm-table-body').empty();
 	$('.dpbnm-loader-wrapper').show();
 	var dataRequest = {
@@ -654,16 +655,13 @@ function getByNormalisedName($normalisedName, $site) {
 		site: $site
 	}
 	AjaxCall(url, dataRequest).done(function (data) {
-		$('.dpbnm-product-name').html(data[0].searchName)
-
 		var counter = 1;
 		for (var i in data) {
-
+			$('.dpbnm-product-name').html(data[i].searchName)
 			displayProductBynormalised(data[i].merchant, data[i].region, data[i].edition, data[i].status, data[i].price, data[i].buy_url, counter, data[i].id)
 			counter++;
 		}
 	}).always(function (data) {
-		
 		$('.dpbnm-loader-wrapper').hide();
 	});
 
@@ -673,30 +671,30 @@ function displayProductBynormalised($merchant, $region, $edition, $stock, $price
 	var backColor = ($number % 2 == 0) ? 'table-body-even-number-background' : '';
 	var $stockValue = ($stock == 'In Stock') ? 1 : 0;
 	var toAppend = '<tr class="row-' + $id + ' ' + backColor + '">';
-	toAppend += '	<td class="ae-style-mre" style="padding: 10px 10px;">' + $merchant + '</td>';
-	toAppend += '	<td class="ae-style-mre" style="padding: 10px 10px;">' + $region + '</td>';
-	toAppend += '	<td class="ae-style-mre" style="padding: 10px 10px;">' + $edition + '</td>';
-	toAppend += '	<td class="hide-on-smmd data-stock" style="padding: 10px 10px;"><span class="dpbnm-update-stock" data-stock="product-game-modal" data-stockvalue="' + $stockValue + '" title="Click to update stock." alt="Click to update stock." data-dpbnm-id="' + $id + '">' + $stock + '</span></td>';
-	toAppend += '	<td class="hide-on-smmd data-price" style="padding: 10px 10px;">';//' + $price + '
-	toAppend += '<input type="text" data-dpbnm-id="' + $id + '" title="Press Enter to update the PRICE." class="dpbnm-update-price" value="' + $price + '" data-price="product-game-modal">';
-	toAppend += '</td>';
-	toAppend += '</tr>';
-	toAppend += '<tr class="row-' + $id + ' ' + backColor + '">';
-	toAppend += '	<td colspan="5">';
-	toAppend += '		<div style="padding: 0 10px;word-break: break-all;position: relative;">';
-	toAppend += '			<i class="fas fa-edit dpbnm-product-action" id="' + $id + '"></i>';
-	toAppend += '			<div class="dpbnm-product-action-div" id="dpbnmpad-div-' + $id + '">';
-	toAppend += '				<ul class="dpbnm-product-action-ul">';
-	toAppend += '					<li class="dpbnm-product-action-li dpbnm-li-toedit" data-dpbnm-id-toedit="' + $id + '"><i class="fas fa-circle fa-xs"></i> <span class="dpbnm-product-action-li-span">Edit</span></li>';
-	toAppend += '					<li class="dpbnm-product-action-li"><i class="fas fa-circle fa-xs"></i> <span class="dpbnm-delete-product dpbnm-product-action-li-span">Delete</span></li>';
-	toAppend += '				</ul>';
-	toAppend += '			</div>';
-	toAppend += '			<p class="hide-on-lgxl show-on-smmd">Price : <input type="text" data-dpbnm-id="' + $id + '" title="Press Enter to update the PRICE." class="dpbnm-update-price" value="' + $price + '" data-price="product-game-modal"></p>';
-	toAppend += '			<p class="hide-on-lgxl show-on-smmd"><button class="dpbnm-update-stock btn btn-primary col-12" data-stock="product-game-modal" data-stockvalue="' + $stockValue + '" data-dpbnm-id="' + $id + '">' + $stock + '</button></p>';
-	toAppend += '			<p class="ae-style-url"><a href="' + $url + '" target="_blank" style="color: #6b6d70;">' + html_decode($url) + '</a></p>';
-	toAppend += '		</div>';
-	toAppend += '	</td>';
-	toAppend += '</tr>';
+		toAppend += '	<td class="ae-style-mre" style="padding: 10px 10px;">' + $merchant + '</td>';
+		toAppend += '	<td class="ae-style-mre" style="padding: 10px 10px;">' + $region + '</td>';
+		toAppend += '	<td class="ae-style-mre" style="padding: 10px 10px;">' + $edition + '</td>';
+		toAppend += '	<td class="hide-on-smmd data-stock" style="padding: 10px 10px;"><span class="dpbnm-update-stock" data-stock="product-game-modal" data-stockvalue="' + $stockValue + '" title="Click to update stock." alt="Click to update stock." data-dpbnm-id="' + $id + '">' + $stock + '</span></td>';
+		toAppend += '	<td class="hide-on-smmd data-price" style="padding: 10px 10px;">';//' + $price + '
+		toAppend += '<input type="text" data-dpbnm-id="' + $id + '" title="Press Enter to update the PRICE." class="dpbnm-update-price" value="' + $price + '" data-price="product-game-modal">';
+		toAppend += '</td>';
+		toAppend += '</tr>';
+		toAppend += '<tr class="row-' + $id + ' ' + backColor + '">';
+		toAppend += '	<td colspan="5">';
+		toAppend += '		<div style="padding: 0 10px;word-break: break-all;position: relative;">';
+		toAppend += '			<i class="fas fa-edit dpbnm-product-action" id="' + $id + '"></i>';
+		toAppend += '			<div class="dpbnm-product-action-div" id="dpbnmpad-div-' + $id + '">';
+		toAppend += '				<ul class="dpbnm-product-action-ul">';
+		toAppend += '					<li class="dpbnm-product-action-li dpbnm-li-toedit" data-dpbnm-id-toedit="' + $id + '"><i class="fas fa-circle fa-xs"></i> <span class="dpbnm-product-action-li-span">Edit</span></li>';
+		toAppend += '					<li class="dpbnm-product-action-li"><i class="fas fa-circle fa-xs"></i> <span class="dpbnm-delete-product dpbnm-product-action-li-span">Delete</span></li>';
+		toAppend += '				</ul>';
+		toAppend += '			</div>';
+		toAppend += '			<p class="hide-on-lgxl show-on-smmd">Price : <input type="text" data-dpbnm-id="' + $id + '" title="Press Enter to update the PRICE." class="dpbnm-update-price" value="' + $price + '" data-price="product-game-modal"></p>';
+		toAppend += '			<p class="hide-on-lgxl show-on-smmd"><button class="dpbnm-update-stock btn btn-primary col-12" data-stock="product-game-modal" data-stockvalue="' + $stockValue + '" data-dpbnm-id="' + $id + '">' + $stock + '</button></p>';
+		toAppend += '			<p class="ae-style-url"><a href="' + $url + '" target="_blank" style="color: #6b6d70;">' + html_decode($url) + '</a></p>';
+		toAppend += '		</div>';
+		toAppend += '	</td>';
+		toAppend += '</tr>';
 
 	$(".dpbnm-table-body").append(toAppend);
 }
