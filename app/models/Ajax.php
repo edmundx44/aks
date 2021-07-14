@@ -138,20 +138,43 @@ class Ajax {
 			break;
 			case 'productUpdateStock':
 				$site = self::getSite($getInput->get('site'));
+				$successArr = array();
 				$acceptValue = [0,1];
 				$boolean = false;
 				if(in_array((int)$getInput->get('stock'), $acceptValue) || isset($site)){
 					$stock = ((int)$getInput->get('stock') === 1)? 0 : 1; 
 					$fields = [ 'dispo' => $stock ];
 					$boolean = $db->update('`'.$site.'`.`pt_products`', $getInput->get('id'), $fields);
+					if($boolean){
+						$successArr[] = [
+							'id' => $getInput->get('id'),
+							'site' => $getInput->get('site'),
+							'merchant' => $getInput->get('merchant'),
+							'buy_url' => htmlspecialchars_decode($getInput->get('link')),
+							'normalised_name' => $getInput->get('gameId'),
+							'user' => Users::currentUser()->id
+						];
+					}
 				}
-				return $boolean;
+				return Array( "data" => $successArr, "bool" => $boolean);
 			break;
 			case 'productUpdatePrice':
 				$site = self::getSite($getInput->get('site'));
+				$successArr = array();
 				$price = (float)$getInput->get('price');
 				$fields = [ 'price' => $price ];
-				return $db->update('`'.$site.'`.`pt_products`', $getInput->get('id'), $fields);
+				$boolean = $db->update('`'.$site.'`.`pt_products`', $getInput->get('id'), $fields);
+				if($boolean){
+					$successArr[] = [
+						'id' => $getInput->get('id'),
+						'site' => $getInput->get('site'),
+						'merchant' => $getInput->get('merchant'),
+						'buy_url' => htmlspecialchars_decode($getInput->get('link')),
+						'normalised_name' => $getInput->get('gameId'),
+						'user' => Users::currentUser()->id
+					];
+				}
+				return Array( "data" => $successArr, "bool" => $boolean);
 			break;
 			case 'storeUpdateProduct':
 				$site = self::getSite($getInput->get('site'));
@@ -1471,6 +1494,9 @@ class Ajax {
 							$successArr[] = [
 							'id' => $getInput->get('productId'),
 							'site' => $getInput->get('source'),
+							'merchant' => $getInput->get('merchant'),
+							'buy_url' => htmlspecialchars_decode($getInput->get('link')),
+							'normalised_name' => $getInput->get('gameId'),
 							'user' => Users::currentUser()->id
 						];
 					}

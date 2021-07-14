@@ -314,19 +314,19 @@ $(document).ready(function () {
 
 		if ($(this).prop('checked')) {
 			toCreateDataArr.push({
-				'merchantID': ""+getMerchant+"",
+				'merchantID': "" + getMerchant + "",
 				'url': getUrl,
-				'region': getRegion,
-				'edition': getEdition,
-				'site': getUrl
+				'region': "" + getRegion + "",
+				'edition': "" + getEdition + "",
+				'site': getsite
 			});
-		}else {
+		} else {
 			var getIndex;
 			toCreateDataArr.findIndex(function (item, i) {
-			    if (item.merchantID == getMerchant && item.edition == getEdition && item.region == getRegion && item.site == getsite) {
-			    	getIndex = i;
-			    	return true;
-			    }
+				if (item.merchantID == getMerchant && item.edition == getEdition && item.region == getRegion && item.site == getsite) {
+					getIndex = i;
+					return true;
+				}
 			});
 			toCreateDataArr.splice(getIndex, 1);
 		}
@@ -423,24 +423,24 @@ $(document).ready(function () {
 	$(document).on('click', '#ae-btn-add', function () {
 		// console.log(toCreateDataArr.length);
 
-		if(toCreateDataArr.length == 0){
+		if (toCreateDataArr.length == 0) {
 			alertMsg("Invalid data, kindly check it carefully", "bg-danger")
-		}else{
+		} else {
 			var serialize = $('#ae-mcb-row :input').serializeArray();
 			var dataRequest = aeProduct(serialize, 'create');
 			//console.log(dataRequest)
-			AjaxCall(url, dataRequest).done( aeAddSuccess ).always(function () { 
+			AjaxCall(url, dataRequest).done(aeAddSuccess).always(function () {
 				$(".add-edit-store-game-modal").modal('hide');
 				setUrlParam('normalisedname', $(".ae-gameid-input").val());
 				$('.dpbnm-product-nname').val($(".ae-gameid-input").val())
 				$('.display-product-by-normalised-input').val($('.ae-product-p-title').html())
 				$('.display-product-by-normalised-input').attr('data-product-website', $('.ae-product-p-title').html()) //used for delete
 				$('.displayProductByNormalisedName').modal('show')
-				getByNormalisedName( $(".ae-gameid-input").val(), $('.ae-product-p-title').html() );
+				getByNormalisedName($(".ae-gameid-input").val(), $('.ae-product-p-title').html());
 				alertMsg("Successfully created", "bg-success")
 			});
 		}
-		
+
 	});
 
 	$(document).on('click', '#ae-btn-edit', function () {
@@ -466,8 +466,15 @@ $(document).ready(function () {
 	});
 
 	$(document).on('input', '.dpbnm-product-nname', function () {
-		setUrlParam('normalisedname', $(this).val());
-		getByNormalisedName($(this).val(), $('.display-product-by-normalised-input').val());
+		var valid = /^\d+\.\d*$|^[\d]*$/;
+		var number = /\d+\.\d*|[\d]*|[\d]+\.[\d]*|[\d]+/;
+		if (!valid.test(this.value)) {
+			var n = this.value.match(number);
+			this.value = n ? n[0] : '';
+		} else {
+			setUrlParam('normalisedname', $(this).val());
+			getByNormalisedName($(this).val(), $('.display-product-by-normalised-input').val());
+		}
 	});
 
 	$(document).on('click', '.dpbnm-product-action', function () {
@@ -503,12 +510,12 @@ $(document).ready(function () {
 			switch ($(this).attr('data-stock')) {
 				case 'product-game-modal':
 					productUpdateStock($(this).attr('data-dpbnm-id'), $initialStock, $('.display-product-by-normalised-input').attr('data-product-website'), $this);
-				break;
+					break;
 				case 'product-store-page':
-					productUpdateStock($(this).attr('data-prodId'), $initialStock, $('.dropdown-menu-btn').text(), $this);
-				break;
+					//productUpdateStock($(this).attr('data-prodId'), $initialStock, $('.dropdown-menu-btn').text(), $this);
+					break;
 				default: alertMsg("Something Went wrong !!", "bg-danger");
-				break;
+					break;
 			}
 		} else {
 			alertMsg("Please reload the page somethings broken", "bg-danger");
@@ -530,12 +537,12 @@ $(document).ready(function () {
 				switch ($(this).attr('data-price')) {
 					case 'product-game-modal':
 						productUpdatePrice($(this).attr('data-dpbnm-id'), this.value, $('.display-product-by-normalised-input').attr('data-product-website'), $this)
-					break;
+						break;
 					case 'product-store-page':
-						productUpdatePrice($(this).attr('data-dpbnm-id'), this.value, $('.productNormalizedName').attr('data-product-website'), $this)
-					break;
+						//productUpdatePrice($(this).attr('data-dpbnm-id'), this.value, $('.productNormalizedName').attr('data-product-website'), $this)
+						break;
 					default: alertMsg("Something Went wrong !!", "bg-danger");
-					break;
+						break;
 				}
 			}
 		}
@@ -545,10 +552,13 @@ $(document).ready(function () {
 	$(document).on('click', '.dpbnm-delete-product', function () {
 		var getId = $(this).closest("div").attr("id").split("-");
 		var $this = $(this);
-		if(getId.length === 3){
+		if (getId.length === 3) {
 			var request = {
 				action: "ae-delete-action",
 				productId: getId[2],
+				gameId: $(".dpbnm-product-nname").val(),
+				link: $(".row-" + getId[2] + " .dpbnm-product-url").attr("href"),
+				merchant: $(".row-" + getId[2] + " .dpbnm-product-merchant").attr("data-product-merchant"),
 				source: $('.display-product-by-normalised-input').attr("data-product-website"),
 			}
 			$modalContent = {
@@ -558,6 +568,7 @@ $(document).ready(function () {
 			}
 			confirmationDialog($modalContent, "confirmation-product-delete-btn", function (e) {
 				AjaxCall(url, request).done(function (data) {
+					createNotification(data[0].id, data[0].merchant, 'Deleted', data[0].site, data[0].user, data[0].normalised_name, data[0].buy_url);
 					$this.closest('tr').prev().remove();//remove first the prev
 					$this.closest('tr').remove();
 				})
@@ -567,16 +578,16 @@ $(document).ready(function () {
 
 }); // end docuemtn ready
 
-function aeAddSuccess(data){
-	if (data.success != ''){
+function aeAddSuccess(data) {
+	if (data.success != '') {
 		$('.ae-addc-i-on-aks-1, .ae-addc-i-on-aks-0-2, .ae-addc-i-on-cdd-1, .ae-addc-i-on-cdd-0-2, .ae-addc-i-on-brex-1, .ae-addc-i-on-brex-0-2').empty();
 		$('.ae-edition-input, .ae-region-input').val('');
-		$('.ae-region-input').attr('data-regionid','');
-		$('.ae-edition-input').attr('data-editionid','');
+		$('.ae-region-input').attr('data-regionid', '');
+		$('.ae-edition-input').attr('data-editionid', '');
 		toCreateDataArr = [];
 		for (var i in data.success) { //Loop Per Website
-			for (var j in data.success[i]){
-				createNotification(data.success[i][j].id, data.success[i][j].merchant, 'Created', data.success[i][j].site, data.success[i][j].user, data.success[i][j].normalised_name, data.success[i][j].buy_url );
+			for (var j in data.success[i]) {
+				createNotification(data.success[i][j].id, data.success[i][j].merchant, 'Created', data.success[i][j].site, data.success[i][j].user, data.success[i][j].normalised_name, data.success[i][j].buy_url);
 			}
 		}
 	} else {
@@ -622,7 +633,7 @@ function aeProduct($form, $mode) {
 				productOptions: toCreateDataArr,
 				source: $('.ae-product-p-title').text(),
 			}
-		break;
+			break;
 		case 'edit':
 			request = {
 				action: 'ae-edit-action',
@@ -630,9 +641,9 @@ function aeProduct($form, $mode) {
 				productId: parseInt($('.ae-hidden-productid').val()),
 				source: $('.ae-product-p-title').text(),
 			}
-		break;
+			break;
 		default:
-		break;
+			break;
 	}
 	return request;
 }
@@ -654,26 +665,25 @@ function getByNormalisedName($normalisedName, $site) {
 		site: $site
 	}
 	AjaxCall(url, dataRequest).done(function (data) {
-		$('.dpbnm-product-name').html(data[0].searchName)
-
+		$('.dpbnm-product-name').html('')
 		var counter = 1;
 		for (var i in data) {
-
-			displayProductBynormalised(data[i].merchant, data[i].region, data[i].edition, data[i].status, data[i].price, data[i].buy_url, counter, data[i].id)
+			$('.dpbnm-product-name').html(data[0].searchName)
+			displayProductBynormalised(data[i].merchantID, data[i].merchant, data[i].region, data[i].edition, data[i].status, data[i].price, data[i].buy_url, counter, data[i].id)
 			counter++;
 		}
 	}).always(function (data) {
-		
+
 		$('.dpbnm-loader-wrapper').hide();
 	});
 
 }
 
-function displayProductBynormalised($merchant, $region, $edition, $stock, $price, $url, $number, $id) {
+function displayProductBynormalised($merchantID, $merchant, $region, $edition, $stock, $price, $url, $number, $id) {
 	var backColor = ($number % 2 == 0) ? 'table-body-even-number-background' : '';
 	var $stockValue = ($stock == 'In Stock') ? 1 : 0;
 	var toAppend = '<tr class="row-' + $id + ' ' + backColor + '">';
-	toAppend += '	<td class="ae-style-mre" style="padding: 10px 10px;">' + $merchant + '</td>';
+	toAppend += '	<td class="ae-style-mre dpbnm-product-merchant" data-product-merchant="' + $merchantID + '" style="padding: 10px 10px;">' + $merchant + '</td>';
 	toAppend += '	<td class="ae-style-mre" style="padding: 10px 10px;">' + $region + '</td>';
 	toAppend += '	<td class="ae-style-mre" style="padding: 10px 10px;">' + $edition + '</td>';
 	toAppend += '	<td class="hide-on-smmd data-stock" style="padding: 10px 10px;"><span class="dpbnm-update-stock" data-stock="product-game-modal" data-stockvalue="' + $stockValue + '" title="Click to update stock." alt="Click to update stock." data-dpbnm-id="' + $id + '">' + $stock + '</span></td>';
@@ -693,7 +703,7 @@ function displayProductBynormalised($merchant, $region, $edition, $stock, $price
 	toAppend += '			</div>';
 	toAppend += '			<p class="hide-on-lgxl show-on-smmd">Price : <input type="text" data-dpbnm-id="' + $id + '" title="Press Enter to update the PRICE." class="dpbnm-update-price" value="' + $price + '" data-price="product-game-modal"></p>';
 	toAppend += '			<p class="hide-on-lgxl show-on-smmd"><button class="dpbnm-update-stock btn btn-primary col-12" data-stock="product-game-modal" data-stockvalue="' + $stockValue + '" data-dpbnm-id="' + $id + '">' + $stock + '</button></p>';
-	toAppend += '			<p class="ae-style-url"><a href="' + $url + '" target="_blank" style="color: #6b6d70;">' + html_decode($url) + '</a></p>';
+	toAppend += '			<p class="ae-style-url"><a class="dpbnm-product-url" href="' + html_decode($url) + '" target="_blank" style="color: #6b6d70;">' + html_decode($url) + '</a></p>';
 	toAppend += '		</div>';
 	toAppend += '	</td>';
 	toAppend += '</tr>';
@@ -970,7 +980,7 @@ function getOriginalSite($partial) {
 }
 
 function createSwitchForAvailable($getVisible, $available, $region, $merchantID, $edition, $aeurl) {
-	
+
 	switch ($getVisible) {
 		case 'allkeyshop.com':
 			var whatBox = 'ae-addc-i-on-aks-1';
@@ -1003,7 +1013,7 @@ function createCheckbox($available, $checkboxName, $checkboxRegion, $whatSite, $
 	switch ($available) {
 		case 1:
 			var toAppend = '<div class="form-check text-primary" data-getid="' + $merchantID + '">';
-			toAppend += '	<input class="form-check-input ae-autocreation-checkbox" name="' + $checkboxName + '" type="checkbox" value="" id="' + $checkboxName + $checkboxRegion + '" data-getmerchant="'+ $merchantID +'" data-getedition="'+ $edition +'" data-getregion="'+ $checkboxRegion +'" data-getsite="'+ $whatSite +'" data-aeurl="'+ $aeurl +'" checked>';
+			toAppend += '	<input class="form-check-input ae-autocreation-checkbox" name="' + $checkboxName + '" type="checkbox" value="" id="' + $checkboxName + $checkboxRegion + '" data-getmerchant="' + $merchantID + '" data-getedition="' + $edition + '" data-getregion="' + $checkboxRegion + '" data-getsite="' + $whatSite + '" data-aeurl="' + $aeurl + '" checked>';
 			toAppend += '	<label class="form-check-label" for="' + $checkboxName + $checkboxRegion + '">';
 			toAppend += '		Creating merchant <b>' + merchantName + ' ' + $merchantID + '</b> on <b class="text-primary">' + $whatSite + '</b> with edition <b>' + $edition + '</b> and region is <b>' + $checkboxRegion + '</b>';
 			toAppend += '	</label>';
@@ -1117,7 +1127,7 @@ function mainSearchProduct($site, $toSearch) {
 			$('.spm-content-display').append(append);
 		}
 	}).always(function (data) {
-		
+
 		$('.spm-content-body').show();
 		$('.spmc-span-site').html($site)
 
@@ -1665,10 +1675,15 @@ function productUpdateStock($productID, $stock, $site, $this) {
 		action: 'productUpdateStock',
 		id: $productID,
 		stock: $stock,
+		gameId: $(".dpbnm-product-nname").val(),
+		link: $(".row-" + $productID + " .dpbnm-product-url").attr("href"),
+		merchant: $(".row-" + $productID + " .dpbnm-product-merchant").attr("data-product-merchant"),
 		site: $site
 	}
 	AjaxCall(url, req).done(function (data) {
-		if (data) {
+		if (data.bool) {
+			var data = data.data;
+			createNotification(data[0].id, data[0].merchant, 'Stock Update', data[0].site, data[0].user, data[0].normalised_name, data[0].buy_url);
 			switch ($stock) {
 				case 0:
 					//($this.attr("type") == "button") ? $($this).val('In Stock') : $($this).html('In Stock');
@@ -1695,10 +1710,15 @@ function productUpdatePrice($productID, $price, $site, $this) {
 		action: 'productUpdatePrice',
 		id: $productID,
 		price: $price,
+		gameId: $(".dpbnm-product-nname").val(),
+		link: $(".row-" + $productID + " .dpbnm-product-url").attr("href"),
+		merchant: $(".row-" + $productID + " .dpbnm-product-merchant").attr("data-product-merchant"),
 		site: $site
 	}
 	AjaxCall(url, req).done(function (data) {
-		if (data) {
+		if (data.bool) {
+			var data = data.data;
+			createNotification(data[0].id, data[0].merchant, 'Price Update', data[0].site, data[0].user, data[0].normalised_name, data[0].buy_url);
 			//$($this).val($price);
 			$(".row-" + $productID + " .dpbnm-update-price").val($price);
 			alertMsg("Successfully update the price to " + $price + "", "bg-success");
