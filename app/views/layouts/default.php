@@ -124,7 +124,6 @@ use Core\Session;
 					}
 	
 					AjaxCall(url, dataRequest).done(function(data) {
-						//console.log(data)
 						if(data != false){
 							let task = delay(3000);
 
@@ -132,15 +131,14 @@ use Core\Session;
 							data.forEach((element,i) => {
 								task = task
 								.finally(() => {
-									var action = element.action.toLowerCase();
-									switch (action) {
-										case "created": case "edited": case "deleted":
+									switch (element.action) {
+										case "Created": case "Edited": case "Deleted":
 											var message = "<span> " + element.employee + "</span> <span> " + element.action + " an offer on</span> " + element.merchant + " " + element.site +".";
 										break;
-										case "stock update": case "price update":
+										case "Stock Update": case "Price Update":
 											var message = "<span> " + element.employee + " do a</span> <span> " + element.action + " on</span> " + element.merchant + " " + element.site +".";
-										default:
-											var message = 'Action Not Found';
+										break;
+										default: var message = 'Action Not Found';
 										break;
 									}
 									toastr.info(message);
