@@ -132,7 +132,18 @@ use Core\Session;
 							data.forEach((element,i) => {
 								task = task
 								.finally(() => {
-									toastr.info("<span> " + element.employee + "</span> <span> " + element.action + " </span> " + element.merchant + " on " + element.site +".");
+									var action = element.action.toLowerCase();
+									switch (action) {
+										case "created": case "edited": case "deleted":
+											var message = "<span> " + element.employee + "</span> <span> " + element.action + " </span> " + element.merchant + " on " + element.site +".";
+										break;
+										case "stock update": case "price update":
+											var message = "<span> " + element.employee + " do a</span> <span> " + element.action + " on</span> " + element.merchant + " " + element.site +".";
+										default:
+											var message = 'Action Not Found';
+										break;
+									}
+									toastr.info(message);
 									counter = counter + 1
 
 									var dataRequest =  {
