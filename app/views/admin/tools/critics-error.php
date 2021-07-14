@@ -1,13 +1,14 @@
 <?php $this->setSiteTitle($this->pageTitle); ?>
 <?php $this->start('head'); ?>
 <link rel="stylesheet" href="<?=PROOT?>vendors/css/utilities-page.css" media="screen" title="no title" charset="utf-8">
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.12.0/underscore-min.js"></script>
 <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" >
 <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css">
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
 <script type="text/javascript">
-    var $dataReq = {action: 'metacriticsErrorRating'};
+	var $dataReq = {action: 'metacriticsErrorRating'};
 
 	$(function (){
 		AjaxCall(url,$dataReq).done( ajaxSuccess );

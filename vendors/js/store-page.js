@@ -15,8 +15,15 @@ $(function (){
 	$(document).on('click', '.store-games-data-table-tbody-data', function(){
 		var selection = window.getSelection();
 		if(selection.type != "Range") {
-			$(".productNormalizedName").attr("data-product-website", $(".dropdown-menu-btn").html())
-			displayStoreGamesByNormalizedName($(this).data('nname'),$('.dropdown-menu-btn').text());
+			
+			setUrlParam('normalisedname', $(this).data('nname'));
+			getByNormalisedName($(this).data('nname'), $.trim($('.dropdown-menu-btn').html()));
+			$('.dpbnm-product-nname').val($(this).data('nname'));
+			$('.display-product-by-normalised-input').val($.trim($('.dropdown-menu-btn').html()))
+			$('.displayProductByNormalisedName').modal('show');
+
+			// $(".productNormalizedName").attr("data-product-website", $(".dropdown-menu-btn").html())
+			// displayStoreGamesByNormalizedName($(this).data('nname'),$('.dropdown-menu-btn').text());
 		}
 	});
 

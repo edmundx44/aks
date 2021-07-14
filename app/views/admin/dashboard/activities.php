@@ -1,9 +1,7 @@
 <?php $this->setSiteTitle($this->pageTitle); ?>
 <?php $this->start('head'); ?>
-
 	<script type="text/javascript" src="<?=PROOT?>vendors/js/activities.js"></script> 
 	<link rel="stylesheet" href="<?=PROOT?>vendors/css/activities.css" media="screen" title="no title" charset="utf-8">
-
 <?php $this->end(); ?>
 <?php $this->start('body')?>
 
@@ -19,7 +17,7 @@
 					<div class="activities-content">
 						<div class="filter-activities">
 							<span class="ac-add-filter"><i class="fas fa-plus-square"></i> &nbsp; <span class="ac-add-filter-span">Add Filter</span></span>
-							<a href="/aks/dashboard/employeeTable" class="btn btn-success float-right">Activity Counts</a>
+							<a href="<?= PROOT ?>dashboard/employeeTable" class="btn btn-success float-right">Activity Counts</a>
 			
 							<div class="filter-functions">
 								<div class="dropdown filter-function-dd">

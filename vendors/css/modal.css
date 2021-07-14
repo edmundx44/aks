@@ -1,3 +1,4 @@
+/*old modal css section -----------------------------------------------------------------------------*/
 	.basic-loader-padding {
 		padding-bottom: 20px;
 		display: none;
@@ -136,10 +137,242 @@
 	/*#report-modal-confirmation {
 		margin-top: 200px;
 	}*/
+/*report recheck log modal  -------------------------------------------------------------------------*/
+	.rrl-modal-content {
+		/*top: 70px;*/
+	}
+	.rrl-mb-table {
+		width: 100%;
+		background-color: #fff;
+	}
+	.rrl-mb-thead-tr {
+		background: linear-gradient(60deg, #004ea3, #0062cc);
+		color: #fff;
+		letter-spacing: 2px
+	}
+	.rrl-mb-thead-td {
+		padding: 5px 15px 5px 15px
+	}
+/*confirmation modal modal --------------------------------------------------------------------------*/
+	.cfm-modal-content {
+		background-clip: initial;
+		top: 70px;
+	}
+	.cfm-modal-close {
+		opacity: 1;
+		outline: none;
+		left: 30px;
+		top: -32px;
+		border-radius: 20px; 
+		position: relative;
+		background-color: #fff; 
+		width: 20px;
+		height: 20px;
+		padding: 0;
+	}
+	.cfm-modal-close-span {
+		position: relative;
+		top: -3px;
+	}
+/*report recheck additional info log modal ----------------------------------------------------------*/
+	.rrailm-modal-content {
+		/*top: 70px;*/
+		background-clip: initial;
+	}
+	.rrailm-modal-close {
+		opacity: 1;
+		outline:none;
+		left: 30px;
+		top: -32px;
+		border-radius: 20px; 
+		position: relative;
+		background-color: #fff; 
+		width: 20px;
+		height: 20px;
+		padding: 0;
+	}
+	.rrailm-modal-close-span {
+		position: relative;
+		top: -3px;
+	}
+	.rrailm-modal-body-content {
+		padding: 15px;
+		font-size: 13px;
+	}
+	.rrailm-mbc-div-sub {
+		padding-bottom: 10px;
+		width: 100%;
+	}
+/*Large modal AFF LINK SEE MORE MODAL ---------------------------------------------------------------*/
+	.alsmm-mb-div {
+		display: flex;
+	}
+	.mer-id {
+		display: flex; 
+		justify-content: flex-start; 
+		width: 50%;
+	}
+	.total-c {
+		display: flex; 
+		justify-content: flex-end; 
+		width: 50%;
+	}
+/*price check add shift modal -----------------------------------------------------------------------*/
+	.pcasm-modal-content {
+		border-color: #fff;
+		/*top: 70px;*/
+	}
+	.pcasm-modal-close {
+		opacity: 1;
+		outline:none;
+		left: 13px;
+		top: -15px;
+		border-radius: 20px; 
+		position: relative;
+		background-color: #fff;
+		width: 20px;
+		height: 20px;
+		padding: 0;
+	}
+	.pcasm-modal-close-span {
+		position: relative;
+		top: -3px;
+	}
+	.pcasm-mb-label-week-days,
+	.pcasm-mb-label-week-ends {
+		width: 100%;
+		background-color: #4e73df;
+		padding: 8px;
+		padding-left: 15px;
+		color: #fff;
+	}
+	.pcasm-mb-time-div-1,
+	.pcasm-mb-time-div-2,
+	.pcasm-mb-time-div-3,
+	.pcasm-mb-time-div-4 {
+		padding: 0 10px;
+	}
+	.pcasm-mb-time-div-1-sub-1,
+	.pcasm-mb-time-div-2-sub-1,
+	.pcasm-mb-time-div-3-sub-1,
+	.pcasm-mb-time-div-4-sub-1{
+		padding-left: 17px;
+		line-height: 2.5;
+	}
+	.pcasm-mb-time-div-1-sub-3,
+	.pcasm-mb-time-div-2-sub-3,
+	.pcasm-mb-time-div-3-sub-3,
+	.pcasm-mb-time-div-4-sub-3{
+		padding-right: 3px;
+	}
+/*price check add daily listing modal ---------------------------------------------------------------*/
+	.pcdl-modal-content {
 
+	}
+	.pcdl-mc-close {
+		opacity: 1;
+		outline: none;
+		left: 13px;
+		top: -15px;
+		border-radius: 20px; 
+		position: relative;
+		background-color: #fff; 
+		width: 20px;
+		height: 20px;
+		padding: 0;
+	}
+	.pcdl-mc-close-span {
+		position: relative;
+		top: -3px;
+	}
+	.pcdl-mb-game-info {
+		width: 100%;
+		background-color: #4e73df;
+		padding: 8px;
+		padding-left: 15px;
+		color: #fff;
+	}
+	#price_check_tool_game_id {
+		margin-bottom: 10px;
+	}
+	.release-date-label {
+		width: 100%;
+		background-color: #4e73df;
+		padding: 8px;
+		padding-left: 15px;
+		color: #fff;
+	}
+/*add wrong affiliate link modal --------------------------------------------------------------------*/
+	.awalm-modal-close {
+		opacity: 1;
+		outline: none;
+		left: 13px;
+		top: -15px;
+		border-radius: 20px; 
+		position: relative;
+		background-color: #fff; 
+		width: 20px;
+		height: 20px;
+		padding: 0;
+	}
+	.awalm-modal-close-span {
+		position: relative;
+		top: -3px;
+	}
+/*alert modal ---------------------------------------------------------------------------------------*/
+	.alert-modal-bg {
+		background-clip: initial;
+	}
+/*add change logs -----------------------------------------------------------------------------------*/
+	.addcl-modal-content {
+		background-clip: initial;
+		/*top: 70px;*/
+	}
+	.addcl-modal-close {
+		opacity: 1;
+		outline: none;
+		left: 30px;
+		top: -32px;
+		border-radius: 20px; 
+		position: relative;
+		background-color: #fff; 
+		width: 20px;
+		height: 20px;
+		padding: 0;
+	}
+	.addcl-modal-close-span {
+		position: relative;
+		top: -3px;
+	}
+	.changelog-date-txt {
+		border-color: blue;
+	}
+	.changelog-msg-txtarea {
+		width: 100%;
+		resize: none;
+		height: 300px;
+	}
+/*fees modal ----------------------------------------------------------------------------------------*/
+	#feesModal {
+		z-index: 1041;
+	}
+	.title-paypal,
+	.title-card {
+		float:left
+	}
+	.add-paypal-row,
+	.add-card-row {
+		float:right
+	}
+	.fee-thead-th-site {
+		width: 33.33% !important;
+	}
+	.display-cc {
+		margin-top: 20px;	
+	}
 /*check and compare reports modal css section -------------------------------------------------------*/
 	.cacrm-modal-content {
-		top: 70px;
+		/*top: 70px;*/
 	}
 	.cacrm-modal-title {
 		font-weight: 500;
@@ -178,10 +411,9 @@
 	.cr-modal-show-list:hover {
 		color: #004ea3 !important;
 	}
-
-/*create repoert modal css section ------------------------------------------------------------------*/
+/* create report modal css section ------------------------------------------------------------------*/
 	.crm-modal-content {
-		top: 70px;
+		/*top: 70px;*/
 	}
 	.url-msg {
 		padding: 10px;
@@ -217,9 +449,12 @@
 		width: 100%;
 		text-align: left;
 	}
+	.cr-txtbox-problem-div {
+		display: none;
+	}
 /*checksum modal css section ------------------------------------------------------------------------*/
 	.cm-modal-content {
-		top: 70px; 
+		/*top: 70px; */
 		border-radius: .5rem
 	}
 	.cm-modal-header {
@@ -526,8 +761,7 @@
 			 transform: translate(100%, 100%);
 		}
 	}
-
-/*add edit modal section ------------------------------------------*/
+/*add edit modal section ----------------------------------------------------------------------------*/
 	.ae-modal-dialog {
 		height:  calc(100% - 60px);
 	}

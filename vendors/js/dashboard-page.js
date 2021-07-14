@@ -19,6 +19,7 @@
 		callChangelogs()
 
 		$.when(
+			$('.content-loader-div').show(),
 			xhr_AjaxCall(url+'dashboard','POST','displayRunAndSuccessAction').done(function(data){ displayRunAndSuccess(data) }),
 			xhr_AjaxCall(url+'dashboard','POST','displayPriceToZeroCountsCounts').done(function(data) { displayPriceToZero(data) }),
 			xhr_getChecksumDisplay(url+'dashboard',timeStampData,$checksumSite).done(function(data) { checksumDone(data); }),
@@ -28,7 +29,9 @@
 			displayReport('menu-dbfeed', 'AKS'),
 			displayReport('menu-disabled', 'Store'),
 			xhr_AjaxCall(url+'dashboard','POST','displayRealDoubleCounts').done(function(data) { displayRealDouble(data); }),
-		)
+		).then(function( data, textStatus, jqXHR ) {
+ 			$('.content-loader-div').hide()
+		});
 		// .then($('.content-loader-div').hide());
 
 		$(window).on('resize',function() { checkWidthFB(); /*take effect when its resize*/ });

@@ -1,0 +1,27 @@
+	.et-div-header {
+		position: relative; 
+		padding-top: 20px;
+	}
+	.et-div-header-row {
+		color: #fff;
+		margin: 0;
+	}
+	.et-div-header-h5 {
+		display: inline-block; 
+		margin-right: 10px;
+	}
+	.et-div-header-p {
+		font-size: 12px;
+		font-weight: 500;
+	}
+	.filter-function-date{
+		display: inline-block;
+		margin: 5px 0 0 0;
+	}
+	.filter-functions {
+		display: none;
+		margin: 15px 0 0 0;
+	}
+	#user-counts-table {
+		font-size: 14px;
+	}

@@ -1603,44 +1603,6 @@ function eRegex($string) {
 	return $string;
 }
 
-function displayStoreGamesByNormalizedName($normalised_name, $site) {
-	var dataRequest = {
-		action: 'displayStoreGamesByNormalizedName',
-		nnameID: $normalised_name,
-		site: $site
-	}
-
-	AjaxCall(url, dataRequest).done(function (data) {
-		$('.productName').text(data[0].searchName);
-		$('.productNormalizedName').text(data[0].nname);
-		$('#displayStoreGamesByNormalizedName').modal('show');
-		$('.nname-modal-tbody').empty();
-
-		for (var i in data) {
-			var $stock = (data[i].status == 'In Stock') ? 1 : 0;
-			var append = '<div class="nname-modal-tbody-div ' + data[i].id + '">';
-			append += '<div class="modal-child-tbody-1">' + data[i].merchant + '</div>';
-			append += '<div class="modal-child-tbody-2">' + data[i].region + '</div>';
-			append += '<div class="modal-child-tbody-3">' + data[i].edition + '</div>';
-			append += '<div class="modal-child-tbody-sub modal-child-tbody-4"><input class="dpbnm-update-stock" type="button" data-stock="product-store-page" data-stockvalue="' + $stock + '"data-prodId="' + data[i].id + '" value="' + data[i].status + '"></div>';
-			append += '<div class="modal-child-tbody-sub modal-child-tbody-5"><input type="text" data-dpbnm-id="' + data[i].id + '" title="Press Enter to update the PRICE." class="dpbnm-update-price" data-price="product-store-page" value="' + data[i].price + '"></div>';
-			append += '<div class="modal-child-tbody-sub modal-child-tbody-6">';
-			append += '<div class="show-menu" id="' + data[i].id + '">';
-			append += '<ul class="modal-setting-ul">';
-			append += '<li class="modal-setting-ul-li"><i class="fa fa-pencil" aria-hidden="true"></i><span class="msulspan add-edit-from-display" data-toeditid="' + data[i].id + '">Edit</span></li>';
-			append += '<li class="modal-setting-ul-li"><i class="fa fa-times" aria-hidden="true"></i><span class="msulspan">Delete</span></li>';
-			append += '<li class="modal-setting-ul-li"><i class="fa fa-dot-circle-o" aria-hidden="true"></i><span class="msulspan">Others</span></li>';
-			append += '</ul>';
-			append += '</div>';
-			append += '<button class="btn action-btn ' + data[i].site + '-btn" id="' + data[i].id + '"> <i class="fa fa-cogs btn-icon-acb" aria-hidden="true"></i></button>';
-			append += '</div>';
-			append += '<div><p class="nname-modal-tfoot"><a href="' + data[i].buy_url + '" target="_blank">' + html_decode(data[i].buy_url) + '</a></p></div>';
-			append += '</div>';
-			$(".nname-modal-tbody").append(append);
-		}
-	});
-}
-
 function storeUpdateProduct($productID, $toWhat, $dataTo, $site) {
 	var dataRequest = {
 		action: 'storeUpdateProduct',
