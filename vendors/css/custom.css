@@ -931,7 +931,7 @@ body {
 	transition: .5s ease-in-out;
 }
 
-.dpbnm-update-price{
+.dpbnm-update-price {
 	text-align: center;
 	color: #fff;
 	border: none;
@@ -940,4 +940,26 @@ body {
 	padding: 4px;
 	outline: none;
 	width: 80%;
+}
+
+.ae-style-mre {
+	font-weight: 500;
+}
+
+.ae-style-url {
+	font-size: 14px;
+}
+
+#confirmation-product-delete-btn{
+	background: transparent;
+	border: none;
+	border-radius: 0 0 5px 5px;
+	cursor: pointer;
+	outline: none;
+	text-align: center;
+	color: #fff;
+	letter-spacing: 2px;
+	width: 100%;
+	font-weight: 700;
+	padding: 5px;
 }

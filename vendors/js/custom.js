@@ -447,7 +447,7 @@ $(document).ready(function () {
 		var serialize = $('#ae-mcb-row :input').serializeArray();
 		var dataRequest = aeProduct(serialize, 'edit');
 		AjaxCall(url, dataRequest).done(function (data) {
-			createNotification(data[0].id, data[0].merchant,'Edited', data[0].site, data[0].user);
+			createNotification(data[0].id, data[0].merchant, 'Edited', data[0].site, data[0].user, data[0].normalised_name, data[0].buy_url);
 		}).always(function () { });
 	});
 
@@ -551,7 +551,12 @@ $(document).ready(function () {
 				productId: getId[2],
 				source: $('.display-product-by-normalised-input').attr("data-product-website"),
 			}
-			confirmationDialog("delete", function (e) {
+			$modalContent = {
+				header: '<div id="confimation-div-header-style">Are you sure?</div>',
+				body: '<div id="confimation-div-body-style">Do you really want to delete this OFFER? </div>',
+				footer: '<input id="confirmation-product-delete-btn" class="col-3 button-on" style="border-radius:5px;" type="button" value="Delete">'
+			}
+			confirmationDialog($modalContent, "confirmation-product-delete-btn", function (e) {
 				AjaxCall(url, request).done(function (data) {
 					$this.closest('tr').prev().remove();//remove first the prev
 					$this.closest('tr').remove();
@@ -571,7 +576,7 @@ function aeAddSuccess(data){
 		toCreateDataArr = [];
 		for (var i in data.success) { //Loop Per Website
 			for (var j in data.success[i]){
-				createNotification(data.success[i][j].id, data.success[i][j].merchant, 'Created', data.success[i][j].site, data.success[i][j].user);
+				createNotification(data.success[i][j].id, data.success[i][j].merchant, 'Created', data.success[i][j].site, data.success[i][j].user, data.success[i][j].normalised_name, data.success[i][j].buy_url );
 			}
 		}
 	} else {
@@ -579,10 +584,12 @@ function aeAddSuccess(data){
 	}
 }
 
-function createNotification($id, $merchantID, $what, $site, $employee) {
+function createNotification($id, $merchantID, $what, $site, $employee, $normalisedName, $link) {
 	var dataRequest = {
 		action: 'insert-to-notifiction',
 		getID: $id,
+		gameID: $normalisedName,
+		link: $link,
 		getMerchantID: $merchantID,
 		getWhat: $what,
 		getSite: $site,
@@ -664,17 +671,17 @@ function getByNormalisedName($normalisedName, $site) {
 
 function displayProductBynormalised($merchant, $region, $edition, $stock, $price, $url, $number, $id) {
 	var backColor = ($number % 2 == 0) ? 'table-body-even-number-background' : '';
-	var toAppend = '<tr class="' + backColor + '">';
 	var $stockValue = ($stock == 'In Stock') ? 1 : 0;
-	toAppend += '	<td class="" style="padding: 10px 10px;">' + $merchant + '</td>';
-	toAppend += '	<td class="" style="padding: 10px 10px;">' + $region + '</td>';
-	toAppend += '	<td class="" style="padding: 10px 10px;">' + $edition + '</td>';
+	var toAppend = '<tr class="row-' + $id + ' ' + backColor + '">';
+	toAppend += '	<td class="ae-style-mre" style="padding: 10px 10px;">' + $merchant + '</td>';
+	toAppend += '	<td class="ae-style-mre" style="padding: 10px 10px;">' + $region + '</td>';
+	toAppend += '	<td class="ae-style-mre" style="padding: 10px 10px;">' + $edition + '</td>';
 	toAppend += '	<td class="hide-on-smmd data-stock" style="padding: 10px 10px;"><span class="dpbnm-update-stock" data-stock="product-game-modal" data-stockvalue="' + $stockValue + '" title="Click to update stock." alt="Click to update stock." data-dpbnm-id="' + $id + '">' + $stock + '</span></td>';
 	toAppend += '	<td class="hide-on-smmd data-price" style="padding: 10px 10px;">';//' + $price + '
 	toAppend += '<input type="text" data-dpbnm-id="' + $id + '" title="Press Enter to update the PRICE." class="dpbnm-update-price" value="' + $price + '" data-price="product-game-modal">';
 	toAppend += '</td>';
 	toAppend += '</tr>';
-	toAppend += '<tr class="' + backColor + '">';
+	toAppend += '<tr class="row-' + $id + ' ' + backColor + '">';
 	toAppend += '	<td colspan="5">';
 	toAppend += '		<div style="padding: 0 10px;word-break: break-all;position: relative;">';
 	toAppend += '			<i class="fas fa-edit dpbnm-product-action" id="' + $id + '"></i>';
@@ -684,9 +691,9 @@ function displayProductBynormalised($merchant, $region, $edition, $stock, $price
 	toAppend += '					<li class="dpbnm-product-action-li"><i class="fas fa-circle fa-xs"></i> <span class="dpbnm-delete-product dpbnm-product-action-li-span">Delete</span></li>';
 	toAppend += '				</ul>';
 	toAppend += '			</div>';
-	toAppend += '			<p class="hide-on-lgxl show-on-smmd">Price : <span>' + $price + '</span></p>';
-	toAppend += '			<p class="hide-on-lgxl show-on-smmd"><button class="btn btn-primary col-12">' + $stock + '</button></p>';
-	toAppend += '			<p><a href="' + $url + '" target="_blank" style="color: #6b6d70;">' + html_decode($url) + '</a></p>';
+	toAppend += '			<p class="hide-on-lgxl show-on-smmd">Price : <input type="text" data-dpbnm-id="' + $id + '" title="Press Enter to update the PRICE." class="dpbnm-update-price" value="' + $price + '" data-price="product-game-modal"></p>';
+	toAppend += '			<p class="hide-on-lgxl show-on-smmd"><button class="dpbnm-update-stock btn btn-primary col-12" data-stock="product-game-modal" data-stockvalue="' + $stockValue + '" data-dpbnm-id="' + $id + '">' + $stock + '</button></p>';
+	toAppend += '			<p class="ae-style-url"><a href="' + $url + '" target="_blank" style="color: #6b6d70;">' + html_decode($url) + '</a></p>';
 	toAppend += '		</div>';
 	toAppend += '	</td>';
 	toAppend += '</tr>';
@@ -1664,13 +1671,17 @@ function productUpdateStock($productID, $stock, $site, $this) {
 		if (data) {
 			switch ($stock) {
 				case 0:
-					($this.attr("type") == "button") ? $($this).val('In Stock') : $($this).html('In Stock');
-					$($this).attr('data-stockvalue', 1);
+					//($this.attr("type") == "button") ? $($this).val('In Stock') : $($this).html('In Stock');
+					//$($this).attr('data-stockvalue', 0);
+					($this.attr("type") == "button") ? $(".row-" + $productID + " .dpbnm-update-stock").val('In Stock') : $(".row-" + $productID + " .dpbnm-update-stock").html('In Stock');
+					$(".row-" + $productID + " .dpbnm-update-stock").attr('data-stockvalue', 1);
 					alertMsg("Successfully update to In Stock", "bg-success");
 					break;
 				case 1:
-					($this.attr("type") == "button") ? $($this).val('Out Of Stock') : $($this).html('Out Of Stock');
-					$($this).attr('data-stockvalue', 0);
+					//($this.attr("type") == "button") ? $($this).val('Out Of Stock') : $($this).html('Out Of Stock');
+					//$($this).attr('data-stockvalue', 0);
+					($this.attr("type") == "button") ? $(".row-" + $productID + " .dpbnm-update-stock").val('Out Of Stock') : $(".row-" + $productID + " .dpbnm-update-stock").html('Out Of Stock');
+					$(".row-" + $productID + " .dpbnm-update-stock").attr('data-stockvalue', 0);
 					alertMsg("Successfully update to Out of Stock", "bg-success");
 					break;
 			}
@@ -1688,14 +1699,14 @@ function productUpdatePrice($productID, $price, $site, $this) {
 	}
 	AjaxCall(url, req).done(function (data) {
 		if (data) {
-			$($this).val($price);
+			//$($this).val($price);
+			$(".row-" + $productID + " .dpbnm-update-price").val($price);
 			alertMsg("Successfully update the price to " + $price + "", "bg-success");
 		}
 	});
 }
 
-function confirmationDialog($mode, onConfirm) {
-	$display = confirmationText($mode);
+function confirmationDialog($display, confirmationBtnId, onConfirm) {
 	var fClose = function () {
 		modal.modal("hide");
 	};
@@ -1704,25 +1715,5 @@ function confirmationDialog($mode, onConfirm) {
 	$('#confirmation-header-tittle').empty().html($display.header);
 	$('#confirmation-body-div').empty().append($display.body);
 	$('#confirmation-footer-div').empty().append($display.footer);
-	$("#confirmation-footer-btn").unbind().one('click', onConfirm).one('click', fClose);
-}
-
-function confirmationText($mode){
-	var $modalContent = {};
-	switch ($mode) {
-		case 'create':
-		break;
-		case 'update':
-		break;
-		case 'delete':
-			$modalContent = {
-				header: '<div id="confimation-div-header-style">Are you sure?</div>',
-				body: '<div id="confimation-div-body-style">Do you really want to delete this OFFER? </div>',
-				footer: '<input id="confirmation-footer-btn" class="col-6 button-on" style="margin:0 auto; border-radius:5px;" type="button" value="YES">'
-			}
-		break;
-		default:
-		break;
-	}
-	return $modalContent;
+	$("#" + confirmationBtnId).unbind().one('click', onConfirm).one('click', fClose);
 }

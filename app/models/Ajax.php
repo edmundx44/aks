@@ -1452,6 +1452,8 @@ class Ajax {
 					$successArr[] = [
 						'id' => $getInput->get('productId'),
 						'merchant' => $_POST['productformData']['ae-merchant-input'],
+						'buy_url' => $_POST['productformData']['ae-url-input'],
+						'normalised_name' => $_POST['productformData']['ae-gameid-input'],
 						'site' => $getInput->get('source'),
 						'user' => Users::currentUser()->id
 					];
@@ -1533,7 +1535,7 @@ class Ajax {
 						'nname' 	=> $value->normalised_name, 
 						'merchantID'=> $value->merchant,
 						'searchName'=> $value->search_name,
-						'merchant'	=> $getMerchantArr[$value->merchant],
+						'merchant'	=> ucfirst($getMerchantArr[$value->merchant]),
 						'region'	=> $getRegionsArr[$value->region],
 						'edition'	=> $getEditionArr[$value->edition],
 						'status'	=> ($value->dispo == 1)? 'In Stock' : 'Out Of Stock',
@@ -1556,6 +1558,8 @@ class Ajax {
                 $notiFields = [
                     'productID' => $getInput->get('getID'),
                     'merchant' => $merchantName,
+					'gameID' => $getInput->get('gameID'),
+                    'link' => htmlspecialchars_decode($getInput->get('link')),
                     'action' => $getInput->get('getWhat'),
                     'site' => $getInput->get('getSite'),
                     'employeeID' => $getInput->get('getEmployee')

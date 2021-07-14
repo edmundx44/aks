@@ -59,9 +59,9 @@
 					$modalContent = {
 						header: '<div id="confimation-header-style">Are you sure?</div>',
 						body  : '<div id="confimation-body-style">Do you really want to '+$note+' this merchant '+ $id +'</div>',
-						footer: '<input id="modal-confirmation" class="col-6 button-on" style="margin:0 auto; border-radius:5px;" type="button" value="YES">'
+						footer: '<input id="modal-confirmation-status" class="col-6 button-on" style="margin:0 auto; border-radius:5px;" type="button" value="YES">'
 					}
-					confirmDialog($modalContent,function(e){
+					confirmDialog($modalContent, "modal-confirmation-status",function(e){
 						$_query = getUpdateQuery($id, $status);
 						if($_query !== undefined){
 							$(this).val("Loading");
@@ -75,16 +75,17 @@
 			});
 		}); // end document ready function
 		
-		function confirmDialog($con, onConfirm){
+		function confirmDialog($con, confirmationBtnId, onConfirm){
+			//id btn in the footer modalContent
 			var fClose = function(){
 				modal.modal("hide");
 			};
 			var modal = $("#report-modal-confirmation");
 			modal.modal('show');
-			$('.confirmation-tittle').empty().html($con.header);
-			$('.modal-content-body').empty().append($con.body);
-			$('.confirmation-modal-footer').empty().append($con.footer);	
-			$("#modal-confirmation").unbind().one('click', onConfirm).one('click', fClose);
+			$('#confirmation-header-tittle').empty().html($con.header);
+			$('#confirmation-body-div').empty().append($con.body);
+			$('#confirmation-footer-div').empty().append($con.footer);	
+			$('#'+confirmationBtnId).unbind().one('click', onConfirm).one('click', fClose);
 		}
 
 		function setActiveTab($param){
