@@ -135,7 +135,7 @@ use Core\Session;
 									var action = element.action.toLowerCase();
 									switch (action) {
 										case "created": case "edited": case "deleted":
-											var message = "<span> " + element.employee + "</span> <span> " + element.action + " </span> " + element.merchant + " on " + element.site +".";
+											var message = "<span> " + element.employee + "</span> <span> " + element.action + " an offer on</span> " + element.merchant + " " + element.site +".";
 										break;
 										case "stock update": case "price update":
 											var message = "<span> " + element.employee + " do a</span> <span> " + element.action + " on</span> " + element.merchant + " " + element.site +".";
