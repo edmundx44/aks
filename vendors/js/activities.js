@@ -1,4 +1,6 @@
+$('.content-loader-div').hide()
 $(function() {
+    
         recentActivity();
 
         // filter section -------------------------------------------------------------------

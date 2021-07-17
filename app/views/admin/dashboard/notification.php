@@ -1,13 +1,14 @@
 <?php $this->setSiteTitle($this->pageTitle); ?>
 
 <?php $this->start('head'); ?>
-	<script>
-	   
-	</script>
-	<style>
-
-	</style>
 <?php $this->end(); ?>
+
+<?php $this->start('body-script'); ?>
+	<script>
+		$('.content-loader-div').hide()
+	</script>
+<?php $this->end(); ?>
+
 <?php $this->start('body')?>
 	<div class="container-fluid">
 		<div class="row">
