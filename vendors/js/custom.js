@@ -58,12 +58,13 @@ $(document).ready(function () {
 	displayMode(localStorage.getItem("body-mode"));
 	getAllowedRegion();
 	getVisible();
+	
 
 	// var pathname = window.location.pathname;     
 	// var origin   = window.location.origin;
 	// var url      = window.location.href; 
 	// localStorage.clear();
-
+	
 	// active parameter -----------------------------------------------------------------
 	if (getUrlParameter('search') == 'true') {
 		$('#search-product-modal').modal('show');
@@ -88,11 +89,7 @@ $(document).ready(function () {
 		cancel: 'span, input, .nfof-feedback, .pc-asb-modal*, .modal-content-body*, .spm-content-body*'
 	});
 
-	$("#float-anywhere").draggable({
-		containment: "#wrapper",
-		scroll: false
-		// cancel:
-	});
+	$("#float-anywhere").draggable({});
 	// end modal dragable and component
 
 	// windows component ----------------

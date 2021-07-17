@@ -47,9 +47,9 @@
 										</div>
 									</div>
 									
-									<ul class="sub-ul-nav <?= $key ?>-sub-ul" >
+									<ul class="sub-ul-nav <?= $key ?>-sub-ul"  id="sub-ul-<?= $key ?>-sub-ul">
 										<?php foreach($val as $k => $v): 
-											echo ($v == parse_url($currentPageUse, PHP_URL_PATH))? "<script type='text/javascript'>$('.$key-sub-ul').addClass('show-div');</script>" : '' ;
+											echo ($v == parse_url($currentPageUse, PHP_URL_PATH))? "<script type='text/javascript'>document.getElementById('sub-ul-$key-sub-ul').classList.add('show-div')</script>" : '' ;
 											$active = ($v == parse_url($currentPageUse, PHP_URL_PATH))? 'active-class':''; 
 											$activeVal = ($v == parse_url($currentPageUse, PHP_URL_PATH))? 'active-class-val':''; 
 										?>
