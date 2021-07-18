@@ -15,5 +15,17 @@
 		"Links": ["*"],
 		"Tools": ["*"],
 		"Status" : ["*"]
+	},
+	"Developer" : {
+		"denied" : {
+			"User" : ["login", "register"]
+		},
+		"User" : ["logout"],
+		"Dashboard" : ["*"],
+		"Reports" : ["*"],
+		"Store": ["*"],
+		"Links": ["*"],
+		"Tools": ["*"],
+		"Status" : ["*"]
 	}
 }

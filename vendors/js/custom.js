@@ -1175,7 +1175,6 @@ function displayIcon() {
 		$(this).addClass(iconList[i])
 	});
 }
-
 // ajax call function ---------------------------------------
 function AjaxCall($url, $data, $loader) {
 	// NOTE: 
@@ -1186,8 +1185,8 @@ function AjaxCall($url, $data, $loader) {
 		url: $url,
 		type: "POST",
 		data: $data,
-		beforeSend:function(){
-			$loader
+		beforeSend:function(jqXHR){
+			$loader;
 		}
 	})
 }

@@ -87,6 +87,8 @@ var setOffset = '0',
 			
 // double link menu section -----------------------------------------------------
 			$(document).on('click', '.dl-li-btn', function(){
+				AjaxCall().abort(); //abort all request 1st;
+				
 				var getSite = ($('.dl-dd-site-span').html() == 'Select Site')? 'AKS' : $('.dl-dd-site-span').html();
 
 				$('.dl-li-btn').removeClass('active-dl-menu');
@@ -96,13 +98,16 @@ var setOffset = '0',
 
 				switch($(this).attr('id')){
 					case 'dl-real-double-div':
+						
 						$('.dl-dd-site').addClass('d-xl-block');
 
 						var param = '';
 
 						displayRealDoubleLinks(getSite);
+
 					break;
 					case 'dl-suspicious-double-div':
+						
 						$('.display-suspicious-double-div').empty();
 						$('.dl-dd-site').addClass('d-xl-block');
 
@@ -180,7 +185,6 @@ var setOffset = '0',
 				site : $site
 			}
 			var loader =  $('.dl-rddc-loader');
-
 			AjaxCall(url, dataRequest, loader.show()).done(function(data){
 				$('.total-result').html(data.length)
 				var counter = 1;
