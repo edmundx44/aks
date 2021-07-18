@@ -152,8 +152,8 @@ var setOffset = '0',
 				getlimit: $limit,
 				site: $site
 			}
-
-			AjaxCall(url, dataRequest).done(function(data){
+			var loader = $('.display-suspicious-double-loader');
+			AjaxCall(url, dataRequest, loader.show()).done(function(data){
 				for(var i in data){
 					var getCreated = (data[i].created_by == '')? 'Created by "Unknown" in '+getSite+'' : 'Created by "'+data[i].created_by+'" in '+getSite+'';
 					var	append =	'<div style="padding: 10px;box-shadow: 0 1px 4px 0 rgb(0 0 0 / 24%);margin: 0 0 15px 0;">';
@@ -169,6 +169,7 @@ var setOffset = '0',
 				setOffset = parseInt(setOffset) + parseInt(data.length);
 			}).always(function(){
 				var hideIfMax = (setOffset == setTotal)? $('.dl-sl-div').hide() : $('.dl-sl-div').show();
+				loader.hide()
 			});
 		}
 
@@ -178,8 +179,9 @@ var setOffset = '0',
 				action: 'display-real-double-link',
 				site : $site
 			}
+			var loader =  $('.dl-rddc-loader');
 
-			AjaxCall(url, dataRequest).done(function(data){
+			AjaxCall(url, dataRequest, loader.show()).done(function(data){
 				$('.total-result').html(data.length)
 				var counter = 1;
 
@@ -207,7 +209,9 @@ var setOffset = '0',
 					$("#dl-real-double-display-content-div").append(append);
 					counter++;
 				}
-			}).always(function(){});
+			}).always(function(){
+				loader.hide()
+			});
 		}
 
 		function displayStore(){
@@ -266,7 +270,6 @@ var setOffset = '0',
 				case 'metacritics-double':
 					$('.dl-dd-site').removeClass('d-xl-block');
 					var divClassID = 'dl-metacritics-double-div';
-					
 				break;
 				default:
 					$('.dl-dd-site').addClass('d-xl-block');

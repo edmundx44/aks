@@ -63,6 +63,9 @@
 						</div>
 
 						<div class="card-body no-padding">
+							<div class="display-store-loader" style="display: none;margin-bottom: 30px;">
+								<?php include ROOT. DS . 'app' . DS . 'views' . DS . 'layouts' . DS. 'processing-loader.php'; ?>
+							</div>
 							<div class="row store-data-div"></div>
 							<div class="row store-games-data-div" style="display: none;padding-left: 15px;padding-right: 15px;">
 								<div class="col-sm-12 no-padding store-games-data-div-sub">

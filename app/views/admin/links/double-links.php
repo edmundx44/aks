@@ -48,6 +48,10 @@
 							</div>
 
 							<table class="col-12" style="margin: 20px 0 0 0;">
+								<div class="dl-rddc-loader" style="display:none;">
+									<?php include ROOT. DS . 'app' . DS . 'views' . DS . 'layouts' . DS. 'processing-loader.php'; ?>
+								</div>
+
 								<thead>
 									<tr class="" style="color: #fff;background-color: #007bff;">
 										<th class="hide-on-smmd" style="padding: 10px;width: 45%;">Link</th>
@@ -79,7 +83,11 @@
 									</b>
 								</div>
 							</div>
-							
+
+							<div class="display-suspicious-double-loader" style="display:none;">
+								<?php include ROOT. DS . 'app' . DS . 'views' . DS . 'layouts' . DS. 'processing-loader.php'; ?>
+							</div>
+
 							<div class="display-suspicious-double-div" style="margin: 15px 0 0 0;border:solid 1px transparent;">
 								<!-- dynamic data here from database -->
 							</div>

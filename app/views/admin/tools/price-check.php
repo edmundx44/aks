@@ -36,6 +36,10 @@
 									</div>
 								</div>
 
+								<div class="pc-da-loader text-center" style="display: none;margin-bottom: 10px;">
+									<?php include ROOT. DS . 'app' . DS . 'views' . DS . 'layouts' . DS. 'processing-loader.php'; ?>
+								</div>
+								
 								<table class="col-12">
 									<thead>
 										<tr class="pc-header-tr">
@@ -57,9 +61,9 @@
 													<span class="data-display-function pc-lmore-fucntion mr-1"> 
 														<i class="fas fa-spinner"></i> Load More 
 													</span> 
-													<span class="data-display-function pc-dall-function ml-1"> 
+													<!-- <span class="data-display-function pc-dall-function ml-1"> 
 														<i class="fas fa-globe"></i> Display All
-													</span>
+													</span> -->
 												</p>
 											</td>
 										</tr>
@@ -69,6 +73,10 @@
 							<div class="pc-content-div pc-ac-div">
 								<div class="form-group float-right">
 									<button class="btn btn-primary" data-toggle="modal" data-target="#pc-add-shift-modal" style="width: 200px;"><i class="fas fa-plus-square"></i> &nbsp; Add shift</button>
+								</div>
+
+								<div class="pc-ac-loader col-12" style="display: none;margin-bottom: 60px;position: relative;top:50px">
+									<?php include ROOT. DS . 'app' . DS . 'views' . DS . 'layouts' . DS. 'processing-loader.php'; ?>
 								</div>
 
 								<table class="col-12">
@@ -88,6 +96,10 @@
 							<div class="pc-content-div pc-adlg-div">
 								<div class="form-group float-right">
 									<button class="btn btn-primary" data-toggle="modal" data-target="#price_check_tool_modal_add_game" style="width: 200px;"><i class="fas fa-plus-square"></i> &nbsp; Add Games</button>
+								</div>
+
+								<div class="pc-adlg-loader col-12" style="display: none;margin-bottom: 60px;position: relative;top:50px">
+									<?php include ROOT. DS . 'app' . DS . 'views' . DS . 'layouts' . DS. 'processing-loader.php'; ?>
 								</div>
 
 								<table class="col-12">
@@ -113,6 +125,10 @@
 
 								<div class="form-group float-right">
 									<button class="btn btn-primary" data-toggle="modal" data-target="#add-wrong-aff-link-modal" style="width: 200px;"><i class="fas fa-plus-square"></i> &nbsp; Add Wrong Affiliate</button>
+								</div>
+
+								<div class="pc-pr-loader col-12" style="display: none;margin-bottom: 60px;position: relative;top:50px">
+									<?php include ROOT. DS . 'app' . DS . 'views' . DS . 'layouts' . DS. 'processing-loader.php'; ?>
 								</div>
 
 								<table class="col-12">

@@ -211,9 +211,10 @@ function displayStoreGames($merchantID, $offset, $limit, $toSearch, $site){
 		toSearch: $toSearch,
 		site: $site
 	}
-
+	var loader = $('.display-store-loader');
 	var getMode = (localStorage.getItem("body-mode") == 'darkmode')? 'darkmode':'normal';
-	AjaxCall(url, dataRequest).done(function(data) {
+
+	AjaxCall(url, dataRequest, loader.show()).done(function(data) {
 		var showHide = (data[0].total >= 499 || (data[0].total != '' && data[0].total >= 499))? $('.store-games-data-table-tfoot').show() : $('.store-games-data-table-tfoot').hide();
 		for(var i in data){
 			for(var j in data[0].data){
@@ -232,6 +233,7 @@ function displayStoreGames($merchantID, $offset, $limit, $toSearch, $site){
 		currentID = $merchantID;
 		total = data[0].total;
 	}).always(function() { 
+		loader.hide();
 		var hideIfMax = (currentDisplay == total)? $('.store-games-data-table-tfoot').hide() : '';
 	});
 }
@@ -240,8 +242,8 @@ function displayStore(){
 	var dataRequest =  {
 		action: 'displayStore'
 	}
-
-	AjaxCall(url, dataRequest).done(function(data) {
+	var loader = $('.display-store-loader');
+	AjaxCall(url, dataRequest, loader.show()).done(function(data) {
 		for(var i in data){
 			var append =  '<div class="col-md-12 col-lg-6 col-xl-3  store-list-div">';
 				append += '<div class="card store-list-card" id="'+data[i].vols_id+'" data-nname="'+data[i].vols_nom+'"">';
@@ -254,6 +256,9 @@ function displayStore(){
 
 				$(".store-data-div").append(append);
 		}
+	}).always(function() { 
+		loader.hide()
+		var hideIfMax = (currentDisplay == total)? $('.store-games-data-table-tfoot').hide() : '';
 	});
 }
 

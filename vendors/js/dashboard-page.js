@@ -638,7 +638,7 @@
 		return $.ajax({
 			url : $url,
 			type: "POST",
-				data : {
+			data : {
 				action: 'displayChecksumUsingToggleSiteOnly',
 				getWebsiteSent: $website
 			},

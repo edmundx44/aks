@@ -242,13 +242,15 @@ $(function() {
 			action: 'pc-cda-search-data',
 			toSearch: $(this).val()
 		}
-		AjaxCall(url, dataRequest).done(function(data) {
+		var loader = $('.pc-da-loader');
+		AjaxCall(url, dataRequest, loader.show()).done(function(data) {
 			var counter = 1;
 			for(var i in data) {
 				appendtoDailyAct(data[i].checkerName, data[i].gameId, data[i].gameName, data[i].checkerActivity, data[i].url, data[i].date, counter);
 				counter++;
 			}
 		}).always(function(){
+			loader.hide();
 			$('.pc-cda-tfoot').hide();
 		});
 	}, 200));
@@ -299,14 +301,15 @@ function displayDailyActivity(){
 	var dataRequest =  {
 		action: 'pc-cda-div',
 	}
-
-	AjaxCall(url, dataRequest).done(function(data) {
+	var loader = $('.pc-da-loader');
+	AjaxCall(url, dataRequest, loader.show()).done(function(data) {
 		var counter = 1;
 		for(var i in data[0].data){
 			appendtoDailyAct(data[0].data[i].checkerName, data[0].data[i].gameId, data[0].data[i].gameName, data[0].data[i].checkerActivity, data[0].data[i].url, data[0].data[i].date, counter);
 			counter++;
 		}
 	}).always(function(data){
+		loader.hide();
 		dailyActTotal = data[0].total
 		dailyActOffset = data[0].data.length;
 	});
@@ -339,7 +342,8 @@ function displayAssignChecker(){
 	var dataRequest =  {
 		action: 'display-assign-checker',
 	}
-	AjaxCall(url, dataRequest).done(function(data) {
+	var loader = $('.pc-ac-loader');
+	AjaxCall(url, dataRequest, loader.show()).done(function(data) {
 		var counter = 1;
 		
 		for (var i in data){
@@ -361,7 +365,9 @@ function displayAssignChecker(){
 			$(".pc-ac-div-display").append(append);
 			counter++;
 		}
-	}).always(function(){});
+	}).always(function(){
+		loader.hide();
+	});
 }
 
 function displayDailyListing(){
@@ -369,7 +375,8 @@ function displayDailyListing(){
 	var dataRequest =  {
 		action: 'display-daily-listing',
 	}
-	AjaxCall(url, dataRequest).done(function(data) {
+	var loader = $('.pc-adlg-loader');
+	AjaxCall(url, dataRequest, loader.show()).done(function(data) {
 		var counter = 1;
 
 		for (var i in data){
@@ -398,7 +405,9 @@ function displayDailyListing(){
 			$(".pc-adlg-div-display").append(append);
 			counter++;
 		}
-	}).always(function(){});
+	}).always(function(){
+		loader.hide()
+	});
 }
 
 function displayWrongAffLink(){
@@ -409,7 +418,8 @@ function displayWrongAffLink(){
 	var dataRequest =  {
 		action: 'display-wrong-affilliate-link',
 	}
-	AjaxCall(url, dataRequest).done(function(data) {
+	var loader = $('.pc-pr-loader');
+	AjaxCall(url, dataRequest, loader.show()).done(function(data) {
 		var total = 0;
 
 		for (var i in data){
@@ -428,7 +438,9 @@ function displayWrongAffLink(){
 			}
 		}
 		$('.result-today').html(total);   
-	}).always(function(){});
+	}).always(function(){
+		loader.hide();
+	});
 }
 
 function displayChecker(){

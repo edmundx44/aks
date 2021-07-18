@@ -247,8 +247,11 @@ $(document).ready(function () {
 	$('.displayProductByNormalisedName').on('hidden.bs.modal', function () { unsetUrlParam('normalisedname') });
 
 	$(document).on('click', '.spmc-display-content-wrapper', function () {
-		var getSite = ($('.search-product-modal-dd-btn').html() == 'Select Site') ? 'AKS' : $('.search-product-modal-dd-btn').html();
-		displayOnAddEditModal($(this).data('productid'), getSite, 'create');
+		var selection = window.getSelection();
+		if(selection.type != "Range") {
+			var getSite = ($('.search-product-modal-dd-btn').html() == 'Select Site') ? 'AKS' : $('.search-product-modal-dd-btn').html();
+			displayOnAddEditModal($(this).data('productid'), getSite, 'create');
+		}
 	});
 
 	$(document).on('click', '.header-search-btn', function () {
@@ -1115,7 +1118,7 @@ function mainSearchProduct($site, $toSearch) {
 			var append = '<div class="spmc-display-content-wrapper" data-merchantni=' + data[i].merchant + ' data-productid=' + data[i].id + ' data-productnormalisename=' + data[i].normalised_name + '>';
 			append += '<div class="spmc-dcw-btn-div"><button class="btn btn-info spmc-open-list-btn" data-normalisednameni=' + data[i].normalised_name + '>Open list</button></div>';
 			append += '<div class="spmc-dcw-merchant-div">' + data[i].vols_nom + '</div>';
-			append += '<div class="spmc-dcw-url-div">' + data[i].buy_url + '</div>';
+			append += '<div class="spmc-dcw-url-div">' + html_decode(data[i].buy_url) + '</div>';
 			append += '</div>';
 
 			if ($.inArray(data[i].vols_nom, checkUnique) == -1) {
@@ -1174,7 +1177,7 @@ function displayIcon() {
 }
 
 // ajax call function ---------------------------------------
-function AjaxCall($url, $data) {
+function AjaxCall($url, $data, $loader) {
 	// NOTE: 
 	// 	done = success
 	// 	always = complete
@@ -1182,7 +1185,10 @@ function AjaxCall($url, $data) {
 	return $.ajax({
 		url: $url,
 		type: "POST",
-		data: $data
+		data: $data,
+		beforeSend:function(){
+			$loader
+		}
 	})
 }
 
