@@ -1,6 +1,8 @@
 <?php
 use Core\Session;
+use App\Models\Users;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -10,6 +12,7 @@ use Core\Session;
 		<!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
 	
 		<title><?=$this->siteTitle(); ?></title>
+		
 		<?php include 'stylesheets.php'; ?>
 		<?= $this->content('head'); ?>
 

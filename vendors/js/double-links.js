@@ -1,5 +1,5 @@
-var setOffset = '0',
-			setTotal = '';
+var setOffset = '0';
+var	setTotal = '';
 
 		$(function() {
 			setActiveTab(getUrlParameter('tab'));
@@ -88,7 +88,7 @@ var setOffset = '0',
 // double link menu section -----------------------------------------------------
 			$(document).on('click', '.dl-li-btn', function(){
 				AjaxCall().abort(); //abort all request 1st;
-				
+
 				var getSite = ($('.dl-dd-site-span').html() == 'Select Site')? 'AKS' : $('.dl-dd-site-span').html();
 
 				$('.dl-li-btn').removeClass('active-dl-menu');
@@ -179,43 +179,102 @@ var setOffset = '0',
 		}
 
 		function displayRealDoubleLinks($site){
-			$('#dl-real-double-display-content-div').empty()
-			var dataRequest =  { 
-				action: 'display-real-double-link',
-				site : $site
-			}
-			var loader =  $('.dl-rddc-loader');
-			AjaxCall(url, dataRequest, loader.show()).done(function(data){
-				$('.total-result').html(data.length)
-				var counter = 1;
+			var getEmployeeFull = getEmployee+'-'+getEmployeeID;
+			// var data = JSON.parse($.ajax({ type: "GET", url: url + "vendors/txtfile/storedData/real-double-link-"+getEmployeeFull+".txt", async: false }));
+			var datani = $.ajax({ type: "GET", url: url + "vendors/txtfile/storedData/real-double-link-"+getEmployeeFull+".txt", async: false }).responseText;
+			console.log(datani)
+			console.log(Array.isArray(datani))
+			// console.log($.ajax({ type: "GET", url: url + "vendors/txtfile/storedData/real-double-link-"+getEmployeeFull+".txt", async: false }))
+			// $.ajax({
+			//     type: "GET",
+			//     url: url + "vendors/txtfile/storedData/real-double-link-"+getEmployeeFull+".txt",
+			//     dataType: "json",
+			//     success: function(data,status,xhr){
+			//       console.log(data)
+			//     },
+			//     error: function(xhr, status, error){
+			       
+			//     }
+			// });
+			// if(data){
 
-				for(var i in data){
-					var backColor = (counter % 2 == 0)? 'tr-background-even' : '';
-					var getStock = (data[i].dispo == 1)? 'In stock' : 'Out of Stock';
+			// }else{
+			// 	var dataRequest =  { 
+			// 		action: 'display-real-double-link',
+			// 		site : $site
+			// 	}
+			// 	AjaxCall(url, dataRequest, loader.show()).done(function(){})
+			// }
+			// $('#dl-real-double-display-content-div').empty()
+			// var dataRequest =  { 
+			// 	action: 'display-real-double-link',
+			// 	site : $site
+			// }
+			// var loader =  $('.dl-rddc-loader');
+			// AjaxCall(url, dataRequest, loader.show()).done(function(){
+				
+			// }).always(function(){
+			// 	var getEmployeeFull = getEmployee+'-'+getEmployeeID;
+			// 	var data = JSON.parse($.ajax({ type: "GET", url: url + "vendors/txtfile/storedData/real-double-link-"+getEmployeeFull+".txt", async: false }).responseText);
+			// 	$('.total-result').html(data.length)
+			// 	var counter = 1;
 
-					var	append =	'<tr class="'+backColor+' tr-body-display-data">';
-						append +=	'	<td class="hide-on-smmd" style="padding: 10px;">'+ data[i].buy_url +'</td>';
-						append +=	'	<td style="padding: 10px;">'+ data[i].price +'</td>';
-						append +=	'	<td style="padding: 10px;">'+ getStock +'</td>';
-						append +=	'	<td style="padding: 10px;text-align:center;">'
-						append +=	'		<button class="btn btn-primary">Copy link</button> &nbsp;';
-						append +=	'		<button class="btn btn-warning dl-delete-real-double text-white" data-productid="'+data[i].id+'">Delete</button> &nbsp;';
-						append +=	'		<input type="checkbox" class="rd-delete-checkbox" data-cproductid="'+data[i].id+'">';
-						append +=	'	</td>';
-						append +=	'</tr>';
-						append +=	'<tr class="'+backColor+' sub-tr-head">';
-						append +=	'	<td colspan="3">';
-						append +=	'		<div style="padding: 0 10px 10px 10px;word-break: break-all;">';
-						append +=	'			<p>Activity : <span>'+ data[i].buy_url +'</span></p>';
-						append +=	'		</div>';
-						append +=	'	</td>';
-						append +=	'</tr>';
-					$("#dl-real-double-display-content-div").append(append);
-					counter++;
-				}
-			}).always(function(){
-				loader.hide()
-			});
+			// 	for(var i in data){
+			// 		var backColor = (counter % 2 == 0)? 'tr-background-even' : '';
+			// 		var getStock = (data[i].dispo == 1)? 'In stock' : 'Out of Stock';
+
+			// 		var	append =	'<tr class="'+backColor+' tr-body-display-data">';
+			// 			append +=	'	<td class="hide-on-smmd" style="padding: 10px;">'+ data[i].buy_url +'</td>';
+			// 			append +=	'	<td style="padding: 10px;">'+ data[i].price +'</td>';
+			// 			append +=	'	<td style="padding: 10px;">'+ getStock +'</td>';
+			// 			append +=	'	<td style="padding: 10px;text-align:center;">'
+			// 			append +=	'		<button class="btn btn-primary">Copy link</button> &nbsp;';
+			// 			append +=	'		<button class="btn btn-warning dl-delete-real-double text-white" data-productid="'+data[i].id+'">Delete</button> &nbsp;';
+			// 			append +=	'		<input type="checkbox" class="rd-delete-checkbox" data-cproductid="'+data[i].id+'">';
+			// 			append +=	'	</td>';
+			// 			append +=	'</tr>';
+			// 			append +=	'<tr class="'+backColor+' sub-tr-head">';
+			// 			append +=	'	<td colspan="3">';
+			// 			append +=	'		<div style="padding: 0 10px 10px 10px;word-break: break-all;">';
+			// 			append +=	'			<p>Activity : <span>'+ data[i].buy_url +'</span></p>';
+			// 			append +=	'		</div>';
+			// 			append +=	'	</td>';
+			// 			append +=	'</tr>';
+			// 		$("#dl-real-double-display-content-div").append(append);
+			// 		counter++;
+			// 	}
+			// 	loader.hide()
+			// });
+			// var getEmployeeFull = getEmployee+'-'+getEmployeeID;
+			// 	var data = JSON.parse($.ajax({ type: "GET", url: url + "vendors/txtfile/storedData/real-double-link-"+getEmployeeFull+".txt", async: false }).responseText);
+			// 	$('.total-result').html(data.length)
+			// 	var counter = 1;
+
+			// 	for(var i in data){
+			// 		var backColor = (counter % 2 == 0)? 'tr-background-even' : '';
+			// 		var getStock = (data[i].dispo == 1)? 'In stock' : 'Out of Stock';
+
+			// 		var	append =	'<tr class="'+backColor+' tr-body-display-data">';
+			// 			append +=	'	<td class="hide-on-smmd" style="padding: 10px;">'+ data[i].buy_url +'</td>';
+			// 			append +=	'	<td style="padding: 10px;">'+ data[i].price +'</td>';
+			// 			append +=	'	<td style="padding: 10px;">'+ getStock +'</td>';
+			// 			append +=	'	<td style="padding: 10px;text-align:center;">'
+			// 			append +=	'		<button class="btn btn-primary">Copy link</button> &nbsp;';
+			// 			append +=	'		<button class="btn btn-warning dl-delete-real-double text-white" data-productid="'+data[i].id+'">Delete</button> &nbsp;';
+			// 			append +=	'		<input type="checkbox" class="rd-delete-checkbox" data-cproductid="'+data[i].id+'">';
+			// 			append +=	'	</td>';
+			// 			append +=	'</tr>';
+			// 			append +=	'<tr class="'+backColor+' sub-tr-head">';
+			// 			append +=	'	<td colspan="3">';
+			// 			append +=	'		<div style="padding: 0 10px 10px 10px;word-break: break-all;">';
+			// 			append +=	'			<p>Activity : <span>'+ data[i].buy_url +'</span></p>';
+			// 			append +=	'		</div>';
+			// 			append +=	'	</td>';
+			// 			append +=	'</tr>';
+			// 		$("#dl-real-double-display-content-div").append(append);
+			// 		counter++;
+			// 	}
+			// 	loader.hide()
 		}
 
 		function displayStore(){

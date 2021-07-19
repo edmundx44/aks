@@ -1,4 +1,12 @@
-<script> var url = '<?= PROOT ?>'; </script>
+<?php
+	use App\Models\Users;
+?>
+
+<script> 
+	var url = '<?= PROOT ?>';
+	var getEmployee = "<?= Users::currentUser()->fname ?>";
+	var getEmployeeID = "<?= Users::currentUser()->id ?>";
+</script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

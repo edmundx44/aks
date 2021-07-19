@@ -1153,7 +1153,10 @@ class Ajax {
 					FROM `".$site."`.`pt_products` WHERE merchant NOT IN ('1','67','157','33','333') AND normalised_name != 50
 					GROUP BY `buy_url`, `edition`, `region`, `normalised_name`, `merchant` HAVING occurs > 1 ORDER BY price DESC";
 
-				return $db->query($sql)->results();
+				// return $db->query($sql)->results();
+				$json_data = json_encode($db->query($sql)->results());
+				file_put_contents(ROOT . DS . 'vendors'. DS . 'txtfile' . DS . 'storedData' . DS . 'real-double-link-'.Users::currentUser()->fname.'-'.Users::currentUser()->id.'.txt', $json_data);
+				// store to txtfile 1st 
 			break;
 			case 'delete-real-double-link':
 				$site = self::getSite($getInput->get('site'));
