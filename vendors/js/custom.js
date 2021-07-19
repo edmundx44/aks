@@ -58,12 +58,13 @@ $(document).ready(function () {
 	displayMode(localStorage.getItem("body-mode"));
 	getAllowedRegion();
 	getVisible();
+	
 
 	// var pathname = window.location.pathname;     
 	// var origin   = window.location.origin;
 	// var url      = window.location.href; 
 	// localStorage.clear();
-
+	
 	// active parameter -----------------------------------------------------------------
 	if (getUrlParameter('search') == 'true') {
 		$('#search-product-modal').modal('show');
@@ -88,11 +89,7 @@ $(document).ready(function () {
 		cancel: 'span, input, .nfof-feedback, .pc-asb-modal*, .modal-content-body*, .spm-content-body*'
 	});
 
-	$("#float-anywhere").draggable({
-		containment: "#wrapper",
-		scroll: false
-		// cancel:
-	});
+	$("#float-anywhere").draggable({});
 	// end modal dragable and component
 
 	// windows component ----------------
@@ -250,8 +247,11 @@ $(document).ready(function () {
 	$('.displayProductByNormalisedName').on('hidden.bs.modal', function () { unsetUrlParam('normalisedname') });
 
 	$(document).on('click', '.spmc-display-content-wrapper', function () {
-		var getSite = ($('.search-product-modal-dd-btn').html() == 'Select Site') ? 'AKS' : $('.search-product-modal-dd-btn').html();
-		displayOnAddEditModal($(this).data('productid'), getSite, 'create');
+		var selection = window.getSelection();
+		if(selection.type != "Range") {
+			var getSite = ($('.search-product-modal-dd-btn').html() == 'Select Site') ? 'AKS' : $('.search-product-modal-dd-btn').html();
+			displayOnAddEditModal($(this).data('productid'), getSite, 'create');
+		}
 	});
 
 	$(document).on('click', '.header-search-btn', function () {
@@ -1118,7 +1118,7 @@ function mainSearchProduct($site, $toSearch) {
 			var append = '<div class="spmc-display-content-wrapper" data-merchantni=' + data[i].merchant + ' data-productid=' + data[i].id + ' data-productnormalisename=' + data[i].normalised_name + '>';
 			append += '<div class="spmc-dcw-btn-div"><button class="btn btn-info spmc-open-list-btn" data-normalisednameni=' + data[i].normalised_name + '>Open list</button></div>';
 			append += '<div class="spmc-dcw-merchant-div">' + data[i].vols_nom + '</div>';
-			append += '<div class="spmc-dcw-url-div">' + data[i].buy_url + '</div>';
+			append += '<div class="spmc-dcw-url-div">' + html_decode(data[i].buy_url) + '</div>';
 			append += '</div>';
 
 			if ($.inArray(data[i].vols_nom, checkUnique) == -1) {
@@ -1175,9 +1175,8 @@ function displayIcon() {
 		$(this).addClass(iconList[i])
 	});
 }
-
 // ajax call function ---------------------------------------
-function AjaxCall($url, $data) {
+function AjaxCall($url, $data, $loader) {
 	// NOTE: 
 	// 	done = success
 	// 	always = complete
@@ -1185,7 +1184,10 @@ function AjaxCall($url, $data) {
 	return $.ajax({
 		url: $url,
 		type: "POST",
-		data: $data
+		data: $data,
+		beforeSend:function(jqXHR){
+			$loader;
+		}
 	})
 }
 
@@ -1601,44 +1603,6 @@ function eRegex($string) {
 			break;
 	}
 	return $string;
-}
-
-function displayStoreGamesByNormalizedName($normalised_name, $site) {
-	var dataRequest = {
-		action: 'displayStoreGamesByNormalizedName',
-		nnameID: $normalised_name,
-		site: $site
-	}
-
-	AjaxCall(url, dataRequest).done(function (data) {
-		$('.productName').text(data[0].searchName);
-		$('.productNormalizedName').text(data[0].nname);
-		$('#displayStoreGamesByNormalizedName').modal('show');
-		$('.nname-modal-tbody').empty();
-
-		for (var i in data) {
-			var $stock = (data[i].status == 'In Stock') ? 1 : 0;
-			var append = '<div class="nname-modal-tbody-div ' + data[i].id + '">';
-			append += '<div class="modal-child-tbody-1">' + data[i].merchant + '</div>';
-			append += '<div class="modal-child-tbody-2">' + data[i].region + '</div>';
-			append += '<div class="modal-child-tbody-3">' + data[i].edition + '</div>';
-			append += '<div class="modal-child-tbody-sub modal-child-tbody-4"><input class="dpbnm-update-stock" type="button" data-stock="product-store-page" data-stockvalue="' + $stock + '"data-prodId="' + data[i].id + '" value="' + data[i].status + '"></div>';
-			append += '<div class="modal-child-tbody-sub modal-child-tbody-5"><input type="text" data-dpbnm-id="' + data[i].id + '" title="Press Enter to update the PRICE." class="dpbnm-update-price" data-price="product-store-page" value="' + data[i].price + '"></div>';
-			append += '<div class="modal-child-tbody-sub modal-child-tbody-6">';
-			append += '<div class="show-menu" id="' + data[i].id + '">';
-			append += '<ul class="modal-setting-ul">';
-			append += '<li class="modal-setting-ul-li"><i class="fa fa-pencil" aria-hidden="true"></i><span class="msulspan add-edit-from-display" data-toeditid="' + data[i].id + '">Edit</span></li>';
-			append += '<li class="modal-setting-ul-li"><i class="fa fa-times" aria-hidden="true"></i><span class="msulspan">Delete</span></li>';
-			append += '<li class="modal-setting-ul-li"><i class="fa fa-dot-circle-o" aria-hidden="true"></i><span class="msulspan">Others</span></li>';
-			append += '</ul>';
-			append += '</div>';
-			append += '<button class="btn action-btn ' + data[i].site + '-btn" id="' + data[i].id + '"> <i class="fa fa-cogs btn-icon-acb" aria-hidden="true"></i></button>';
-			append += '</div>';
-			append += '<div><p class="nname-modal-tfoot"><a href="' + data[i].buy_url + '" target="_blank">' + html_decode(data[i].buy_url) + '</a></p></div>';
-			append += '</div>';
-			$(".nname-modal-tbody").append(append);
-		}
-	});
 }
 
 function storeUpdateProduct($productID, $toWhat, $dataTo, $site) {

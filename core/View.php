@@ -2,7 +2,7 @@
 namespace Core;
 
   class View {
-    protected $_head, $_body, $_siteTitle = SITE_TITLE, $_outputBuffer, $_layout = DEFAULT_LAYOUT;
+    protected $_head, $_body, $_bodyScript, $_siteTitle = SITE_TITLE, $_outputBuffer, $_layout = DEFAULT_LAYOUT;
 
     public function __construct() {
 
@@ -24,6 +24,8 @@ namespace Core;
         return $this->_head;
       } elseif($type == 'body') {
         return $this->_body;
+      } elseif($type == 'body-script') {
+        return $this->_bodyScript;
       }
       return false;
     }
@@ -38,6 +40,8 @@ namespace Core;
         $this->_head = ob_get_clean();
       } elseif($this->_outputBuffer == 'body') {
         $this->_body = ob_get_clean();
+      } elseif($this->_outputBuffer == 'body-script') {
+        $this->_bodyScript = ob_get_clean();
       } else {
         die('You must first run the start method.');
       }
