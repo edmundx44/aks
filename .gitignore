@@ -5,3 +5,4 @@
 .git/*
 /vendors/assets/payment-fees.js
 .phpunit.result.cache
+phpunit.xml/*
