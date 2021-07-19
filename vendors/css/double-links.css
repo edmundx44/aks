@@ -1,30 +1,30 @@
 .sub-tr-head {
-			display: none;
-		}
-		.dl-card-bulitin {
-			position: relative;
-			top: 20px;
-			padding-left: 20px;
-			padding-right: 20px;
-			padding-bottom:15px;
-			color: #fff;
-			letter-spacing: 2px;
-			font-weight: 400;
-		}
-		.dl-cb-ul-menu {
-			list-style-type: none;
-			padding:  0; 
-			position: absolute; 
-			top: 15px;
-			left: 100px;
-			color: #fff;
-		}
-		.dl-li-btn {
-			cursor: pointer;
-			display: inline-block;
-			padding: 5px 15px 5px 15px;
-			border-radius: 5px;
-		}
-		.active-dl-menu {
-			background-color: rgba(255, 255, 255, .2);
-		}
+	display: none;
+}
+.dl-card-bulitin {
+	position: relative;
+	top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom:15px;
+	color: #fff;
+	letter-spacing: 2px;
+	font-weight: 400;
+}
+.dl-cb-ul-menu {
+	list-style-type: none;
+	padding:  0; 
+	position: absolute; 
+	top: 15px;
+	left: 100px;
+	color: #fff;
+}
+.dl-li-btn {
+	cursor: pointer;
+	display: inline-block;
+	padding: 5px 15px 5px 15px;
+	border-radius: 5px;
+}
+.active-dl-menu {
+	background-color: rgba(255, 255, 255, .2);
+}

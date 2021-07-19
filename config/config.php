@@ -2,7 +2,7 @@
 	$origin = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
 
 	if ($origin == 'http://localhost'){
-		$pathname = '/akss/';
+		$pathname = '/aks/';
 		$dbPassword = '';
 	}else{
 		$pathname = '/admin/bot_de_v2/aks/';

@@ -1,81 +1,99 @@
 .sc-card-bulitin {
-			position: relative;
-			top: 20px;
-			padding-left: 20px;
-			padding-right: 20px;
-			padding-bottom:15px;
-			color: #fff;
-			letter-spacing: 2px;
-			font-weight: 400;
-		}
-		.sc-cb-ul-menu {
-			list-style-type: none;
-			padding:  0; 
-			position: absolute; 
-			top: 15px;
-			left: 100px;
-			color: #fff;
-		}
-		.sc-li-btn {
-			cursor: pointer;
-			display: inline-block;
-			padding: 5px 15px 5px 15px;
-			border-radius: 5px;
-		}
-		.active-sc-menu {
-			background-color: rgba(255, 255, 255, .2);
-		}
-		.rating-title{
-			display: inline-block; 
-			margin-top:10px;
-			margin-bottom: 0;
-			margin-right: 10px;
-			color:#5b5b5b;
-		}
-		.pad-lr-20{
-			padding-left:20px;
-			padding-right:20px;
-		}
-		.store-list{
-			padding:15px 15px 0 15px;
-		}
-		.store-list-div{
-			padding-bottom:25px;
-			border-radius: 5px;
-		}
-		.store-list-card {
-			box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%), 0 5px 10px -5px rgb(107 109 112 / 40%);
-			overflow: hidden;
-			border-radius:5px;
-		}
-		.button-on { background: linear-gradient(60deg, #2576cc, #2472c6) !important ;}
-		.button-off{ background: linear-gradient(60deg, #e5b935, #e1b44a) !important ;}
+	position: relative;
+	top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom:15px;
+	color: #fff;
+	letter-spacing: 2px;
+	font-weight: 400;
+}
+.sc-cb-ul-menu {
+	list-style-type: none;
+	padding:  0; 
+	position: absolute; 
+	top: 15px;
+	left: 100px;
+	color: #fff;
+}
+.sc-li-btn {
+	cursor: pointer;
+	display: inline-block;
+	padding: 5px 15px 5px 15px;
+	border-radius: 5px;
+}
+.active-sc-menu {
+	background-color: rgba(255, 255, 255, .2);
+}
+.rating-title{
+	display: inline-block; 
+	margin-top:10px;
+	margin-bottom: 0;
+	margin-right: 10px;
+	color:#5b5b5b;
+}
+.pad-lr-20{
+	padding-left:20px;
+	padding-right:20px;
+}
+.store-list{
+	padding:15px 15px 0 15px;
+}
+.store-list-div{
+	padding-bottom:25px;
+	border-radius: 5px;
+}
+.store-list-card {
+	box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%), 0 5px 10px -5px rgb(107 109 112 / 40%);
+	overflow: hidden;
+	border-radius:5px;
+}
+.button-on { background: linear-gradient(60deg, #2576cc, #2472c6) !important ;}
+.button-off{ background: linear-gradient(60deg, #e5b935, #e1b44a) !important ;}
 
-		#modal-confirmation,
-		.btn-status{
-			background: transparent;
-			border: none;
-			/* border-radius: 0 0 5px 5px; */
-			cursor: pointer;
-			outline: none;
-			text-align: center;
-			color: #fff;
-			letter-spacing: 2px;
-			width: 100%;
-			font-weight: 700;
-			padding: 5px;
-		}
-		.store-list p{
-			letter-spacing: 1.5px;
-			font-weight: 500;
-		}
-		#confimation-header-style{
-			font-size: 20px;
-			font-weight: 700;
-			padding-top: 5px;
-			padding-bottom: 5px;
-		}
-		#confirmation-body-style{
-			padding-top: 10px;
-			padding-bottom: 10px;
-		}
+#modal-confirmation,
+.btn-status{
+	background: transparent;
+	border: none;
+	/* border-radius: 0 0 5px 5px; */
+	cursor: pointer;
+	outline: none;
+	text-align: center;
+	color: #fff;
+	letter-spacing: 2px;
+	width: 100%;
+	font-weight: 700;
+	padding: 5px;
+}
+.store-list p{
+	letter-spacing: 1.5px;
+	font-weight: 500;
+}
+#confimation-header-style{
+	font-size: 20px;
+	font-weight: 700;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+#confirmation-body-style{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.position-icon-1 {
+	position: absolute;
+	top: 10px;
+	right: 20px;
+}
+.website-btn {
+	background-color: Transparent;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	outline: none;
+	text-align: center;
+	color: #fff;
+	letter-spacing: 2px;
+	width: 100%;
+	font-weight: 700;
+	padding: 10px;
+}

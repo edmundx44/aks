@@ -1,10 +1,14 @@
+<!-- css -->
 <?php $this->start('head'); ?>
 	<link rel="stylesheet" href="<?=PROOT?>vendors/css/dashboard-page.css" media="screen" title="no title" charset="utf-8">
 <?php $this->end(); ?>
+<!-- css -->
 
+<!-- js -->
 <?php $this->start('body-script'); ?>
 	<script type="text/javascript" src="<?=PROOT?>vendors/js/dashboard-page.js"></script>
 <?php $this->end(); ?>
+<!-- js -->
 
 <?php $this->start('body')?>
 	<div class="container-fluid">
@@ -177,23 +181,24 @@
 			</div>
 		</div>
 
-	<!-- chart section ---------------------------------------------------------------------------- -->
-	<div class="row">
-		<div class="col-md-4 mtop-50px">
-			<div class="card card-style card-normalmode">
-				<div class="card-header no-padding row-3-card-header"> 
-					<div class="card-div-overflow-style row-3-card-div-overflow-style row-3-card-div-overflow-style-1 chart-canvas-div"> 
-						<canvas id="priceToZeroPercent-1" class="priceToZeroPercent-canvas chart-canvas" height="120"></canvas>
-					</div>
-					<div class="chart-title-div">
-						<p class="chart-title-p">Today's Price to Zero</p>
-						<div class="chart-title-sub-div">
-							<span class="chart-title-sub-div-span">
-								<i class="fas fa-long-arrow-alt-up"></i>&nbsp; 
-								<span class="chart-title-sub-div-span-1">23</span>
-								<span class="chart-title-sub-div-span-2">%</span>
-							</span>
-							<span class="chart-title-sub-div-span-sub"> product set to price to zero</span>
+		<!-- chart section ---------------------------------------------------------------------------- -->
+		<div class="row">
+			<div class="col-md-4 mtop-50px">
+				<div class="card card-style card-normalmode">
+					<div class="card-header no-padding row-3-card-header"> 
+						<div class="card-div-overflow-style row-3-card-div-overflow-style row-3-card-div-overflow-style-1 chart-canvas-div"> 
+							<canvas id="priceToZeroPercent-1" class="priceToZeroPercent-canvas chart-canvas" height="120"></canvas>
+						</div>
+						<div class="chart-title-div">
+							<p class="chart-title-p">Today's pgit srice to zero</p>
+							<div class="chart-title-sub-div">
+								<span class="chart-title-sub-div-span">
+									<i class="fas fa-long-arrow-alt-up"></i>&nbsp; 
+									<span class="chart-title-sub-div-span-1">23</span>
+									<span class="chart-title-sub-div-span-2">%</span>
+								</span>
+								<span class="chart-title-sub-div-span-sub"> product set to price to zero</span>
+							</div>
 						</div>
 					</div>
 					<div class="card-body chart-card-body">

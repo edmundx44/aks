@@ -1,14 +1,16 @@
 <?php $this->setSiteTitle($this->pageTitle); ?>
 
+<!-- css -->
 <?php $this->start('head'); ?>
-	<link rel="stylesheet" href="<?=PROOT?>vendors/css/links-page.css" media="screen" title="no title" charset="utf-8">
-	<link rel="stylesheet" href="<?=PROOT?>vendors/css/activities.css" media="screen" title="no title" charset="utf-8">
 	<link rel="stylesheet" href="<?=PROOT?>vendors/css/rhyn.css" media="screen" title="no title" charset="utf-8">
 <?php $this->end(); ?>
+<!-- css -->
 
+<!-- js -->
 <?php $this->start('body-script'); ?>
 	<script type="text/javascript" src="<?=PROOT?>vendors/js/rhyn.js"></script>
 <?php $this->end(); ?>
+<!-- js -->
 
 <?php $this->start('body')?>
 <div class="container-fluid">
@@ -26,8 +28,8 @@
 						</div >
                     </div>
                     <!-- CONTENT STARTS -->
-                    <div class="activities-content">
-                        <div class="filter-activities">
+                    <div class="rhyn-content">
+                        <div class="filter-rhyn">
                             <span class="ac-add-filter"><i class="fas fa-plus-square"></i> &nbsp; <span class="ac-add-filter-span">Add Filter</span></span>
                             <div class="filter-functions">
 

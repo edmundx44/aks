@@ -29,6 +29,8 @@ use Core\Session;
 
 				<div class="hcf-back hcf-back-normal"></div>
 				<div class="header-content-footer">
+					<?php include 'scripts.php'; ?>
+					<?= $this->content('body-script'); ?>
 					<?php include 'header.php'; ?>
 					<?= $this->content('body'); ?>
 					<?php include 'footer.php'; ?>
@@ -38,8 +40,5 @@ use Core\Session;
 				<?php include 'modal.php'; ?>
 			</div>
 		<?php endif; ?>
-
-		<?php include 'scripts.php'; ?>
-		<?= $this->content('body-script'); ?>
 	</body>
 </html>

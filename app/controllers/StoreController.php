@@ -8,7 +8,7 @@ class StoreController extends Controller {
 		parent::__construct($controller, $action);
 	}
 
-	public function indexAction() {
+	public function indexAction($queryParameters = false) {
 		$this->view->render('admin/store/index');
 	}
 }

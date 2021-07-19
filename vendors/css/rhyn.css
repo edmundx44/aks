@@ -1,29 +1,63 @@
+.ryhn-content {
+    padding: 0 0 20px 0;
+}
+.filter-ryhn {
+    padding: 0 0 0 20px;
+}
+.ac-add-filter {
+    cursor: pointer;
+    position: relative;
+    top: 5px;
+}
+.ac-add-filter i {
+    color: #007bff;
+}
+.ac-add-filter:hover > .ac-add-filter-span {
+    text-decoration: underline;
+}
+.filter-functions {
+    display: none;
+    margin: 15px 0 0 0;
+}
+.filter-function-dd {
+    display: inline-block;
+    margin: 5px 0 0 0;
+}
+.filter-btn {
+    width: 160px;
+}
+.select-btn-employee-dm {
+    height: auto;
+    max-height: 500px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
 .result-merchant{
-        padding: 4px 10px 4px 10px;
-    }
-    .me-text{
-        background-color:#f3f3f3;
-        color: #6b6d70;
-        border-radius:5px;
-        font-weight:500;
-        width: 70px;
-        display: inline-block;
-        margin-right: 5px;
-    }
-    .text-note{
-        margin:0;
-        text-decoration:underline;
-    }
-    .me-text{
-        padding-left:2px;
-    }
-    .me-text,
-    .me-res{
-        font-size: 12px;
-    }
-    .me-res{
-        font-weight:500;
-    }
-    .url-redirect{
-        word-break: break-all;
-    }
+    padding: 4px 10px 4px 10px;
+}
+.me-text{
+    background-color:#f3f3f3;
+    color: #6b6d70;
+    border-radius:5px;
+    font-weight:500;
+    width: 70px;
+    display: inline-block;
+    margin-right: 5px;
+}
+.text-note{
+    margin:0;
+    text-decoration:underline;
+}
+.me-text{
+    padding-left:2px;
+}
+.me-text,
+.me-res{
+    font-size: 12px;
+}
+.me-res{
+    font-weight:500;
+}
+.url-redirect{
+    word-break: break-all;
+}

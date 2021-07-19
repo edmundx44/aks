@@ -1,13 +1,16 @@
 <?php $this->setSiteTitle($this->pageTitle); ?>
 
+<!-- css -->
 <?php $this->start('head'); ?>
-    <link rel="stylesheet" href="<?=PROOT?>vendors/css/links-page.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="<?=PROOT?>vendors/css/rating-list.css" media="screen" title="no title" charset="utf-8">
 <?php $this->end(); ?>
+<!-- css -->
 
+<!-- js -->
 <?php $this->start('body-script'); ?>
     <script type="text/javascript" src="<?=PROOT?>vendors/js/rating-list.js"></script>
 <?php $this->end(); ?>
+<!-- js -->
 
 <?php $this->start('body')?>
 	<div class="container-fluid">

@@ -1,13 +1,17 @@
 <?php $this->setSiteTitle($this->pageTitle); ?>
 
+<!-- css -->
 <?php $this->start('head'); ?>
-	<link rel="stylesheet" href="<?=PROOT?>vendors/css/links-page.css" media="screen" title="no title" charset="utf-8">
 	<link rel="stylesheet" href="<?=PROOT?>vendors/css/feed-data.css" media="screen" title="no title" charset="utf-8">
 <?php $this->end(); ?>
+<!-- css -->
 
+<!-- js -->
 <?php $this->start('body-script'); ?>
 	<script type="text/javascript" src="<?=PROOT?>vendors/js/feed-data.js"></script>
 <?php $this->end(); ?>
+<!-- js -->
+
 
 <?php $this->start('body'); ?>
 	<div class="container-fluid">
@@ -54,7 +58,7 @@
 						</div>
 						<div class="col-lg-12 no-padding array-display mb-4" style="margin-top: 5px;">
 							<input type="text" name="" id="test-search" class="form-control" style="width: 100%" placeholder="Search ..." >
-							<table id="display-feed-table" width="100%" style="font-size: 12px;">
+							<table id="display-feed-data-table" width="100%" style="font-size: 12px;">
 								<!-- data from ajax -->
 							</table>     
 						</div>

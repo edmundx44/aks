@@ -1,7 +1,7 @@
 
 var conMerchant = [];
 var merchant = null;
-var feedTable = $('#display-feed-table').DataTable();
+var feedTable = $('#display-feed-data-table').DataTable();
 
 $(function(){
 	$.when([ getMerchant('aks') ]).then( () => {
@@ -81,7 +81,7 @@ function fetchingFeed($website , $merchant, $store){
 	AjaxCall(url, dataRequest).done(function(data){
 		if(data != 'No merchant found'){
 			var items = []; 
-			var $columnCJS = [
+			var $columnFinal = [
 				{ title : "URL", class: 'data-url'},
 				{ title : "SKU", class: 'data-sku'},
 				{ title : "PRICE", class: 'data-price'},
@@ -89,7 +89,6 @@ function fetchingFeed($website , $merchant, $store){
 			];
 			if($merchant == 67){
 				var $col = 3;
-				var $columnFinal = $columnCJS;
 				for (var i in data){
 					items.push([
 						html_decode(data[i].url),
@@ -101,7 +100,6 @@ function fetchingFeed($website , $merchant, $store){
 			}else{
 				var $col = [1,3];
 				var $hideCol = [1];
-						var $columnFinal = $columnCJS;
 				for (var i in data){
 					items.push([
 						html_decode(data[i].url),
@@ -112,7 +110,7 @@ function fetchingFeed($website , $merchant, $store){
 				}
 			}
 		
-			feedTable = $('#display-feed-table').DataTable({
+			feedTable = $('#display-feed-data-table').DataTable({
 				destroy: true,
 				responsive: true,
 				pageLength: 25,
