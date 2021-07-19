@@ -1,6 +1,5 @@
 <?php $this->setSiteTitle("Status Controller"); ?>
 <?php $this->start('head'); ?>
-	<link rel="stylesheet" href="<?=PROOT?>vendors/css/links-page.css" media="screen" title="no title" charset="utf-8">
 	<script>
 		
 		var $from = null;
@@ -256,6 +255,24 @@
 		#confirmation-body-style{
 			padding-top: 10px;
 			padding-bottom: 10px;
+		}
+		.website-btn {
+			background-color: Transparent;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			outline: none;
+			text-align: center;
+			color: #fff;
+			letter-spacing: 2px;
+			width: 100%;
+			font-weight: 700;
+			padding: 10px;
+		}
+		.position-icon-1 {
+			position: absolute;
+			top: 10px;
+			right: 20px;
 		}
 	</style>
 <?php $this->end(); ?>

@@ -427,6 +427,10 @@
         "name1": "IGVault",
         "name2": "IGVault"
     },
+    "320": {
+        "name1": "Oculus",
+        "name2": "Oculus"
+    },
     "230": {
         "name1": "Playstation",
         "name2": "Playstation"
@@ -619,6 +623,10 @@
         "name1": "Ubisoft DE",
         "name2": "Ubisoft DE"
     },
+    "507": {
+        "name1": "Ubisoft IT",
+        "name2": "Ubisoft IT"
+    },
     "514": {
         "name1": "Ubisoft-UK 20",
         "name2": "Ubisoft-UK 20"
@@ -626,6 +634,10 @@
     "515": {
         "name1": "Ubisoft-US 20",
         "name2": "Ubisoft-US 20"
+    },
+    "516": {
+        "name1": "Ubisoft-EU 20",
+        "name2": "Ubisoft-EU 20"
     },
     "508": {
         "name1": "Ubisoft US",
@@ -663,6 +675,14 @@
         "name1": "Direct2Drive",
         "name2": "Direct2Drive"
     },
+    "169": {
+        "name1": "Direct2Drive EU",
+        "name2": "Direct2Drive EU"
+    },
+    "170": {
+        "name1": "Direct2Drive UK",
+        "name2": "Direct2Drive UK"
+    },
     "167": {
         "name1": "Square Enix",
         "name2": "Square Enix"
@@ -670,6 +690,22 @@
     "766": {
         "name1": "GameStop",
         "name2": "GameStop"
+    },
+    "184": {
+        "name1": "GameStop.DE",
+        "name2": "GameStop.DE"
+    },
+    "267": {
+        "name1": "GameStop.EI",
+        "name2": "GameStop.EI"
+    },
+    "182": {
+        "name1": "Walmart CA",
+        "name2": "Walmart CA"
+    },
+    "922": {
+        "name1": "Walmart",
+        "name2": "Walmart"
     },
     "2180": {
         "name1": "Gamivo Smart",
@@ -746,6 +782,10 @@
     "323": {
         "name1": "Joybuggy",
         "name2": "Joybuggy"
+    },
+    "274": {
+        "name1": "Eneba US",
+        "name2": "Eneba US"
     },
     "293": {
         "name1": "Eneba NL",

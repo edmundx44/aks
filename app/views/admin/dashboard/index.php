@@ -247,7 +247,7 @@
 						<canvas id="priceToZeroPercent-1" class="priceToZeroPercent-canvas chart-canvas" height="120"></canvas>
 					</div>
 					<div class="chart-title-div">
-						<p class="chart-title-p">Price to zero</p>
+						<p class="chart-title-p">Today's Price to Zero</p>
 						<div class="chart-title-sub-div">
 							<span class="chart-title-sub-div-span">
 								<i class="fas fa-long-arrow-alt-up"></i>&nbsp; 

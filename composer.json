@@ -10,6 +10,7 @@
         "vendor-dir": "plugins"
     },
     "require": {
-        "phpmailer/phpmailer": "^6.4"
+        "phpmailer/phpmailer": "^6.4",
+        "phpunit/phpunit": "^9"
     }
 }

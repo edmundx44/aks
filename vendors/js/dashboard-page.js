@@ -27,7 +27,7 @@
 			displayReport('menu-snapshot', 'AKS'), 
 			displayReport('menu-dbfeed', 'AKS'),
 			displayReport('menu-disabled', 'Store'),
-			xhr_AjaxCall(url+'dashboard','POST','displayRealDoubleCounts').done(function(data) { displayRealDouble(data); }),
+			//xhr_AjaxCall(url+'dashboard','POST','displayRealDoubleCounts').done(function(data) { displayRealDouble(data); }),
 		)
 		// .then($('.content-loader-div').hide());
 

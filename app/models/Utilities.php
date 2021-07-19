@@ -222,16 +222,19 @@ class Utilities{
 	}
 
 	public function displayDisabledStore(){
-		$allStores = $this->getSalePageByKeyValue();
+		//$allStores = $this->getSalePageByKeyValue();
+		$arr = file_get_contents( ROOT . DS . 'app' . DS .'getStores.json');
+		$getStores = json_decode($arr, true);
+
 		$returnDisabledStore = array();
 		try {
 			$invisible_stores = json_decode(@file_get_contents('https://www.allkeyshop.com/blog/wp-content/plugins/aks-merchants/api/merchants/inactive'),true); 
 			if(!empty($invisible_stores)){
 				foreach ($invisible_stores as $stores_invisible) {
-					if(array_key_exists($stores_invisible, $allStores)){
+					if(array_key_exists($stores_invisible, $getStores)){
 						$returnDisabledStore[] = array(
 							'id' => $stores_invisible,
-							'merchant' => ucfirst($allStores[$stores_invisible])
+							'merchant' => ucfirst($getStores[$stores_invisible]['name1'])
 						);
 					}else{
 						$returnDisabledStore[] = array(

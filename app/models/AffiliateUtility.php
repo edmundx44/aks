@@ -40,7 +40,7 @@ class AffiliateUtility {
      * Return Final Buy Url and Buy Url Raw
      * @return array
      */ 
-    private function returnData() {
+    public function returnData() {
         //$this->alter_return_merchant();
         return $returnOption = [ 'buy_url' => $this->buy_url, 'buy_url_raw' => $this->buy_url_raw, 'merchant' => $this->merchant ];
     }
@@ -68,7 +68,7 @@ class AffiliateUtility {
      * 
      * Final Result 
      * https://2game.com/en/grand-theft-auto-v?ref=allkeyshop
-     * @return object
+     * @return self
      */ 
     private function addAffiliateToUrl() {
         $options = static::$affiliateData[$this->locale][$this->merchant] ?? null;
@@ -98,7 +98,7 @@ class AffiliateUtility {
      * 
      * Final Result 
      * https://www.mmoga.com/Steam-Games/The-Ascent.html?currency=EUR
-     * @return object
+     * @return self
      */ 
     private function addReplacementRawToUrl() {
         $options = static::$affiliateData[$this->locale][$this->merchant] ?? null;
@@ -140,7 +140,7 @@ class AffiliateUtility {
      * 
      * Final Result 
      * https://www.cdkeys.com/xbox-live/games/sea-of-thieves-xbox-one
-     * @return object
+     * @return self
      */ 
     private function removedAffiliate($affiliate = false) {
         $options = static::$affiliateData;
