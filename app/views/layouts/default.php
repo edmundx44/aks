@@ -21,7 +21,8 @@ use Core\Session;
 		<?php else: ?>
 			<div class="wrapper" id="wrapper">
 				<?php include 'page-loader.php'; ?>
-
+				<?php include 'floating-menu.php'; ?>
+				
 				<!-- <div class="bg-div"></div> -->
 				<div class="sidebar">
 					<?php include 'sidebar.php'; ?>
@@ -36,7 +37,6 @@ use Core\Session;
 					<?php include 'footer.php'; ?>
 				</div>
 
-				<?php include 'floating-menu.php'; ?>
 				<?php include 'modal.php'; ?>
 			</div>
 		<?php endif; ?>
